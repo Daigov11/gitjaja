@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { uploadImage } from "../services/imagesService";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,6 +41,11 @@ export default function ProductModal(props) {
   var f;
   var hasPrice;
 
+  var file, setFile;
+  var preview, setPreview;
+  var uploading, setUploading;
+  var uploadErr, setUploadErr;
+
   open = !!props.open;
   mode = props.mode || "create";
   title = mode === "edit" ? "Editar producto" : "Nuevo producto";
@@ -52,29 +58,88 @@ export default function ProductModal(props) {
 
   hasPrice = !!f.watch("has_price");
 
-  useEffect(function () {
-    if (!open) return;
+  file = useState(null);
+  setFile = file[1];
+  file = file[0];
 
-    f.reset(buildDefaults(props));
+  preview = useState("");
+  setPreview = preview[1];
+  preview = preview[0];
 
-    function onKey(e) {
-      if (e.key === "Escape") {
-        if (props.onClose) props.onClose();
+  uploading = useState(false);
+  setUploading = uploading[1];
+  uploading = uploading[0];
+
+  uploadErr = useState("");
+  setUploadErr = uploadErr[1];
+  uploadErr = uploadErr[0];
+
+  useEffect(
+    function () {
+      var url;
+
+      if (!file) {
+        setPreview("");
+        return;
       }
-    }
 
-    window.addEventListener("keydown", onKey);
-    return function () {
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open, props.initialProduct, props.defaultCategoryName]);
+      url = URL.createObjectURL(file);
+      setPreview(url);
+
+      return function () {
+        try {
+          URL.revokeObjectURL(url);
+        } catch (e) {}
+      };
+    },
+    [file, setPreview]
+  );
+
+  useEffect(
+    function () {
+      if (!open) return;
+
+      f.reset(buildDefaults(props));
+      setFile(null);
+      setUploadErr("");
+
+      function onKey(e) {
+        if (e.key === "Escape") {
+          if (props.onClose) props.onClose();
+        }
+      }
+
+      window.addEventListener("keydown", onKey);
+      return function () {
+        window.removeEventListener("keydown", onKey);
+      };
+    },
+    [open, props.initialProduct, props.defaultCategoryName]
+  );
 
   if (!open) return null;
 
-  function submit(values) {
-    var payload;
+  async function submit(values) {
+    var payload, up;
+
+    setUploadErr("");
 
     payload = normalize(values);
+
+    // Si eligieron archivo, primero subimos y obtenemos URL
+    if (file) {
+      try {
+        setUploading(true);
+        up = await uploadImage(file);
+        payload.product_image_url = up.url;
+      } catch (e) {
+        setUploadErr(String(e && e.message ? e.message : e));
+        setUploading(false);
+        return;
+      } finally {
+        setUploading(false);
+      }
+    }
 
     if (props.onSubmit) {
       props.onSubmit(payload, mode);
@@ -100,7 +165,9 @@ export default function ProductModal(props) {
               <div className="text-xs font-semibold text-slate-500">
                 Administración • Productos
               </div>
-              <div className="mt-1 text-lg font-extrabold text-slate-900">{title}</div>
+              <div className="mt-1 text-lg font-extrabold text-slate-900">
+                {title}
+              </div>
             </div>
 
             <button
@@ -204,6 +271,48 @@ export default function ProductModal(props) {
                     </div>
                   </div>
 
+                  {/* upload image */}
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    <div className="text-xs font-extrabold text-slate-700">
+                      Subir imagen (opcional)
+                    </div>
+                    <div className="mt-1 text-xs text-slate-500">
+                      Si seleccionas un archivo, se subirá y reemplazará la URL al
+                      guardar.
+                    </div>
+
+                    <input
+                      type="file"
+                      accept="image/*"
+                      disabled={uploading}
+                      className="mt-3 block w-full text-sm"
+                      onChange={function (e) {
+                        var f1;
+                        setUploadErr("");
+                        f1 = e && e.target && e.target.files ? e.target.files[0] : null;
+                        setFile(f1 || null);
+
+                        // Para evitar que una URL inválida bloquee el submit si usarás archivo
+                        if (f1) f.setValue("product_image_url", "");
+                      }}
+                    />
+
+                    {uploadErr ? (
+                      <div className="mt-3 rounded-xl bg-red-50 p-3 text-xs font-semibold text-red-700">
+                        {uploadErr}
+                      </div>
+                    ) : null}
+
+                    {file ? (
+                      <div className="mt-3 text-xs font-semibold text-slate-700">
+                        Archivo:{" "}
+                        <span className="font-bold text-slate-900">
+                          {file.name}
+                        </span>
+                      </div>
+                    ) : null}
+                  </div>
+
                   {/* precio */}
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
@@ -250,9 +359,7 @@ export default function ProductModal(props) {
                       <div className="text-xs font-extrabold text-slate-700">
                         Estado
                       </div>
-                      <div className="text-xs text-slate-500">
-                        Activo / Inactivo
-                      </div>
+                      <div className="text-xs text-slate-500">Activo / Inactivo</div>
                     </div>
 
                     <select
@@ -271,13 +378,28 @@ export default function ProductModal(props) {
 
               {/* right: preview */}
               <div className="border-t border-slate-200 bg-slate-50 p-5 md:border-l md:border-t-0">
-                <div className="text-xs font-extrabold text-slate-700">Vista previa</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-xs font-extrabold text-slate-700">
+                    Vista previa
+                  </div>
+                  {uploading ? (
+                    <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
+                      Subiendo imagen...
+                    </span>
+                  ) : null}
+                </div>
 
                 <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                   <div className="h-44 bg-slate-100">
-                    {f.watch("product_image_url") ? (
+                    {preview ? (
                       <img
-                        alt="preview"
+                        alt="preview-file"
+                        src={preview}
+                        className="h-44 w-full object-cover"
+                      />
+                    ) : f.watch("product_image_url") ? (
+                      <img
+                        alt="preview-url"
                         src={f.watch("product_image_url")}
                         className="h-44 w-full object-cover"
                       />
@@ -319,8 +441,7 @@ export default function ProductModal(props) {
                 </div>
 
                 <div className="mt-4 rounded-xl border border-slate-200 bg-white p-3 text-xs text-slate-600">
-                  <b>Nota:</b> Cuando llegue el endpoint de upload, aquí cambiaremos “Imagen URL”
-                  por “Subir imagen”.
+                  <b>Tip:</b> Si subes imagen por archivo, no necesitas escribir la URL.
                 </div>
               </div>
             </div>
@@ -329,7 +450,13 @@ export default function ProductModal(props) {
             <div className="flex items-center justify-end gap-3 border-t border-slate-200 px-5 py-4">
               <button
                 type="button"
-                className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-extrabold text-slate-700 hover:bg-slate-50"
+                disabled={uploading}
+                className={
+                  "rounded-xl border px-4 py-2.5 text-sm font-extrabold " +
+                  (uploading
+                    ? "border-slate-200 bg-white text-slate-300"
+                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50")
+                }
                 onClick={function () {
                   if (props.onClose) props.onClose();
                 }}
@@ -339,9 +466,19 @@ export default function ProductModal(props) {
 
               <button
                 type="submit"
-                className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-extrabold text-white hover:bg-slate-800"
+                disabled={uploading || f.formState.isSubmitting}
+                className={
+                  "rounded-xl px-4 py-2.5 text-sm font-extrabold text-white " +
+                  (uploading || f.formState.isSubmitting
+                    ? "bg-slate-400"
+                    : "bg-slate-900 hover:bg-slate-800")
+                }
               >
-                {mode === "edit" ? "Guardar cambios" : "Crear producto"}
+                {uploading
+                  ? "Subiendo imagen..."
+                  : mode === "edit"
+                  ? "Guardar cambios"
+                  : "Crear producto"}
               </button>
             </div>
           </form>
@@ -388,7 +525,9 @@ function normalize(values) {
   out.product_desc = values.product_desc ? String(values.product_desc) : "";
 
   out.product_url = values.product_url ? String(values.product_url) : null;
-  out.product_image_url = values.product_image_url ? String(values.product_image_url) : null;
+  out.product_image_url = values.product_image_url
+    ? String(values.product_image_url)
+    : null;
 
   out.has_price = !!values.has_price;
 

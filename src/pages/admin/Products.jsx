@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { listProducts } from "../../services/productsService";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { listProducts, createProduct, updateProduct, deleteProduct } from "../../services/productsService";
+import { listCategories } from "../../services/categoriesService";
 import ProductModal from "../../components/ProductModal";
 
 export default function Products() {
+  var qc;
+
   var q, ok, items;
+  var qCat, okCat, catItems;
 
   var qSearch, setQSearch;
   var cat, setCat;
@@ -13,10 +17,15 @@ export default function Products() {
 
   var cats, filtered, total, pages, start, end, pageItems;
 
-  /* ===== Modal state ===== */
   var modalOpen, setModalOpen;
   var modalMode, setModalMode;
-  var editItem, setEditItem;
+  var initialProduct, setInitialProduct;
+
+  var savingErr, setSavingErr;
+
+  var mCreate, mUpdate, mDelete;
+
+  qc = useQueryClient();
 
   qSearch = useState("");
   setQSearch = qSearch[1];
@@ -30,9 +39,6 @@ export default function Products() {
   setPage = page[1];
   page = page[0];
 
-  pageSize = 6;
-
-  /* modal hooks */
   modalOpen = useState(false);
   setModalOpen = modalOpen[1];
   modalOpen = modalOpen[0];
@@ -41,17 +47,32 @@ export default function Products() {
   setModalMode = modalMode[1];
   modalMode = modalMode[0];
 
-  editItem = useState(null);
-  setEditItem = editItem[1];
-  editItem = editItem[0];
+  initialProduct = useState(null);
+  setInitialProduct = initialProduct[1];
+  initialProduct = initialProduct[0];
+
+  savingErr = useState("");
+  setSavingErr = savingErr[1];
+  savingErr = savingErr[0];
+
+  pageSize = 6;
 
   q = useQuery({
-    queryKey: ["products", "don_pepito_web"],
+    queryKey: ["products"],
     queryFn: listProducts,
   });
 
   ok = q.data && (q.data.codResponse === "1" || q.data.codResponse === 1);
   items = ok && q.data.data ? q.data.data : [];
+
+  // Categorías (para mapear idCategory por nombre)
+  qCat = useQuery({
+    queryKey: ["categories"],
+    queryFn: listCategories,
+  });
+
+  okCat = qCat.data && (qCat.data.codResponse === "1" || qCat.data.codResponse === 1);
+  catItems = okCat && qCat.data.data ? qCat.data.data : [];
 
   cats = buildCategories(items);
   filtered = applyFilters(items, qSearch, cat);
@@ -65,29 +86,126 @@ export default function Products() {
   end = start + pageSize;
   pageItems = filtered.slice(start, end);
 
+  mCreate = useMutation({
+    mutationFn: function (payload) {
+      return createProduct(payload);
+    },
+    onSuccess: function (res) {
+      if (res && (res.codResponse === "1" || res.codResponse === 1)) {
+        setModalOpen(false);
+        setInitialProduct(null);
+        qc.invalidateQueries({ queryKey: ["products"] });
+      } else {
+        setSavingErr((res && res.message) || "No se pudo crear el producto");
+      }
+    },
+    onError: function (err) {
+      setSavingErr(String(err && err.message ? err.message : err));
+    },
+  });
+
+  mUpdate = useMutation({
+    mutationFn: function (args) {
+      return updateProduct(args.id, args.payload);
+    },
+    onSuccess: function (res) {
+      if (res && (res.codResponse === "1" || res.codResponse === 1)) {
+        setModalOpen(false);
+        setInitialProduct(null);
+        qc.invalidateQueries({ queryKey: ["products"] });
+      } else {
+        setSavingErr((res && res.message) || "No se pudo actualizar el producto");
+      }
+    },
+    onError: function (err) {
+      setSavingErr(String(err && err.message ? err.message : err));
+    },
+  });
+
+  mDelete = useMutation({
+    mutationFn: function (id) {
+      return deleteProduct(id);
+    },
+    onSuccess: function (res) {
+      if (res && (res.codResponse === "1" || res.codResponse === 1)) {
+        qc.invalidateQueries({ queryKey: ["products"] });
+      } else {
+        alert((res && res.message) || "No se pudo eliminar");
+      }
+    },
+    onError: function (err) {
+      alert(String(err && err.message ? err.message : err));
+    },
+  });
+
   function onNew() {
+    setSavingErr("");
     setModalMode("create");
-    setEditItem(null);
+    setInitialProduct(null);
     setModalOpen(true);
   }
 
   function onEdit(p) {
+    setSavingErr("");
     setModalMode("edit");
-    setEditItem(p);
+    setInitialProduct(p);
     setModalOpen(true);
   }
 
   function onDelete(p) {
-    alert("Eliminar ID " + p.id_product + " (cuando llegue DELETE).");
+    var okDel;
+    okDel = window.confirm("¿Eliminar producto ID " + p.id_product + "?");
+    if (!okDel) return;
+    mDelete.mutate(p.id_product);
   }
 
-  function closeModal() {
+  function onCloseModal() {
+    if (mCreate.isPending || mUpdate.isPending) return;
     setModalOpen(false);
-    setEditItem(null);
+    setInitialProduct(null);
+  }
+
+  // Payload que viene del modal (snake_case) -> le inyectamos id_category usando categorías reales
+  function onSubmitModal(payload, mode) {
+    var idCategory;
+
+    setSavingErr("");
+
+    idCategory = mapCategoryNameToId(payload.category_name, catItems);
+
+    if (!idCategory) {
+      setSavingErr(
+        "No pude mapear la categoría. Asegúrate que exista en Categorías y que el GET /categories funcione."
+      );
+      return;
+    }
+
+    payload.id_category = idCategory;
+
+    if (mode === "edit") {
+      if (!initialProduct || !initialProduct.id_product) {
+        setSavingErr("No hay producto inicial para editar.");
+        return;
+      }
+      mUpdate.mutate({ id: initialProduct.id_product, payload: payload });
+      return;
+    }
+
+    mCreate.mutate(payload);
   }
 
   return (
     <div className="space-y-4">
+      {/* Modal */}
+      <ProductModal
+        open={modalOpen}
+        mode={modalMode}
+        initialProduct={initialProduct}
+        categoryOptions={buildCategoryNameOptions(catItems)}
+        onClose={onCloseModal}
+        onSubmit={onSubmitModal}
+      />
+
       {/* Header */}
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
@@ -145,6 +263,12 @@ export default function Products() {
             </div>
           </div>
         </div>
+
+        {savingErr ? (
+          <div className="mt-4 rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-700">
+            {savingErr}
+          </div>
+        ) : null}
       </div>
 
       {/* States */}
@@ -252,23 +376,12 @@ export default function Products() {
 
                       <td className="px-4 py-4">
                         <div className="flex gap-3">
-                          <IconBtn
-                            title="Editar"
-                            onClick={function () {
-                              onEdit(p);
-                            }}
-                          >
+                          <IconBtn title="Editar" onClick={function () { onEdit(p); }}>
                             <PencilIcon />
                             <span>Editar</span>
                           </IconBtn>
 
-                          <IconBtn
-                            danger={true}
-                            title="Eliminar"
-                            onClick={function () {
-                              onDelete(p);
-                            }}
-                          >
+                          <IconBtn danger={true} title="Eliminar" onClick={function () { onDelete(p); }}>
                             <TrashIcon />
                             <span>Eliminar</span>
                           </IconBtn>
@@ -301,30 +414,37 @@ export default function Products() {
           </div>
         </div>
       ) : null}
-
-      {/* ===== Modal render ===== */}
-      <ProductModal
-        open={modalOpen}
-        mode={modalMode}
-        initialProduct={editItem}
-        categoryOptions={cats}
-        defaultCategoryName={cat !== "ALL" ? cat : ""}
-        onClose={closeModal}
-        onSubmit={function (payload, mode) {
-          console.log("SUBMIT MODAL:", mode, payload);
-          closeModal();
-        }}
-      />
     </div>
   );
 }
 
+function buildCategoryNameOptions(catItems) {
+  var out, i, c, name;
+  out = [];
+  for (i = 0; i < catItems.length; i = i + 1) {
+    c = catItems[i] || {};
+    name = String(c.category_name || c.categoryName || "");
+    if (name) out.push(name);
+  }
+  out.sort();
+  return out;
+}
+
+function mapCategoryNameToId(categoryName, catItems) {
+  var i, c, name, id;
+  for (i = 0; i < catItems.length; i = i + 1) {
+    c = catItems[i] || {};
+    name = String(c.category_name || c.categoryName || "");
+    if (name && String(name) === String(categoryName)) {
+      id = c.id_category || c.idCategory || c.id_category;
+      return Number(id || 0);
+    }
+  }
+  return 0;
+}
+
 function Card(props) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      {props.children}
-    </div>
-  );
+  return <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">{props.children}</div>;
 }
 
 function IconBtn(props) {
@@ -334,22 +454,14 @@ function IconBtn(props) {
 
   if (props.danger) {
     return (
-      <button
-        title={props.title}
-        onClick={props.onClick}
-        className={base + " border-red-200 text-red-700"}
-      >
+      <button title={props.title} onClick={props.onClick} className={base + " border-red-200 text-red-700"}>
         {props.children}
       </button>
     );
   }
 
   return (
-    <button
-      title={props.title}
-      onClick={props.onClick}
-      className={base + " border-slate-200 text-slate-800"}
-    >
+    <button title={props.title} onClick={props.onClick} className={base + " border-slate-200 text-slate-800"}>
       {props.children}
     </button>
   );
@@ -362,9 +474,7 @@ function PageBtn(props) {
       onClick={props.onClick}
       className={
         "rounded-xl border px-3 py-2 text-sm font-bold " +
-        (props.disabled
-          ? "border-slate-200 bg-white text-slate-300"
-          : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+        (props.disabled ? "border-slate-200 bg-white text-slate-300" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
       }
     >
       {props.children}
@@ -391,9 +501,7 @@ function renderPages(page, pages, setPage) {
         }}
         className={
           "h-10 w-10 rounded-xl border text-sm font-extrabold " +
-          (i === page
-            ? "border-slate-900 bg-slate-900 text-white"
-            : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+          (i === page ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
         }
       >
         {i}
@@ -405,7 +513,7 @@ function renderPages(page, pages, setPage) {
 }
 
 function buildCategories(items) {
-  var map, i, c, out, keys;
+  var map, i, c, keys;
   map = {};
   for (i = 0; i < items.length; i = i + 1) {
     c = items[i] && items[i].category_name ? String(items[i].category_name) : "";
@@ -413,8 +521,7 @@ function buildCategories(items) {
   }
   keys = Object.keys(map);
   keys.sort();
-  out = keys;
-  return out;
+  return keys;
 }
 
 function applyFilters(items, qSearch, cat) {
@@ -428,16 +535,9 @@ function applyFilters(items, qSearch, cat) {
 
     inCat = cat === "ALL" || String(p.category_name || "") === String(cat);
 
-    text =
-      String(p.product_name || "") +
-      " " +
-      String(p.product_desc || "") +
-      " " +
-      String(p.category_name || "");
+    text = String(p.product_name || "") + " " + String(p.product_desc || "") + " " + String(p.category_name || "");
 
-    if (inCat && (!q || text.toLowerCase().indexOf(q) !== -1)) {
-      out.push(p);
-    }
+    if (inCat && (!q || text.toLowerCase().indexOf(q) !== -1)) out.push(p);
   }
 
   return out;
@@ -456,12 +556,7 @@ function SkeletonTable() {
 function PencilIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M12 20h9"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
+      <path d="M12 20h9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       <path
         d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"
         stroke="currentColor"
@@ -475,30 +570,10 @@ function PencilIcon() {
 function TrashIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M3 6h18"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M8 6V4h8v2"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M6 6l1 16h10l1-16"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M10 11v6M14 11v6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
+      <path d="M3 6h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path d="M8 6V4h8v2" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+      <path d="M6 6l1 16h10l1-16" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+      <path d="M10 11v6M14 11v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }

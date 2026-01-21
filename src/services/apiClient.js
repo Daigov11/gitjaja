@@ -1,21 +1,38 @@
 import axios from "axios";
+import { API_BASE_URL, BD_NAME } from "./appConfig";
+import { getToken } from "../state/auth";
 
 var api;
 
 api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api",
+  baseURL: API_BASE_URL,
   timeout: 20000,
 });
 
-// Token desde localStorage (MVP)
 api.interceptors.request.use(function (config) {
-  var token;
-  token = localStorage.getItem("erp_token");
-  if (token) config.headers.Authorization = "Bearer " + token;
+  var token, url;
+
+  token = getToken();
+  if (token) {
+    config.headers = config.headers || {};
+    if (!config.headers.Authorization) {
+      config.headers.Authorization = "Bearer " + token;
+    }
+  }
+
+  url = String(config.url || "");
+
+  // Inyecta bd SOLO en MicroSaas, para no afectar login ni upload
+  if (url.indexOf("/MicroSaas/") !== -1) {
+    if (url.indexOf("bd=") === -1) {
+      config.params = config.params || {};
+      if (!config.params.bd) config.params.bd = BD_NAME;
+    }
+  }
+
   return config;
 });
 
-// Manejo simple de 401
 api.interceptors.response.use(
   function (res) {
     return res;
