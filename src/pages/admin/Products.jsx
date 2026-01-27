@@ -215,7 +215,7 @@ export default function Products() {
               Productos
             </div>
             <div className="mt-1 text-sm text-slate-600">
-              Listado desde API MicroSaas/products
+              Listado de productos
             </div>
           </div>
 

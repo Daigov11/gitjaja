@@ -102,7 +102,7 @@ export default function Login() {
         />
 
         <button disabled={loading}>
-          {loading ? "entrando al maravilloso mundo donde el lapiz no se cayó..." : "Entrar"}
+          {loading ? "Entrando..." : "Entrar"}
         </button>
 
         {error ? <div style={{ color: "crimson" }}>{error}</div> : null}

@@ -11,7 +11,7 @@ BRAND = "Harinas Don Pepito";
 LOGO_URL =
   "https://api-centralizador.apiworking.pe/images/79070813-72aa-4907-a24c-3531c22c69f7.png";
 
-PHONE = "913701849";
+PHONE = "946762926";
 IG_URL = "https://www.instagram.com/harinasdonpepito/";
 FB_URL = "https://www.facebook.com/harinasdonpepito";
 TT_URL = "https://www.tiktok.com/@harinasdonpepito";

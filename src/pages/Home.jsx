@@ -246,7 +246,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="text-sm font-bold text-slate-600">{shownCount} productos</div>
+            
           </div>
 
           {/* Tabs */}

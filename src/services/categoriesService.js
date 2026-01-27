@@ -7,12 +7,20 @@ export async function listCategories() {
 }
 
 export async function createCategory(payload) {
-  var body, res;
+  var body, res, img;
+
+  img = "";
+  if (payload && payload.category_image_url) img = String(payload.category_image_url);
+  if (!img && payload && payload.categoryImageUrl) img = String(payload.categoryImageUrl);
 
   body = {
-    categoryName: payload.category_name || "",
-    categoryDesc: payload.category_desc || "",
-    categoryStatus: payload.category_status ? 1 : 0,
+    categoryName: payload.category_name || payload.categoryName || "",
+    categoryDesc: payload.category_desc || payload.categoryDesc || "",
+    categoryStatus: (payload.category_status || payload.categoryStatus) ? 1 : 0,
+
+    // ✅ manda ambos (por compatibilidad)
+    categoryImageUrl: img || "",
+    category_image_url: img || "",
   };
 
   res = await api.post("/MicroSaas/categories", body, {
@@ -23,12 +31,20 @@ export async function createCategory(payload) {
 }
 
 export async function updateCategory(idCategory, payload) {
-  var body, res;
+  var body, res, img;
+
+  img = "";
+  if (payload && payload.category_image_url) img = String(payload.category_image_url);
+  if (!img && payload && payload.categoryImageUrl) img = String(payload.categoryImageUrl);
 
   body = {
-    categoryName: payload.category_name || "",
-    categoryDesc: payload.category_desc || "",
-    categoryStatus: payload.category_status ? 1 : 0,
+    categoryName: payload.category_name || payload.categoryName || "",
+    categoryDesc: payload.category_desc || payload.categoryDesc || "",
+    categoryStatus: (payload.category_status || payload.categoryStatus) ? 1 : 0,
+
+    // ✅ CLAVE: el backend pide esta key (si no, truena)
+    categoryImageUrl: img || "",
+    category_image_url: img || "",
   };
 
   res = await api.put("/MicroSaas/categories/" + idCategory, body, {

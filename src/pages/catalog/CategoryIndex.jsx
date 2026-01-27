@@ -7,8 +7,12 @@ import { BD_NAME } from "../../services/appConfig";
 
 /* ====== TOP-LEVEL VARS ====== */
 var MAX_CATS;
-MAX_CATS = 200;
+var FALLBACK_BG;
 
+MAX_CATS = 200;
+FALLBACK_BG = "bg-slate-100";
+
+/* ====== PAGE ====== */
 export default function CategoryIndex() {
   var ctx;
 
@@ -56,7 +60,7 @@ export default function CategoryIndex() {
   catsAll = useMemo(
     function () {
       var list;
-      list = buildCategoryList(catsApi, activeProducts);
+      list = buildCategoryItems(catsApi, activeProducts);
       return list.slice(0, MAX_CATS);
     },
     [catsApi, activeProducts]
@@ -64,7 +68,7 @@ export default function CategoryIndex() {
 
   catsShown = useMemo(
     function () {
-      var qx, out, i, c, count;
+      var qx, out, i, c, count, nm;
       qx = String(qCat || "").toLowerCase().trim();
       out = [];
 
@@ -72,12 +76,15 @@ export default function CategoryIndex() {
         c = catsAll[i];
         if (!c) continue;
 
-        if (qx && String(c).toLowerCase().indexOf(qx) === -1) continue;
+        nm = String(c.name || "").toLowerCase();
+        if (qx && nm.indexOf(qx) === -1) continue;
 
-        count = countByCategory(activeProducts, c);
+        count = countByCategory(activeProducts, c.name);
 
         out.push({
-          name: c,
+          id: c.id,
+          name: c.name,
+          imageUrl: c.imageUrl,
           count: count,
         });
       }
@@ -92,12 +99,14 @@ export default function CategoryIndex() {
   );
 
   return (
-    <div className="w-full bg-slate-50">
+    <div className="w-full bg-white">
       <div className="mx-auto w-full max-w-7xl px-4 py-8">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <div className="text-xs font-extrabold text-emerald-700">Catálogo</div>
-            <div className="mt-1 text-2xl font-extrabold text-slate-900">Categorías</div>
+            <div className="mt-1 text-2xl font-extrabold text-slate-900">
+              Comprar por categorías destacadas
+            </div>
             <div className="mt-1 text-sm font-semibold text-slate-600">
               Elige una categoría para ver sus productos.
             </div>
@@ -128,22 +137,22 @@ export default function CategoryIndex() {
             </div>
           </div>
 
-          <div className="md:col-span-5">
-            <div className="grid gap-3 sm:grid-cols-2">
-              <StatCard label="Categorías" value={String(catsAll.length)} />
-              <StatCard label="Productos activos" value={String(activeProducts.length)} />
-            </div>
-          </div>
+
         </div>
 
         {/* Loading / error */}
         {qCats.isLoading || qProd.isLoading ? (
           <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-6">
             <div className="text-sm font-semibold text-slate-600">Cargando categorías…</div>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <Skel />
-              <Skel />
-              <Skel />
+            <div className="mt-5 grid gap-6 grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+              <SkelTile />
+              <SkelTile />
+              <SkelTile />
+              <SkelTile />
+              <SkelTile />
+              <SkelTile />
+              <SkelTile />
+              <SkelTile />
             </div>
           </div>
         ) : null}
@@ -170,13 +179,14 @@ export default function CategoryIndex() {
                 </div>
               </div>
             ) : (
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-6 grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
                 {catsShown.map(function (c) {
                   return (
-                    <CategoryCard
-                      key={"cat_" + c.name}
+                    <CategoryTile
+                      key={"cat_" + String(c.id || c.name)}
                       name={c.name}
                       count={c.count}
+                      imageUrl={c.imageUrl}
                     />
                   );
                 })}
@@ -191,36 +201,67 @@ export default function CategoryIndex() {
 
 /* ---------- UI ---------- */
 
-function CategoryCard(props) {
+function CategoryTile(props) {
   var href;
   href = "/categoria/" + encodeURIComponent(String(props.name || ""));
 
   return (
-    <Link
-      to={href}
-      className="group block overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm hover:shadow-md"
-    >
-      <div className="p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <div className="text-xs font-extrabold text-emerald-700">Categoría</div>
-            <div className="mt-1 text-lg font-extrabold text-slate-900 group-hover:underline">
-              {props.name}
-            </div>
-          </div>
-
-          <div className="rounded-2xl bg-emerald-50 px-3 py-2 text-xs font-extrabold text-emerald-800">
-            {props.count} prod.
-          </div>
+    <Link to={href} className="group flex flex-col items-center text-center">
+      <div className="relative">
+        <div className="h-24 w-24 overflow-hidden rounded-full border border-slate-200 bg-white shadow-sm group-hover:shadow-md">
+          <CategoryImage name={props.name} imageUrl={props.imageUrl} />
         </div>
 
-        <div className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-emerald-700 px-4 py-2.5 text-xs font-extrabold text-white hover:bg-emerald-800">
-          Ver productos <ArrowRight />
+        {/* Badge count (opcional, discreto) */}
+        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-white px-2 py-0.5 text-[11px] font-extrabold text-slate-700 shadow-sm ring-1 ring-slate-200">
+          {String(props.count || 0)}
         </div>
       </div>
 
-      <div className="h-1 w-full bg-gradient-to-r from-emerald-700 via-emerald-500 to-amber-300" />
+      <div className="mt-4 text-sm font-semibold text-slate-700 leading-snug">
+        {props.name}
+      </div>
     </Link>
+  );
+}
+
+function CategoryImage(props) {
+  var url;
+  var initial;
+
+  url = normalizeUrl(props.imageUrl);
+  initial = String(props.name || "?").trim();
+  initial = initial ? initial.charAt(0).toUpperCase() : "?";
+
+  if (!url) {
+    return (
+      <div className={"h-full w-full " + FALLBACK_BG + " flex items-center justify-center"}>
+        <div className="flex flex-col items-center justify-center">
+          <div className="text-slate-400">
+            <PhotoIcon />
+          </div>
+          <div className="mt-1 text-xs font-extrabold text-slate-500">{initial}</div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={url}
+      alt={String(props.name || "")}
+      className="h-full w-full object-cover"
+      loading="lazy"
+      onError={function (e) {
+        // si falla, lo reemplazamos por "placeholder visual" sin dejar ícono roto
+        if (e && e.currentTarget) {
+          e.currentTarget.onerror = null;
+          e.currentTarget.removeAttribute("src");
+          // convertimos ese img en un fondo simple (truco rápido)
+          e.currentTarget.style.display = "none";
+        }
+      }}
+    />
   );
 }
 
@@ -233,43 +274,95 @@ function StatCard(props) {
   );
 }
 
-function Skel() {
-  return <div className="h-24 rounded-3xl bg-slate-100" />;
+function SkelTile() {
+  return (
+    <div className="flex flex-col items-center">
+      <div className="h-24 w-24 rounded-full bg-slate-100" />
+      <div className="mt-4 h-3 w-16 rounded bg-slate-100" />
+    </div>
+  );
 }
 
 /* ---------- helpers ---------- */
 
-function buildCategoryList(catItemsApi, products) {
-  var out, map, i, name;
+function buildCategoryItems(catItemsApi, products) {
+  var out, map, i, item, name, id, img, status, fromProds, p;
 
-  map = {};
   out = [];
+  map = {};
 
+  // 1) Preferimos categorías de API (traen imagen)
   if (catItemsApi && catItemsApi.length) {
     for (i = 0; i < catItemsApi.length; i = i + 1) {
-      name =
-        catItemsApi[i] && catItemsApi[i].category_name ? String(catItemsApi[i].category_name) : "";
-      name = name.trim();
-      if (name && !map[name]) {
+      item = catItemsApi[i];
+      if (!item) continue;
+
+      status = item.category_status;
+      if (status === false) continue;
+
+      name = item.category_name ? String(item.category_name).trim() : "";
+      if (!name) continue;
+
+      id = item.id_category != null ? item.id_category : "";
+      img = item.category_image_url ? String(item.category_image_url).trim() : "";
+
+      if (!map[name]) {
         map[name] = true;
-        out.push(name);
+        out.push({
+          id: id,
+          name: name,
+          imageUrl: img,
+        });
+      } else {
+        // si ya existe y el anterior no tenía imagen, preferimos el que sí tenga
+        if (img) {
+          replaceImageIfEmpty(out, name, img, id);
+        }
       }
     }
   }
 
+  // 2) Fallback: si no vinieron categorías, las sacamos desde productos (sin imagen)
   if (!out.length) {
+    fromProds = {};
     for (i = 0; i < products.length; i = i + 1) {
-      name = products[i] && products[i].category_name ? String(products[i].category_name) : "";
-      name = name.trim();
-      if (name && !map[name]) {
-        map[name] = true;
-        out.push(name);
+      p = products[i];
+      if (!p) continue;
+
+      name = p.category_name ? String(p.category_name).trim() : "";
+      if (!name) continue;
+
+      if (!fromProds[name]) {
+        fromProds[name] = true;
+        out.push({
+          id: "",
+          name: name,
+          imageUrl: "",
+        });
       }
     }
   }
 
-  out.sort();
+  out.sort(function (a, b) {
+    return String(a.name || "").localeCompare(String(b.name || ""));
+  });
+
   return out;
+}
+
+function replaceImageIfEmpty(list, name, newImg, newId) {
+  var i, it;
+  for (i = 0; i < list.length; i = i + 1) {
+    it = list[i];
+    if (!it) continue;
+    if (String(it.name || "") !== String(name || "")) continue;
+
+    if (!normalizeUrl(it.imageUrl)) {
+      it.imageUrl = newImg;
+      if (!it.id && newId) it.id = newId;
+    }
+    return;
+  }
 }
 
 function countByCategory(products, catName) {
@@ -282,6 +375,15 @@ function countByCategory(products, catName) {
     if (c === String(catName).trim()) n = n + 1;
   }
   return n;
+}
+
+function normalizeUrl(v) {
+  var s;
+  s = v == null ? "" : String(v);
+  s = s.trim();
+  if (!s) return "";
+  if (s === "null" || s === "undefined") return "";
+  return s;
 }
 
 /* ---------- icons ---------- */
@@ -299,17 +401,21 @@ function SearchIcon() {
   );
 }
 
-function ArrowRight() {
+function PhotoIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
       <path
-        d="M5 12h14"
+        d="M4 7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7Z"
         stroke="currentColor"
         strokeWidth="2"
-        strokeLinecap="round"
       />
       <path
-        d="M13 6l6 6-6 6"
+        d="M8 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M4 16l5-5 4 4 3-3 4 4"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"

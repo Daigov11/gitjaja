@@ -11,6 +11,8 @@ var PHONE;
 var IG_URL;
 var FB_URL;
 var TT_URL;
+var HELP_FLOAT_IMG_URL;
+var HELP_FLOAT_TEXT;
 
 var CART_KEY;
 var NAV_ITEMS;
@@ -21,7 +23,12 @@ BRAND = "Harinas Don Pepito";
 LOGO_URL =
   "https://api-centralizador.apiworking.pe/images/79070813-72aa-4907-a24c-3531c22c69f7.png";
 
-PHONE = "913701849";
+PHONE = "946762926";
+HELP_FLOAT_IMG_URL =
+  "http://api-centralizador.apiworking.pe/images/73456618-7161-440a-8903-3ed53667c759.png";
+
+HELP_FLOAT_TEXT = "Hola, necesito ayuda con mi pedido.";
+
 IG_URL = "https://www.instagram.com/harinasdonpepito/";
 FB_URL = "https://www.facebook.com/harinasdonpepito";
 TT_URL = "https://www.tiktok.com/@harinasdonpepito";
@@ -209,11 +216,8 @@ export default function PublicLayout() {
               <img
                 src={LOGO_URL}
                 alt="Don Pepito"
-className="h-10 w-auto object-contain md:h-12" />
-              <div className="leading-tight">
-                <div className="text-sm font-extrabold text-white md:text-base">{BRAND}</div>
-                <div className="text-[11px] font-semibold text-white/85 md:text-xs">v1.3</div>
-              </div>
+className="h-10 w-auto object-contain md:h-30" />
+
             </Link>
 
             {/* Search (desktop) */}
@@ -278,7 +282,7 @@ className="h-10 w-auto object-contain md:h-12" />
         </div>
 
         {/* Menu bar (desktop) */}
-        <div className="hidden w-full bg-emerald-800 md:block">
+<div className="hidden w-full bg-amber-400 md:block">
           <div className="mx-auto flex w-full max-w-7xl items-center gap-2 px-4 py-2">
             <nav className="flex flex-wrap items-center gap-2 text-sm font-extrabold text-white/90">
               {NAV_ITEMS.map(function (it, i) {
@@ -441,122 +445,185 @@ className="h-10 w-auto object-contain md:h-12" />
           }}
         />
       </div>
+      {/* ✅ BOTÓN FLOTANTE "¿NECESITAS AYUDA?" (SIEMPRE VISIBLE) */}
+      <HelpWhatsappFloat />
 
-      {/* ✅ FOOTER PRO (verde) */}
-      <footer className="w-full bg-emerald-900 text-white">
-        <div className="mx-auto w-full max-w-7xl px-4 py-12">
-          <div className="grid gap-10 md:grid-cols-3">
-            {/* Brand + datos */}
-            <div>
-              <div className="flex items-center gap-3">
-                <img
-                  src={LOGO_URL}
-                  alt="Don Pepito"
-                  className="h-10 w-auto object-contain md:h-12"
-                />
-                <div className="leading-tight">
-                  <div className="text-base font-extrabold">{BRAND}</div>
-                  <div className="mt-0.5 text-xs font-semibold text-white/80">
-                    Consulta precios por WhatsApp
-                  </div>
-                </div>
-              </div>
+{/* ✅ FOOTER NUEVO (tipo retail) */}
+<footer className="w-full border-t border-slate-200 bg-white text-slate-700">
+  <div className="mx-auto w-full max-w-7xl px-4">
+    {/* Barra de confianza (envíos / pagos / seguro) */}
+    <div className="py-7">
+      <div className="grid gap-3 sm:grid-cols-3">
+        <TrustItem
+          icon={<TruckIcon />}
+          title="Envíos a todo el Perú"
+          desc="Delivery y agencia • Lima y provincias"
+        />
+        <TrustItem
+          icon={<CardIcon />}
+          title="Todos los medios de pago"
+          desc="Efectivo • Transferencia • Tarjetas • Yape/Plin"
+        />
+        <TrustItem
+          icon={<ShieldIcon />}
+          title="Compra segura"
+          desc="Atención rápida por WhatsApp"
+        />
+      </div>
+    </div>
 
-              <div className="mt-5 space-y-2 text-sm font-semibold text-white/85">
-                <div>
-                  <span className="text-white/70">RUC:</span> 20608795457
-                </div>
+    {/* Métodos de pago (franja) */}
+    <div className="border-y border-slate-200 py-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="text-xs font-extrabold tracking-widest text-slate-500">
+          MÉTODOS DE PAGO
+        </div>
 
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-white/70">Contacto:</span>
-                  <a
-                    href={"tel:+51" + PHONE}
-                    className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-sm font-extrabold text-white hover:bg-white/15"
-                    title={"Llamar +51 " + PHONE}
-                  >
-                    <PhoneIcon />
-                    +51 {PHONE}
-                  </a>
-                </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <PayBadge label="EFECTIVO" />
+          <PayBadge label="TRANSFERENCIA" />
+          <PayBadge label="VISA" />
+          <PayBadge label="MASTERCARD" />
+          <PayBadge label="AMEX" />
+          <PayBadge label="YAPE" />
+          <PayBadge label="PLIN" />
+        </div>
+      </div>
+    </div>
 
-                <div className="text-xs font-semibold text-white/65">
-                  Atención rápida: arma tu lista y envíala por WhatsApp.
-                </div>
-              </div>
-            </div>
-
-            {/* Enlaces */}
-            <div>
-              <div className="text-sm font-extrabold">Enlaces</div>
-              <div className="mt-4 grid gap-3 text-sm font-semibold">
-                <a
-                  className="inline-flex items-center justify-between rounded-2xl bg-white/10 px-4 py-3 hover:bg-white/15"
-                  href="https://consumidor.gob.pe/libro-de-reclamaciones/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <span>Libro de reclamaciones</span>
-                  <ArrowIcon />
-                </a>
-
-                <a
-                  className="inline-flex items-center justify-between rounded-2xl bg-white/10 px-4 py-3 hover:bg-white/15"
-                  href="https://maps.app.goo.gl/zD8DvAwfFnhtJKJd9"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <span>Ver ubicación (Maps)</span>
-                  <ArrowIcon />
-                </a>
-              </div>
-            </div>
-
-            {/* Redes */}
-            <div>
-              <div className="text-sm font-extrabold">Síguenos</div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <a
-                  href={IG_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-3 text-sm font-extrabold hover:bg-white/15"
-                >
-                  <InstagramIcon />
-                  Instagram
-                </a>
-
-                <a
-                  href={FB_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-3 text-sm font-extrabold hover:bg-white/15"
-                >
-                  <FacebookIcon />
-                  Facebook
-                </a>
-
-                <a
-                  href={TT_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-3 text-sm font-extrabold hover:bg-white/15"
-                >
-                  <TikTokIcon />
-                  TikTok
-                </a>
-              </div>
-
-              <div className="mt-4 rounded-2xl border border-white/15 bg-black/10 p-4 text-xs font-semibold text-white/75">
-                Los mejores precios en todo el Perú
-              </div>
+    {/* Contenido */}
+    <div className="py-10">
+      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Marca + contacto */}
+        <div>
+          <div className="flex items-center gap-3">
+            <img src={LOGO_URL} alt={BRAND} className="h-30 w-auto object-contain" />
+            <div className="leading-tight">
             </div>
           </div>
 
-          <div className="mt-10 border-t border-white/15 pt-6 text-xs font-semibold text-white/70">
-            © {new Date().getFullYear()} Don Pepito — Tienda Web
+          <div className="mt-4 space-y-2 text-sm font-semibold text-slate-600">
+            <div className="flex items-start gap-2">
+              <span className="mt-0.5 text-slate-400"><PinIcon /></span>
+              <span>Lima, Perú (envíos a todo el país)</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400"><ClockIcon /></span>
+              <span>Lun–Sáb • Atención rápida</span>
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            <a
+              href={"tel:+51" + cleanPhone(PHONE)}
+              className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+              title={"Llamar +51 " + PHONE}
+            >
+              <PhoneMiniIcon />
+              +51 {PHONE}
+            </a>
+
+            <a
+              href={"https://wa.me/51" + cleanPhone(PHONE)}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl bg-emerald-700 px-4 py-2 text-sm font-extrabold text-white hover:bg-emerald-800"
+              title="Escríbenos por WhatsApp"
+            >
+              <WhatsAppIcon />
+              WhatsApp
+            </a>
+          </div>
+
+          <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-xs font-semibold text-slate-600">
+            Haz tu lista y envíala por WhatsApp. Te cotizamos y coordinamos el envío.
           </div>
         </div>
-      </footer>
+
+        {/* Menú */}
+        <div>
+          <FooterTitle>MENÚ</FooterTitle>
+          <div className="mt-4 space-y-2">
+            <FooterLink href="/">Inicio</FooterLink>
+            <FooterLink href="/categorias">Categorías</FooterLink>
+            <FooterLink href="/productos">Productos</FooterLink>
+            <FooterLink href="/promociones">Promociones</FooterLink>
+            <FooterLink href="/contacto">Contacto</FooterLink>
+          </div>
+        </div>
+
+        {/* Servicio al cliente */}
+        <div>
+          <FooterTitle>SERVICIO AL CLIENTE</FooterTitle>
+          <div className="mt-4 space-y-2">
+            <FooterLink href="/envios">Envíos y cobertura</FooterLink>
+            <FooterLink href="/pagos">Formas de pago</FooterLink>
+            <FooterLink href="/faq">Preguntas frecuentes</FooterLink>
+            <FooterLink href="/terminos">Términos y condiciones</FooterLink>
+            <FooterLink href="/privacidad">Política de privacidad</FooterLink>
+          </div>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            <TagPill>Envío</TagPill>
+            <TagPill>Recojo</TagPill>
+            <TagPill>Agencia</TagPill>
+            <TagPill>Mayorista</TagPill>
+          </div>
+        </div>
+
+        {/* Redes */}
+        <div>
+          <FooterTitle>REDES SOCIALES</FooterTitle>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <a
+              href={IG_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+            >
+              <InstagramMiniIcon />
+              Instagram
+            </a>
+
+            <a
+              href={FB_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+            >
+              <FacebookMiniIcon />
+              Facebook
+            </a>
+
+            <a
+              href={TT_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+            >
+              <TikTokMiniIcon />
+              TikTok
+            </a>
+          </div>
+
+          <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4 text-xs font-semibold text-slate-600">
+            <div className="text-sm font-extrabold text-slate-900">Envíos + Pagos</div>
+            <div className="mt-1">Trabajamos con todo medio de pago y enviamos a todo el Perú.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom bar */}
+    <div className="border-t border-slate-200 py-6 text-xs font-semibold text-slate-500">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>© {new Date().getFullYear()} {BRAND} — Tienda Web</div>
+        <div className="text-slate-400">Envíos • Medios de pago • Atención por WhatsApp</div>
+      </div>
+    </div>
+  </div>
+</footer>
 
       {/* MODAL WHATSAPP */}
       {cartOpen ? (
@@ -821,5 +888,187 @@ function ArrowIcon() {
       <path d="M7 17 17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       <path d="M10 7h7v7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
+  );
+}
+function cleanPhone(v) {
+  var s;
+  s = v == null ? "" : String(v);
+  s = s.replace(/[^0-9]/g, "");
+  return s;
+}
+
+function FooterTitle(props) {
+  return (
+    <div className="text-sm font-extrabold tracking-wide text-emerald-700">
+      {props.children}
+    </div>
+  );
+}
+
+function FooterLink(props) {
+  return (
+    <a
+      href={props.href}
+      className="block text-sm font-semibold text-slate-600 hover:text-slate-900"
+    >
+      {props.children}
+    </a>
+  );
+}
+
+function TagPill(props) {
+  return (
+    <div className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-extrabold text-slate-700">
+      {props.children}
+    </div>
+  );
+}
+
+function PayBadge(props) {
+  return (
+    <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-extrabold text-slate-700">
+      {props.label}
+    </div>
+  );
+}
+
+function TrustItem(props) {
+  return (
+    <div className="rounded-3xl border border-slate-200 bg-white p-4">
+      <div className="flex items-start gap-3">
+        <div className="rounded-2xl bg-emerald-50 p-2 text-emerald-800">
+          {props.icon}
+        </div>
+        <div>
+          <div className="text-sm font-extrabold text-slate-900">{props.title}</div>
+          <div className="mt-1 text-xs font-semibold text-slate-600">{props.desc}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---- mini icons (svg) ---- */
+
+function TruckIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M3 7h11v10H3V7Z" stroke="currentColor" strokeWidth="2" />
+      <path d="M14 10h4l3 3v4h-7v-7Z" stroke="currentColor" strokeWidth="2" />
+      <path d="M6.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" stroke="currentColor" strokeWidth="2" />
+      <path d="M17.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function CardIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" stroke="currentColor" strokeWidth="2" />
+      <path d="M3 10h18" stroke="currentColor" strokeWidth="2" />
+      <path d="M7 15h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function ShieldIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M12 3 20 7v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4Z" stroke="currentColor" strokeWidth="2" />
+      <path d="m9 12 2 2 4-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function PinIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M12 22s7-5 7-12a7 7 0 1 0-14 0c0 7 7 12 7 12Z" stroke="currentColor" strokeWidth="2" />
+      <path d="M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" stroke="currentColor" strokeWidth="2" />
+      <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function PhoneMiniIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M6.5 3h3l1 5-2 1c1.5 3 3.5 5 6.5 6.5l1-2 5 1v3c0 1-1 2-2 2-9 0-16-7-16-16 0-1 1-2 2-2Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function WhatsAppIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M20 11.5a8.5 8.5 0 1 1-16.2 3.7L3 21l5.9-1.7A8.5 8.5 0 0 1 20 11.5Z" stroke="currentColor" strokeWidth="2" />
+      <path d="M9 9c.3 2 3 5 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/* Si ya tienes tus icons de redes, puedes borrar estos 3 */
+function InstagramMiniIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" stroke="currentColor" strokeWidth="2" />
+      <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" strokeWidth="2" />
+      <path d="M17.5 6.5h.01" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function FacebookMiniIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M14 9h3V6h-3a4 4 0 0 0-4 4v3H7v3h3v6h3v-6h3l1-3h-4v-3a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function TikTokMiniIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M14 3v12a4 4 0 1 1-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path d="M14 6c1.5 2 3.5 3 6 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+function HelpWhatsappFloat() {
+  var phone, href, text;
+
+  phone = "51" + cleanPhone(PHONE);
+  text = HELP_FLOAT_TEXT || "Hola, necesito ayuda.";
+  href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="fixed bottom-4 right-4 z-[45] block"
+      aria-label="¿Necesitas ayuda?"
+      title="¿Necesitas ayuda?"
+    >
+      <img
+        src={HELP_FLOAT_IMG_URL}
+        alt="¿Necesitas ayuda?"
+        className="h-40 w-40 select-none drop-shadow-lg hover:scale-[1.03] active:scale-[0.98] transition-transform"
+        draggable="false"
+      />
+    </a>
   );
 }

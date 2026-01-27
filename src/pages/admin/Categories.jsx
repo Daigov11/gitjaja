@@ -130,7 +130,7 @@ export default function Categories() {
   /* Mapa: category_name -> count */
   countMap = buildProductCountMap(prodItems);
 
-  /* Vista final: categorías reales del server + product_count */
+  /* Vista final: categorías reales del server + product_count (+ image url) */
   viewCats = attachCounts(catsItems, countMap);
 
   filtered = applyFilters(viewCats, qSearch, status);
@@ -186,7 +186,6 @@ export default function Categories() {
       setModalOpen(false);
       setEditItem(null);
 
-      /* refresca también el conteo si lo necesitas */
       qCats.refetch();
       qProd.refetch();
 
@@ -243,7 +242,7 @@ export default function Categories() {
           <div>
             <div className="text-xs font-semibold text-slate-500">Administración</div>
             <div className="mt-1 text-3xl font-extrabold tracking-tight text-slate-900">Categorías</div>
-            <div className="mt-1 text-sm text-slate-600">Desde API MicroSaas/categories (conteo por join con products)</div>
+            <div className="mt-1 text-sm text-slate-600">Listado de categorias</div>
 
             {opMsg ? (
               <div
@@ -350,10 +349,11 @@ export default function Categories() {
           </div>
 
           <div className="overflow-auto">
-            <table className="min-w-[820px] w-full text-left text-sm">
+            <table className="min-w-[900px] w-full text-left text-sm">
               <thead className="bg-slate-50 text-xs font-bold text-slate-600">
                 <tr>
                   <th className="px-4 py-3">ID</th>
+                  <th className="px-4 py-3">Imagen</th>
                   <th className="px-4 py-3">Categoría</th>
                   <th className="px-4 py-3">Productos</th>
                   <th className="px-4 py-3">Estado</th>
@@ -367,6 +367,20 @@ export default function Categories() {
                   return (
                     <tr key={c.id_category} className="hover:bg-slate-50">
                       <td className="px-4 py-4 font-bold text-slate-900">{c.id_category}</td>
+
+                      <td className="px-4 py-4">
+                        {c.category_image_url ? (
+                          <img
+                            src={c.category_image_url}
+                            alt={c.category_name}
+                            className="h-10 w-10 rounded-xl object-cover ring-1 ring-slate-200"
+                          />
+                        ) : (
+                          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-[10px] font-extrabold text-slate-500">
+                            —
+                          </div>
+                        )}
+                      </td>
 
                       <td className="px-4 py-4">
                         <div className="font-extrabold text-slate-900">{c.category_name}</div>
@@ -434,9 +448,15 @@ export default function Categories() {
 
           {/* Pagination */}
           <div className="flex items-center justify-center gap-2 border-t border-slate-200 px-4 py-4">
-            <PageBtn disabled={curPage <= 1} onClick={function () { setPage(1); }}>
+            <PageBtn
+              disabled={curPage <= 1}
+              onClick={function () {
+                setPage(1);
+              }}
+            >
               {"|<"}
             </PageBtn>
+
             <PageBtn
               disabled={curPage <= 1}
               onClick={function () {
@@ -456,7 +476,13 @@ export default function Categories() {
             >
               {">"}
             </PageBtn>
-            <PageBtn disabled={curPage >= pages} onClick={function () { setPage(pages); }}>
+
+            <PageBtn
+              disabled={curPage >= pages}
+              onClick={function () {
+                setPage(pages);
+              }}
+            >
               {">|"}
             </PageBtn>
           </div>
@@ -471,6 +497,7 @@ export default function Categories() {
         onClose={closeModal}
         onSubmit={onModalSubmit}
         busy={busy}
+        bd={BD}
       />
 
       {/* Confirm delete */}
@@ -488,7 +515,7 @@ export default function Categories() {
   );
 }
 
-/* helpers y UI (igual a los tuyos; solo añadí disabled en IconBtn y ConfirmDialog) */
+/* helpers y UI */
 function buildProductCountMap(items) {
   var map, i, name;
   map = {};
@@ -501,11 +528,16 @@ function buildProductCountMap(items) {
 }
 
 function attachCounts(categories, map) {
-  var out, i, c, key;
+  var out, i, c, key, img;
   out = [];
   for (i = 0; i < categories.length; i = i + 1) {
     c = categories[i];
     key = c && c.category_name ? String(c.category_name) : "";
+
+    img = "";
+    if (c && c.category_image_url) img = String(c.category_image_url);
+    if (!img && c && c.categoryImageUrl) img = String(c.categoryImageUrl);
+
     out.push({
       id_category: c.id_category,
       category_name: c.category_name,
@@ -513,6 +545,7 @@ function attachCounts(categories, map) {
       category_status: !!c.category_status,
       category_created: c.category_created || null,
       category_actu: c.category_actu || null,
+      category_image_url: img,
       product_count: key && map[key] ? map[key] : 0,
     });
   }
@@ -530,14 +563,24 @@ function IconBtn(props) {
 
   if (props.danger) {
     return (
-      <button title={props.title} onClick={props.onClick} disabled={props.disabled} className={base + " border-red-200 text-red-700"}>
+      <button
+        title={props.title}
+        onClick={props.onClick}
+        disabled={props.disabled}
+        className={base + " border-red-200 text-red-700"}
+      >
         {props.children}
       </button>
     );
   }
 
   return (
-    <button title={props.title} onClick={props.onClick} disabled={props.disabled} className={base + " border-slate-200 text-slate-800"}>
+    <button
+      title={props.title}
+      onClick={props.onClick}
+      disabled={props.disabled}
+      className={base + " border-slate-200 text-slate-800"}
+    >
       {props.children}
     </button>
   );
