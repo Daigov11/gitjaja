@@ -348,6 +348,8 @@ export default function ProductDetail() {
                   <Chip icon={<ShieldIcon />} label="Compra segura" />
                   <Chip icon={<BoxIcon />} label="Stock sujeto a confirmación" />
                   <Chip icon={<ClockIcon />} label="Respuesta rápida" />
+                  <Chip icon={<ClockIcon />} label="Solo chat por Whatsapp" />
+
                 </div>
               </div>
 

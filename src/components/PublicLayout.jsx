@@ -41,7 +41,6 @@ NAV_ITEMS = [
   { label: "Inicio", href: "/", type: "route" },
   { label: "Catálogo", href: "/categoria", type: "route" },
   { label: "Ubicación", href: "https://maps.app.goo.gl/zD8DvAwfFnhtJKJd9", type: "ext" },
-  { label: "Libro de reclamaciones", href: "https://consumidor.gob.pe/libro-de-reclamaciones/", type: "ext" },
 ];
 
 export default function PublicLayout() {
@@ -283,66 +282,69 @@ className="h-10 w-auto object-contain md:h-30" />
 
         {/* Menu bar (desktop) */}
 <div className="hidden w-full bg-amber-400 md:block">
-          <div className="mx-auto flex w-full max-w-7xl items-center gap-2 px-4 py-2">
-            <nav className="flex flex-wrap items-center gap-2 text-sm font-extrabold text-white/90">
-              {NAV_ITEMS.map(function (it, i) {
-                if (it.type === "route") {
-                  return (
-                    <Link
-                      key={"nav" + i}
-                      to={it.href}
-                      className="rounded-full px-4 py-2 hover:bg-white/10 hover:text-white"
-                    >
-                      {it.label}
-                    </Link>
-                  );
-                }
+  <div className="mx-auto flex w-full max-w-7xl items-center gap-2 px-4 py-2">
+    <nav className="flex flex-wrap items-center gap-2 text-sm font-extrabold text-black/90">
+      {NAV_ITEMS.map(function (it, i) {
+        if (it.type === "route") {
+          return (
+            <Link
+              key={"nav" + i}
+              to={it.href}
+              className="rounded-full px-4 py-2 hover:bg-black/20 hover:text-black"
+            >
+              {it.label}
+            </Link>
+          );
+        }
 
-                return (
-                  <a
-                    key={"nav" + i}
-                    href={it.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full px-4 py-2 hover:bg-white/10 hover:text-white"
-                  >
-                    {it.label}
-                  </a>
-                );
-              })}
-            </nav>
+        return (
+          <a
+            key={"nav" + i}
+            href={it.href}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full px-4 py-2 hover:bg-black/20 hover:text-black"
+          >
+            {it.label}
+          </a>
+        );
+      })}
+    </nav>
 
-            <div className="ml-auto flex items-center gap-2">
-              <a
-                href={IG_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full bg-white/10 p-2 text-white hover:bg-white/15"
-                title="Instagram"
-              >
-                <InstagramIcon />
-              </a>
-              <a
-                href={FB_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full bg-white/10 p-2 text-white hover:bg-white/15"
-                title="Facebook"
-              >
-                <FacebookIcon />
-              </a>
-              <a
-                href={TT_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full bg-white/10 p-2 text-white hover:bg-white/15"
-                title="TikTok"
-              >
-                <TikTokIcon />
-              </a>
-            </div>
-          </div>
-        </div>
+    <div className="ml-auto flex items-center gap-2">
+      <a
+        href={IG_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="rounded-full bg-black/10 p-2 text-black hover:bg-black/20"
+        title="Instagram"
+      >
+        <InstagramIcon />
+      </a>
+
+      <a
+        href={FB_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="rounded-full bg-black/10 p-2 text-black hover:bg-black/20"
+        title="Facebook"
+      >
+        <FacebookIcon />
+      </a>
+
+      <a
+        href={TT_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="rounded-full bg-black/10 p-2 text-black hover:bg-black/20"
+        title="TikTok"
+      >
+        <TikTokIcon />
+      </a>
+    </div>
+  </div>
+</div>
+
       </header>
 
       {/* ✅ Drawer lateral (como la imagen): SOLO categorías, NO pantalla completa */}
