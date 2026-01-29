@@ -14,7 +14,7 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-medium text-slate-500">Panel de administración</p>
+            <p className="text-xs font-medium text-slate-500" hrfe>Panel de administración</p>
             <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-900">
               Dashboard
             </h1>
@@ -112,50 +112,10 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Right: status + tips */}
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <h2 className="text-base font-bold text-slate-900">Estado del sistema</h2>
-              <div className="mt-4 space-y-3">
-                <StatusRow label="Login" ok={true} note="OK (codResponse=1)" />
-                <StatusRow label="Categorías API" ok={false} note="Esperando endpoints" />
-                <StatusRow label="Productos API" ok={false} note="Esperando endpoints" />
-                <StatusRow label="Upload imagen" ok={false} note="Pendiente" />
-              </div>
-            </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <h2 className="text-base font-bold text-slate-900">Siguiente paso</h2>
-              <p className="mt-2 text-sm text-slate-600">
-                Cuando James entregue endpoints, conectamos:
-              </p>
-
-              <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                <li className="flex gap-2">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-slate-900" />
-                  CRUD Categorías (React Query)
-                </li>
-                <li className="flex gap-2">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-slate-900" />
-                  CRUD Productos + Upload imagen
-                </li>
-                <li className="flex gap-2">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-slate-900" />
-                  Home público + Detalle producto
-                </li>
-              </ul>
-
-              <div className="mt-4 rounded-xl bg-slate-50 p-3 text-xs text-slate-600">
-                Tip: “Sin precio” = <b>has_price=0</b> ⇒ mostrar <b>¡CONSÚLTALO!</b>
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* Footer hint */}
-        <div className="text-center text-xs text-slate-500">
-          ERP Front • React + Vite + Tailwind
-        </div>
+
       </div>
     </div>
   );

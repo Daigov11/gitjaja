@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { clearAuth } from "../state/auth";
-
+import { Link } from "react-router-dom";
 export default function AdminLayout() {
   var loc;
   loc = useLocation();
@@ -51,14 +51,16 @@ export default function AdminLayout() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <button className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50">
-                  🔔
-                </button>
-                <button className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50">
-                  👤
-                </button>
-              </div>
+<div className="flex items-center gap-3">
+  <Link
+    to="/"
+    title="Ver página pública"
+    className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50"
+  >
+    👤
+  </Link>
+
+</div>
             </div>
           </header>
 

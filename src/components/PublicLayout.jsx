@@ -41,6 +41,7 @@ NAV_ITEMS = [
   { label: "Inicio", href: "/", type: "route" },
   { label: "Catálogo", href: "/categoria", type: "route" },
   { label: "Ubicación", href: "https://maps.app.goo.gl/zD8DvAwfFnhtJKJd9", type: "ext" },
+  { label: "Promociones", href: "/categoria/PROMOCIONES", type: "route" },
 ];
 
 export default function PublicLayout() {
@@ -621,7 +622,7 @@ className="h-10 w-auto object-contain md:h-30" />
     <div className="border-t border-slate-200 py-6 text-xs font-semibold text-slate-500">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>© {new Date().getFullYear()} {BRAND} — Tienda Web</div>
-        <div className="text-slate-400">Envíos • Medios de pago • Atención por WhatsApp</div>
+        <div className="text-slate-400">Mercado de Productores de Santa Anita, Pj 54, Santa Anita 15011</div>
       </div>
     </div>
   </div>

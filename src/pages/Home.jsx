@@ -8,6 +8,8 @@ import { BD_NAME } from "../services/appConfig";
 /* ====== TOP-LEVEL VARS ====== */
 
 var SLIDES;
+var HOME_CAT_IDS;
+var PROMO_BLOCKS;
 
 SLIDES = [
   {
@@ -27,6 +29,28 @@ SLIDES = [
   },
 ];
 
+HOME_CAT_IDS = ["3", "4", "6", "10", "16"];
+
+/* Bloques como la imagen: banner + 4 productos */
+PROMO_BLOCKS = [
+  {
+    catId: "3",
+    title: "Productos más vendidos",
+    img: "https://api-centralizador.apiworking.pe/images/c304fb50-9270-489c-91d0-50b0add2ce00.png",
+    cta: "Tienda Online",
+    side: "left",
+    max: 4,
+  },
+  {
+    catId: "4",
+    title: "Productos más visitados",
+    img: "https://api-centralizador.apiworking.pe/images/8e4a0c06-4350-4815-b8ff-361be5504837.png",
+    cta: "Tienda Online",
+    side: "right",
+    max: 4,
+  },
+];
+
 export default function Home() {
   var ctx;
 
@@ -38,6 +62,9 @@ export default function Home() {
   var cat, setCat;
 
   var qSearch, cart, toggleInCart, setCartOpen;
+
+  var catsHome, filtered, showGrid;
+  var promoData, catsAfterPromos;
 
   ctx = useOutletContext();
   if (!ctx) ctx = {};
@@ -52,7 +79,7 @@ export default function Home() {
   setSlide = slide[1];
   slide = slide[0];
 
-  /* categoría (esto sí es de Home) */
+  /* categoría */
   cat = useState("ALL");
   setCat = cat[1];
   cat = cat[0];
@@ -75,12 +102,25 @@ export default function Home() {
 
   activeItems = useMemo(
     function () {
-      return items.filter(function (p) {
+      return (items || []).filter(function (p) {
         return !!p && !!p.product_status;
       });
     },
     [items]
   );
+
+  /* CATS HOME SOLO por IDs */
+  catsHome = pickHomeCategoriesFixedIds(catItemsApi, activeItems, HOME_CAT_IDS);
+
+  /* Bloques promo (id 3 y 4) */
+  promoData = buildPromoBlocks(catItemsApi, activeItems, PROMO_BLOCKS);
+
+  /* No repetir en las filas de abajo */
+  catsAfterPromos = filterOutCatsByNames(catsHome, promoData);
+
+  /* filtros */
+  filtered = applyFilters(activeItems, qSearch, cat).slice(0, 60);
+  showGrid = !!(String(qSearch || "").trim() || cat !== "ALL");
 
   useEffect(
     function () {
@@ -119,39 +159,11 @@ export default function Home() {
     setCartOpen(true);
   }
 
-  function applyFilters(items2, q2, cat2) {
-    var qx, out, i, p, text, inCat;
-    qx = (q2 || "").toLowerCase().trim();
-    out = [];
-
-    for (i = 0; i < items2.length; i = i + 1) {
-      p = items2[i];
-      inCat = cat2 === "ALL" || String(p.category_name || "") === String(cat2);
-
-      text =
-        String(p.product_name || "") +
-        " " +
-        String(p.product_desc || "") +
-        " " +
-        String(p.category_name || "");
-
-      if (inCat && (!qx || text.toLowerCase().indexOf(qx) !== -1)) {
-        out.push(p);
-      }
-    }
-    return out;
+  function openCategoryByName(name) {
+    if (!name) return;
+    setCat(String(name).trim());
+    window.location.hash = "catalogo";
   }
-
-  var catsAll, catsHome, filtered, shownCount, showGrid;
-
-  catsAll = buildCategoryList(catItemsApi, activeItems);
-  catsHome = pickHomeCategories(catsAll, activeItems, 6);
-
-  filtered = applyFilters(activeItems, qSearch, cat).slice(0, 60);
-  showGrid = !!(String(qSearch || "").trim() || cat !== "ALL");
-
-  if (showGrid) shownCount = filtered.length;
-  else shownCount = activeItems.length;
 
   return (
     <div className="w-full bg-slate-50">
@@ -181,7 +193,7 @@ export default function Home() {
 
                   <div className="mt-5 flex flex-wrap gap-3">
                     <a
-                      href="categoria"
+                      href="#catalogo"
                       className="rounded-full bg-white px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
                     >
                       Ver catálogo ↓
@@ -238,18 +250,15 @@ export default function Home() {
       {/* Catalog */}
       <section id="catalogo" className="w-full">
         <div className="mx-auto w-full max-w-7xl px-4 pb-10 pt-8">
+          {/* Header */}
           <div className="flex items-end justify-between">
             <div>
               <div className="text-xs font-extrabold text-emerald-700">Catálogo</div>
-              <div className="mt-1 text-2xl font-extrabold text-slate-900">
-                Explora por categorías
-              </div>
+              <div className="mt-1 text-2xl font-extrabold text-slate-900">Explora por categorías</div>
             </div>
-
-            
           </div>
 
-          {/* Tabs */}
+          {/* Tabs (solo las 5 categorías por IDs) */}
           <div className="mt-4 flex flex-wrap gap-2">
             <Tab
               active={cat === "ALL"}
@@ -297,6 +306,7 @@ export default function Home() {
           {!q.isLoading && ok ? (
             <div className="mt-6">
               {showGrid ? (
+                /* Cuando se busca o se elige una categoría */
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                   {(filtered || []).map(function (p) {
                     return (
@@ -312,8 +322,23 @@ export default function Home() {
                   })}
                 </div>
               ) : (
-                <div className="space-y-8">
-                  {catsHome.map(function (c) {
+                /* Vista HOME ordenada (como la imagen) */
+                <div className="space-y-10">
+                  {/* Bloques promo (3 y 4) */}
+                  {(promoData || []).map(function (b, i) {
+                    return (
+                      <PromoBlock
+                        key={"promo_" + i}
+                        b={b}
+                        onSeeAll={function () {
+                          openCategoryByName(b.catName);
+                        }}
+                      />
+                    );
+                  })}
+
+                  {/* Otras categorías (6,10,16) como filas */}
+                  {catsAfterPromos.map(function (c) {
                     var rowItems;
                     rowItems = takeProductsByCategory(activeItems, c, 12);
                     if (!rowItems.length) return null;
@@ -324,7 +349,7 @@ export default function Home() {
                         title={c}
                         items={rowItems}
                         onSeeAll={function () {
-                          setCat(c);
+                          openCategoryByName(c);
                         }}
                         cart={cart}
                         onToggle={toggleInCart}
@@ -341,7 +366,28 @@ export default function Home() {
   );
 }
 
-/* ---------- helpers ---------- */
+/* ---------- core helpers ---------- */
+
+function applyFilters(items2, q2, cat2) {
+  var qx, out, i, p, text, inCat, c1, c2;
+  qx = (q2 || "").toLowerCase().trim();
+  out = [];
+
+  c2 = String(cat2 || "").trim();
+
+  for (i = 0; i < (items2 || []).length; i = i + 1) {
+    p = items2[i] || {};
+    c1 = String(p.category_name || "").trim();
+
+    inCat = c2 === "ALL" || c1 === c2;
+
+    text = String(p.product_name || "") + " " + String(p.product_desc || "") + " " + c1;
+
+    if (inCat && (!qx || text.toLowerCase().indexOf(qx) !== -1)) out.push(p);
+  }
+
+  return out;
+}
 
 function isInCart(cart, id) {
   var i;
@@ -351,76 +397,149 @@ function isInCart(cart, id) {
   return false;
 }
 
-function buildCategoryList(catItemsApi, products) {
-  var out, map, i, name;
+/* ids -> nombres (en el orden de ids) */
+function pickHomeCategoriesFixedIds(catItemsApi, products, ids) {
+  var map, counts, out, i, j, it, p, id, name, pid, cname;
 
   map = {};
-  out = [];
-
   if (catItemsApi && catItemsApi.length) {
     for (i = 0; i < catItemsApi.length; i = i + 1) {
-      name =
-        catItemsApi[i] && catItemsApi[i].category_name ? String(catItemsApi[i].category_name) : "";
-      name = name.trim();
-      if (name && !map[name]) {
-        map[name] = true;
-        out.push(name);
-      }
+      it = catItemsApi[i] || {};
+      id = "";
+      if (typeof it.id_category !== "undefined") id = String(it.id_category).trim();
+      else if (typeof it.idCategory !== "undefined") id = String(it.idCategory).trim();
+      else if (typeof it.id !== "undefined") id = String(it.id).trim();
+
+      name = it.category_name ? String(it.category_name).trim() : "";
+      if (id && name) map[id] = name;
     }
-  }
-
-  if (!out.length) {
-    for (i = 0; i < products.length; i = i + 1) {
-      name = products[i] && products[i].category_name ? String(products[i].category_name) : "";
-      name = name.trim();
-      if (name && !map[name]) {
-        map[name] = true;
-        out.push(name);
-      }
-    }
-  }
-
-  out.sort();
-  return out;
-}
-
-function pickHomeCategories(allCats, products, maxCats) {
-  var counts, i, c, allowed, out;
-
-  allowed = {};
-  for (i = 0; i < allCats.length; i = i + 1) {
-    allowed[String(allCats[i])] = true;
   }
 
   counts = {};
-  for (i = 0; i < products.length; i = i + 1) {
-    c = products[i] && products[i].category_name ? String(products[i].category_name).trim() : "";
-    if (!c) continue;
-    if (allowed[c] !== true) continue;
-    counts[c] = (counts[c] || 0) + 1;
+  for (j = 0; j < (products || []).length; j = j + 1) {
+    p = products[j] || {};
+    pid = typeof p.id_category !== "undefined" ? String(p.id_category).trim() : "";
+    cname = p.category_name ? String(p.category_name).trim() : "";
+    if (pid) counts[pid] = (counts[pid] || 0) + 1;
+    if (cname) counts[cname] = (counts[cname] || 0) + 1;
   }
 
-  out = Object.keys(counts).sort(function (a, b) {
-    return (counts[b] || 0) - (counts[a] || 0);
-  });
+  out = [];
+  for (i = 0; i < (ids || []).length; i = i + 1) {
+    id = String(ids[i]).trim();
+    name = map[id] || "";
+    if (!name) continue;
+    if ((counts[id] || 0) <= 0 && (counts[name] || 0) <= 0) continue;
+    out.push(name);
+  }
 
-  if (!out.length) out = allCats.slice(0);
+  return out;
+}
 
-  return out.slice(0, maxCats || 6);
+function getCategoryNameById(catItemsApi, id, products) {
+  var i, it, cid, name;
+
+  for (i = 0; i < (catItemsApi || []).length; i = i + 1) {
+    it = catItemsApi[i] || {};
+    cid = "";
+    if (typeof it.id_category !== "undefined") cid = String(it.id_category).trim();
+    else if (typeof it.idCategory !== "undefined") cid = String(it.idCategory).trim();
+    else if (typeof it.id !== "undefined") cid = String(it.id).trim();
+
+    if (cid === String(id).trim()) {
+      name = it.category_name ? String(it.category_name).trim() : "";
+      if (name) return name;
+    }
+  }
+
+  for (i = 0; i < (products || []).length; i = i + 1) {
+    it = products[i] || {};
+    cid = typeof it.id_category !== "undefined" ? String(it.id_category).trim() : "";
+    if (cid === String(id).trim()) {
+      name = it.category_name ? String(it.category_name).trim() : "";
+      if (name) return name;
+    }
+  }
+
+  return "";
 }
 
 function takeProductsByCategory(items, catName, max) {
   var out, i, p, c;
-
   out = [];
-  for (i = 0; i < items.length; i = i + 1) {
-    p = items[i];
-    c = p && p.category_name ? String(p.category_name).trim() : "";
+
+  for (i = 0; i < (items || []).length; i = i + 1) {
+    p = items[i] || {};
+    c = p.category_name ? String(p.category_name).trim() : "";
     if (c === String(catName).trim()) {
       out.push(p);
       if (out.length >= (max || 12)) break;
     }
   }
+
+  return out;
+}
+
+function takeProductsByCategoryId(items, catId, catName, max) {
+  var out, i, p, pid, cname;
+  out = [];
+
+  for (i = 0; i < (items || []).length; i = i + 1) {
+    p = items[i] || {};
+    pid = typeof p.id_category !== "undefined" ? String(p.id_category).trim() : "";
+    cname = p.category_name ? String(p.category_name).trim() : "";
+
+    if (pid === String(catId).trim() || (catName && cname === String(catName).trim())) {
+      out.push(p);
+      if (out.length >= (max || 4)) break;
+    }
+  }
+
+  return out;
+}
+
+function buildPromoBlocks(catItemsApi, products, blocks) {
+  var out, i, b, name, items;
+
+  out = [];
+  for (i = 0; i < (blocks || []).length; i = i + 1) {
+    b = blocks[i] || {};
+    name = getCategoryNameById(catItemsApi, b.catId, products);
+    if (!name) continue;
+
+    items = takeProductsByCategoryId(products, b.catId, name, b.max || 4);
+
+    out.push({
+      catId: String(b.catId || ""),
+      catName: name,
+      title: String(b.title || ""),
+      img: String(b.img || ""),
+      cta: String(b.cta || "Tienda Online"),
+      side: String(b.side || "left"),
+      items: items,
+    });
+  }
+
+  return out;
+}
+
+function filterOutCatsByNames(cats, promoData) {
+  var map, i, out, name;
+
+  map = {};
+  for (i = 0; i < (promoData || []).length; i = i + 1) {
+    name = promoData[i] && promoData[i].catName ? String(promoData[i].catName).trim() : "";
+    if (name) map[name] = true;
+  }
+
+  out = [];
+  for (i = 0; i < (cats || []).length; i = i + 1) {
+    name = String(cats[i] || "").trim();
+    if (!name) continue;
+    if (map[name] === true) continue;
+    out.push(name);
+  }
+
   return out;
 }
 
@@ -439,6 +558,63 @@ function Tab(props) {
     >
       {props.label}
     </button>
+  );
+}
+
+function PromoBlock(props) {
+  var b, bannerCls, productsCls;
+  b = props.b || {};
+
+  bannerCls = "lg:col-span-5 " + (b.side === "right" ? "lg:order-2" : "lg:order-1");
+  productsCls = "lg:col-span-7 " + (b.side === "right" ? "lg:order-1" : "lg:order-2");
+
+  return (
+    <div className="grid gap-6 lg:grid-cols-12">
+      {/* Banner */}
+      <div className={bannerCls}>
+        <div className="overflow-hidden rounded-3xl bg-white ring-1 ring-slate-200">
+          <img src={b.img} alt={b.title} className="h-full w-full object-cover" />
+
+          <div className="p-4">
+            <button
+              onClick={props.onSeeAll}
+              className="w-full rounded-2xl bg-amber-400 px-4 py-3 text-sm font-extrabold text-slate-900 hover:bg-amber-300"
+            >
+              {b.cta}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Productos */}
+      <div className={productsCls}>
+        <div className="flex items-end justify-between gap-3">
+          <div className="text-2xl font-extrabold text-slate-900">{b.title}</div>
+
+          <button
+            onClick={props.onSeeAll}
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-extrabold text-slate-800 hover:bg-slate-50"
+          >
+            Ver todo →
+          </button>
+        </div>
+
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {(b.items || []).map(function (p) {
+            return <ProductCardMini key={"mini_" + p.id_product} p={p} />;
+          })}
+        </div>
+
+        <div className="mt-5">
+          <button
+            onClick={props.onSeeAll}
+            className="w-full rounded-2xl bg-emerald-900 px-4 py-3 text-sm font-extrabold text-white hover:bg-emerald-800"
+          >
+            Tienda Online
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -515,6 +691,61 @@ function CategoryRow(props) {
   );
 }
 
+/* Mini cards (como imagen) */
+function ProductCardMini(props) {
+  var p, hasImg, priceText;
+
+  p = props.p;
+  hasImg = !!(p && p.product_image_url);
+  priceText = p && p.has_price ? "S/ " + Number(p.price || 0).toFixed(2) : "";
+
+  return (
+    <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+      <button
+        className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-slate-700 hover:bg-white"
+        aria-label="Favorito"
+        type="button"
+      >
+        <HeartIcon />
+      </button>
+
+      <div className="h-28 w-full">
+        {hasImg ? (
+          <img
+            src={p.product_image_url}
+            alt={p.product_name}
+            className="h-full w-full object-contain"
+            loading="lazy"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-sm font-extrabold text-slate-300">
+            Sin imagen
+          </div>
+        )}
+      </div>
+
+      <div className="mt-3">
+        <div className="min-h-[40px] text-sm font-extrabold text-slate-900">{p.product_name}</div>
+
+        <div className="mt-2 flex items-center justify-between">
+          {p.has_price ? (
+            <div className="text-lg font-extrabold text-slate-900">{priceText}</div>
+          ) : (
+            <div className="rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
+              ¡CONSÚLTALO!
+            </div>
+          )}
+
+          <div className="text-sm font-extrabold text-slate-900">
+            5 <span className="text-amber-500">★</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Card normal */
 function ProductCardV2(props) {
   var p, hasImg, priceText;
 
@@ -583,6 +814,20 @@ function ProductCardV2(props) {
 
 function Skel() {
   return <div className="h-44 rounded-3xl bg-slate-100" />;
+}
+
+function HeartIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M12 21s-7-4.35-9.5-8.28C.6 9.8 2.1 6.6 5.5 6.1c1.9-.3 3.4.6 4.3 1.8.9-1.2 2.4-2.1 4.3-1.8 3.4.5 4.9 3.7 3 6.62C19 16.65 12 21 12 21z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 
 /* ---------- icons ---------- */
