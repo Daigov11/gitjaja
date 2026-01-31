@@ -10,6 +10,10 @@ import { BD_NAME } from "../services/appConfig";
 var SLIDES;
 var HOME_CAT_IDS;
 var PROMO_BLOCKS;
+var HOME_AFTER_4CATS_IMG;
+
+HOME_AFTER_4CATS_IMG =
+  "https://api-centralizador.apiworking.pe/images/5767a14d-c59b-4360-84e4-d0cf879481b3.png";
 
 SLIDES = [
   {
@@ -29,7 +33,10 @@ SLIDES = [
   },
 ];
 
-HOME_CAT_IDS = ["3", "4", "6", "10", "16"];
+HOME_CAT_IDS = ["3", "4", "6", "10"];
+var DON_PEPITO_STORY_IMG;
+
+DON_PEPITO_STORY_IMG = "https://img.sorianoticias.com/imagenes/2020-03/Pan_2.jpg";
 
 /* Bloques como la imagen: banner + 4 productos */
 PROMO_BLOCKS = [
@@ -166,11 +173,11 @@ export default function Home() {
   }
 
   return (
-    <div className="w-full bg-slate-50">
+  <div className="w-full bg-slate-50 overflow-x-hidden">
       {/* Hero carousel */}
       <section className="w-full bg-slate-900">
         <div className="relative w-full overflow-hidden">
-          <div className="relative h-[320px] w-full md:h-[560px]">
+          <div className="relative w-full h-[55vh] min-h-[320px] max-h-[560px]">
             <img
               src={SLIDES[slide].img}
               alt={SLIDES[slide].title}
@@ -180,35 +187,6 @@ export default function Home() {
 
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-black/10" />
             <div className="absolute inset-0 bg-black/10" />
-
-            <div className="absolute inset-0">
-              <div className="mx-auto flex h-full w-full max-w-7xl items-end px-4 pb-8 md:pb-12">
-                <div className="max-w-xl rounded-3xl bg-black/35 p-5 backdrop-blur-sm ring-1 ring-white/15 md:p-7">
-                  <div className="text-3xl font-extrabold tracking-tight text-white md:text-5xl">
-                    {SLIDES[slide].title}
-                  </div>
-                  <div className="mt-2 text-sm font-semibold text-white/90 md:text-base">
-                    {SLIDES[slide].subtitle}
-                  </div>
-
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <a
-                      href="#catalogo"
-                      className="rounded-full bg-white px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
-                    >
-                      Ver catálogo ↓
-                    </a>
-
-                    <button
-                      onClick={openCartUi}
-                      className="rounded-full bg-emerald-500 px-5 py-3 text-sm font-extrabold text-white hover:bg-emerald-600"
-                    >
-                      Consultar por WhatsApp
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <button
               onClick={onPrev}
@@ -252,34 +230,7 @@ export default function Home() {
         <div className="mx-auto w-full max-w-7xl px-4 pb-10 pt-8">
           {/* Header */}
           <div className="flex items-end justify-between">
-            <div>
-              <div className="text-xs font-extrabold text-emerald-700">Catálogo</div>
-              <div className="mt-1 text-2xl font-extrabold text-slate-900">Explora por categorías</div>
-            </div>
-          </div>
-
-          {/* Tabs (solo las 5 categorías por IDs) */}
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Tab
-              active={cat === "ALL"}
-              onClick={function () {
-                setCat("ALL");
-              }}
-              label="Todas"
-            />
-
-            {catsHome.map(function (c) {
-              return (
-                <Tab
-                  key={c}
-                  active={cat === c}
-                  onClick={function () {
-                    setCat(c);
-                  }}
-                  label={c}
-                />
-              );
-            })}
+            <div></div>
           </div>
 
           {/* States */}
@@ -338,24 +289,86 @@ export default function Home() {
                   })}
 
                   {/* Otras categorías (6,10,16) como filas */}
-                  {catsAfterPromos.map(function (c) {
-                    var rowItems;
-                    rowItems = takeProductsByCategory(activeItems, c, 12);
-                    if (!rowItems.length) return null;
+{catsAfterPromos.map(function (c, idx) {
+  var rowItems;
+  rowItems = takeProductsByCategory(activeItems, c, 12);
+  if (!rowItems.length) return null;
 
-                    return (
-                      <CategoryRow
-                        key={"row_" + c}
-                        title={c}
-                        items={rowItems}
-                        onSeeAll={function () {
-                          openCategoryByName(c);
-                        }}
-                        cart={cart}
-                        onToggle={toggleInCart}
-                      />
-                    );
-                  })}
+  return (
+    <div key={"rowwrap_" + c} className="space-y-10">
+      <CategoryRow
+        title={c}
+        items={rowItems}
+        onSeeAll={function () {
+          openCategoryByName(c);
+        }}
+        cart={cart}
+        onToggle={toggleInCart}
+      />
+
+      {/* ✅ Sección historia + imagen (antes del banner full width) */}
+      {idx === 1 ? (
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
+          <div className="text-center text-2xl font-extrabold tracking-tight text-slate-900 md:text-3xl">
+            ¿Qué es Don Pepito?
+          </div>
+
+          <div className="mt-6 grid items-center gap-6 md:grid-cols-12 md:gap-10">
+            {/* Texto */}
+            <div className="md:col-span-7">
+              <div className="space-y-4 text-sm font-semibold leading-relaxed text-slate-700 md:text-base">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+                  id feugiat turpis. Integer eget eros vel nibh tristique
+                  ullamcorper. Duis facilisis, sem sed tempus tincidunt, lacus
+                  neque posuere leo, et tristique sem orci sed mi.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  vitae purus at orci tristique sagittis. Aliquam erat volutpat.
+                  Donec eget mi quis nibh consequat posuere. Vestibulum ante
+                  ipsum primis in faucibus orci luctus et ultrices posuere cubilia.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+                  ac arcu a nibh vehicula viverra. Curabitur non justo at mi
+                  vehicula varius.
+                </p>
+              </div>
+            </div>
+
+            {/* Imagen derecha */}
+            <div className="md:col-span-5">
+              <div className="overflow-hidden rounded-3xl ring-1 ring-slate-200">
+                <img
+                  src={DON_PEPITO_STORY_IMG}
+                  alt="Pan Don Pepito"
+                  className="h-[240px] w-full object-cover md:h-[360px]"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* ✅ Banner FULL WIDTH después de esa sección */}
+      {idx === 1 ? (
+        <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+          <img
+            src={HOME_AFTER_4CATS_IMG}
+            alt="Don Pepito"
+            className="block w-full h-auto"
+            loading="lazy"
+            draggable="false"
+          />
+        </div>
+      ) : null}
+    </div>
+  );
+})}
+
                 </div>
               )}
             </div>

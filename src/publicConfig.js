@@ -9,7 +9,7 @@ var NAV_ITEMS;
 
 BRAND = "Harinas Don Pepito";
 LOGO_URL =
-  "https://api-centralizador.apiworking.pe/images/79070813-72aa-4907-a24c-3531c22c69f7.png";
+  "https://api-centralizador.apiworking.pe/images/b487694a-8613-4eb4-ab1c-3d8f3fd453ff.png";
 
 PHONE = "946762926";
 IG_URL = "https://www.instagram.com/harinasdonpepito/";
