@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { listCategories } from "../services/categoriesService";
@@ -311,10 +311,11 @@ export default function PublicLayout() {
     openMegaCats();
   }
 
-  return (
-    <div className="min-h-screen w-full bg-slate-50 flex flex-col">
-      {/* =========================
-          HEADER (tipo estructura Marles)
+return (
+  <div className="min-h-screen w-full bg-slate-50 flex flex-col">
+    <ScrollToTop />
+    {/* =========================
+        HEADER  (tipo estructura Marles)
           - Izq: nav + Catálogo dropdown
           - Centro: logo
           - Der: search + redes + carrito
@@ -1292,4 +1293,32 @@ function HelpWhatsappFloat() {
       />
     </a>
   );
+}
+function ScrollToTop() {
+  var loc;
+
+  loc = useLocation();
+
+  useEffect(
+    function () {
+      var id, el;
+
+      // ✅ Si existe hash (ej: #catalogo), scrollea a ese id
+      if (loc && loc.hash) {
+        id = String(loc.hash || "").replace("#", "");
+        el = id ? document.getElementById(id) : null;
+
+        if (el && typeof el.scrollIntoView === "function") {
+          el.scrollIntoView({ behavior: "auto", block: "start" });
+          return;
+        }
+      }
+
+      // ✅ En navegación normal (ej /producto/:id): ir arriba
+      window.scrollTo(0, 0);
+    },
+    [loc.pathname, loc.hash]
+  );
+
+  return null;
 }
