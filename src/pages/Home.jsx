@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { listProducts } from "../services/productsService";
 import { listCategories } from "../services/categoriesService";
@@ -17,17 +17,17 @@ HOME_AFTER_4CATS_IMG =
 
 SLIDES = [
   {
-    img: "https://api-centralizador.apiworking.pe/images/9c1eb75a-2f2f-4cf4-9dbd-6a3ffcb3204a.png",
+    img: "https://api-centralizador.apiworking.pe/images/587c0aa0-38d2-4f18-8ddf-738795140e74.png",
     title: "Insumos para tu negocio",
     subtitle: "Harinas, abarrotes y más",
   },
   {
-    img: "https://api-centralizador.apiworking.pe/images/c79dec89-a567-4648-b73a-3235daaeecc0.png",
+    img: "https://api-centralizador.apiworking.pe/images/6a54ef77-38a9-4a52-a86f-a78c9f210375.png",
     title: "Catálogo simple y rápido",
     subtitle: "Busca, filtra y consulta por WhatsApp",
   },
   {
-    img: "https://images.squarespace-cdn.com/content/v1/561718ebe4b062a227c4fcf2/1660fbf1-657e-43ad-9615-f2f02ce93dc6/azu%CC%81car.png",
+    img: "https://api-centralizador.apiworking.pe/images/5f878805-8a62-4d87-9d26-77f57f8b1f91.png",
     title: "Todos los productos de Perú",
     subtitle: "Arma tu lista y pide precios consulta los precios",
   },
@@ -76,9 +76,10 @@ PROMO_BLOCKS = [
   },
 ];
 
-
 export default function Home() {
   var ctx;
+  var nav;
+  nav = useNavigate();
 
   var q, qCats;
   var ok, items, activeItems;
@@ -97,8 +98,10 @@ export default function Home() {
 
   qSearch = typeof ctx.qSearch !== "undefined" ? ctx.qSearch : "";
   cart = Array.isArray(ctx.cart) ? ctx.cart : [];
-  toggleInCart = typeof ctx.toggleInCart === "function" ? ctx.toggleInCart : function () { };
-  setCartOpen = typeof ctx.setCartOpen === "function" ? ctx.setCartOpen : function () { };
+  toggleInCart =
+    typeof ctx.toggleInCart === "function" ? ctx.toggleInCart : function () {};
+  setCartOpen =
+    typeof ctx.setCartOpen === "function" ? ctx.setCartOpen : function () {};
 
   /* slide */
   slide = useState(0);
@@ -123,7 +126,8 @@ export default function Home() {
   ok = q.data && (q.data.codResponse === "1" || q.data.codResponse === 1);
   items = ok && q.data.data ? q.data.data : [];
 
-  okCats = qCats.data && (qCats.data.codResponse === "1" || qCats.data.codResponse === 1);
+  okCats =
+    qCats.data && (qCats.data.codResponse === "1" || qCats.data.codResponse === 1);
   catItemsApi = okCats && qCats.data.data ? qCats.data.data : [];
 
   activeItems = useMemo(
@@ -185,10 +189,17 @@ export default function Home() {
     setCartOpen(true);
   }
 
-  function openCategoryByName(name) {
-    if (!name) return;
-    setCat(String(name).trim());
-    window.location.hash = "catalogo";
+  /* ✅ NUEVO: navegación real */
+  function goCategorias() {
+    nav("/categoria");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function goCategoriaNombre(name) {
+    var href;
+    href = categoryHref(name);
+    nav(href);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   return (
@@ -275,133 +286,131 @@ export default function Home() {
           {/* Contenido */}
           {!q.isLoading && ok ? (
             <div className="mt-6">
-{showGrid ? (
-  <div className="space-y-4">
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      <Breadcrumb
-        cat={cat}
-        onGoHome={function () {
-          setCat("ALL");
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
-        onGoCatalog={function () {
-          setCat("ALL");
-          window.location.hash = "catalogo";
-        }}
-      />
+              {showGrid ? (
+                <div className="space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <Breadcrumb
+                      cat={cat}
+                      onGoHome={function () {
+                        setCat("ALL");
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      onGoCatalog={function () {
+                        setCat("ALL");
+                        window.location.hash = "catalogo";
+                      }}
+                    />
 
-      <div className="text-sm font-bold text-slate-600">
-        {(filtered || []).length} productos
-      </div>
-    </div>
+                    <div className="text-sm font-bold text-slate-600">
+                      {(filtered || []).length} productos
+                    </div>
+                  </div>
 
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {(filtered || []).map(function (p) {
-        return (
-          <ProductCardV2
-            key={p.id_product}
-            p={p}
-            inCart={isInCart(cart, p.id_product)}
-            onToggle={function () {
-              toggleInCart(p);
-            }}
-          />
-        );
-      })}
-    </div>
-  </div>
-) : (
-
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    {(filtered || []).map(function (p) {
+                      return (
+                        <ProductCardV2
+                          key={p.id_product}
+                          p={p}
+                          inCart={isInCart(cart, p.id_product)}
+                          onToggle={function () {
+                            toggleInCart(p);
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
                 /* Vista HOME ordenada (PROMO BLOCKS para 3,4,6,10) */
-<div className="space-y-10">
-  {/* ✅ 1) Primero: los 4 promo blocks */}
-  {(promoData || []).map(function (b, i) {
-    return (
-      <PromoBlock
-        key={"promo_" + i}
-        b={b}
-        onSeeAll={function () {
-          openCategoryByName(b.catName);
-        }}
-      />
-    );
-  })}
+                <div className="space-y-10">
+                  {/* ✅ 1) Primero: los 4 promo blocks */}
+                  {(promoData || []).map(function (b, i) {
+                    return (
+                      <PromoBlock
+                        key={"promo_" + i}
+                        b={b}
+                        onGoCats={goCategorias}
+                        onGoCat={function () {
+                          goCategoriaNombre(b.catName);
+                        }}
+                      />
+                    );
+                  })}
 
-  {/* ✅ 2) Luego: ¿Qué es Don Pepito? */}
-  <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
-    <div className="text-center text-2xl font-extrabold tracking-tight text-slate-900 md:text-3xl">
-      ¿Qué es Don Pepito?
-    </div>
+                  {/* ✅ 2) Luego: ¿Qué es Don Pepito? */}
+                  <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
+                    <div className="text-center text-2xl font-extrabold tracking-tight text-slate-900 md:text-3xl">
+                      ¿Qué es Don Pepito?
+                    </div>
 
-    <div className="mt-6 grid items-center gap-6 md:grid-cols-12 md:gap-10">
-      {/* Texto */}
-      <div className="md:col-span-7">
-        <div className="space-y-4 text-sm font-semibold leading-relaxed text-slate-700 md:text-base">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id feugiat
-            turpis. Integer eget eros vel nibh tristique ullamcorper. Duis facilisis,
-            sem sed tempus tincidunt, lacus neque posuere leo, et tristique sem orci sed mi.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae purus at orci
-            tristique sagittis. Aliquam erat volutpat. Donec eget mi quis nibh consequat posuere.
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac arcu a nibh
-            vehicula viverra. Curabitur non justo at mi vehicula varius.
-          </p>
-        </div>
-      </div>
+                    <div className="mt-6 grid items-center gap-6 md:grid-cols-12 md:gap-10">
+                      {/* Texto */}
+                      <div className="md:col-span-7">
+                        <div className="space-y-4 text-sm font-semibold leading-relaxed text-slate-700 md:text-base">
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id feugiat
+                            turpis. Integer eget eros vel nibh tristique ullamcorper. Duis facilisis,
+                            sem sed tempus tincidunt, lacus neque posuere leo, et tristique sem orci sed mi.
+                          </p>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae purus at orci
+                            tristique sagittis. Aliquam erat volutpat. Donec eget mi quis nibh consequat posuere.
+                            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia.
+                          </p>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac arcu a nibh
+                            vehicula viverra. Curabitur non justo at mi vehicula varius.
+                          </p>
+                        </div>
+                      </div>
 
-      {/* Imagen derecha */}
-      <div className="md:col-span-5">
-        <div className="overflow-hidden rounded-3xl ring-1 ring-slate-200">
-          <img
-            src={DON_PEPITO_STORY_IMG}
-            alt="Pan Don Pepito"
-            className="h-[240px] w-full object-cover md:h-[360px]"
-            loading="lazy"
-            draggable="false"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+                      {/* Imagen derecha */}
+                      <div className="md:col-span-5">
+                        <div className="overflow-hidden rounded-3xl ring-1 ring-slate-200">
+                          <img
+                            src={DON_PEPITO_STORY_IMG}
+                            alt="Pan Don Pepito"
+                            className="h-[240px] w-full object-cover md:h-[360px]"
+                            loading="lazy"
+                            draggable="false"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-  {/* ✅ 3) Luego: banner full width */}
-  <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
-    <img
-      src={HOME_AFTER_4CATS_IMG}
-      alt="Don Pepito"
-      className="block w-full h-auto"
-      loading="lazy"
-      draggable="false"
-    />
-  </div>
+                  {/* ✅ 3) Luego: banner full width */}
+                  <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+                    <img
+                      src={HOME_AFTER_4CATS_IMG}
+                      alt="Don Pepito"
+                      className="block w-full h-auto"
+                      loading="lazy"
+                      draggable="false"
+                    />
+                  </div>
 
-  {/* (opcional) si mañana agregas más categorías fuera de 3,4,6,10 */}
-  {(catsAfterPromos || []).map(function (c) {
-    var rowItems;
-    rowItems = takeProductsByCategory(activeItems, c, 12);
-    if (!rowItems.length) return null;
+                  {/* (opcional) si mañana agregas más categorías fuera de 3,4,6,10 */}
+                  {(catsAfterPromos || []).map(function (c) {
+                    var rowItems;
+                    rowItems = takeProductsByCategory(activeItems, c, 12);
+                    if (!rowItems.length) return null;
 
-    return (
-      <CategoryRow
-        key={"row_" + c}
-        title={c}
-        items={rowItems}
-        onSeeAll={function () {
-          openCategoryByName(c);
-        }}
-        cart={cart}
-        onToggle={toggleInCart}
-      />
-    );
-  })}
-</div>
-
-
+                    return (
+                      <CategoryRow
+                        key={"row_" + c}
+                        title={c}
+                        items={rowItems}
+                        onSeeAll={function () {
+                          goCategoriaNombre(c);
+                        }}
+                        cart={cart}
+                        onToggle={toggleInCart}
+                      />
+                    );
+                  })}
+                </div>
               )}
             </div>
           ) : null}
@@ -587,6 +596,7 @@ function filterOutCatsByNames(cats, promoData) {
 
   return out;
 }
+
 function Breadcrumb(props) {
   var c;
 
@@ -594,23 +604,13 @@ function Breadcrumb(props) {
 
   return (
     <div className="flex flex-wrap items-center gap-2 text-xs font-extrabold text-slate-600">
-      <button
-        type="button"
-        onClick={props.onGoHome}
-        className="hover:underline"
-        title="Ir a inicio"
-      >
+      <button type="button" onClick={props.onGoHome} className="hover:underline" title="Ir a inicio">
         Inicio
       </button>
 
       <span className="text-slate-400">›</span>
 
-      <button
-        type="button"
-        onClick={props.onGoCatalog}
-        className="hover:underline"
-        title="Ir a catálogo"
-      >
+      <button type="button" onClick={props.onGoCatalog} className="hover:underline" title="Ir a catálogo">
         Catálogo
       </button>
 
@@ -642,40 +642,48 @@ function Tab(props) {
   );
 }
 
+/* ✅ PROMO BLOCK con 2 rutas:
+   - Amarillo: /categoria
+   - Banner / Ver todo / Verde: /categoria/<Nombre> (encode) */
 function PromoBlock(props) {
-  var b, bannerCls, productsCls, ctaLabel;
+  var b, bannerCls, productsCls;
+  var bannerBtnLabel, shopBtnLabel, catName;
+
   b = props.b || {};
+  catName = String(b.catName || "").trim();
 
   bannerCls = "lg:col-span-5 " + (b.side === "right" ? "lg:order-2" : "lg:order-1");
   productsCls = "lg:col-span-7 " + (b.side === "right" ? "lg:order-1" : "lg:order-2");
 
-  ctaLabel = String(b.cta || "").trim();
-  if (!ctaLabel) ctaLabel = "Ver " + String(b.catName || "").trim();
+  bannerBtnLabel = "Ir a categoría";
+
+  shopBtnLabel = String(b.cta || "").trim();
+  if (!shopBtnLabel) shopBtnLabel = "Tienda Online";
 
   return (
     <div className="grid gap-6 lg:grid-cols-12">
       {/* Banner */}
       <div className={bannerCls}>
         <div className="overflow-hidden rounded-3xl bg-white ring-1 ring-slate-200">
-          {/* ✅ Banner clickeable: también abre la categoría */}
+          {/* ✅ Banner clickeable: /categoria/<catName> */}
           <button
             type="button"
-            onClick={props.onSeeAll}
+            onClick={props.onGoCat}
             className="block w-full cursor-pointer"
-            aria-label={"Ver categoría " + String(b.catName || "")}
-            title={"Ver " + String(b.catName || "")}
+            aria-label={"Ver categoría " + catName}
+            title={"Ver " + catName}
           >
             <img src={b.img} alt={b.title} className="h-full w-full object-cover" />
           </button>
 
           <div className="p-4">
-            {/* ✅ CTA amarillo: abre la categoría */}
+            {/* ✅ Amarillo: /categoria */}
             <button
-              onClick={props.onSeeAll}
+              onClick={props.onGoCats}
               className="w-full rounded-2xl bg-amber-400 px-4 py-3 text-sm font-extrabold text-slate-900 hover:bg-amber-300"
               type="button"
             >
-              {ctaLabel}
+              {bannerBtnLabel}
             </button>
           </div>
         </div>
@@ -686,8 +694,9 @@ function PromoBlock(props) {
         <div className="flex items-end justify-between gap-3">
           <div className="text-2xl font-extrabold text-slate-900">{b.title}</div>
 
+          {/* ✅ /categoria/<catName> */}
           <button
-            onClick={props.onSeeAll}
+            onClick={props.onGoCat}
             className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-extrabold text-slate-800 hover:bg-slate-50"
             type="button"
           >
@@ -701,21 +710,20 @@ function PromoBlock(props) {
           })}
         </div>
 
-        {/* ✅ CTA verde: antes era hardcodeado, ahora también abre la categoría */}
+        {/* ✅ Verde: /categoria/<catName> */}
         <div className="mt-5">
           <button
-            onClick={props.onSeeAll}
+            onClick={props.onGoCat}
             className="w-full rounded-2xl bg-emerald-900 px-4 py-3 text-sm font-extrabold text-white hover:bg-emerald-800"
             type="button"
           >
-            {ctaLabel}
+            {shopBtnLabel}
           </button>
         </div>
       </div>
     </div>
   );
 }
-
 
 function CategoryRow(props) {
   var ref;
@@ -877,7 +885,6 @@ function ProductCardMini(props) {
   );
 }
 
-
 /* Card normal */
 function ProductCardV2(props) {
   var p, hasImg, priceText, href;
@@ -937,7 +944,7 @@ function ProductCardV2(props) {
       <div className="px-4 pb-4">
         <div className="text-[11px] font-bold text-slate-500">{p.category_name || "—"}</div>
 
-        {/* ✅ Título también clickeable (opcional, pero recomendado) */}
+        {/* ✅ Título también clickeable */}
         <div className="mt-1 min-h-[44px] text-sm font-extrabold text-slate-900">
           {href ? (
             <Link to={href} className="hover:underline" title="Ver detalle">
@@ -985,7 +992,6 @@ function ProductCardV2(props) {
   );
 }
 
-
 function Skel() {
   return <div className="h-44 rounded-3xl bg-slate-100" />;
 }
@@ -1003,11 +1009,20 @@ function HeartIcon() {
     </svg>
   );
 }
+
 function productHref(p) {
   var id;
   id = p && typeof p.id_product !== "undefined" ? String(p.id_product) : "";
   if (!id) return "";
   return "/producto/" + id;
+}
+
+/* ✅ /categoria/<Nombre> con encode (espacios => %20) */
+function categoryHref(name) {
+  var n;
+  n = String(name || "").trim();
+  if (!n) return "/categoria";
+  return "/categoria/" + encodeURIComponent(n);
 }
 
 /* ---------- icons ---------- */

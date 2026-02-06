@@ -13,22 +13,30 @@ import CategoryProducts from "../pages/catalog/CategoryProducts";
 import Dashboard from "../pages/admin/Dashboard";
 import Categories from "../pages/admin/Categories";
 import Products from "../pages/admin/Products";
+import AboutUs from "../pages/AboutUs";
+import WorkWithUs from "../pages/WorkWithUs";
+
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Público con Layout */}
-        <Route element={<PublicLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/producto/:id" element={<ProductDetail />} />
+<Route element={<PublicLayout />}>
+  <Route path="/" element={<Home />} />
+  <Route path="/producto/:id" element={<ProductDetail />} />
 
-          {/* ✅ categorías */}
-          <Route path="/categoria" element={<CategoryIndex />} />
-          <Route path="/categoria/:cat" element={<CategoryProducts />} />
+  {/* ✅ categorías */}
+  <Route path="/categoria" element={<CategoryIndex />} />
+  <Route path="/categoria/:cat" element={<CategoryProducts />} />
 
-          <Route path="/login" element={<Login />} />
-        </Route>
+  {/* ✅ nuevas vistas públicas */}
+  <Route path="/aboutus" element={<AboutUs />} />
+  <Route path="/trabaja-con-nosotros" element={<WorkWithUs />} />
+
+  <Route path="/login" element={<Login />} />
+</Route>
+
 
         {/* Admin protegido */}
         <Route element={<ProtectedRoute />}>

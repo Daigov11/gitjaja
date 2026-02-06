@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { listCategories } from "../services/categoriesService";
 import { listProducts } from "../services/productsService";
 import { BD_NAME } from "../services/appConfig";
+var QR_IMG_URL;
+QR_IMG_URL = "https://api-centralizador.apiworking.pe/images/f215cdb4-12d8-439b-80ea-f1a5300ac3af.png";
 
 var BRAND;
 var LOGO_URL;
@@ -42,17 +44,20 @@ FB_ICON_IMG =
 TT_ICON_IMG =
   "https://img.freepik.com/psd-premium/logotipo-tiktok-circulo-negro-superposicion-roja-azul_1131634-494.jpg?semt=ais_hybrid&w=740&q=80";
 
+  var CART_ICON_IMG;
+CART_ICON_IMG = "https://cdn-icons-png.flaticon.com/512/3144/3144456.png";
+
 /* UI */
 var HEADER_BG;
 
 /* ====== CONFIG ====== */
 BRAND = "Harinas Don Pepito";
 LOGO_URL =
-  "https://api-centralizador.apiworking.pe/images/b487694a-8613-4eb4-ab1c-3d8f3fd453ff.png";
+  "https://api-centralizador.apiworking.pe/images/76975c79-6992-49f6-ae0e-e17694c5aaf8.png";
 
 PHONE = "946762926";
 HELP_FLOAT_IMG_URL =
-  "http://api-centralizador.apiworking.pe/images/73456618-7161-440a-8903-3ed53667c759.png";
+  "https://api-centralizador.apiworking.pe/images/74d3532e-bd3c-4f6c-a4c6-8a465495bec8.png";
 
 HELP_FLOAT_TEXT = "Hola, necesito ayuda con mi pedido.";
 
@@ -69,7 +74,7 @@ HEADER_BG = "#8BC34A";
 /* ✅ IMPORTANTE: catálogo debe ser "/categoria" para funcionar desde /producto/:id */
 NAV_ITEMS = [
   { label: "Inicio", href: "/", type: "route" },
-  { label: "Quienes somos", href: "/quienes-somos", type: "route" },
+  { label: "Quienes somos", href: "/aboutus", type: "route" },
 
   /* 👇 este item se renderiza como botón con mega menú */
   { label: "Catálogo", href: "/categoria", type: "route" },
@@ -78,6 +83,7 @@ NAV_ITEMS = [
   { label: "Promociones", href: "/categoria/" + encodeURIComponent("PROMOCIONES"), type: "route" },
   { label: "Trabaja con nosotros", href: "/trabaja-con-nosotros", type: "route" },
 ];
+
 
 export default function PublicLayout() {
   var qSearch, setQSearch;
@@ -314,221 +320,231 @@ export default function PublicLayout() {
 return (
   <div className="min-h-screen w-full bg-slate-50 flex flex-col">
     <ScrollToTop />
-    {/* =========================
-        HEADER  (tipo estructura Marles)
-          - Izq: nav + Catálogo dropdown
-          - Centro: logo
-          - Der: search + redes + carrito
-         ========================= */}
+    {/*  HEADER   */}
       <header className="sticky top-0 z-40 w-full">
         <div className="w-full" style={{ backgroundColor: HEADER_BG }}>
           <div className="mx-auto w-full max-w-7xl px-4">
-            {/* ===== Desktop ===== */}
-            <div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-3">
-              {/* IZQ: NAV */}
-              <div className="relative" ref={megaRef}>
-                <nav className="flex flex-wrap items-center gap-1 rounded-xl bg-black/15 px-2 py-1 shadow-sm">
-                  {NAV_ITEMS.map(function (it, i) {
-                    var cls;
+{/* ===== Desktop (estilo Marles) ===== */}
+<div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center gap-6 py-4">
+  {/* IZQ: NAV (simple, tipo Marles) */}
+  <div className="relative" ref={megaRef}>
+    <nav className="flex items-center gap-2">
+      {NAV_ITEMS.map(function (it, i) {
+        var cls;
 
-                    cls =
-                      "rounded-lg px-3 py-2 text-[13px] font-extrabold text-white/95 hover:bg-white/15 hover:text-white";
+        cls =
+          "rounded-md px-3 py-2 text-[14px] font-extrabold text-white/95 hover:bg-white/10 hover:text-white";
 
-                    /* ✅ Catálogo: mega menú */
-                    if (it.label === "Catálogo") {
-                      return (
-                        <button
-                          key={"nav" + i}
-                          type="button"
-                          onClick={toggleMegaCats}
-                          className={cls + " inline-flex items-center gap-2"}
-                          aria-expanded={megaOpen ? "true" : "false"}
-                          title="Ver categorías"
-                        >
-                          Catálogo <span className="text-white/80">▾</span>
-                        </button>
-                      );
-                    }
+        /* ✅ Catálogo: mega menú */
+        if (it.label === "Catálogo") {
+          return (
+            <button
+              key={"nav" + i}
+              type="button"
+              onClick={toggleMegaCats}
+              className={cls + " inline-flex items-center gap-2"}
+              aria-expanded={megaOpen ? "true" : "false"}
+              title="Ver categorías"
+            >
+              Catálogo <span className="text-white/80">▾</span>
+            </button>
+          );
+        }
 
-                    if (it.type === "route") {
-                      return (
-                        <Link key={"nav" + i} to={it.href} className={cls}>
-                          {it.label}
-                        </Link>
-                      );
-                    }
+        if (it.type === "route") {
+          return (
+            <Link key={"nav" + i} to={it.href} className={cls}>
+              {it.label}
+            </Link>
+          );
+        }
 
-                    return (
-                      <a
-                        key={"nav" + i}
-                        href={it.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={cls}
-                      >
-                        {it.label}
-                      </a>
-                    );
-                  })}
-                </nav>
+        return (
+          <a
+            key={"nav" + i}
+            href={it.href}
+            target="_blank"
+            rel="noreferrer"
+            className={cls}
+          >
+            {it.label}
+          </a>
+        );
+      })}
+    </nav>
 
-                {/* ✅ MEGA MENÚ CATEGORÍAS (texto) */}
-                {megaOpen ? (
-                  <div className="absolute left-0 top-[56px] w-[860px] max-w-[92vw] rounded-2xl bg-[#0B3D57] p-5 shadow-2xl ring-1 ring-black/10">
-                    <div className="flex items-center gap-3">
-                      <div className="text-sm font-extrabold text-white">CATEGORÍAS</div>
+    {/* ✅ MEGA MENÚ CATEGORÍAS (más robusto: top-full + mt) */}
+    {megaOpen ? (
+      <div className="absolute left-0 top-full mt-3 w-[860px] max-w-[92vw] rounded-2xl bg-[#0B3D57] p-5 shadow-2xl ring-1 ring-black/10">
+        <div className="flex items-center gap-3">
+          <div className="text-sm font-extrabold text-white">CATEGORÍAS</div>
 
-                      <div className="ml-auto w-[280px] max-w-[48vw]">
-                        <input
-                          value={megaQuery}
-                          onChange={function (e) {
-                            setMegaQuery(e.target.value);
-                          }}
-                          placeholder="Filtrar..."
-                          className="w-full rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white placeholder:text-white/60 outline-none focus:border-white/40"
-                        />
-                      </div>
-                    </div>
+          <div className="ml-auto w-[280px] max-w-[48vw]">
+            <input
+              value={megaQuery}
+              onChange={function (e) {
+                setMegaQuery(e.target.value);
+              }}
+              placeholder="Filtrar..."
+              className="w-full rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white placeholder:text-white/60 outline-none focus:border-white/40"
+            />
+          </div>
+        </div>
 
-                    <div className="mt-4">
-                      <Link
-                        to="/categoria"
-                        onClick={function () {
-                          setMegaOpen(false);
-                          window.scrollTo(0, 0);
-                        }}
-                        className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-xs font-extrabold text-white hover:bg-white/15"
-                        title="Ver todas las categorías"
-                      >
-                        Ver todas <span className="opacity-80">→</span>
-                      </Link>
-                    </div>
+        <div className="mt-4">
+          <Link
+            to="/categoria"
+            onClick={function () {
+              setMegaOpen(false);
+              window.scrollTo(0, 0);
+            }}
+            className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-xs font-extrabold text-white hover:bg-white/15"
+            title="Ver todas las categorías"
+          >
+            Ver todas <span className="opacity-80">→</span>
+          </Link>
+        </div>
 
-                    <div className="mt-4 grid gap-6 md:grid-cols-3">
-                      {megaCols.map(function (col, ci) {
-                        return (
-                          <div key={"mcol" + ci} className="min-w-0">
-                            {col.map(function (name, k) {
-                              var href;
-                              href = "/categoria/" + encodeURIComponent(String(name || ""));
+        <div className="mt-4 grid gap-6 md:grid-cols-3">
+          {megaCols.map(function (col, ci) {
+            return (
+              <div key={"mcol" + ci} className="min-w-0">
+                {col.map(function (name, k) {
+                  var href;
+                  href = "/categoria/" + encodeURIComponent(String(name || ""));
 
-                              return (
-                                <Link
-                                  key={"mcat" + ci + "_" + k}
-                                  to={href}
-                                  onClick={function () {
-                                    setMegaOpen(false);
-                                    window.scrollTo(0, 0);
-                                  }}
-                                  className="block rounded-lg px-2 py-1.5 text-[13px] font-semibold text-white/90 hover:bg-white/10 hover:text-white"
-                                  title={name}
-                                >
-                                  {String(name || "")}
-                                </Link>
-                              );
-                            })}
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <div className="mt-4 text-xs font-semibold text-white/70">
-                      Tip: escribe para filtrar rápido una categoría.
-                    </div>
-                  </div>
-                ) : null}
+                  return (
+                    <Link
+                      key={"mcat" + ci + "_" + k}
+                      to={href}
+                      onClick={function () {
+                        setMegaOpen(false);
+                        window.scrollTo(0, 0);
+                      }}
+                      className="block rounded-lg px-2 py-1.5 text-[13px] font-semibold text-white/90 hover:bg-white/10 hover:text-white"
+                      title={name}
+                    >
+                      {String(name || "")}
+                    </Link>
+                  );
+                })}
               </div>
+            );
+          })}
+        </div>
 
-              {/* CENTRO: Logo */}
-              <div className="shrink-0">
-                <Link to="/" className="flex items-center justify-center">
-                  <img src={LOGO_URL} alt="Don Pepito" className="h-14 w-auto object-contain lg:h-16" />
-                </Link>
-              </div>
-
-              {/* DER: Search + redes + carrito */}
-              <div className="flex items-center justify-end gap-3">
-                {/* Search */}
-                <div className="relative w-[520px] max-w-[38vw]">
-                  <input
-                    value={qSearch}
-                    onChange={function (e) {
-                      setQSearch(e.target.value);
-                    }}
-                    placeholder="Buscar productos..."
-                    className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 outline-none focus:border-white"
-                  />
-                  <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
-                    <SearchIcon />
-                  </div>
-                </div>
-
-{/* Redes */}
-<a
-  href={IG_URL}
-  target="_blank"
-  rel="noreferrer"
-  className="group rounded-full bg-black/15 p-2 hover:bg-black/25"
-  title="Instagram"
->
-  <img
-    src={IG_ICON_IMG}
-    alt="Instagram"
-    className="h-6 w-6 rounded-full object-cover"
-    loading="lazy"
-    draggable="false"
-  />
-</a>
-
-<a
-  href={FB_URL}
-  target="_blank"
-  rel="noreferrer"
-  className="group rounded-full bg-black/15 p-2 hover:bg-black/25"
-  title="Facebook"
->
-  <img
-    src={FB_ICON_IMG}
-    alt="Facebook"
-    className="h-6 w-6 rounded-full object-cover"
-    loading="lazy"
-    draggable="false"
-  />
-</a>
-
-<a
-  href={TT_URL}
-  target="_blank"
-  rel="noreferrer"
-  className="group rounded-full bg-black/15 p-2 hover:bg-black/25"
-  title="TikTok"
->
-  <img
-    src={TT_ICON_IMG}
-    alt="TikTok"
-    className="h-6 w-6 rounded-full object-cover"
-    loading="lazy"
-    draggable="false"
-  />
-</a>
+        <div className="mt-4 text-xs font-semibold text-white/70">
+          Tip: escribe para filtrar rápido una categoría.
+        </div>
+      </div>
+    ) : null}
+  </div>
+{/* CENTRO: Logo */}
+<div className="shrink-0">
+  <Link to="/" className="flex items-center justify-center">
+    <img
+      src={LOGO_URL}
+      alt="Don Pepito"
+      className="h-16 w-auto object-contain sm:h-20 lg:h-24"
+    />
+  </Link>
+</div>
 
 
-                {/* Carrito */}
-                <button
-                  onClick={function () {
-                    setCartOpen(true);
-                  }}
-                  className="relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-white shadow hover:bg-orange-400"
-                  title="Carrito"
-                  aria-label="Abrir carrito"
-                >
-                  CA
-                  <span className="absolute -right-1 -top-1 inline-flex min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-xs font-extrabold text-slate-900 shadow">
-                    {cart.length}
-                  </span>
-                </button>
-              </div>
-            </div>
+  {/* DER: Search + redes + carrito (tipo Marles: input + botón) */}
+  <div className="flex items-center justify-end gap-3">
+    {/* Search (cajita tipo Marles) */}
+    <div className="flex w-[420px] max-w-[38vw] items-stretch overflow-hidden rounded-xl border border-white/25 bg-white shadow-sm">
+      <input
+        value={qSearch}
+        onChange={function (e) {
+          setQSearch(e.target.value);
+        }}
+        placeholder="Buscar productos..."
+        className="w-full px-4 py-2.5 text-sm font-semibold text-slate-900 outline-none"
+      />
+      <button
+        type="button"
+        className="inline-flex w-12 items-center justify-center border-l border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100"
+        title="Buscar"
+        aria-label="Buscar"
+      >
+        <SearchIcon />
+      </button>
+    </div>
+
+    {/* Redes */}
+    <a
+      href={IG_URL}
+      target="_blank"
+      rel="noreferrer"
+      className="rounded-full bg-black/15 p-2 hover:bg-black/25"
+      title="Instagram"
+    >
+      <img
+        src={IG_ICON_IMG}
+        alt="Instagram"
+        className="h-6 w-6 rounded-full object-cover"
+        loading="lazy"
+        draggable="false"
+      />
+    </a>
+
+    <a
+      href={FB_URL}
+      target="_blank"
+      rel="noreferrer"
+      className="rounded-full bg-black/15 p-2 hover:bg-black/25"
+      title="Facebook"
+    >
+      <img
+        src={FB_ICON_IMG}
+        alt="Facebook"
+        className="h-6 w-6 rounded-full object-cover"
+        loading="lazy"
+        draggable="false"
+      />
+    </a>
+
+    <a
+      href={TT_URL}
+      target="_blank"
+      rel="noreferrer"
+      className="rounded-full bg-black/15 p-2 hover:bg-black/25"
+      title="TikTok"
+    >
+      <img
+        src={TT_ICON_IMG}
+        alt="TikTok"
+        className="h-6 w-6 rounded-full object-cover"
+        loading="lazy"
+        draggable="false"
+      />
+    </a>
+
+    {/* Carrito (con imagen) */}
+    <button
+      onClick={function () {
+        setCartOpen(true);
+      }}
+      className="relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 shadow hover:bg-orange-400"
+      title="Carrito"
+      aria-label="Abrir carrito"
+    >
+      <img
+        src={CART_ICON_IMG}
+        alt="Carrito"
+        className="h-7 w-7 object-contain"
+        loading="lazy"
+        draggable="false"
+      />
+      <span className="absolute -right-1 -top-1 inline-flex min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-xs font-extrabold text-slate-900 shadow">
+        {cart.length}
+      </span>
+    </button>
+  </div>
+</div>
+
 
             {/* ===== Mobile ===== */}
             <div className="flex items-center gap-3 py-3 md:hidden">
@@ -546,7 +562,7 @@ return (
               </button>
 
               <Link to="/" className="flex items-center">
-                <img src={LOGO_URL} alt="Don Pepito" className="h-10 w-auto object-contain" />
+<img src={LOGO_URL} alt="Don Pepito" className="h-12 w-auto object-contain" />
               </Link>
 
               <div className="ml-auto flex items-center gap-2">
@@ -689,135 +705,162 @@ return (
       {/* ✅ BOTÓN FLOTANTE "¿NECESITAS AYUDA?" */}
       <HelpWhatsappFloat />
 
-      {/* ✅ FOOTER NUEVO (tipo retail) */}
-      <footer className="w-full border-t border-slate-200 bg-white text-slate-700">
-        <div className="mx-auto w-full max-w-7xl px-4">
+{/* ✅ FOOTER NUEVO (tipo retail) - ACCENT #8BC34A */}
+<footer className="w-full bg-[#8BC34A] text-white">
+  {/* barra superior accent */}
+  <div className="h-1 w-full bg-[#8BC34A]" />
 
-          <div className="py-10">
-            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-              <div>
-                <div className="flex items-center gap-3">
-                  <img src={LOGO_URL} alt={BRAND} className="h-30 w-auto object-contain" />
-                  <div className="leading-tight"></div>
-                </div>
+  <div className="mx-auto w-full max-w-7xl px-4">
+    <div className="py-10">
+      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <div className="flex items-center gap-3">
+            <img src={LOGO_URL} alt={BRAND} className="h-30 w-auto object-contain" />
+            <div className="leading-tight"></div>
+          </div>
 
-                <div className="mt-4 space-y-2 text-sm font-semibold text-slate-600">
-                  <div className="flex items-start gap-2">
-                    <span className="mt-0.5 text-slate-400">
-                      <PinIcon />
-                    </span>
-                    <span>Lima, Perú (envíos a todo el país)</span>
-                  </div>
+<div className="mt-4 space-y-2 text-sm font-semibold text-black">
+            <div className="flex items-start gap-2">
+              <span className="mt-0.5 text-[#8BC34A]">
+                <PinIcon />
+              </span>
+              <span>Lima, Perú (envíos a todo el país)</span>
+            </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="text-slate-400">
-                      <ClockIcon />
-                    </span>
-                    <span>Lun–Sáb • Atención rápida</span>
-                  </div>
-                </div>
-
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <a
-                    href={"tel:+51" + cleanPhone(PHONE)}
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
-                    title={"Llamar +51 " + PHONE}
-                  >
-                    <PhoneMiniIcon />
-                    +51 {PHONE}
-                  </a>
-
-                  <a
-                    href={"https://wa.me/51" + cleanPhone(PHONE)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl bg-emerald-700 px-4 py-2 text-sm font-extrabold text-white hover:bg-emerald-800"
-                    title="Escríbenos por WhatsApp"
-                  >
-                    <WhatsAppIcon />
-                    WhatsApp
-                  </a>
-                </div>
-
-                <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-xs font-semibold text-slate-600">
-                  Haz tu lista y envíala por WhatsApp. Te cotizamos y coordinamos el envío.
-                </div>
-              </div>
-
-              <div>
-                <FooterTitle>MENÚ</FooterTitle>
-                <div className="mt-4 space-y-2">
-                  <FooterLink href="/">Inicio</FooterLink>
-                  <FooterLink href="/categorias">Categorías</FooterLink>
-                  <FooterLink href="/productos">Productos</FooterLink>
-                  <FooterLink href="/promociones">Promociones</FooterLink>
-                  <FooterLink href="/contacto">Contacto</FooterLink>
-                </div>
-              </div>
-
-              <div>
-                <FooterTitle>SERVICIO AL CLIENTE</FooterTitle>
-                <div className="mt-4 space-y-2">
-                  <FooterLink href="/envios">Envíos y cobertura</FooterLink>
-                  <FooterLink href="/pagos">Formas de pago</FooterLink>
-                  <FooterLink href="/faq">Preguntas frecuentes</FooterLink>
-                  <FooterLink href="/terminos">Términos y condiciones</FooterLink>
-                  <FooterLink href="/privacidad">Política de privacidad</FooterLink>
-                </div>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  <TagPill>Envío</TagPill>
-                  <TagPill>Recojo</TagPill>
-                  <TagPill>Agencia</TagPill>
-                  <TagPill>Mayorista</TagPill>
-                </div>
-              </div>
-
-              <div>
-                <FooterTitle>REDES SOCIALES</FooterTitle>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <a
-                    href={IG_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
-                  >
-                    <InstagramMiniIcon />
-                    Instagram
-                  </a>
-
-                  <a
-                    href={FB_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
-                  >
-                    <FacebookMiniIcon />
-                    Facebook
-                  </a>
-
-                  <a
-                    href={TT_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
-                  >
-                    <TikTokMiniIcon />
-                    TikTok
-                  </a>
-                </div>
-              </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[#8BC34A]">
+                <ClockIcon />
+              </span>
+              <span>Lun–Sáb • Atención rápida</span>
             </div>
           </div>
 
-          <div className="border-t border-slate-200 py-6 text-xs font-semibold text-slate-500">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div>© {new Date().getFullYear()} {BRAND} — Tienda Web</div>
-              <div className="text-slate-400">Mercado de Productores de Santa Anita, Pj 54, Santa Anita 15011</div>
-            </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <a
+              href={"tel:+51" + cleanPhone(PHONE)}
+              className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+              title={"Llamar +51 " + PHONE}
+            >
+              <PhoneMiniIcon />
+              +51 {PHONE}
+            </a>
+
+            <a
+              href={"https://wa.me/51" + cleanPhone(PHONE)}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl bg-[#8BC34A] px-4 py-2 text-sm font-extrabold text-white hover:bg-[#7CB342]"
+              title="Escríbenos por WhatsApp"
+            >
+              <WhatsAppIcon />
+              WhatsApp
+            </a>
           </div>
         </div>
-      </footer>
+
+        <div>
+          <FooterTitle>MENÚ</FooterTitle>
+          <div className="mt-4 space-y-2">
+            <FooterLink href="/">Inicio</FooterLink>
+            <FooterLink href="/categorias">Categorías</FooterLink>
+            <FooterLink href="/productos">Productos</FooterLink>
+            <FooterLink href="/promociones">Promociones</FooterLink>
+            <FooterLink href="/contacto">Contacto</FooterLink>
+          </div>
+        </div>
+
+        <div>
+          <FooterTitle>SERVICIO AL CLIENTE</FooterTitle>
+          <div className="mt-4 space-y-2">
+            <FooterLink href="/envios">Envíos y cobertura</FooterLink>
+            <FooterLink href="/pagos">Formas de pago</FooterLink>
+            <FooterLink href="/faq">Preguntas frecuentes</FooterLink>
+            <FooterLink href="/terminos">Términos y condiciones</FooterLink>
+            <FooterLink href="/privacidad">Política de privacidad</FooterLink>
+          </div>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            <TagPill>Envío</TagPill>
+            <TagPill>Recojo</TagPill>
+            <TagPill>Agencia</TagPill>
+            <TagPill>Mayorista</TagPill>
+          </div>
+        </div>
+
+<div>
+  <FooterTitle>REDES SOCIALES</FooterTitle>
+
+  <div className="mt-4 flex flex-wrap gap-2">
+    <a
+      href={IG_URL}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+    >
+      <img
+        src={IG_ICON_IMG}
+        alt="Instagram"
+        className="h-5 w-5 rounded object-contain"
+      />
+      Instagram
+    </a>
+
+    <a
+      href={FB_URL}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+    >
+      <img
+        src={FB_ICON_IMG}
+        alt="Facebook"
+        className="h-5 w-5 rounded object-contain"
+      />
+      Facebook
+    </a>
+
+    <a
+      href={TT_URL}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+    >
+      <img
+        src={TT_ICON_IMG}
+        alt="TikTok"
+        className="h-5 w-5 rounded object-contain"
+      />
+      TikTok
+    </a>
+  </div>
+
+  {/* ✅ QR (solo imagen, el link ya está dentro del QR) */}
+  <div className="mt-6">
+    <div className="w-fit rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
+      <img
+        src={QR_IMG_URL}
+        alt={"QR " + BRAND}
+        className="h-28 w-28 rounded-xl object-contain"
+      />
+    </div>
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <div className="border-t border-slate-200 py-6 text-xs font-semibold text-slate-500">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          © {new Date().getFullYear()} {BRAND} — Tienda Web
+        </div>
+        <div className="text-slate-400">
+          Mercado de Productores de Santa Anita, Pj 54, Santa Anita 15011
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
       {/* MODAL WHATSAPP */}
       {cartOpen ? (
@@ -1090,7 +1133,7 @@ function cleanPhone(v) {
 }
 
 function FooterTitle(props) {
-  return <div className="text-sm font-extrabold tracking-wide text-emerald-700">{props.children}</div>;
+  return <div className="text-sm font-extrabold tracking-wide text-black">{props.children}</div>;
 }
 
 function FooterLink(props) {
