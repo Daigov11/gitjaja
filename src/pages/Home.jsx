@@ -44,7 +44,7 @@ PROMO_BLOCKS = [
     catId: "3",
     title: "Productos más vendidos",
     img: "https://api-centralizador.apiworking.pe/images/c304fb50-9270-489c-91d0-50b0add2ce00.png",
-    cta: "Tienda Online",
+    cta: "Categoria",
     side: "left",
     max: 4,
   },
@@ -52,7 +52,7 @@ PROMO_BLOCKS = [
     catId: "4",
     title: "Productos más visitados",
     img: "https://api-centralizador.apiworking.pe/images/8e4a0c06-4350-4815-b8ff-361be5504837.png",
-    cta: "Tienda Online",
+    cta: "Categoria",
     side: "right",
     max: 4,
   },
@@ -61,16 +61,16 @@ PROMO_BLOCKS = [
   {
     catId: "6",
     title: "Ofertas y destacados",
-    img: "https://api-centralizador.apiworking.pe/images/5767a14d-c59b-4360-84e4-d0cf879481b3.png",
-    cta: "Tienda Online wa",
+    img: "https://api-centralizador.apiworking.pe/images/c304fb50-9270-489c-91d0-50b0add2ce00.png",
+    cta: "Categoria",
     side: "left",
     max: 4,
   },
   {
     catId: "10",
     title: "Recomendados para ti",
-    img: "https://images.squarespace-cdn.com/content/v1/561718ebe4b062a227c4fcf2/1660fbf1-657e-43ad-9615-f2f02ce93dc6/azu%CC%81car.png",
-    cta: "Tienda Online",
+    img: "https://api-centralizador.apiworking.pe/images/8e4a0c06-4350-4815-b8ff-361be5504837.png",
+    cta: "Categoria",
     side: "right",
     max: 4,
   },
@@ -568,7 +568,7 @@ function buildPromoBlocks(catItemsApi, products, blocks) {
       catName: name,
       title: String(b.title || ""),
       img: String(b.img || ""),
-      cta: String(b.cta || "Tienda Online"),
+      cta: String(b.cta || "Categoria"),
       side: String(b.side || "left"),
       items: items,
     });
@@ -655,10 +655,10 @@ function PromoBlock(props) {
   bannerCls = "lg:col-span-5 " + (b.side === "right" ? "lg:order-2" : "lg:order-1");
   productsCls = "lg:col-span-7 " + (b.side === "right" ? "lg:order-1" : "lg:order-2");
 
-  bannerBtnLabel = "Ir a categoría";
+  bannerBtnLabel = "Ir a catalogo";
 
   shopBtnLabel = String(b.cta || "").trim();
-  if (!shopBtnLabel) shopBtnLabel = "Tienda Online";
+  if (!shopBtnLabel) shopBtnLabel = "Categoria";
 
   return (
     <div className="grid gap-6 lg:grid-cols-12">

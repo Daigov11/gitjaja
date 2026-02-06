@@ -105,7 +105,7 @@ export default function CategoryIndex() {
           <div>
             <div className="text-xs font-extrabold text-emerald-700">Catálogo</div>
             <div className="mt-1 text-2xl font-extrabold text-slate-900">
-              Comprar por categorías destacadas
+              BUSCA POR CATEGORIA
             </div>
             <div className="mt-1 text-sm font-semibold text-slate-600">
               Elige una categoría para ver sus productos.
@@ -179,7 +179,7 @@ export default function CategoryIndex() {
                 </div>
               </div>
             ) : (
-              <div className="grid gap-6 grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+<div className="grid gap-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                 {catsShown.map(function (c) {
                   return (
                     <CategoryTile
@@ -208,12 +208,13 @@ function CategoryTile(props) {
   return (
     <Link to={href} className="group flex flex-col items-center text-center">
       <div className="relative">
-        <div className="h-24 w-24 overflow-hidden rounded-full border border-slate-200 bg-white shadow-sm group-hover:shadow-md">
-          <CategoryImage name={props.name} imageUrl={props.imageUrl} />
-        </div>
+<div className="h-28 w-28 sm:h-32 sm:w-32 md:h-36 md:w-36 overflow-hidden rounded-full border border-slate-200 bg-white shadow-sm group-hover:shadow-md">
+  <CategoryImage name={props.name} imageUrl={props.imageUrl} />
+</div>
+
 
         {/* Badge count (opcional, discreto) */}
-        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-white px-2 py-0.5 text-[11px] font-extrabold text-slate-700 shadow-sm ring-1 ring-slate-200">
+<div className="absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-white px-2.5 py-1 text-[12px] font-extrabold text-slate-700 shadow-sm ring-1 ring-slate-200">
           {String(props.count || 0)}
         </div>
       </div>

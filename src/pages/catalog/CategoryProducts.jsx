@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
-import { Link, useOutletContext, useParams } from "react-router-dom";
+import { Link, useOutletContext, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { listProducts } from "../../services/productsService";
 import { BD_NAME } from "../../services/appConfig";
+
 
 /* ====== TOP-LEVEL VARS ====== */
 var PAGE_STEP;
@@ -263,17 +264,39 @@ export default function CategoryProducts() {
 
 function ProductCard(props) {
   var p, hasImg, priceText, inCart;
+  var nav;
 
   p = props.p;
+  nav = useNavigate();
+
   hasImg = !!(p && p.product_image_url);
-
   inCart = isInCart(props.cart, p.id_product);
-
   priceText = p && p.has_price ? "S/ " + Number(p.price || 0).toFixed(2) : "";
+
+  function goDetail() {
+    if (!p || !p.id_product) return;
+    nav("/producto/" + p.id_product);
+  }
+
+  function onKeyGo(e) {
+    if (!e) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      goDetail();
+    }
+  }
 
   return (
     <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-      <div className="h-44 w-full bg-white">
+      {/* ✅ Imagen clickeable -> Detalle */}
+      <div
+        className="h-44 w-full bg-white cursor-pointer"
+        onClick={goDetail}
+        onKeyDown={onKeyGo}
+        role="button"
+        tabIndex={0}
+        title="Ver detalle"
+      >
         {hasImg ? (
           <img
             src={p.product_image_url}
@@ -329,6 +352,7 @@ function ProductCard(props) {
     </div>
   );
 }
+
 
 /* ---------- helpers ---------- */
 

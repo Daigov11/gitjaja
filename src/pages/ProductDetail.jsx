@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useParams, useOutletContext } from "react-router-dom";
+import { Link, useParams, useOutletContext, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { listProducts } from "../services/productsService";
 import { BD_NAME } from "../services/appConfig";
@@ -8,8 +8,38 @@ import { BD_NAME } from "../services/appConfig";
 var CART_KEY;
 var PHONE;
 
+var VARIANT_PREFIXES;
+var VARIANT_TYPES_ORDER;
+
 CART_KEY = "dp_cart_interest_v1";
 PHONE = "946762926";
+
+/* palabras típicas para detectar “presentación” */
+VARIANT_PREFIXES = [
+  "U.",
+  "U",
+  "UND",
+  "UNIDAD",
+  "BARRA",
+  "BOLSA",
+  "SACO",
+  "PAQUETE",
+  "PQT",
+  "PACK",
+  "DISPLAY",
+  "CAJA",
+];
+
+VARIANT_TYPES_ORDER = [
+  "UNIDAD",
+  "BARRA",
+  "BOLSA",
+  "PAQUETE",
+  "SACO",
+  "PACK",
+  "CAJA",
+  "OTRO",
+];
 
 export default function ProductDetail() {
   var params, id;
@@ -24,9 +54,14 @@ export default function ProductDetail() {
   var cart, toggleInCart, openCartUi;
 
   var related;
+  var variants;
+
+  var navigate;
 
   params = useParams();
   id = params && params.id ? params.id : "";
+
+  navigate = useNavigate();
 
   ctx = useOutletContext ? useOutletContext() : null;
   if (!ctx) ctx = {};
@@ -105,6 +140,46 @@ export default function ProductDetail() {
     [items, id]
   );
 
+  /* ✅ scroll arriba cuando cambia el producto */
+  useEffect(
+    function () {
+      try {
+        window.scrollTo(0, 0);
+      } catch (e) {}
+    },
+    [id]
+  );
+
+  /* ====== VARIANTES (UNIDAD / CAJA / ETC) ====== */
+  variants = useMemo(
+    function () {
+      var out, i, p, key, k;
+      out = [];
+      if (!product) return out;
+
+      key = variantKeyFromName(product.product_name);
+      if (!key) return out;
+
+      for (i = 0; i < items.length; i = i + 1) {
+        p = items[i];
+        if (!p || !p.product_status) continue;
+        if (String(p.id_product) === String(product.id_product)) continue;
+
+        k = variantKeyFromName(p.product_name);
+        if (k !== key) continue;
+
+        out.push(p);
+      }
+
+      out.sort(function (a, b) {
+        return variantRank(a.product_name) - variantRank(b.product_name);
+      });
+
+      return out;
+    },
+    [items, product]
+  );
+
   /* relacionados por misma categoría */
   related = useMemo(
     function () {
@@ -166,6 +241,12 @@ export default function ProductDetail() {
   function onToggleMain() {
     toggleInCart(product);
     setToast(isInCart(cart, product.id_product) ? "Quitado de tu lista" : "Agregado a tu lista");
+  }
+
+  function onPickVariant(p) {
+    if (!p) return;
+    setToast("Cambiando presentación…");
+    navigate("/producto/" + p.id_product);
   }
 
   /* states */
@@ -318,9 +399,48 @@ export default function ProductDetail() {
                 {product.product_name}
               </div>
 
+              <div className="mt-2 inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-extrabold text-slate-700">
+                Presentación: {variantLabelFromName(product.product_name)}
+              </div>
+
               <div className="mt-3 text-sm font-semibold text-slate-700">
                 {product.product_desc || "—"}
               </div>
+
+              {/* ✅ PRESENTACIONES / VARIANTES */}
+              {variants && variants.length ? (
+                <div className="mt-5 rounded-3xl border border-slate-200 bg-white p-4">
+                  <div className="text-xs font-extrabold text-slate-600">Presentaciones</div>
+
+                  <div
+                    className="mt-3 flex gap-3 overflow-x-auto pb-2"
+                    style={{ scrollbarWidth: "none" }}
+                  >
+                    <VariantMini
+                      p={product}
+                      active={true}
+                      onClick={function () {}}
+                    />
+
+                    {variants.map(function (vp) {
+                      return (
+                        <VariantMini
+                          key={"v_" + vp.id_product}
+                          p={vp}
+                          active={false}
+                          onClick={function () {
+                            onPickVariant(vp);
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+
+                  <div className="mt-2 text-[11px] font-semibold text-slate-500">
+                    Tip: toca una presentación para ver su imagen/precio (unidad, caja, etc.).
+                  </div>
+                </div>
+              ) : null}
 
               {/* price block */}
               <div className="mt-5 rounded-3xl border border-slate-200 bg-slate-50 p-4">
@@ -349,7 +469,6 @@ export default function ProductDetail() {
                   <Chip icon={<BoxIcon />} label="Stock sujeto a confirmación" />
                   <Chip icon={<ClockIcon />} label="Respuesta rápida" />
                   <Chip icon={<ClockIcon />} label="Solo chat por Whatsapp" />
-
                 </div>
               </div>
 
@@ -364,9 +483,7 @@ export default function ProductDetail() {
                       : "bg-emerald-600 text-white hover:bg-emerald-700")
                   }
                 >
-                  {isInCart(cart, product.id_product)
-                    ? "Quitar de mi consulta"
-                    : "Agregar al carrito"}
+                  {isInCart(cart, product.id_product) ? "Quitar de mi consulta" : "Agregar al carrito"}
                 </button>
 
                 <button
@@ -398,6 +515,7 @@ export default function ProductDetail() {
                       <RowInfo k="ID producto" v={String(product.id_product || "—")} />
                       <RowInfo k="Precio" v={product.has_price ? "Visible" : "Consultar"} />
                       <RowInfo k="Estado" v={product.product_status ? "Activo" : "Inactivo"} />
+                      <RowInfo k="Presentación" v={variantLabelFromName(product.product_name)} />
                     </div>
                   ) : null}
 
@@ -455,7 +573,8 @@ export default function ProductDetail() {
                 Productos relacionados
               </div>
               <div className="mt-1 text-sm font-semibold text-slate-600">
-                Más de la categoría: <span className="font-extrabold">{product.category_name || "—"}</span>
+                Más de la categoría:{" "}
+                <span className="font-extrabold">{product.category_name || "—"}</span>
               </div>
             </div>
 
@@ -565,6 +684,95 @@ function buildWalink(cart) {
   return base + "?text=" + msg;
 }
 
+/* ===== variantes: lógica ===== */
+function variantKeyFromName(name) {
+  var s, i, pfx;
+
+  s = String(name || "");
+  s = normalizeText(s);
+
+  /* quitar prefijos (CAJA, U., BARRA, etc) si vienen al inicio */
+  for (i = 0; i < VARIANT_PREFIXES.length; i = i + 1) {
+    pfx = VARIANT_PREFIXES[i];
+    if (!pfx) continue;
+
+    if (s === pfx) s = "";
+    if (s.indexOf(pfx + " ") === 0) {
+      s = s.slice((pfx + " ").length);
+      break;
+    }
+  }
+
+  /* quitar sufijos típicos de “multipack” (solo PQT/PAQ/PACK/DISPLAY) */
+  s = s.replace(/\bX\s*\d+\s*(PQT|PQTS|PAQ|PAQS|PAQUETE|PAQUETES|PACK|PACKS|DISPLAY)\b/g, "");
+  s = s.replace(/\s+/g, " ").trim();
+
+  return s;
+}
+
+function variantTypeFromName(name) {
+  var s, t;
+
+  s = String(name || "");
+  s = normalizeText(s);
+
+  t = "";
+
+  if (s.indexOf("UNIDAD ") === 0 || s.indexOf("UND ") === 0 || s.indexOf("U. ") === 0 || s.indexOf("U ") === 0)
+    t = "UNIDAD";
+  else if (s.indexOf("BARRA ") === 0) t = "BARRA";
+  else if (s.indexOf("BOLSA ") === 0) t = "BOLSA";
+  else if (s.indexOf("SACO ") === 0) t = "SACO";
+  else if (s.indexOf("PAQUETE ") === 0 || s.indexOf("PQT ") === 0) t = "PAQUETE";
+  else if (s.indexOf("PACK ") === 0 || s.indexOf("DISPLAY ") === 0) t = "PACK";
+  else if (s.indexOf("CAJA ") === 0) t = "CAJA";
+  else t = "OTRO";
+
+  return t;
+}
+
+function variantLabelFromName(name) {
+  var t;
+  t = variantTypeFromName(name);
+
+  if (t === "UNIDAD") return "Unidad";
+  if (t === "BARRA") return "Barra";
+  if (t === "BOLSA") return "Bolsa";
+  if (t === "SACO") return "Saco";
+  if (t === "PAQUETE") return "Paquete";
+  if (t === "PACK") return "Pack";
+  if (t === "CAJA") return "Caja";
+  return "Otra";
+}
+
+function variantRank(name) {
+  var t, i;
+  t = variantTypeFromName(name);
+  for (i = 0; i < VARIANT_TYPES_ORDER.length; i = i + 1) {
+    if (VARIANT_TYPES_ORDER[i] === t) return i;
+  }
+  return 999;
+}
+
+function normalizeText(s) {
+  var x;
+  x = String(s || "").toUpperCase();
+
+  /* quitar tildes básico */
+  x = x.replace(/[ÁÀÄÂ]/g, "A");
+  x = x.replace(/[ÉÈËÊ]/g, "E");
+  x = x.replace(/[ÍÌÏÎ]/g, "I");
+  x = x.replace(/[ÓÒÖÔ]/g, "O");
+  x = x.replace(/[ÚÙÜÛ]/g, "U");
+  x = x.replace(/Ñ/g, "N");
+
+  /* limpiar símbolos raros */
+  x = x.replace(/[_\-.,;:(){}\[\]]/g, " ");
+  x = x.replace(/\s+/g, " ").trim();
+
+  return x;
+}
+
 /* ===== small UI ===== */
 function TabBtn(props) {
   return (
@@ -597,6 +805,73 @@ function Chip(props) {
       <span className="text-slate-500">{props.icon}</span>
       {props.label}
     </span>
+  );
+}
+
+/* mini card de presentación */
+function VariantMini(props) {
+  var p, hasImg, label;
+
+  p = props.p;
+  hasImg = !!(p && p.product_image_url);
+  label = variantLabelFromName(p && p.product_name ? p.product_name : "");
+
+  return (
+    <button
+      onClick={props.onClick}
+      className={
+        "flex min-w-[190px] items-center gap-3 rounded-3xl border p-3 text-left transition " +
+        (props.active
+          ? "border-emerald-500 bg-emerald-50"
+          : "border-slate-200 bg-white hover:bg-slate-50")
+      }
+      type="button"
+    >
+      <div className="h-12 w-12 overflow-hidden rounded-2xl bg-white ring-1 ring-slate-200">
+        {hasImg ? (
+          <img
+            src={p.product_image_url}
+            alt={p.product_name}
+            className="h-full w-full object-contain p-1"
+            loading="lazy"
+            draggable="false"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-[10px] font-extrabold text-slate-300">
+            —
+          </div>
+        )}
+      </div>
+
+      <div className="min-w-0 flex-1">
+        <div className="text-[11px] font-extrabold text-slate-700">{label}</div>
+        <div className="mt-0.5 truncate text-xs font-semibold text-slate-600">
+          {p && p.product_name ? p.product_name : "—"}
+        </div>
+
+        <div className="mt-1">
+          {p && p.has_price ? (
+            <span className="text-xs font-extrabold text-red-600">
+              S/ {Number(p.price || 0).toFixed(2)}
+            </span>
+          ) : (
+            <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-extrabold text-amber-800">
+              CONSULTAR
+            </span>
+          )}
+        </div>
+      </div>
+
+      {props.active ? (
+        <span className="rounded-full bg-emerald-600 px-2 py-1 text-[10px] font-extrabold text-white">
+          ACTUAL
+        </span>
+      ) : (
+        <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-[10px] font-extrabold text-slate-700">
+          VER
+        </span>
+      )}
+    </button>
   );
 }
 

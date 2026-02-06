@@ -44,7 +44,7 @@ FB_ICON_IMG =
 TT_ICON_IMG =
   "https://img.freepik.com/psd-premium/logotipo-tiktok-circulo-negro-superposicion-roja-azul_1131634-494.jpg?semt=ais_hybrid&w=740&q=80";
 
-  var CART_ICON_IMG;
+var CART_ICON_IMG;
 CART_ICON_IMG = "https://cdn-icons-png.flaticon.com/512/3144/3144456.png";
 
 /* UI */
@@ -67,7 +67,10 @@ TT_URL = "https://www.tiktok.com/@harinasdonpepito";
 
 CART_KEY = "dp_cart_interest_v1";
 MAX_CATS = 300;
+var WA_ICON_IMG;
 
+WA_ICON_IMG =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/960px-WhatsApp.svg.png"
 /* ✅ Verde manzana */
 HEADER_BG = "#8BC34A";
 
@@ -317,238 +320,237 @@ export default function PublicLayout() {
     openMegaCats();
   }
 
-return (
-  <div className="min-h-screen w-full bg-slate-50 flex flex-col">
-    <ScrollToTop />
-    {/*  HEADER   */}
+  return (
+    <div className="min-h-screen w-full bg-slate-50 flex flex-col">
+      <ScrollToTop />
+      {/*  HEADER   */}
       <header className="sticky top-0 z-40 w-full">
         <div className="w-full" style={{ backgroundColor: HEADER_BG }}>
-          <div className="mx-auto w-full max-w-7xl px-4">
-{/* ===== Desktop (estilo Marles) ===== */}
-<div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center gap-6 py-4">
-  {/* IZQ: NAV (simple, tipo Marles) */}
-  <div className="relative" ref={megaRef}>
-    <nav className="flex items-center gap-2">
-      {NAV_ITEMS.map(function (it, i) {
-        var cls;
+          {/* ✅ ANTES: max-w-7xl -> ahora FULL WIDTH */}
+          <div className="mx-auto w-full max-w-none px-3 sm:px-5 lg:px-10 2xl:px-14">
+            {/* ===== Desktop (arreglado: no se sale en <1920) ===== */}
+            <div className="hidden md:grid min-w-0 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 lg:gap-6 py-3 lg:py-4">
+              {/* IZQ: NAV */}
+              <div className="relative min-w-0" ref={megaRef}>
+                <nav className="flex flex-wrap items-center gap-1 lg:gap-2">
+                  {NAV_ITEMS.map(function (it, i) {
+                    var cls;
 
-        cls =
-          "rounded-md px-3 py-2 text-[14px] font-extrabold text-white/95 hover:bg-white/10 hover:text-white";
+                    /* ✅ en pantallas medianas baja un poco padding/fuente para que no empuje */
+                    cls =
+                      "rounded-md px-2 lg:px-3 py-2 text-[13px] lg:text-[15px] xl:text-[16px] font-extrabold text-white/95 hover:bg-white/10 hover:text-white";
 
-        /* ✅ Catálogo: mega menú */
-        if (it.label === "Catálogo") {
-          return (
-            <button
-              key={"nav" + i}
-              type="button"
-              onClick={toggleMegaCats}
-              className={cls + " inline-flex items-center gap-2"}
-              aria-expanded={megaOpen ? "true" : "false"}
-              title="Ver categorías"
-            >
-              Catálogo <span className="text-white/80">▾</span>
-            </button>
-          );
-        }
+                    if (it.label === "Catálogo") {
+                      return (
+                        <button
+                          key={"nav" + i}
+                          type="button"
+                          onClick={toggleMegaCats}
+                          className={cls + " inline-flex items-center gap-2"}
+                          aria-expanded={megaOpen ? "true" : "false"}
+                          title="Ver categorías"
+                        >
+                          Catálogo <span className="text-white/80">▾</span>
+                        </button>
+                      );
+                    }
 
-        if (it.type === "route") {
-          return (
-            <Link key={"nav" + i} to={it.href} className={cls}>
-              {it.label}
-            </Link>
-          );
-        }
+                    if (it.type === "route") {
+                      return (
+                        <Link key={"nav" + i} to={it.href} className={cls}>
+                          {it.label}
+                        </Link>
+                      );
+                    }
 
-        return (
-          <a
-            key={"nav" + i}
-            href={it.href}
-            target="_blank"
-            rel="noreferrer"
-            className={cls}
-          >
-            {it.label}
-          </a>
-        );
-      })}
-    </nav>
+                    return (
+                      <a
+                        key={"nav" + i}
+                        href={it.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={cls}
+                      >
+                        {it.label}
+                      </a>
+                    );
+                  })}
+                </nav>
 
-    {/* ✅ MEGA MENÚ CATEGORÍAS (más robusto: top-full + mt) */}
-    {megaOpen ? (
-      <div className="absolute left-0 top-full mt-3 w-[860px] max-w-[92vw] rounded-2xl bg-[#0B3D57] p-5 shadow-2xl ring-1 ring-black/10">
-        <div className="flex items-center gap-3">
-          <div className="text-sm font-extrabold text-white">CATEGORÍAS</div>
+                {/* ✅ MEGA MENÚ (igual que tenías) */}
+                {megaOpen ? (
+                  <div className="absolute left-0 top-full mt-3 w-[920px] max-w-[92vw] rounded-2xl bg-[#0B3D57] p-5 shadow-2xl ring-1 ring-black/10">
+                    <div className="flex items-center gap-3">
+                      <div className="text-sm font-extrabold text-white">CATEGORÍAS</div>
 
-          <div className="ml-auto w-[280px] max-w-[48vw]">
-            <input
-              value={megaQuery}
-              onChange={function (e) {
-                setMegaQuery(e.target.value);
-              }}
-              placeholder="Filtrar..."
-              className="w-full rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white placeholder:text-white/60 outline-none focus:border-white/40"
-            />
-          </div>
-        </div>
+                      <div className="ml-auto w-[280px] max-w-[48vw]">
+                        <input
+                          value={megaQuery}
+                          onChange={function (e) {
+                            setMegaQuery(e.target.value);
+                          }}
+                          placeholder="Filtrar..."
+                          className="w-full rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white placeholder:text-white/60 outline-none focus:border-white/40"
+                        />
+                      </div>
+                    </div>
 
-        <div className="mt-4">
-          <Link
-            to="/categoria"
-            onClick={function () {
-              setMegaOpen(false);
-              window.scrollTo(0, 0);
-            }}
-            className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-xs font-extrabold text-white hover:bg-white/15"
-            title="Ver todas las categorías"
-          >
-            Ver todas <span className="opacity-80">→</span>
-          </Link>
-        </div>
+                    <div className="mt-4">
+                      <Link
+                        to="/categoria"
+                        onClick={function () {
+                          setMegaOpen(false);
+                          window.scrollTo(0, 0);
+                        }}
+                        className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-xs font-extrabold text-white hover:bg-white/15"
+                        title="Ver todas las categorías"
+                      >
+                        Ver todas <span className="opacity-80">→</span>
+                      </Link>
+                    </div>
 
-        <div className="mt-4 grid gap-6 md:grid-cols-3">
-          {megaCols.map(function (col, ci) {
-            return (
-              <div key={"mcol" + ci} className="min-w-0">
-                {col.map(function (name, k) {
-                  var href;
-                  href = "/categoria/" + encodeURIComponent(String(name || ""));
+                    <div className="mt-4 grid gap-6 md:grid-cols-3">
+                      {megaCols.map(function (col, ci) {
+                        return (
+                          <div key={"mcol" + ci} className="min-w-0">
+                            {col.map(function (name, k) {
+                              var href;
+                              href = "/categoria/" + encodeURIComponent(String(name || ""));
 
-                  return (
-                    <Link
-                      key={"mcat" + ci + "_" + k}
-                      to={href}
-                      onClick={function () {
-                        setMegaOpen(false);
-                        window.scrollTo(0, 0);
-                      }}
-                      className="block rounded-lg px-2 py-1.5 text-[13px] font-semibold text-white/90 hover:bg-white/10 hover:text-white"
-                      title={name}
-                    >
-                      {String(name || "")}
-                    </Link>
-                  );
-                })}
+                              return (
+                                <Link
+                                  key={"mcat" + ci + "_" + k}
+                                  to={href}
+                                  onClick={function () {
+                                    setMegaOpen(false);
+                                    window.scrollTo(0, 0);
+                                  }}
+                                  className="block rounded-lg px-2 py-1.5 text-[13px] font-semibold text-white/90 hover:bg-white/10 hover:text-white"
+                                  title={name}
+                                >
+                                  {String(name || "")}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div className="mt-4 text-xs font-semibold text-white/70">
+                      Tip: escribe para filtrar rápido una categoría.
+                    </div>
+                  </div>
+                ) : null}
               </div>
-            );
-          })}
-        </div>
 
-        <div className="mt-4 text-xs font-semibold text-white/70">
-          Tip: escribe para filtrar rápido una categoría.
-        </div>
-      </div>
-    ) : null}
-  </div>
-{/* CENTRO: Logo */}
-<div className="shrink-0">
-  <Link to="/" className="flex items-center justify-center">
-    <img
-      src={LOGO_URL}
-      alt="Don Pepito"
-      className="h-16 w-auto object-contain sm:h-20 lg:h-24"
-    />
-  </Link>
-</div>
+              {/* CENTRO: Logo */}
+              <div className="shrink-0">
+                <Link to="/" className="flex items-center justify-center">
+                  <img
+                    src={LOGO_URL}
+                    alt="Don Pepito"
+                    className="h-16 sm:h-20 lg:h-24 2xl:h-28 w-auto object-contain"
+                  />
+                </Link>
+              </div>
 
+              {/* DER: Search + redes + carrito */}
+              <div className="flex min-w-0 items-center justify-end gap-1.5 lg:gap-3">
+                {/* ✅ Search: ahora SE ENCOGE, ya no empuja el header */}
+                <div className="flex min-w-0 flex-1 max-w-[320px] lg:max-w-[420px] xl:max-w-[520px] 2xl:max-w-[560px] items-stretch overflow-hidden rounded-xl border border-white/25 bg-white shadow-sm">
+                  <input
+                    value={qSearch}
+                    onChange={function (e) {
+                      setQSearch(e.target.value);
+                    }}
+                    placeholder="Buscar productos..."
+                    className="min-w-0 w-full px-4 py-2.5 text-sm font-semibold text-slate-900 outline-none"
+                  />
+                  <button
+                    type="button"
+                    className="inline-flex w-11 lg:w-12 items-center justify-center border-l border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100"
+                    title="Buscar"
+                    aria-label="Buscar"
+                  >
+                    <SearchIcon />
+                  </button>
+                </div>
 
-  {/* DER: Search + redes + carrito (tipo Marles: input + botón) */}
-  <div className="flex items-center justify-end gap-3">
-    {/* Search (cajita tipo Marles) */}
-    <div className="flex w-[420px] max-w-[38vw] items-stretch overflow-hidden rounded-xl border border-white/25 bg-white shadow-sm">
-      <input
-        value={qSearch}
-        onChange={function (e) {
-          setQSearch(e.target.value);
-        }}
-        placeholder="Buscar productos..."
-        className="w-full px-4 py-2.5 text-sm font-semibold text-slate-900 outline-none"
-      />
-      <button
-        type="button"
-        className="inline-flex w-12 items-center justify-center border-l border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100"
-        title="Buscar"
-        aria-label="Buscar"
-      >
-        <SearchIcon />
-      </button>
-    </div>
+                {/* ✅ Redes: un pelín más compactas en tamaños medianos */}
+                <a
+                  href={IG_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full bg-black/15 p-1.5 lg:p-2 hover:bg-black/25"
+                  title="Instagram"
+                >
+                  <img
+                    src={IG_ICON_IMG}
+                    alt="Instagram"
+                    className="h-5 w-5 lg:h-6 lg:w-6 rounded-full object-cover"
+                    loading="lazy"
+                    draggable="false"
+                  />
+                </a>
 
-    {/* Redes */}
-    <a
-      href={IG_URL}
-      target="_blank"
-      rel="noreferrer"
-      className="rounded-full bg-black/15 p-2 hover:bg-black/25"
-      title="Instagram"
-    >
-      <img
-        src={IG_ICON_IMG}
-        alt="Instagram"
-        className="h-6 w-6 rounded-full object-cover"
-        loading="lazy"
-        draggable="false"
-      />
-    </a>
+                <a
+                  href={FB_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full bg-black/15 p-1.5 lg:p-2 hover:bg-black/25"
+                  title="Facebook"
+                >
+                  <img
+                    src={FB_ICON_IMG}
+                    alt="Facebook"
+                    className="h-5 w-5 lg:h-6 lg:w-6 rounded-full object-cover"
+                    loading="lazy"
+                    draggable="false"
+                  />
+                </a>
 
-    <a
-      href={FB_URL}
-      target="_blank"
-      rel="noreferrer"
-      className="rounded-full bg-black/15 p-2 hover:bg-black/25"
-      title="Facebook"
-    >
-      <img
-        src={FB_ICON_IMG}
-        alt="Facebook"
-        className="h-6 w-6 rounded-full object-cover"
-        loading="lazy"
-        draggable="false"
-      />
-    </a>
+                <a
+                  href={TT_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full bg-black/15 p-1.5 lg:p-2 hover:bg-black/25"
+                  title="TikTok"
+                >
+                  <img
+                    src={TT_ICON_IMG}
+                    alt="TikTok"
+                    className="h-5 w-5 lg:h-6 lg:w-6 rounded-full object-cover"
+                    loading="lazy"
+                    draggable="false"
+                  />
+                </a>
 
-    <a
-      href={TT_URL}
-      target="_blank"
-      rel="noreferrer"
-      className="rounded-full bg-black/15 p-2 hover:bg-black/25"
-      title="TikTok"
-    >
-      <img
-        src={TT_ICON_IMG}
-        alt="TikTok"
-        className="h-6 w-6 rounded-full object-cover"
-        loading="lazy"
-        draggable="false"
-      />
-    </a>
-
-    {/* Carrito (con imagen) */}
-    <button
-      onClick={function () {
-        setCartOpen(true);
-      }}
-      className="relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 shadow hover:bg-orange-400"
-      title="Carrito"
-      aria-label="Abrir carrito"
-    >
-      <img
-        src={CART_ICON_IMG}
-        alt="Carrito"
-        className="h-7 w-7 object-contain"
-        loading="lazy"
-        draggable="false"
-      />
-      <span className="absolute -right-1 -top-1 inline-flex min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-xs font-extrabold text-slate-900 shadow">
-        {cart.length}
-      </span>
-    </button>
-  </div>
-</div>
+                <button
+                  onClick={function () {
+                    setCartOpen(true);
+                  }}
+                  className="relative inline-flex h-11 w-11 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-orange-500 shadow hover:bg-orange-400"
+                  title="Carrito"
+                  aria-label="Abrir carrito"
+                >
+                  <img
+                    src={CART_ICON_IMG}
+                    alt="Carrito"
+                    className="h-6 w-6 lg:h-7 lg:w-7 object-contain"
+                    loading="lazy"
+                    draggable="false"
+                  />
+                  <span className="absolute -right-1 -top-1 inline-flex min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-xs font-extrabold text-slate-900 shadow">
+                    {cart.length}
+                  </span>
+                </button>
+              </div>
+            </div>
 
 
             {/* ===== Mobile ===== */}
             <div className="flex items-center gap-3 py-3 md:hidden">
-              {/* Hamburguesa: abre drawer categorías */}
               <button
                 onClick={function () {
                   setCatOpen(true);
@@ -562,7 +564,8 @@ return (
               </button>
 
               <Link to="/" className="flex items-center">
-<img src={LOGO_URL} alt="Don Pepito" className="h-12 w-auto object-contain" />
+                {/* ✅ logo mobile un poquito más grande */}
+                <img src={LOGO_URL} alt="Don Pepito" className="h-14 w-auto object-contain" />
               </Link>
 
               <div className="ml-auto flex items-center gap-2">
@@ -600,6 +603,7 @@ return (
           </div>
         </div>
       </header>
+
       {/* ✅ Barra mini de marcas (debajo del header) */}
       <BrandMarquee />
       {/* ✅ Drawer lateral (mobile): SOLO categorías */}
@@ -705,252 +709,262 @@ return (
       {/* ✅ BOTÓN FLOTANTE "¿NECESITAS AYUDA?" */}
       <HelpWhatsappFloat />
 
-{/* ✅ FOOTER NUEVO (tipo retail) - ACCENT #8BC34A */}
-<footer className="w-full bg-[#8BC34A] text-white">
-  {/* barra superior accent */}
-  <div className="h-1 w-full bg-[#8BC34A]" />
+      {/* ✅ FOOTER NUEVO (tipo retail) - ACCENT #8BC34A */}
+      <footer className="w-full bg-[#8BC34A] text-white">
+        {/* barra superior accent */}
+        <div className="h-1 w-full bg-[#8BC34A]" />
 
-  <div className="mx-auto w-full max-w-7xl px-4">
-    <div className="py-10">
-      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        <div>
-          <div className="flex items-center gap-3">
-            <img src={LOGO_URL} alt={BRAND} className="h-30 w-auto object-contain" />
-            <div className="leading-tight"></div>
-          </div>
+        <div className="mx-auto w-full max-w-7xl px-4">
+          <div className="py-10">
+            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+              <div>
+                <div className="flex items-center gap-3">
+                  <img src={LOGO_URL} alt={BRAND} className="h-30 w-auto object-contain" />
+                  <div className="leading-tight"></div>
+                </div>
 
-<div className="mt-4 space-y-2 text-sm font-semibold text-black">
-            <div className="flex items-start gap-2">
-              <span className="mt-0.5 text-[#8BC34A]">
-                <PinIcon />
-              </span>
-              <span>Lima, Perú (envíos a todo el país)</span>
-            </div>
+                <div className="mt-4 space-y-2 text-sm font-semibold text-black">
+                  <div className="flex items-start gap-2">
+                    <span className="mt-0.5 text-[#8BC34A]">
+                      <PinIcon />
+                    </span>
+                    <span>Lima, Perú (envíos a todo el país)</span>
+                  </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-[#8BC34A]">
-                <ClockIcon />
-              </span>
-              <span>Lun–Sáb • Atención rápida</span>
-            </div>
-          </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[#8BC34A]">
+                      <ClockIcon />
+                    </span>
+                    <span>Lun–Sáb • Atención rápida</span>
+                  </div>
+                </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            <a
-              href={"tel:+51" + cleanPhone(PHONE)}
-              className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
-              title={"Llamar +51 " + PHONE}
-            >
-              <PhoneMiniIcon />
-              +51 {PHONE}
-            </a>
-
-            <a
-              href={"https://wa.me/51" + cleanPhone(PHONE)}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-2xl bg-[#8BC34A] px-4 py-2 text-sm font-extrabold text-white hover:bg-[#7CB342]"
-              title="Escríbenos por WhatsApp"
-            >
-              <WhatsAppIcon />
-              WhatsApp
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <FooterTitle>MENÚ</FooterTitle>
-          <div className="mt-4 space-y-2">
-            <FooterLink href="/">Inicio</FooterLink>
-            <FooterLink href="/categorias">Categorías</FooterLink>
-            <FooterLink href="/productos">Productos</FooterLink>
-            <FooterLink href="/promociones">Promociones</FooterLink>
-            <FooterLink href="/contacto">Contacto</FooterLink>
-          </div>
-        </div>
-
-        <div>
-          <FooterTitle>SERVICIO AL CLIENTE</FooterTitle>
-          <div className="mt-4 space-y-2">
-            <FooterLink href="/envios">Envíos y cobertura</FooterLink>
-            <FooterLink href="/pagos">Formas de pago</FooterLink>
-            <FooterLink href="/faq">Preguntas frecuentes</FooterLink>
-            <FooterLink href="/terminos">Términos y condiciones</FooterLink>
-            <FooterLink href="/privacidad">Política de privacidad</FooterLink>
-          </div>
-
-          <div className="mt-5 flex flex-wrap gap-2">
-            <TagPill>Envío</TagPill>
-            <TagPill>Recojo</TagPill>
-            <TagPill>Agencia</TagPill>
-            <TagPill>Mayorista</TagPill>
-          </div>
-        </div>
-
-<div>
-  <FooterTitle>REDES SOCIALES</FooterTitle>
-
-  <div className="mt-4 flex flex-wrap gap-2">
-    <a
-      href={IG_URL}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
-    >
+<div className="mt-4 flex flex-wrap gap-2">
+  <a
+    href={"https://wa.me/51" + cleanPhone(PHONE)}
+    target="_blank"
+    rel="noreferrer"
+    className="inline-flex items-center gap-2 rounded-2xl bg-[#8BC34A] px-4 py-2 text-sm font-extrabold text-white hover:bg-[#7CB342]"
+    title="Escríbenos por WhatsApp"
+  >
+    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/95 shadow-sm ring-1 ring-white/40">
       <img
-        src={IG_ICON_IMG}
-        alt="Instagram"
-        className="h-5 w-5 rounded object-contain"
+        src={WA_ICON_IMG}
+        alt="WhatsApp"
+        className="h-5 w-5 object-contain"
+        loading="lazy"
+        draggable="false"
       />
-      Instagram
-    </a>
-
-    <a
-      href={FB_URL}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
-    >
-      <img
-        src={FB_ICON_IMG}
-        alt="Facebook"
-        className="h-5 w-5 rounded object-contain"
-      />
-      Facebook
-    </a>
-
-    <a
-      href={TT_URL}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
-    >
-      <img
-        src={TT_ICON_IMG}
-        alt="TikTok"
-        className="h-5 w-5 rounded object-contain"
-      />
-      TikTok
-    </a>
-  </div>
-
-  {/* ✅ QR (solo imagen, el link ya está dentro del QR) */}
-  <div className="mt-6">
-    <div className="w-fit rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
-      <img
-        src={QR_IMG_URL}
-        alt={"QR " + BRAND}
-        className="h-28 w-28 rounded-xl object-contain"
-      />
-    </div>
-  </div>
+    </span>
+    WhatsApp
+  </a>
 </div>
 
-      </div>
-    </div>
+              </div>
 
-    <div className="border-t border-slate-200 py-6 text-xs font-semibold text-slate-500">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          © {new Date().getFullYear()} {BRAND} — Tienda Web
-        </div>
-        <div className="text-slate-400">
-          Mercado de Productores de Santa Anita, Pj 54, Santa Anita 15011
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-      {/* MODAL WHATSAPP */}
-      {cartOpen ? (
-        <div className="fixed inset-0 z-50">
-          <div
-            className="absolute inset-0 bg-slate-900/40"
-            onClick={function () {
-              setCartOpen(false);
-            }}
-          />
-          <div className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-xl">
-            <div className="flex items-center justify-between border-b border-slate-200 p-4">
               <div>
-                <div className="text-sm font-extrabold text-slate-900">Tu consulta</div>
-                <div className="text-xs font-semibold text-slate-600">Lista de productos de interés</div>
+                <FooterTitle>MENÚ</FooterTitle>
+                <div className="mt-4 space-y-2">
+                  <FooterLink href="/">Inicio</FooterLink>
+                  <FooterLink href="/categorias">Categorías</FooterLink>
+                  <FooterLink href="/PROMOCIONES">Promociones</FooterLink>
+                  <FooterLink href="/contacto">Contacto</FooterLink>
+                </div>
               </div>
-              <button
-                className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-extrabold text-slate-700 hover:bg-slate-50"
-                onClick={function () {
-                  setCartOpen(false);
-                }}
-              >
-                Cerrar
-              </button>
+
+              <div>
+                <FooterTitle>SERVICIO AL CLIENTE</FooterTitle>
+                <div className="mt-4 space-y-2">
+                  <FooterLink href="/envios">Envíos y cobertura</FooterLink>
+                  <FooterLink href="/pagos">Formas de pago</FooterLink>
+                  <FooterLink href="/faq">Preguntas frecuentes</FooterLink>
+                  <FooterLink href="/terminos">Términos y condiciones</FooterLink>
+                  <FooterLink href="/privacidad">Política de privacidad</FooterLink>
+                </div>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <TagPill>Envío</TagPill>
+                  <TagPill>Recojo</TagPill>
+                  <TagPill>Agencia</TagPill>
+                  <TagPill>Mayorista</TagPill>
+                </div>
+              </div>
+
+              <div>
+                <FooterTitle>REDES SOCIALES</FooterTitle>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <a
+                    href={IG_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+                  >
+                    <img
+                      src={IG_ICON_IMG}
+                      alt="Instagram"
+                      className="h-5 w-5 rounded object-contain"
+                    />
+                    Instagram
+                  </a>
+
+                  <a
+                    href={FB_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+                  >
+                    <img
+                      src={FB_ICON_IMG}
+                      alt="Facebook"
+                      className="h-5 w-5 rounded object-contain"
+                    />
+                    Facebook
+                  </a>
+
+                  <a
+                    href={TT_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+                  >
+                    <img
+                      src={TT_ICON_IMG}
+                      alt="TikTok"
+                      className="h-5 w-5 rounded object-contain"
+                    />
+                    TikTok
+                  </a>
+                </div>
+
+                {/* ✅ QR (solo imagen, el link ya está dentro del QR) */}
+                <div className="mt-6">
+                  <div className="w-fit rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
+                    <img
+                      src={QR_IMG_URL}
+                      alt={"QR " + BRAND}
+                      className="h-28 w-28 rounded-xl object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
+
             </div>
+          </div>
 
-            <div className="p-4">
-              {cart.length === 0 ? (
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700">
-                  Aún no agregaste productos. Usa el botón “Agregar / Quitar” en las tarjetas.
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {cart.map(function (x) {
-                    return (
-                      <div key={"c" + x.id_product} className="rounded-2xl border border-slate-200 p-3">
-                        <div className="text-sm font-extrabold text-slate-900">{x.product_name}</div>
-                        <div className="mt-1 text-xs font-semibold text-slate-600">{x.category_name || "—"}</div>
-                        <div className="mt-2 flex items-center justify-between">
-                          <div className="text-xs font-extrabold text-slate-700">
-                            {x.has_price ? "S/ " + Number(x.price || 0).toFixed(2) : "¡CONSÚLTALO!"}
-                          </div>
-                          <button
-                            onClick={function () {
-                              toggleInCart({ id_product: x.id_product });
-                            }}
-                            className="rounded-xl border border-slate-200 px-3 py-2 text-xs font-extrabold text-slate-700 hover:bg-slate-50"
-                          >
-                            Quitar
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                <button
-                  disabled={cart.length === 0}
-                  onClick={openWalinkFromCart}
-                  className={
-                    "flex-1 rounded-2xl px-4 py-3 text-sm font-extrabold text-white " +
-                    (cart.length === 0 ? "bg-emerald-300" : "bg-emerald-600 hover:bg-emerald-700")
-                  }
-                >
-                  Hacer Pedido
-                </button>
-
-                <button
-                  disabled={cart.length === 0}
-                  onClick={clearCart}
-                  className={
-                    "rounded-2xl border px-4 py-3 text-sm font-extrabold " +
-                    (cart.length === 0
-                      ? "border-slate-200 text-slate-300"
-                      : "border-slate-200 text-slate-700 hover:bg-slate-50")
-                  }
-                >
-                  Vaciar
-                </button>
+          <div className="border-t border-slate-200 py-6 text-xl font-semibold text-slate-500">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                © {new Date().getFullYear()} {BRAND} — Tienda Web
               </div>
-
-              <div className="mt-3 text-xs font-semibold text-slate-500">
-                Recuerda revisar tus productos antes de hacer un pedido.
+              <div className="text-slate-400">
+                Mercado de Productores de Santa Anita, Pj 54, Santa Anita 15011
               </div>
             </div>
           </div>
         </div>
-      ) : null}
+      </footer>
+
+{/* MODAL WHATSAPP */}
+{cartOpen ? (
+  <div className="fixed inset-0 z-50">
+    <div
+      className="absolute inset-0 bg-slate-900/40"
+      onClick={function () {
+        setCartOpen(false);
+      }}
+    />
+
+    {/* ✅ PANEL RESPONSIVE (header fijo + body scroll + footer fijo) */}
+    <div className="absolute right-0 top-0 h-[100dvh] w-full sm:max-w-md bg-white shadow-xl flex flex-col">
+      {/* Header fijo */}
+      <div className="shrink-0 flex items-center justify-between border-b border-slate-200 p-4">
+        <div>
+          <div className="text-sm font-extrabold text-slate-900">Tu consulta</div>
+          <div className="text-xs font-semibold text-slate-600">Lista de productos de interés</div>
+        </div>
+
+        <button
+          className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-extrabold text-slate-700 hover:bg-slate-50"
+          onClick={function () {
+            setCartOpen(false);
+          }}
+        >
+          Cerrar
+        </button>
+      </div>
+
+      {/* Body con scroll */}
+      <div className="flex-1 overflow-y-auto overscroll-contain p-4">
+        {cart.length === 0 ? (
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700">
+            Aún no agregaste productos. Usa el botón “Agregar / Quitar” en las tarjetas.
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {cart.map(function (x) {
+              return (
+                <div key={"c" + x.id_product} className="rounded-2xl border border-slate-200 p-3">
+                  <div className="text-sm font-extrabold text-slate-900">{x.product_name}</div>
+                  <div className="mt-1 text-xs font-semibold text-slate-600">{x.category_name || "—"}</div>
+
+                  <div className="mt-2 flex items-center justify-between gap-2">
+                    <div className="text-xs font-extrabold text-slate-700">
+                      {x.has_price ? "S/ " + Number(x.price || 0).toFixed(2) : "¡CONSÚLTALO!"}
+                    </div>
+
+                    <button
+                      onClick={function () {
+                        toggleInCart({ id_product: x.id_product });
+                      }}
+                      className="shrink-0 rounded-xl border border-slate-200 px-3 py-2 text-xs font-extrabold text-slate-700 hover:bg-slate-50"
+                    >
+                      Quitar
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Footer fijo */}
+      <div className="shrink-0 border-t border-slate-200 p-4 bg-white">
+        <div className="flex flex-wrap gap-2">
+          <button
+            disabled={cart.length === 0}
+            onClick={openWalinkFromCart}
+            className={
+              "flex-1 rounded-2xl px-4 py-3 text-sm font-extrabold text-white " +
+              (cart.length === 0 ? "bg-emerald-300" : "bg-emerald-600 hover:bg-emerald-700")
+            }
+          >
+            Hacer Pedido
+          </button>
+
+          <button
+            disabled={cart.length === 0}
+            onClick={clearCart}
+            className={
+              "rounded-2xl border px-4 py-3 text-sm font-extrabold " +
+              (cart.length === 0
+                ? "border-slate-200 text-slate-300"
+                : "border-slate-200 text-slate-700 hover:bg-slate-50")
+            }
+          >
+            Vaciar
+          </button>
+        </div>
+
+        <div className="mt-3 text-xs font-semibold text-slate-500">
+          Recuerda revisar tus productos antes de hacer un pedido.
+        </div>
+      </div>
+    </div>
+  </div>
+) : null}
+
     </div>
   );
 }
