@@ -17,7 +17,7 @@ export default function AdminLayout() {
         <aside className="hidden w-[260px] flex-col bg-slate-950 text-white md:flex">
           <div className="px-6 pt-6">
             <div className="text-lg font-extrabold tracking-tight">ERP Admin</div>
-            <div className="mt-1 text-xs text-white/60">Panel de administración</div>
+            <div className="mt-1 text-m text-white/60">Panel de administración</div>
           </div>
 
           <nav className="mt-6 flex flex-1 flex-col gap-2 px-3">
@@ -29,7 +29,7 @@ export default function AdminLayout() {
           <div className="px-3 pb-6">
             <button
               onClick={logout}
-              className="flex w-full items-center justify-between rounded-xl bg-white/5 px-4 py-3 text-sm font-semibold text-white hover:bg-white/10"
+              className="flex w-full items-center justify-between rounded-xl bg-white/5 px-4 py-3 text-m font-semibold text-white hover:bg-white/10"
             >
               <span>Salir</span>
               <span className="text-white/60">↩</span>
@@ -44,9 +44,9 @@ export default function AdminLayout() {
             <div className="flex items-center justify-between px-4 py-3 md:px-6">
               <div className="flex items-center gap-3">
                 <div className="md:hidden">
-                  <span className="text-sm font-bold text-slate-900">ERP Admin</span>
+                  <span className="text-m font-bold text-mlate-900">ERP Admin</span>
                 </div>
-                <div className="hidden text-sm font-semibold text-slate-700 md:block">
+                <div className="hidden text-m font-semibold text-mlate-700 md:block">
                   {titleFromPath(loc.pathname)}
                 </div>
               </div>
@@ -55,7 +55,7 @@ export default function AdminLayout() {
   <Link
     to="/"
     title="Ver página pública"
-    className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50"
+    className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m hover:bg-slate-50"
   >
     👤
   </Link>
@@ -81,7 +81,7 @@ function SideItem(props) {
       className={function (obj) {
         var base;
         base =
-          "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition";
+          "flex items-center gap-3 rounded-xl px-4 py-3 text-m font-semibold transition";
         if (obj.isActive) return base + " bg-white/10 text-white";
         return base + " text-white/70 hover:bg-white/5 hover:text-white";
       }}

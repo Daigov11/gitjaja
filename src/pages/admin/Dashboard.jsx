@@ -14,25 +14,25 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-medium text-slate-500" hrfe>Panel de administración</p>
-            <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-900">
+            <p className="text-m font-medium text-mlate-500" hrfe>Panel de administración</p>
+            <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-mlate-900">
               Dashboard
             </h1>
-            <p className="mt-2 text-sm text-slate-600">
-              Bienvenido: <span className="font-semibold text-slate-900">{name}</span>
+            <p className="mt-2 text-m text-mlate-600">
+              Bienvenido: <span className="font-semibold text-mlate-900">{name}</span>
             </p>
           </div>
 
           <div className="flex flex-col gap-2 sm:flex-row">
             <Link
               to="/admin/categorias"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-m font-semibold text-mlate-900 shadow-sm hover:bg-slate-50"
             >
               + Nueva categoría
             </Link>
             <Link
               to="/admin/productos"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
+              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-m font-semibold text-white shadow-sm hover:bg-slate-800"
             >
               + Nuevo producto
             </Link>
@@ -44,7 +44,7 @@ export default function Dashboard() {
           <KpiCard title="Categorías" value="—" hint="Pendiente endpoint" />
           <KpiCard title="Productos" value="—" hint="Pendiente endpoint" />
           <KpiCard title="Activos" value="—" hint="Pendiente endpoint" />
-          <KpiCard title="Sin precio" value="—" hint="Mostrar: ¡CONSÚLTALO!" />
+          <KpiCard title="Sin precio" value="—" hint="Mostrar:  " />
         </div>
 
         {/* Main grid */}
@@ -55,12 +55,12 @@ export default function Dashboard() {
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-base font-bold text-slate-900">Resumen</h2>
-                  <p className="mt-1 text-sm text-slate-600">
+                  <h2 className="text-base font-bold text-mlate-900">Resumen</h2>
+                  <p className="mt-1 text-m text-mlate-600">
                     Gráficos desactivados por ahora, pero la sección ya está lista.
                   </p>
                 </div>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-m font-semibold text-mlate-700">
                   Próximamente
                 </span>
               </div>
@@ -81,8 +81,8 @@ export default function Dashboard() {
             {/* Quick actions */}
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="flex items-center justify-between">
-                <h2 className="text-base font-bold text-slate-900">Accesos rápidos</h2>
-                <span className="text-xs font-medium text-slate-500">Admin</span>
+                <h2 className="text-base font-bold text-mlate-900">Accesos rápidos</h2>
+                <span className="text-m font-medium text-mlate-500">Admin</span>
               </div>
 
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -124,12 +124,12 @@ export default function Dashboard() {
 function KpiCard(props) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <p className="text-xs font-semibold text-slate-500">{props.title}</p>
+      <p className="text-m font-semibold text-mlate-500">{props.title}</p>
       <div className="mt-2 flex items-end justify-between">
-        <p className="text-3xl font-extrabold tracking-tight text-slate-900">
+        <p className="text-3xl font-extrabold tracking-tight text-mlate-900">
           {props.value}
         </p>
-        <span className="text-xs font-medium text-slate-500">{props.hint}</span>
+        <span className="text-m font-medium text-mlate-500">{props.hint}</span>
       </div>
     </div>
   );
@@ -143,9 +143,9 @@ function QuickAction(props) {
   if (props.disabled) {
     return (
       <div className={base + " border-slate-200 bg-slate-50 opacity-60"}>
-        <p className="text-sm font-bold text-slate-900">{props.title}</p>
-        <p className="mt-1 text-xs text-slate-600">{props.desc}</p>
-        <p className="mt-3 text-xs font-semibold text-slate-500">Próximamente</p>
+        <p className="text-m font-bold text-mlate-900">{props.title}</p>
+        <p className="mt-1 text-m text-mlate-600">{props.desc}</p>
+        <p className="mt-3 text-m font-semibold text-mlate-500">Próximamente</p>
       </div>
     );
   }
@@ -156,18 +156,18 @@ function QuickAction(props) {
         to={props.to}
         className={base + " border-slate-900 bg-slate-900 text-white"}
       >
-        <p className="text-sm font-extrabold">{props.title}</p>
-        <p className="mt-1 text-xs text-white/80">{props.desc}</p>
-        <p className="mt-3 text-xs font-semibold text-white/80">Abrir →</p>
+        <p className="text-m font-extrabold">{props.title}</p>
+        <p className="mt-1 text-m text-white/80">{props.desc}</p>
+        <p className="mt-3 text-m font-semibold text-white/80">Abrir →</p>
       </Link>
     );
   }
 
   return (
     <Link to={props.to} className={base + " border-slate-200 bg-white"}>
-      <p className="text-sm font-bold text-slate-900">{props.title}</p>
-      <p className="mt-1 text-xs text-slate-600">{props.desc}</p>
-      <p className="mt-3 text-xs font-semibold text-slate-700">Abrir →</p>
+      <p className="text-m font-bold text-mlate-900">{props.title}</p>
+      <p className="mt-1 text-m text-mlate-600">{props.desc}</p>
+      <p className="mt-3 text-m font-semibold text-mlate-700">Abrir →</p>
     </Link>
   );
 }
@@ -176,8 +176,8 @@ function StatusRow(props) {
   return (
     <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-3">
       <div>
-        <p className="text-sm font-semibold text-slate-900">{props.label}</p>
-        <p className="text-xs text-slate-600">{props.note}</p>
+        <p className="text-m font-semibold text-mlate-900">{props.label}</p>
+        <p className="text-m text-mlate-600">{props.note}</p>
       </div>
       <span
         className={

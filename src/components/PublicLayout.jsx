@@ -5,7 +5,7 @@ import { listCategories } from "../services/categoriesService";
 import { listProducts } from "../services/productsService";
 import { BD_NAME } from "../services/appConfig";
 var QR_IMG_URL;
-QR_IMG_URL = "https://api-centralizador.apiworking.pe/images/f215cdb4-12d8-439b-80ea-f1a5300ac3af.png";
+QR_IMG_URL = "https://api-centralizador.apiworking.pe/images/9bc41d4a-4088-49c3-826b-5d0d8d59efde.png";
 
 var BRAND;
 var LOGO_URL;
@@ -381,7 +381,7 @@ export default function PublicLayout() {
                 {megaOpen ? (
                   <div className="absolute left-0 top-full mt-3 w-[920px] max-w-[92vw] rounded-2xl bg-[#0B3D57] p-5 shadow-2xl ring-1 ring-black/10">
                     <div className="flex items-center gap-3">
-                      <div className="text-sm font-extrabold text-white">CATEGORÍAS</div>
+                      <div className="text-m font-extrabold text-white">CATEGORÍAS</div>
 
                       <div className="ml-auto w-[280px] max-w-[48vw]">
                         <input
@@ -390,7 +390,7 @@ export default function PublicLayout() {
                             setMegaQuery(e.target.value);
                           }}
                           placeholder="Filtrar..."
-                          className="w-full rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white placeholder:text-white/60 outline-none focus:border-white/40"
+                          className="w-full rounded-full border border-white/15 bg-white/10 px-4 py-2 text-m font-semibold text-white placeholder:text-white/60 outline-none focus:border-white/40"
                         />
                       </div>
                     </div>
@@ -402,7 +402,7 @@ export default function PublicLayout() {
                           setMegaOpen(false);
                           window.scrollTo(0, 0);
                         }}
-                        className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-xs font-extrabold text-white hover:bg-white/15"
+                        className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-m font-extrabold text-white hover:bg-white/15"
                         title="Ver todas las categorías"
                       >
                         Ver todas <span className="opacity-80">→</span>
@@ -437,7 +437,7 @@ export default function PublicLayout() {
                       })}
                     </div>
 
-                    <div className="mt-4 text-xs font-semibold text-white/70">
+                    <div className="mt-4 text-m font-semibold text-white/70">
                       Tip: escribe para filtrar rápido una categoría.
                     </div>
                   </div>
@@ -450,7 +450,7 @@ export default function PublicLayout() {
                   <img
                     src={LOGO_URL}
                     alt="Don Pepito"
-                    className="h-16 sm:h-20 lg:h-24 2xl:h-28 w-auto object-contain"
+                    className="h-16 sm:h-25 lg:h-35 2xl:h-40 w-auto object-contain"
                   />
                 </Link>
               </div>
@@ -465,11 +465,11 @@ export default function PublicLayout() {
                       setQSearch(e.target.value);
                     }}
                     placeholder="Buscar productos..."
-                    className="min-w-0 w-full px-4 py-2.5 text-sm font-semibold text-slate-900 outline-none"
+                    className="min-w-0 w-full px-4 py-2.5 text-m font-semibold text-mlate-900 outline-none"
                   />
                   <button
                     type="button"
-                    className="inline-flex w-11 lg:w-12 items-center justify-center border-l border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100"
+                    className="inline-flex w-11 lg:w-12 items-center justify-center border-l border-slate-200 bg-slate-50 text-mlate-600 hover:bg-slate-100"
                     title="Buscar"
                     aria-label="Buscar"
                   >
@@ -541,7 +541,7 @@ export default function PublicLayout() {
                     loading="lazy"
                     draggable="false"
                   />
-                  <span className="absolute -right-1 -top-1 inline-flex min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-xs font-extrabold text-slate-900 shadow">
+                  <span className="absolute -right-1 -top-1 inline-flex min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-m font-extrabold text-mlate-900 shadow">
                     {cart.length}
                   </span>
                 </button>
@@ -573,11 +573,11 @@ export default function PublicLayout() {
                   onClick={function () {
                     setCartOpen(true);
                   }}
-                  className="relative inline-flex items-center gap-2 rounded-full bg-orange-500 px-3 py-2 text-sm font-extrabold text-white shadow hover:bg-orange-400"
+                  className="relative inline-flex items-center gap-2 rounded-full bg-orange-500 px-3 py-2 text-m font-extrabold text-white shadow hover:bg-orange-400"
                   aria-label="Abrir carrito"
                 >
                   CA
-                  <span className="rounded-full bg-white/90 px-2 py-0.5 text-xs text-slate-900">
+                  <span className="rounded-full bg-white/90 px-2 py-0.5 text-m text-mlate-900">
                     {cart.length}
                   </span>
                 </button>
@@ -593,9 +593,9 @@ export default function PublicLayout() {
                     setQSearch(e.target.value);
                   }}
                   placeholder="Buscar productos..."
-                  className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 outline-none focus:border-white"
+                  className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-mlate-900 outline-none focus:border-white"
                 />
-                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
+                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-mlate-500">
                   <SearchIcon />
                 </div>
               </div>
@@ -618,12 +618,12 @@ export default function PublicLayout() {
 
           <div className="absolute left-0 top-0 h-full w-[82%] max-w-sm bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
-              <div className="text-sm font-extrabold text-slate-900">CATEGORÍAS</div>
+              <div className="text-m font-extrabold text-mlate-900">CATEGORÍAS</div>
               <button
                 onClick={function () {
                   setCatOpen(false);
                 }}
-                className="rounded-xl border border-slate-200 p-2 text-slate-700 hover:bg-slate-50"
+                className="rounded-xl border border-slate-200 p-2 text-mlate-700 hover:bg-slate-50"
                 aria-label="Cerrar categorías"
               >
                 <XIcon />
@@ -638,9 +638,9 @@ export default function PublicLayout() {
                     setCatQuery(e.target.value);
                   }}
                   placeholder="Buscar categoría..."
-                  className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-sm font-semibold text-slate-900 outline-none focus:border-emerald-400"
+                  className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-m font-semibold text-mlate-900 outline-none focus:border-emerald-400"
                 />
-                <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-mlate-400">
                   <SearchIcon />
                 </div>
               </div>
@@ -652,18 +652,18 @@ export default function PublicLayout() {
                     setCatOpen(false);
                     window.scrollTo(0, 0);
                   }}
-                  className="flex items-center justify-between border-b border-slate-200 py-4 text-sm font-extrabold text-slate-900"
+                  className="flex items-center justify-between border-b border-slate-200 py-4 text-m font-extrabold text-mlate-900"
                 >
                   <span className="uppercase">Ver todas</span>
                   <ChevronIcon />
                 </Link>
 
                 {qCats.isLoading && catsAll.length === 0 ? (
-                  <div className="py-6 text-sm font-semibold text-slate-600">Cargando categorías…</div>
+                  <div className="py-6 text-m font-semibold text-mlate-600">Cargando categorías…</div>
                 ) : null}
 
                 {!qCats.isLoading && catsAll.length === 0 ? (
-                  <div className="py-6 text-sm font-semibold text-slate-600">No hay categorías.</div>
+                  <div className="py-6 text-m font-semibold text-mlate-600">No hay categorías.</div>
                 ) : null}
 
                 <div className="max-h-[calc(100vh-210px)] overflow-y-auto pr-1">
@@ -679,7 +679,7 @@ export default function PublicLayout() {
                           setCatOpen(false);
                           window.scrollTo(0, 0);
                         }}
-                        className="flex items-center justify-between border-b border-slate-200 py-4 text-sm font-extrabold text-slate-900"
+                        className="flex items-center justify-between border-b border-slate-200 py-4 text-m font-extrabold text-mlate-900"
                       >
                         <span className="uppercase">{name}</span>
                         <ChevronIcon />
@@ -723,7 +723,7 @@ export default function PublicLayout() {
                   <div className="leading-tight"></div>
                 </div>
 
-                <div className="mt-4 space-y-2 text-sm font-semibold text-black">
+                <div className="mt-4 space-y-2 text-m font-semibold text-black">
                   <div className="flex items-start gap-2">
                     <span className="mt-0.5 text-[#8BC34A]">
                       <PinIcon />
@@ -739,26 +739,26 @@ export default function PublicLayout() {
                   </div>
                 </div>
 
-<div className="mt-4 flex flex-wrap gap-2">
-  <a
-    href={"https://wa.me/51" + cleanPhone(PHONE)}
-    target="_blank"
-    rel="noreferrer"
-    className="inline-flex items-center gap-2 rounded-2xl bg-[#8BC34A] px-4 py-2 text-sm font-extrabold text-white hover:bg-[#7CB342]"
-    title="Escríbenos por WhatsApp"
-  >
-    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/95 shadow-sm ring-1 ring-white/40">
-      <img
-        src={WA_ICON_IMG}
-        alt="WhatsApp"
-        className="h-5 w-5 object-contain"
-        loading="lazy"
-        draggable="false"
-      />
-    </span>
-    WhatsApp
-  </a>
-</div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <a
+                    href={"https://wa.me/51" + cleanPhone(PHONE)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-2xl bg-[#8BC34A] px-4 py-2 text-m font-extrabold text-white hover:bg-[#7CB342]"
+                    title="Escríbenos por WhatsApp"
+                  >
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/95 shadow-sm ring-1 ring-white/40">
+                      <img
+                        src={WA_ICON_IMG}
+                        alt="WhatsApp"
+                        className="h-5 w-5 object-contain"
+                        loading="lazy"
+                        draggable="false"
+                      />
+                    </span>
+                    WhatsApp
+                  </a>
+                </div>
 
               </div>
 
@@ -781,13 +781,6 @@ export default function PublicLayout() {
                   <FooterLink href="/terminos">Términos y condiciones</FooterLink>
                   <FooterLink href="/privacidad">Política de privacidad</FooterLink>
                 </div>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  <TagPill>Envío</TagPill>
-                  <TagPill>Recojo</TagPill>
-                  <TagPill>Agencia</TagPill>
-                  <TagPill>Mayorista</TagPill>
-                </div>
               </div>
 
               <div>
@@ -798,7 +791,7 @@ export default function PublicLayout() {
                     href={IG_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
                   >
                     <img
                       src={IG_ICON_IMG}
@@ -812,7 +805,7 @@ export default function PublicLayout() {
                     href={FB_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
                   >
                     <img
                       src={FB_ICON_IMG}
@@ -826,7 +819,7 @@ export default function PublicLayout() {
                     href={TT_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
                   >
                     <img
                       src={TT_ICON_IMG}
@@ -852,12 +845,12 @@ export default function PublicLayout() {
             </div>
           </div>
 
-          <div className="border-t border-slate-200 py-6 text-xl font-semibold text-slate-500">
+          <div className="border-t border-slate-200 py-6 text-xl font-semibold text-mlate-500">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 © {new Date().getFullYear()} {BRAND} — Tienda Web
               </div>
-              <div className="text-slate-400">
+              <div className="text-mlate-400">
                 Mercado de Productores de Santa Anita, Pj 54, Santa Anita 15011
               </div>
             </div>
@@ -865,105 +858,105 @@ export default function PublicLayout() {
         </div>
       </footer>
 
-{/* MODAL WHATSAPP */}
-{cartOpen ? (
-  <div className="fixed inset-0 z-50">
-    <div
-      className="absolute inset-0 bg-slate-900/40"
-      onClick={function () {
-        setCartOpen(false);
-      }}
-    />
+      {/* MODAL WHATSAPP */}
+      {cartOpen ? (
+        <div className="fixed inset-0 z-50">
+          <div
+            className="absolute inset-0 bg-slate-900/40"
+            onClick={function () {
+              setCartOpen(false);
+            }}
+          />
 
-    {/* ✅ PANEL RESPONSIVE (header fijo + body scroll + footer fijo) */}
-    <div className="absolute right-0 top-0 h-[100dvh] w-full sm:max-w-md bg-white shadow-xl flex flex-col">
-      {/* Header fijo */}
-      <div className="shrink-0 flex items-center justify-between border-b border-slate-200 p-4">
-        <div>
-          <div className="text-sm font-extrabold text-slate-900">Tu consulta</div>
-          <div className="text-xs font-semibold text-slate-600">Lista de productos de interés</div>
-        </div>
+          {/* ✅ PANEL RESPONSIVE (header fijo + body scroll + footer fijo) */}
+          <div className="absolute right-0 top-0 h-[100dvh] w-full sm:max-w-md bg-white shadow-xl flex flex-col">
+            {/* Header fijo */}
+            <div className="shrink-0 flex items-center justify-between border-b border-slate-200 p-4">
+              <div>
+                <div className="text-m font-extrabold text-mlate-900">Tu consulta</div>
+                <div className="text-m font-semibold text-mlate-600">Lista de productos de interés</div>
+              </div>
 
-        <button
-          className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-extrabold text-slate-700 hover:bg-slate-50"
-          onClick={function () {
-            setCartOpen(false);
-          }}
-        >
-          Cerrar
-        </button>
-      </div>
+              <button
+                className="rounded-xl border border-slate-200 px-3 py-2 text-m font-extrabold text-mlate-700 hover:bg-slate-50"
+                onClick={function () {
+                  setCartOpen(false);
+                }}
+              >
+                Cerrar
+              </button>
+            </div>
 
-      {/* Body con scroll */}
-      <div className="flex-1 overflow-y-auto overscroll-contain p-4">
-        {cart.length === 0 ? (
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700">
-            Aún no agregaste productos. Usa el botón “Agregar / Quitar” en las tarjetas.
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {cart.map(function (x) {
-              return (
-                <div key={"c" + x.id_product} className="rounded-2xl border border-slate-200 p-3">
-                  <div className="text-sm font-extrabold text-slate-900">{x.product_name}</div>
-                  <div className="mt-1 text-xs font-semibold text-slate-600">{x.category_name || "—"}</div>
-
-                  <div className="mt-2 flex items-center justify-between gap-2">
-                    <div className="text-xs font-extrabold text-slate-700">
-                      {x.has_price ? "S/ " + Number(x.price || 0).toFixed(2) : "¡CONSÚLTALO!"}
-                    </div>
-
-                    <button
-                      onClick={function () {
-                        toggleInCart({ id_product: x.id_product });
-                      }}
-                      className="shrink-0 rounded-xl border border-slate-200 px-3 py-2 text-xs font-extrabold text-slate-700 hover:bg-slate-50"
-                    >
-                      Quitar
-                    </button>
-                  </div>
+            {/* Body con scroll */}
+            <div className="flex-1 overflow-y-auto overscroll-contain p-4">
+              {cart.length === 0 ? (
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-m font-semibold text-mlate-700">
+                  Aún no agregaste productos. Usa el botón “Agregar / Quitar” en las tarjetas.
                 </div>
-              );
-            })}
+              ) : (
+                <div className="space-y-3">
+                  {cart.map(function (x) {
+                    return (
+                      <div key={"c" + x.id_product} className="rounded-2xl border border-slate-200 p-3">
+                        <div className="text-m font-extrabold text-mlate-900">{x.product_name}</div>
+                        <div className="mt-1 text-m font-semibold text-mlate-600">{x.category_name || "—"}</div>
+
+                        <div className="mt-2 flex items-center justify-between gap-2">
+                          <div className="text-m font-extrabold text-mlate-700">
+                            {x.has_price ? "S/ " + Number(x.price || 0).toFixed(2) : " "}
+                          </div>
+
+                          <button
+                            onClick={function () {
+                              toggleInCart({ id_product: x.id_product });
+                            }}
+                            className="shrink-0 rounded-xl border border-slate-200 px-3 py-2 text-m font-extrabold text-mlate-700 hover:bg-slate-50"
+                          >
+                            Quitar
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Footer fijo */}
+            <div className="shrink-0 border-t border-slate-200 p-4 bg-white">
+              <div className="flex flex-wrap gap-2">
+                <button
+                  disabled={cart.length === 0}
+                  onClick={openWalinkFromCart}
+                  className={
+                    "flex-1 rounded-2xl px-4 py-3 text-m font-extrabold text-white " +
+                    (cart.length === 0 ? "bg-emerald-300" : "bg-emerald-600 hover:bg-emerald-700")
+                  }
+                >
+                  Hacer Pedido
+                </button>
+
+                <button
+                  disabled={cart.length === 0}
+                  onClick={clearCart}
+                  className={
+                    "rounded-2xl border px-4 py-3 text-m font-extrabold " +
+                    (cart.length === 0
+                      ? "border-slate-200 text-mlate-300"
+                      : "border-slate-200 text-mlate-700 hover:bg-slate-50")
+                  }
+                >
+                  Vaciar
+                </button>
+              </div>
+
+              <div className="mt-3 text-m font-semibold text-mlate-500">
+                Recuerda revisar tus productos antes de hacer un pedido.
+              </div>
+            </div>
           </div>
-        )}
-      </div>
-
-      {/* Footer fijo */}
-      <div className="shrink-0 border-t border-slate-200 p-4 bg-white">
-        <div className="flex flex-wrap gap-2">
-          <button
-            disabled={cart.length === 0}
-            onClick={openWalinkFromCart}
-            className={
-              "flex-1 rounded-2xl px-4 py-3 text-sm font-extrabold text-white " +
-              (cart.length === 0 ? "bg-emerald-300" : "bg-emerald-600 hover:bg-emerald-700")
-            }
-          >
-            Hacer Pedido
-          </button>
-
-          <button
-            disabled={cart.length === 0}
-            onClick={clearCart}
-            className={
-              "rounded-2xl border px-4 py-3 text-sm font-extrabold " +
-              (cart.length === 0
-                ? "border-slate-200 text-slate-300"
-                : "border-slate-200 text-slate-700 hover:bg-slate-50")
-            }
-          >
-            Vaciar
-          </button>
         </div>
-
-        <div className="mt-3 text-xs font-semibold text-slate-500">
-          Recuerda revisar tus productos antes de hacer un pedido.
-        </div>
-      </div>
-    </div>
-  </div>
-) : null}
+      ) : null}
 
     </div>
   );
@@ -1147,23 +1140,23 @@ function cleanPhone(v) {
 }
 
 function FooterTitle(props) {
-  return <div className="text-sm font-extrabold tracking-wide text-black">{props.children}</div>;
+  return <div className="text-m font-extrabold tracking-wide text-black">{props.children}</div>;
 }
 
 function FooterLink(props) {
   return (
-    <a href={props.href} className="block text-sm font-semibold text-slate-600 hover:text-slate-900">
+    <a href={props.href} className="block text-m font-semibold text-mlate-600 hover:text-mlate-900">
       {props.children}
     </a>
   );
 }
 
 function TagPill(props) {
-  return <div className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-extrabold text-slate-700">{props.children}</div>;
+  return <div className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-extrabold text-mlate-700">{props.children}</div>;
 }
 
 function PayBadge(props) {
-  return <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-extrabold text-slate-700">{props.label}</div>;
+  return <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-extrabold text-mlate-700">{props.label}</div>;
 }
 
 function TrustItem(props) {
@@ -1172,8 +1165,8 @@ function TrustItem(props) {
       <div className="flex items-start gap-3">
         <div className="rounded-2xl bg-emerald-50 p-2 text-emerald-800">{props.icon}</div>
         <div>
-          <div className="text-sm font-extrabold text-slate-900">{props.title}</div>
-          <div className="mt-1 text-xs font-semibold text-slate-600">{props.desc}</div>
+          <div className="text-m font-extrabold text-mlate-900">{props.title}</div>
+          <div className="mt-1 text-m font-semibold text-mlate-600">{props.desc}</div>
         </div>
       </div>
     </div>
@@ -1292,7 +1285,7 @@ function BrandMarquee() {
           <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 bg-gradient-to-r from-white to-transparent" />
           <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 bg-gradient-to-l from-white to-transparent" />
 
-          <div className="dp-marquee flex w-max items-center gap-10">
+          <div className="dp-marquee flex w-max items-center gap-14">
             {row.map(function (b, k) {
               return (
                 <img
@@ -1300,12 +1293,16 @@ function BrandMarquee() {
                   src={b.src}
                   alt={b.alt}
                   loading="lazy"
-                  className="h-6 w-auto select-none object-contain opacity-90 md:h-7"
+                  className="
+          h-10 w-auto select-none object-contain opacity-90
+          md:h-12 lg:h-20
+        "
                   draggable="false"
                 />
               );
             })}
           </div>
+
 
           <style>{`
             @keyframes dpMarqueeMove {

@@ -83,7 +83,7 @@ export default function CategoryProducts() {
       <div className="w-full bg-slate-50">
         <div className="mx-auto w-full max-w-7xl px-4 py-10">
           <div className="rounded-3xl border border-slate-200 bg-white p-6">
-            <div className="text-sm font-semibold text-slate-600">Cargando productos…</div>
+            <div className="text-m font-semibold text-mlate-600">Cargando productos…</div>
           </div>
         </div>
       </div>
@@ -95,21 +95,21 @@ export default function CategoryProducts() {
       <div className="w-full bg-slate-50">
         <div className="mx-auto w-full max-w-7xl px-4 py-10">
           <div className="rounded-3xl border border-slate-200 bg-white p-6">
-            <div className="text-sm font-extrabold text-amber-800">
+            <div className="text-m font-extrabold text-amber-800">
               {q.data && q.data.message ? q.data.message : "No se pudo obtener productos"}
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
                 to="/categoria"
-                className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
               >
                 ← Volver a categorías
               </Link>
 
               <Link
                 to="/"
-                className="rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-extrabold text-white hover:bg-emerald-700"
+                className="rounded-2xl bg-emerald-600 px-4 py-3 text-m font-extrabold text-white hover:bg-emerald-700"
               >
                 Ir al inicio
               </Link>
@@ -126,7 +126,7 @@ export default function CategoryProducts() {
         {/* Breadcrumb + header */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <div className="text-xs font-extrabold text-slate-500">
+            <div className="text-m font-extrabold text-mlate-500">
               <Link to="/" className="hover:underline">
                 Inicio
               </Link>{" "}
@@ -135,14 +135,14 @@ export default function CategoryProducts() {
                 Categorías
               </Link>{" "}
               <span className="mx-1">/</span>{" "}
-              <span className="text-slate-900">{catName || "—"}</span>
+              <span className="text-mlate-900">{catName || "—"}</span>
             </div>
 
-            <div className="mt-2 text-2xl font-extrabold text-slate-900">
+            <div className="mt-2 text-2xl font-extrabold text-mlate-900">
               {catName || "Categoría"}
             </div>
 
-            <div className="mt-1 text-sm font-semibold text-slate-600">
+            <div className="mt-1 text-m font-semibold text-mlate-600">
               {filtered.length} producto(s) en esta categoría
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function CategoryProducts() {
           <div className="flex flex-wrap items-center gap-2">
             <Link
               to="/categoria"
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+              className="rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
             >
               ← Ver categorías
             </Link>
@@ -159,7 +159,7 @@ export default function CategoryProducts() {
               onClick={function () {
                 if (typeof ctx.setCartOpen === "function") ctx.setCartOpen(true);
               }}
-              className="rounded-2xl bg-emerald-600 px-4 py-2.5 text-sm font-extrabold text-white hover:bg-emerald-700"
+              className="rounded-2xl bg-emerald-600 px-4 py-2.5 text-m font-extrabold text-white hover:bg-emerald-700"
               title="Abrir WhatsApp (lista)"
             >
               Abrir WhatsApp {Array.isArray(ctx.cart) ? "(" + ctx.cart.length + ")" : ""}
@@ -171,8 +171,8 @@ export default function CategoryProducts() {
         <div className="mt-5 grid gap-3 md:grid-cols-12">
           <div className="md:col-span-8">
             <div className="rounded-3xl border border-slate-200 bg-white p-4">
-              <div className="text-xs font-extrabold text-slate-500">Tip</div>
-              <div className="mt-1 text-sm font-semibold text-slate-700">
+              <div className="text-m font-extrabold text-mlate-500">Tip</div>
+              <div className="mt-1 text-m font-semibold text-mlate-700">
                 Agrega varios productos a tu lista y luego abre WhatsApp para pedir precios.
               </div>
             </div>
@@ -180,14 +180,14 @@ export default function CategoryProducts() {
 
           <div className="md:col-span-4">
             <div className="rounded-3xl border border-slate-200 bg-white p-4">
-              <div className="text-xs font-extrabold text-slate-500">Ordenar</div>
+              <div className="text-m font-extrabold text-mlate-500">Ordenar</div>
               <select
                 value={sort}
                 onChange={function (e) {
                   setSort(e.target.value);
                   setLimit(PAGE_STEP);
                 }}
-                className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-extrabold text-slate-900 outline-none focus:border-emerald-400"
+                className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-900 outline-none focus:border-emerald-400"
               >
                 <option value="featured">Destacados</option>
                 <option value="az">A → Z</option>
@@ -202,16 +202,16 @@ export default function CategoryProducts() {
         {/* Empty */}
         {filtered.length === 0 ? (
           <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-6">
-            <div className="text-sm font-extrabold text-slate-900">
+            <div className="text-m font-extrabold text-mlate-900">
               No hay productos en esta categoría
             </div>
-            <div className="mt-2 text-sm font-semibold text-slate-600">
+            <div className="mt-2 text-m font-semibold text-mlate-600">
               Prueba con otra categoría.
             </div>
             <div className="mt-4">
               <Link
                 to="/categoria"
-                className="inline-flex rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-extrabold text-white hover:bg-emerald-700"
+                className="inline-flex rounded-2xl bg-emerald-600 px-4 py-3 text-m font-extrabold text-white hover:bg-emerald-700"
               >
                 Volver a categorías
               </Link>
@@ -247,7 +247,7 @@ export default function CategoryProducts() {
                       return Number(n || 0) + PAGE_STEP;
                     });
                   }}
-                  className="rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-50"
+                  className="rounded-2xl border border-slate-200 bg-white px-6 py-3 text-m font-extrabold text-mlate-900 hover:bg-slate-50"
                 >
                   Mostrar más
                 </button>
@@ -305,16 +305,16 @@ function ProductCard(props) {
             loading="lazy"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-sm font-extrabold text-slate-300">
+          <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
             Sin imagen
           </div>
         )}
       </div>
 
       <div className="px-4 pb-4">
-        <div className="text-[11px] font-bold text-slate-500">{p.category_name || "—"}</div>
+        <div className="text-[11px] font-bold text-mlate-500">{p.category_name || "—"}</div>
 
-        <div className="mt-1 min-h-[44px] text-sm font-extrabold text-slate-900">
+        <div className="mt-1 min-h-[44px] text-m font-extrabold text-mlate-900">
           {p.product_name}
         </div>
 
@@ -322,18 +322,18 @@ function ProductCard(props) {
           {p.has_price ? (
             <div className="text-lg font-extrabold text-red-600">{priceText}</div>
           ) : (
-            <div className="rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
-              ¡CONSÚLTALO!
+            <div className="rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800">
+               
             </div>
           )}
 
           <button
             onClick={props.onToggle}
             className={
-              "rounded-full px-4 py-2 text-xs font-extrabold " +
+              "rounded-full px-4 py-2 text-m font-extrabold " +
               (inCart
                 ? "bg-slate-900 text-white hover:bg-slate-800"
-                : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+                : "border border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
             }
           >
             {inCart ? "Quitar" : "Agregar"}
@@ -343,7 +343,7 @@ function ProductCard(props) {
         <div className="mt-3">
           <Link
             to={"/producto/" + p.id_product}
-            className="block w-full rounded-2xl bg-emerald-600 px-4 py-2.5 text-center text-xs font-extrabold text-white hover:bg-emerald-700"
+            className="block w-full rounded-2xl bg-emerald-600 px-4 py-2.5 text-center text-m font-extrabold text-white hover:bg-emerald-700"
           >
             Ver detalle →
           </Link>

@@ -185,11 +185,11 @@ export default function PublicLayout() {
           <div className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-xl">
             <div className="flex items-center justify-between border-b border-slate-200 p-4">
               <div>
-                <div className="text-sm font-extrabold text-slate-900">Tu consulta</div>
-                <div className="text-xs font-semibold text-slate-600">Lista de productos de interés</div>
+                <div className="text-m font-extrabold text-mlate-900">Tu consulta</div>
+                <div className="text-m font-semibold text-mlate-600">Lista de productos de interés</div>
               </div>
               <button
-                className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-extrabold text-slate-700 hover:bg-slate-50"
+                className="rounded-xl border border-slate-200 px-3 py-2 text-m font-extrabold text-mlate-700 hover:bg-slate-50"
                 onClick={closeCart}
               >
                 Cerrar
@@ -198,7 +198,7 @@ export default function PublicLayout() {
 
             <div className="p-4">
               {cart.length === 0 ? (
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700">
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-m font-semibold text-mlate-700">
                   Aún no agregaste productos.
                 </div>
               ) : (
@@ -206,14 +206,14 @@ export default function PublicLayout() {
                   {cart.map(function (x) {
                     return (
                       <div key={"c" + x.id_product} className="rounded-2xl border border-slate-200 p-3">
-                        <div className="text-sm font-extrabold text-slate-900">{x.product_name}</div>
-                        <div className="mt-1 text-xs font-semibold text-slate-600">
+                        <div className="text-m font-extrabold text-mlate-900">{x.product_name}</div>
+                        <div className="mt-1 text-m font-semibold text-mlate-600">
                           {x.category_name || "—"} · Cant: {Number(x.qty || 0)}
                         </div>
 
                         <div className="mt-2 flex items-center justify-between">
-                          <div className="text-xs font-extrabold text-slate-700">
-                            {x.has_price ? "S/ " + Number(x.price || 0).toFixed(2) : "¡CONSÚLTALO!"}
+                          <div className="text-m font-extrabold text-mlate-700">
+                            {x.has_price ? "S/ " + Number(x.price || 0).toFixed(2) : " "}
                           </div>
 
                           <div className="flex items-center gap-2">
@@ -221,7 +221,7 @@ export default function PublicLayout() {
                               onClick={function () {
                                 cartRemoveOne({ id_product: x.id_product });
                               }}
-                              className="h-9 w-9 rounded-xl border border-slate-200 text-sm font-extrabold text-slate-700 hover:bg-slate-50"
+                              className="h-9 w-9 rounded-xl border border-slate-200 text-m font-extrabold text-mlate-700 hover:bg-slate-50"
                             >
                               -
                             </button>
@@ -229,7 +229,7 @@ export default function PublicLayout() {
                               onClick={function () {
                                 cartAddOne({ id_product: x.id_product });
                               }}
-                              className="h-9 w-9 rounded-xl border border-slate-200 text-sm font-extrabold text-slate-700 hover:bg-slate-50"
+                              className="h-9 w-9 rounded-xl border border-slate-200 text-m font-extrabold text-mlate-700 hover:bg-slate-50"
                             >
                               +
                             </button>
@@ -237,7 +237,7 @@ export default function PublicLayout() {
                               onClick={function () {
                                 cartRemoveItem(x.id_product);
                               }}
-                              className="rounded-xl border border-slate-200 px-3 py-2 text-xs font-extrabold text-slate-700 hover:bg-slate-50"
+                              className="rounded-xl border border-slate-200 px-3 py-2 text-m font-extrabold text-mlate-700 hover:bg-slate-50"
                             >
                               Quitar
                             </button>
@@ -254,7 +254,7 @@ export default function PublicLayout() {
                   disabled={cart.length === 0}
                   onClick={openWalinkFromCart}
                   className={
-                    "flex-1 rounded-2xl px-4 py-3 text-sm font-extrabold text-white " +
+                    "flex-1 rounded-2xl px-4 py-3 text-m font-extrabold text-white " +
                     (cart.length === 0 ? "bg-emerald-300" : "bg-emerald-600 hover:bg-emerald-700")
                   }
                 >
@@ -265,17 +265,17 @@ export default function PublicLayout() {
                   disabled={cart.length === 0}
                   onClick={cartClear}
                   className={
-                    "rounded-2xl border px-4 py-3 text-sm font-extrabold " +
+                    "rounded-2xl border px-4 py-3 text-m font-extrabold " +
                     (cart.length === 0
-                      ? "border-slate-200 text-slate-300"
-                      : "border-slate-200 text-slate-700 hover:bg-slate-50")
+                      ? "border-slate-200 text-mlate-300"
+                      : "border-slate-200 text-mlate-700 hover:bg-slate-50")
                   }
                 >
                   Vaciar
                 </button>
               </div>
 
-              <div className="mt-3 text-xs font-semibold text-slate-500">
+              <div className="mt-3 text-m font-semibold text-mlate-500">
                 Recuerda revisar tus productos antes de hacer un pedido.
               </div>
             </div>

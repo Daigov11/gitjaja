@@ -279,9 +279,9 @@ export default function ProductDetail() {
       <div className="w-full bg-slate-50">
         <div className="mx-auto w-full max-w-7xl px-4 py-10">
           <div className="rounded-3xl border border-slate-200 bg-white p-6">
-            <div className="text-sm font-extrabold text-slate-900">Producto no encontrado</div>
+            <div className="text-m font-extrabold text-mlate-900">Producto no encontrado</div>
             <Link
-              className="mt-3 inline-block text-sm font-extrabold text-emerald-700 hover:underline"
+              className="mt-3 inline-block text-m font-extrabold text-emerald-700 hover:underline"
               to="/"
             >
               ← Volver al catálogo
@@ -296,14 +296,14 @@ export default function ProductDetail() {
     <div className="w-full bg-slate-50">
       {/* Toast */}
       {toast ? (
-        <div className="fixed left-1/2 top-4 z-50 -translate-x-1/2 rounded-full bg-slate-900 px-4 py-2 text-xs font-extrabold text-white shadow">
+        <div className="fixed left-1/2 top-4 z-50 -translate-x-1/2 rounded-full bg-slate-900 px-4 py-2 text-m font-extrabold text-white shadow">
           {toast}
         </div>
       ) : null}
 
       <div className="mx-auto w-full max-w-7xl px-4 py-6 md:py-8">
         {/* Breadcrumb */}
-        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500">
+        <div className="flex flex-wrap items-center gap-2 text-m font-semibold text-mlate-500">
           <Link to="/" className="hover:underline">
             Inicio
           </Link>
@@ -312,7 +312,7 @@ export default function ProductDetail() {
             Catálogo
           </Link>
           <span>›</span>
-          <span className="text-slate-700">{product.category_name || "Categoría"}</span>
+          <span className="text-mlate-700">{product.category_name || "Categoría"}</span>
         </div>
 
         {/* MAIN */}
@@ -330,7 +330,7 @@ export default function ProductDetail() {
                     draggable="false"
                   />
                 ) : (
-                  <div className="flex h-[340px] items-center justify-center text-sm font-extrabold text-slate-400 md:h-[540px]">
+                  <div className="flex h-[340px] items-center justify-center text-m font-extrabold text-mlate-400 md:h-[540px]">
                     Sin imagen
                   </div>
                 )}
@@ -357,23 +357,23 @@ export default function ProductDetail() {
               <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 p-4">
                 <button
                   onClick={openCartUi}
-                  className="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-4 py-2.5 text-sm font-extrabold text-white hover:bg-emerald-700"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-4 py-2.5 text-m font-extrabold text-white hover:bg-emerald-700"
                 >
                   <WhatsIcon /> Ver mi lista
-                  <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">{cart.length}</span>
+                  <span className="rounded-full bg-white/20 px-2 py-0.5 text-m">{cart.length}</span>
                 </button>
 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={onShare}
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
                   >
                     <ShareIcon /> Compartir
                   </button>
 
                   <Link
                     to="/categoria"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
                   >
                     ← Volver
                   </Link>
@@ -386,31 +386,31 @@ export default function ProductDetail() {
           <div className="lg:col-span-5">
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:sticky lg:top-24">
               <div className="flex items-start justify-between gap-3">
-                <div className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-extrabold text-emerald-800">
+                <div className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-m font-extrabold text-emerald-800">
                   {product.category_name || "—"}
                 </div>
 
-                <div className="text-[11px] font-extrabold text-slate-500">
+                <div className="text-[11px] font-extrabold text-mlate-500">
                   ID: {String(product.id_product || "-")}
                 </div>
               </div>
 
-              <div className="mt-3 text-2xl font-extrabold leading-tight text-slate-900 md:text-3xl">
+              <div className="mt-3 text-2xl font-extrabold leading-tight text-mlate-900 md:text-3xl">
                 {product.product_name}
               </div>
 
-              <div className="mt-2 inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-extrabold text-slate-700">
+              <div className="mt-2 inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-extrabold text-mlate-700">
                 Presentación: {variantLabelFromName(product.product_name)}
               </div>
 
-              <div className="mt-3 text-sm font-semibold text-slate-700">
+              <div className="mt-3 text-m font-semibold text-mlate-700">
                 {product.product_desc || "—"}
               </div>
 
               {/* ✅ PRESENTACIONES / VARIANTES */}
               {variants && variants.length ? (
                 <div className="mt-5 rounded-3xl border border-slate-200 bg-white p-4">
-                  <div className="text-xs font-extrabold text-slate-600">Presentaciones</div>
+                  <div className="text-m font-extrabold text-mlate-600">Presentaciones</div>
 
                   <div
                     className="mt-3 flex gap-3 overflow-x-auto pb-2"
@@ -436,7 +436,7 @@ export default function ProductDetail() {
                     })}
                   </div>
 
-                  <div className="mt-2 text-[11px] font-semibold text-slate-500">
+                  <div className="mt-2 text-[11px] font-semibold text-mlate-500">
                     Tip: toca una presentación para ver su imagen/precio (unidad, caja, etc.).
                   </div>
                 </div>
@@ -446,20 +446,20 @@ export default function ProductDetail() {
               <div className="mt-5 rounded-3xl border border-slate-200 bg-slate-50 p-4">
                 <div className="flex items-end justify-between gap-3">
                   <div>
-                    <div className="text-xs font-extrabold text-slate-600">Precio</div>
+                    <div className="text-m font-extrabold text-mlate-600">Precio</div>
                     {product.has_price ? (
                       <div className="mt-1 text-2xl font-extrabold text-red-600">
                         S/ {Number(product.price || 0).toFixed(2)}
                       </div>
                     ) : (
-                      <div className="mt-1 inline-flex rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
-                        ¡CONSÚLTALO!
+                      <div className="mt-1 inline-flex rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800">
+                         
                       </div>
                     )}
                   </div>
 
-                  <div className="text-right text-xs font-semibold text-slate-600">
-                    <div className="font-extrabold text-slate-700">WhatsApp</div>
+                  <div className="text-right text-m font-semibold text-mlate-600">
+                    <div className="font-extrabold text-mlate-700">WhatsApp</div>
                     <div>+51 {PHONE}</div>
                   </div>
                 </div>
@@ -477,21 +477,25 @@ export default function ProductDetail() {
                 <button
                   onClick={onToggleMain}
                   className={
-                    "w-full rounded-2xl px-5 py-3 text-sm font-extrabold " +
+                    "w-full rounded-2xl px-5 py-3 text-m font-extrabold " +
                     (isInCart(cart, product.id_product)
                       ? "bg-slate-900 text-white hover:bg-slate-800"
                       : "bg-emerald-600 text-white hover:bg-emerald-700")
                   }
                 >
-                  {isInCart(cart, product.id_product) ? "Quitar de mi consulta" : "Agregar al carrito"}
+                  {isInCart(cart, product.id_product) ? " Sacar del carrito" : "Agregar al carrito"}
                 </button>
 
-                <button
-                  onClick={openCartUi}
-                  className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
-                >
-                  ¡PEDIR!
-                </button>
+<button
+  type="button"
+  onClick={function () {
+    openWalinkForProduct(product);
+  }}
+  className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+>
+  ¡PEDIR!
+</button>
+
               </div>
 
               {/* Tabs */}
@@ -504,13 +508,13 @@ export default function ProductDetail() {
 
                 <div className="mt-3 rounded-3xl border border-slate-200 bg-white p-4">
                   {tab === "desc" ? (
-                    <div className="text-sm font-semibold leading-relaxed text-slate-700">
+                    <div className="text-m font-semibold leading-relaxed text-mlate-700">
                       {product.product_desc ? product.product_desc : "Este producto no tiene descripción aún."}
                     </div>
                   ) : null}
 
                   {tab === "info" ? (
-                    <div className="grid gap-3 text-sm font-semibold text-slate-700">
+                    <div className="grid gap-3 text-m font-semibold text-mlate-700">
                       <RowInfo k="Categoría" v={product.category_name || "—"} />
                       <RowInfo k="ID producto" v={String(product.id_product || "—")} />
                       <RowInfo k="Precio" v={product.has_price ? "Visible" : "Consultar"} />
@@ -520,7 +524,7 @@ export default function ProductDetail() {
                   ) : null}
 
                   {tab === "help" ? (
-                    <div className="space-y-2 text-sm font-semibold text-slate-700">
+                    <div className="space-y-2 text-m font-semibold text-mlate-700">
                       <div className="flex gap-2">
                         <span className="mt-[2px] inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-600 text-[11px] font-extrabold text-white">
                           1
@@ -539,7 +543,7 @@ export default function ProductDetail() {
                         </span>
                         <div>Te respondemos con precios y disponibilidad.</div>
                       </div>
-                      <div className="mt-3 text-xs font-semibold text-slate-500">
+                      <div className="mt-3 text-m font-semibold text-mlate-500">
                         Nota: esto no es checkout; es catálogo informativo + consulta.
                       </div>
                     </div>
@@ -549,7 +553,7 @@ export default function ProductDetail() {
 
               {/* optional external url */}
               {product.product_url ? (
-                <div className="mt-5 text-sm font-semibold">
+                <div className="mt-5 text-m font-semibold">
                   <a
                     className="text-emerald-700 hover:underline"
                     href={product.product_url}
@@ -568,17 +572,17 @@ export default function ProductDetail() {
         <div className="mt-10">
           <div className="flex items-end justify-between gap-3">
             <div>
-              <div className="text-xs font-extrabold text-emerald-700">Sugerencias</div>
-              <div className="mt-1 text-2xl font-extrabold text-slate-900">
+              <div className="text-m font-extrabold text-emerald-700">Sugerencias</div>
+              <div className="mt-1 text-2xl font-extrabold text-mlate-900">
                 Productos relacionados
               </div>
-              <div className="mt-1 text-sm font-semibold text-slate-600">
+              <div className="mt-1 text-m font-semibold text-mlate-600">
                 Más de la categoría:{" "}
                 <span className="font-extrabold">{product.category_name || "—"}</span>
               </div>
             </div>
 
-            <Link to="/categoria" className="text-sm font-extrabold text-emerald-700 hover:underline">
+            <Link to="/categoria" className="text-m font-extrabold text-emerald-700 hover:underline">
               Ver catálogo →
             </Link>
           </div>
@@ -586,7 +590,7 @@ export default function ProductDetail() {
           {related && related.length ? (
             <RelatedRow items={related} cart={cart} onToggle={toggleInCart} />
           ) : (
-            <div className="mt-4 rounded-3xl border border-slate-200 bg-white p-6 text-sm font-semibold text-slate-600">
+            <div className="mt-4 rounded-3xl border border-slate-200 bg-white p-6 text-m font-semibold text-mlate-600">
               Aún no hay productos relacionados para esta categoría.
             </div>
           )}
@@ -597,13 +601,13 @@ export default function ProductDetail() {
       <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
           <div className="min-w-0 flex-1">
-            <div className="truncate text-xs font-extrabold text-slate-900">{product.product_name}</div>
+            <div className="truncate text-m font-extrabold text-mlate-900">{product.product_name}</div>
             {product.has_price ? (
-              <div className="text-sm font-extrabold text-red-600">
+              <div className="text-m font-extrabold text-red-600">
                 S/ {Number(product.price || 0).toFixed(2)}
               </div>
             ) : (
-              <div className="text-xs font-extrabold text-amber-700">Consultar</div>
+              <div className="text-m font-extrabold text-amber-700">Consultar</div>
             )}
           </div>
 
@@ -613,7 +617,7 @@ export default function ProductDetail() {
               setToast(isInCart(cart, product.id_product) ? "Quitado" : "Agregado");
             }}
             className={
-              "rounded-2xl px-4 py-3 text-xs font-extrabold " +
+              "rounded-2xl px-4 py-3 text-m font-extrabold " +
               (isInCart(cart, product.id_product)
                 ? "bg-slate-900 text-white"
                 : "bg-emerald-600 text-white")
@@ -624,7 +628,7 @@ export default function ProductDetail() {
 
           <button
             onClick={openCartUi}
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs font-extrabold text-slate-800"
+            className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-800"
           >
             WA ({cart.length})
           </button>
@@ -779,10 +783,10 @@ function TabBtn(props) {
     <button
       onClick={props.onClick}
       className={
-        "rounded-2xl px-4 py-2 text-xs font-extrabold transition " +
+        "rounded-2xl px-4 py-2 text-m font-extrabold transition " +
         (props.active
           ? "bg-emerald-600 text-white"
-          : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+          : "border border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
       }
     >
       {props.label}
@@ -793,16 +797,16 @@ function TabBtn(props) {
 function RowInfo(props) {
   return (
     <div className="flex items-start justify-between gap-3">
-      <div className="text-xs font-extrabold text-slate-500">{props.k}</div>
-      <div className="text-right text-sm font-extrabold text-slate-800">{props.v}</div>
+      <div className="text-m font-extrabold text-mlate-500">{props.k}</div>
+      <div className="text-right text-m font-extrabold text-mlate-800">{props.v}</div>
     </div>
   );
 }
 
 function Chip(props) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] font-extrabold text-slate-700 ring-1 ring-slate-200">
-      <span className="text-slate-500">{props.icon}</span>
+    <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] font-extrabold text-mlate-700 ring-1 ring-slate-200">
+      <span className="text-mlate-500">{props.icon}</span>
       {props.label}
     </span>
   );
@@ -837,21 +841,21 @@ function VariantMini(props) {
             draggable="false"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-[10px] font-extrabold text-slate-300">
+          <div className="flex h-full w-full items-center justify-center text-[10px] font-extrabold text-mlate-300">
             —
           </div>
         )}
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="text-[11px] font-extrabold text-slate-700">{label}</div>
-        <div className="mt-0.5 truncate text-xs font-semibold text-slate-600">
+        <div className="text-[11px] font-extrabold text-mlate-700">{label}</div>
+        <div className="mt-0.5 truncate text-m font-semibold text-mlate-600">
           {p && p.product_name ? p.product_name : "—"}
         </div>
 
         <div className="mt-1">
           {p && p.has_price ? (
-            <span className="text-xs font-extrabold text-red-600">
+            <span className="text-m font-extrabold text-red-600">
               S/ {Number(p.price || 0).toFixed(2)}
             </span>
           ) : (
@@ -867,7 +871,7 @@ function VariantMini(props) {
           ACTUAL
         </span>
       ) : (
-        <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-[10px] font-extrabold text-slate-700">
+        <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-[10px] font-extrabold text-mlate-700">
           VER
         </span>
       )}
@@ -947,27 +951,27 @@ function MiniCard(props) {
             loading="lazy"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-sm font-extrabold text-slate-300">
+          <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
             Sin imagen
           </div>
         )}
       </div>
 
       <div className="px-4 pb-4">
-        <div className="text-[11px] font-bold text-slate-500">{p.category_name || "—"}</div>
+        <div className="text-[11px] font-bold text-mlate-500">{p.category_name || "—"}</div>
 
-        <div className="mt-1 min-h-[44px] text-sm font-extrabold text-slate-900">
+        <div className="mt-1 min-h-[44px] text-m font-extrabold text-mlate-900">
           {p.product_name}
         </div>
 
         <div className="mt-3 flex items-center justify-between">
           {p.has_price ? (
-            <div className="text-sm font-extrabold text-red-600">
+            <div className="text-m font-extrabold text-red-600">
               S/ {Number(p.price || 0).toFixed(2)}
             </div>
           ) : (
-            <div className="rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
-              ¡CONSÚLTALO!
+            <div className="rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800">
+               
             </div>
           )}
 
@@ -976,10 +980,10 @@ function MiniCard(props) {
               props.onToggle(p);
             }}
             className={
-              "rounded-full px-4 py-2 text-xs font-extrabold " +
+              "rounded-full px-4 py-2 text-m font-extrabold " +
               (inCart
                 ? "bg-slate-900 text-white hover:bg-slate-800"
-                : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+                : "border border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
             }
           >
             {inCart ? "Quitar" : "Agregar"}
@@ -989,7 +993,7 @@ function MiniCard(props) {
         <div className="mt-3">
           <Link
             to={"/producto/" + p.id_product}
-            className="block w-full rounded-2xl bg-emerald-600 px-4 py-2.5 text-center text-xs font-extrabold text-white hover:bg-emerald-700"
+            className="block w-full rounded-2xl bg-emerald-600 px-4 py-2.5 text-center text-m font-extrabold text-white hover:bg-emerald-700"
           >
             Ver detalle →
           </Link>
@@ -1127,4 +1131,60 @@ function ClockIcon() {
       />
     </svg>
   );
+}
+function openWalinkForProduct(p) {
+  var url, w;
+
+  if (!p) return;
+
+  url = buildWalinkProduct(p);
+
+  /* ✅ intento en nueva pestaña */
+  w = null;
+  try {
+    w = window.open(url, "_blank", "noopener,noreferrer");
+  } catch (e) {
+    w = null;
+  }
+
+  /* ✅ fallback: si bloquean popups, abre en la misma pestaña */
+  if (!w) {
+    try {
+      window.location.href = url;
+    } catch (e2) {}
+  }
+}
+
+function buildWalinkProduct(p) {
+  var base, lines, msg, url;
+
+  base = "https://wa.me/51" + cleanPhoneLocal(PHONE);
+
+  url = "";
+  try {
+    url = window.location && window.location.href ? String(window.location.href) : "";
+  } catch (e) {
+    url = "";
+  }
+
+  lines = [];
+  lines.push("Hola, te escribo desde la página donpepito.pe y estoy interesado en este producto.");
+  lines.push("");
+  lines.push("- " + String((p && p.product_name) || "Producto"));
+
+  /* opcional pero recomendado */
+  if (p && p.category_name) lines.push("Categoría: " + String(p.category_name));
+  lines.push("Link: " + url);
+  lines.push("");
+  lines.push("Por favor ser amable de compartir el precio y disponibilidad.");
+
+  msg = encodeURIComponent(lines.join("\n"));
+  return base + "?text=" + msg;
+}
+
+function cleanPhoneLocal(v) {
+  var s;
+  s = v == null ? "" : String(v);
+  s = s.replace(/[^0-9]/g, "");
+  return s;
 }

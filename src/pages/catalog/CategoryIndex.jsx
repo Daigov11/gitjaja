@@ -103,18 +103,18 @@ export default function CategoryIndex() {
       <div className="mx-auto w-full max-w-7xl px-4 py-8">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <div className="text-xs font-extrabold text-emerald-700">Catálogo</div>
-            <div className="mt-1 text-2xl font-extrabold text-slate-900">
+            <div className="text-m font-extrabold text-emerald-700">Catálogo</div>
+            <div className="mt-1 text-2xl font-extrabold text-mlate-900">
               BUSCA POR CATEGORIA
             </div>
-            <div className="mt-1 text-sm font-semibold text-slate-600">
+            <div className="mt-1 text-m font-semibold text-mlate-600">
               Elige una categoría para ver sus productos.
             </div>
           </div>
 
           <Link
             to="/"
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+            className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
           >
             ← Volver al inicio
           </Link>
@@ -129,9 +129,9 @@ export default function CategoryIndex() {
                   setQCat(e.target.value);
                 }}
                 placeholder="Buscar categoría… (ej: harinas, azúcar, lácteos)"
-                className="w-full rounded-3xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-slate-900 outline-none focus:border-emerald-400"
+                className="w-full rounded-3xl border border-slate-200 bg-white px-5 py-4 text-m font-semibold text-mlate-900 outline-none focus:border-emerald-400"
               />
-              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-mlate-400">
                 <SearchIcon />
               </div>
             </div>
@@ -143,7 +143,7 @@ export default function CategoryIndex() {
         {/* Loading / error */}
         {qCats.isLoading || qProd.isLoading ? (
           <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-6">
-            <div className="text-sm font-semibold text-slate-600">Cargando categorías…</div>
+            <div className="text-m font-semibold text-mlate-600">Cargando categorías…</div>
             <div className="mt-5 grid gap-6 grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
               <SkelTile />
               <SkelTile />
@@ -159,10 +159,10 @@ export default function CategoryIndex() {
 
         {!qCats.isLoading && !qProd.isLoading && (okProd === false || (okCats === false && !catsApi.length)) ? (
           <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-6">
-            <div className="text-sm font-extrabold text-amber-800">
+            <div className="text-m font-extrabold text-amber-800">
               No se pudieron cargar las categorías o productos.
             </div>
-            <div className="mt-2 text-xs font-semibold text-slate-600">
+            <div className="mt-2 text-m font-semibold text-mlate-600">
               Revisa tu API o la BD configurada en <span className="font-extrabold">BD_NAME</span>.
             </div>
           </div>
@@ -173,8 +173,8 @@ export default function CategoryIndex() {
           <div className="mt-6">
             {catsShown.length === 0 ? (
               <div className="rounded-3xl border border-slate-200 bg-white p-6">
-                <div className="text-sm font-extrabold text-slate-900">Sin resultados</div>
-                <div className="mt-1 text-sm font-semibold text-slate-600">
+                <div className="text-m font-extrabold text-mlate-900">Sin resultados</div>
+                <div className="mt-1 text-m font-semibold text-mlate-600">
                   Prueba con otra búsqueda.
                 </div>
               </div>
@@ -214,12 +214,12 @@ function CategoryTile(props) {
 
 
         {/* Badge count (opcional, discreto) */}
-<div className="absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-white px-2.5 py-1 text-[12px] font-extrabold text-slate-700 shadow-sm ring-1 ring-slate-200">
+<div className="absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-white px-2.5 py-1 text-[12px] font-extrabold text-mlate-700 shadow-sm ring-1 ring-slate-200">
           {String(props.count || 0)}
         </div>
       </div>
 
-      <div className="mt-4 text-sm font-semibold text-slate-700 leading-snug">
+      <div className="mt-4 text-m font-semibold text-mlate-700 leading-snug">
         {props.name}
       </div>
     </Link>
@@ -238,10 +238,10 @@ function CategoryImage(props) {
     return (
       <div className={"h-full w-full " + FALLBACK_BG + " flex items-center justify-center"}>
         <div className="flex flex-col items-center justify-center">
-          <div className="text-slate-400">
+          <div className="text-mlate-400">
             <PhotoIcon />
           </div>
-          <div className="mt-1 text-xs font-extrabold text-slate-500">{initial}</div>
+          <div className="mt-1 text-m font-extrabold text-mlate-500">{initial}</div>
         </div>
       </div>
     );
@@ -269,8 +269,8 @@ function CategoryImage(props) {
 function StatCard(props) {
   return (
     <div className="rounded-3xl border border-slate-200 bg-white p-4">
-      <div className="text-xs font-extrabold text-slate-500">{props.label}</div>
-      <div className="mt-1 text-2xl font-extrabold text-slate-900">{props.value}</div>
+      <div className="text-m font-extrabold text-mlate-500">{props.label}</div>
+      <div className="mt-1 text-2xl font-extrabold text-mlate-900">{props.value}</div>
     </div>
   );
 }

@@ -25,8 +25,8 @@ export default function PublicHeader(props) {
               className="h-11 w-11 rounded-2xl bg-white object-cover ring-2 ring-white/30 md:h-12 md:w-12"
             />
             <div className="leading-tight">
-              <div className="text-sm font-extrabold text-white md:text-base">{props.brand}</div>
-              <div className="text-[11px] font-semibold text-white/85 md:text-xs">
+              <div className="text-m font-extrabold text-white md:text-base">{props.brand}</div>
+              <div className="text-[11px] font-semibold text-white/85 md:text-m">
                 v1.3
               </div>
             </div>
@@ -41,20 +41,20 @@ export default function PublicHeader(props) {
                   props.setQSearch(e.target.value);
                 }}
                 placeholder="Buscar productos..."
-                className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 outline-none focus:border-white"
+                className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-mlate-900 outline-none focus:border-white"
               />
-              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
+              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-mlate-500">
                 <SearchIcon />
               </div>
             </div>
 
             <button
               onClick={props.onOpenCart}
-              className="relative inline-flex items-center gap-2 rounded-full bg-amber-300 px-4 py-2.5 text-sm font-extrabold text-slate-900 shadow hover:bg-amber-200"
+              className="relative inline-flex items-center gap-2 rounded-full bg-amber-300 px-4 py-2.5 text-m font-extrabold text-mlate-900 shadow hover:bg-amber-200"
               title="Armar lista y consultar"
             >
               Carrito
-              <span className="rounded-full bg-slate-900/10 px-2 py-0.5 text-xs">
+              <span className="rounded-full bg-slate-900/10 px-2 py-0.5 text-m">
                 {props.cartCount}
               </span>
             </button>
@@ -64,11 +64,11 @@ export default function PublicHeader(props) {
           <div className="ml-auto flex items-center gap-2 md:hidden">
             <button
               onClick={props.onOpenCart}
-              className="relative inline-flex items-center gap-2 rounded-full bg-amber-300 px-3 py-2 text-sm font-extrabold text-slate-900 shadow hover:bg-amber-200"
+              className="relative inline-flex items-center gap-2 rounded-full bg-amber-300 px-3 py-2 text-m font-extrabold text-mlate-900 shadow hover:bg-amber-200"
               aria-label="Abrir WhatsApp"
             >
               CA
-              <span className="rounded-full bg-slate-900/10 px-2 py-0.5 text-xs">{props.cartCount}</span>
+              <span className="rounded-full bg-slate-900/10 px-2 py-0.5 text-m">{props.cartCount}</span>
             </button>
           </div>
         </div>
@@ -82,9 +82,9 @@ export default function PublicHeader(props) {
                 props.setQSearch(e.target.value);
               }}
               placeholder="Buscar productos..."
-              className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 outline-none focus:border-white"
+              className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-mlate-900 outline-none focus:border-white"
             />
-            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
+            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-mlate-500">
               <SearchIcon />
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function PublicHeader(props) {
       {/* Menu bar (desktop) */}
       <div className="hidden w-full bg-emerald-800 md:block">
         <div className="mx-auto flex w-full max-w-7xl items-center gap-2 px-4 py-2">
-          <nav className="flex flex-wrap items-center gap-2 text-sm font-extrabold text-white/90">
+          <nav className="flex flex-wrap items-center gap-2 text-m font-extrabold text-white/90">
             {props.navItems.map(function (it, i) {
               if (it.type === "route") {
                 return (
@@ -179,8 +179,8 @@ export default function PublicHeader(props) {
                   className="h-10 w-10 rounded-2xl object-cover ring-1 ring-slate-200"
                 />
                 <div className="leading-tight">
-                  <div className="text-sm font-extrabold text-slate-900">{props.brand}</div>
-                  <div className="text-[11px] font-semibold text-slate-600">Menú</div>
+                  <div className="text-m font-extrabold text-mlate-900">{props.brand}</div>
+                  <div className="text-[11px] font-semibold text-mlate-600">Menú</div>
                 </div>
               </Link>
 
@@ -188,7 +188,7 @@ export default function PublicHeader(props) {
                 onClick={function () {
                   props.setNavOpen(false);
                 }}
-                className="rounded-xl border border-slate-200 p-2 text-slate-700 hover:bg-slate-50"
+                className="rounded-xl border border-slate-200 p-2 text-mlate-700 hover:bg-slate-50"
                 aria-label="Cerrar menú"
               >
                 <XIcon />
@@ -206,7 +206,7 @@ export default function PublicHeader(props) {
                         onClick={function () {
                           props.setNavOpen(false);
                         }}
-                        className="block rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+                        className="block rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
                       >
                         {it.label}
                       </Link>
@@ -222,7 +222,7 @@ export default function PublicHeader(props) {
                       onClick={function () {
                         props.setNavOpen(false);
                       }}
-                      className="block rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+                      className="block rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
                     >
                       {it.label}
                     </a>
@@ -234,14 +234,14 @@ export default function PublicHeader(props) {
                     props.setNavOpen(false);
                     props.onOpenCart();
                   }}
-                  className="mt-2 w-full rounded-2xl bg-emerald-700 px-4 py-3 text-sm font-extrabold text-white hover:bg-emerald-800"
+                  className="mt-2 w-full rounded-2xl bg-emerald-700 px-4 py-3 text-m font-extrabold text-white hover:bg-emerald-800"
                 >
                   Consultar por WhatsApp
                 </button>
 
                 <a
                   href={"tel:+51" + props.phone}
-                  className="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-extrabold text-slate-800 hover:bg-slate-50"
+                  className="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
                 >
                   Llamar: +51 {props.phone}
                 </a>

@@ -220,7 +220,7 @@ export default function Home() {
 
             <button
               onClick={onPrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-3 text-slate-900 shadow hover:bg-white"
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-3 text-mlate-900 shadow hover:bg-white"
               aria-label="Anterior"
             >
               <ChevronLeft />
@@ -228,7 +228,7 @@ export default function Home() {
 
             <button
               onClick={onNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-3 text-slate-900 shadow hover:bg-white"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-3 text-mlate-900 shadow hover:bg-white"
               aria-label="Siguiente"
             >
               <ChevronRight />
@@ -266,7 +266,7 @@ export default function Home() {
           {/* States */}
           {q.isLoading || qCats.isLoading ? (
             <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-6">
-              <div className="text-sm font-semibold text-slate-600">Cargando catálogo…</div>
+              <div className="text-m font-semibold text-mlate-600">Cargando catálogo…</div>
               <div className="mt-4 grid gap-4 md:grid-cols-3">
                 <Skel />
                 <Skel />
@@ -277,7 +277,7 @@ export default function Home() {
 
           {!q.isLoading && ok === false ? (
             <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-6">
-              <div className="text-sm font-extrabold text-amber-800">
+              <div className="text-m font-extrabold text-amber-800">
                 {q.data && q.data.message ? q.data.message : "No se pudo obtener datos"}
               </div>
             </div>
@@ -301,7 +301,7 @@ export default function Home() {
                       }}
                     />
 
-                    <div className="text-sm font-bold text-slate-600">
+                    <div className="text-m font-bold text-mlate-600">
                       {(filtered || []).length} productos
                     </div>
                   </div>
@@ -340,14 +340,14 @@ export default function Home() {
 
                   {/* ✅ 2) Luego: ¿Qué es Don Pepito? */}
                   <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
-                    <div className="text-center text-2xl font-extrabold tracking-tight text-slate-900 md:text-3xl">
+                    <div className="text-center text-2xl font-extrabold tracking-tight text-mlate-900 md:text-3xl">
                       ¿Qué es Don Pepito?
                     </div>
 
                     <div className="mt-6 grid items-center gap-6 md:grid-cols-12 md:gap-10">
                       {/* Texto */}
                       <div className="md:col-span-7">
-                        <div className="space-y-4 text-sm font-semibold leading-relaxed text-slate-700 md:text-base">
+                        <div className="space-y-4 text-m font-semibold leading-relaxed text-mlate-700 md:text-base">
                           <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id feugiat
                             turpis. Integer eget eros vel nibh tristique ullamcorper. Duis facilisis,
@@ -603,12 +603,12 @@ function Breadcrumb(props) {
   c = String(props.cat || "").trim();
 
   return (
-    <div className="flex flex-wrap items-center gap-2 text-xs font-extrabold text-slate-600">
+    <div className="flex flex-wrap items-center gap-2 text-m font-extrabold text-mlate-600">
       <button type="button" onClick={props.onGoHome} className="hover:underline" title="Ir a inicio">
         Inicio
       </button>
 
-      <span className="text-slate-400">›</span>
+      <span className="text-mlate-400">›</span>
 
       <button type="button" onClick={props.onGoCatalog} className="hover:underline" title="Ir a catálogo">
         Catálogo
@@ -616,8 +616,8 @@ function Breadcrumb(props) {
 
       {c && c !== "ALL" ? (
         <>
-          <span className="text-slate-400">›</span>
-          <span className="text-slate-900">{c}</span>
+          <span className="text-mlate-400">›</span>
+          <span className="text-mlate-900">{c}</span>
         </>
       ) : null}
     </div>
@@ -631,10 +631,10 @@ function Tab(props) {
     <button
       onClick={props.onClick}
       className={
-        "rounded-2xl px-4 py-2 text-sm font-extrabold transition " +
+        "rounded-2xl px-4 py-2 text-m font-extrabold transition " +
         (props.active
           ? "bg-emerald-600 text-white shadow"
-          : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+          : "border border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
       }
     >
       {props.label}
@@ -680,7 +680,7 @@ function PromoBlock(props) {
             {/* ✅ Amarillo: /categoria */}
             <button
               onClick={props.onGoCats}
-              className="w-full rounded-2xl bg-amber-400 px-4 py-3 text-sm font-extrabold text-slate-900 hover:bg-amber-300"
+              className="w-full rounded-2xl bg-amber-400 px-4 py-3 text-m font-extrabold text-mlate-900 hover:bg-amber-300"
               type="button"
             >
               {bannerBtnLabel}
@@ -692,12 +692,12 @@ function PromoBlock(props) {
       {/* Productos */}
       <div className={productsCls}>
         <div className="flex items-end justify-between gap-3">
-          <div className="text-2xl font-extrabold text-slate-900">{b.title}</div>
+          <div className="text-2xl font-extrabold text-mlate-900">{b.title}</div>
 
           {/* ✅ /categoria/<catName> */}
           <button
             onClick={props.onGoCat}
-            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-extrabold text-slate-800 hover:bg-slate-50"
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
             type="button"
           >
             Ver todo →
@@ -714,7 +714,7 @@ function PromoBlock(props) {
         <div className="mt-5">
           <button
             onClick={props.onGoCat}
-            className="w-full rounded-2xl bg-emerald-900 px-4 py-3 text-sm font-extrabold text-white hover:bg-emerald-800"
+            className="w-full rounded-2xl bg-emerald-900 px-4 py-3 text-m font-extrabold text-white hover:bg-emerald-800"
             type="button"
           >
             {shopBtnLabel}
@@ -741,13 +741,13 @@ function CategoryRow(props) {
     <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
-          <div className="text-sm font-extrabold text-slate-900">{props.title}</div>
-          <div className="text-xs font-semibold text-slate-500">Destacados de la categoría</div>
+          <div className="text-m font-extrabold text-mlate-900">{props.title}</div>
+          <div className="text-m font-semibold text-mlate-500">Destacados de la categoría</div>
         </div>
 
         <button
           onClick={props.onSeeAll}
-          className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-extrabold text-slate-800 hover:bg-slate-50"
+          className="rounded-full border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
         >
           Ver todo →
         </button>
@@ -810,7 +810,7 @@ function ProductCardMini(props) {
   return (
     <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
       <button
-        className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-slate-700 hover:bg-white"
+        className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-mlate-700 hover:bg-white"
         aria-label="Favorito"
         type="button"
       >
@@ -835,7 +835,7 @@ function ProductCardMini(props) {
                 draggable="false"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center text-sm font-extrabold text-slate-300">
+              <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
                 Sin imagen
               </div>
             )}
@@ -849,7 +849,7 @@ function ProductCardMini(props) {
             draggable="false"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-sm font-extrabold text-slate-300">
+          <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
             Sin imagen
           </div>
         )}
@@ -857,7 +857,7 @@ function ProductCardMini(props) {
 
       <div className="mt-3">
         {/* ✅ Título clickeable */}
-        <div className="min-h-[40px] text-sm font-extrabold text-slate-900">
+        <div className="min-h-[40px] text-m font-extrabold text-mlate-900">
           {href ? (
             <Link to={href} className="hover:underline" title="Ver detalle">
               {p.product_name}
@@ -869,14 +869,14 @@ function ProductCardMini(props) {
 
         <div className="mt-2 flex items-center justify-between">
           {p.has_price ? (
-            <div className="text-lg font-extrabold text-slate-900">{priceText}</div>
+            <div className="text-lg font-extrabold text-mlate-900">{priceText}</div>
           ) : (
-            <div className="rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
-              ¡CONSÚLTALO!
+            <div className="rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800"> VER
+               
             </div>
           )}
 
-          <div className="text-sm font-extrabold text-slate-900">
+          <div className="text-m font-extrabold text-mlate-900">
             5 <span className="text-amber-500">★</span>
           </div>
         </div>
@@ -913,14 +913,14 @@ function ProductCardV2(props) {
               draggable="false"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-sm font-extrabold text-slate-300">
+            <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
               Sin imagen
             </div>
           )}
 
           {/* mini hint en hover */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/35 to-transparent px-3 py-2 opacity-0 transition-opacity group-hover:opacity-100">
-            <div className="text-xs font-extrabold text-white">Ver detalle →</div>
+            <div className="text-m font-extrabold text-white">Ver detalle →</div>
           </div>
         </Link>
       ) : (
@@ -934,7 +934,7 @@ function ProductCardV2(props) {
               draggable="false"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-sm font-extrabold text-slate-300">
+            <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
               Sin imagen
             </div>
           )}
@@ -942,10 +942,10 @@ function ProductCardV2(props) {
       )}
 
       <div className="px-4 pb-4">
-        <div className="text-[11px] font-bold text-slate-500">{p.category_name || "—"}</div>
+        <div className="text-[20px] font-bold text-mlate-500">{p.category_name || "—"}</div>
 
         {/* ✅ Título también clickeable */}
-        <div className="mt-1 min-h-[44px] text-sm font-extrabold text-slate-900">
+        <div className="mt-1 min-h-[44px] text-m font-extrabold text-mlate-900">
           {href ? (
             <Link to={href} className="hover:underline" title="Ver detalle">
               {p.product_name}
@@ -959,8 +959,8 @@ function ProductCardV2(props) {
           {p.has_price ? (
             <div className="text-lg font-extrabold text-red-600">{priceText}</div>
           ) : (
-            <div className="rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
-              ¡CONSÚLTALO!
+            <div className="rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800">
+               
             </div>
           )}
 
@@ -968,10 +968,10 @@ function ProductCardV2(props) {
           <button
             onClick={props.onToggle}
             className={
-              "rounded-full px-4 py-2 text-xs font-extrabold " +
+              "rounded-full px-4 py-2 text-m font-extrabold " +
               (props.inCart
                 ? "bg-slate-900 text-white hover:bg-slate-800"
-                : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+                : "border border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
             }
             type="button"
           >
@@ -982,7 +982,7 @@ function ProductCardV2(props) {
         <div className="mt-3">
           <Link
             to={href}
-            className="block w-full rounded-2xl bg-emerald-600 px-4 py-2.5 text-center text-xs font-extrabold text-white hover:bg-emerald-700"
+            className="block w-full rounded-2xl bg-emerald-600 px-4 py-2.5 text-center text-m font-extrabold text-white hover:bg-emerald-700"
           >
             Ver detalle →
           </Link>

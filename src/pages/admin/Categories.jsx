@@ -240,14 +240,14 @@ export default function Categories() {
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="text-xs font-semibold text-slate-500">Administración</div>
-            <div className="mt-1 text-3xl font-extrabold tracking-tight text-slate-900">Categorías</div>
-            <div className="mt-1 text-sm text-slate-600">Listado de categorias</div>
+            <div className="text-m font-semibold text-mlate-500">Administración</div>
+            <div className="mt-1 text-3xl font-extrabold tracking-tight text-mlate-900">Categorías</div>
+            <div className="mt-1 text-m text-mlate-600">Listado de categorias</div>
 
             {opMsg ? (
               <div
                 className={
-                  "mt-3 rounded-xl border px-3 py-2 text-xs font-bold " +
+                  "mt-3 rounded-xl border px-3 py-2 text-m font-bold " +
                   (opMsg.type === "ok"
                     ? "border-emerald-200 bg-emerald-50 text-emerald-800"
                     : "border-red-200 bg-red-50 text-red-800")
@@ -258,7 +258,7 @@ export default function Categories() {
             ) : null}
 
             {!qProd.isLoading && okProd === false ? (
-              <div className="mt-2 text-xs font-semibold text-amber-800">
+              <div className="mt-2 text-m font-semibold text-amber-800">
                 Aviso: no se pudo cargar productos, el conteo puede mostrarse en 0.
               </div>
             ) : null}
@@ -269,7 +269,7 @@ export default function Categories() {
               onClick={onNew}
               disabled={busy}
               className={
-                "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-white shadow " +
+                "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-m font-bold text-white shadow " +
                 (busy ? "bg-slate-400" : "bg-slate-900 hover:bg-slate-800")
               }
             >
@@ -285,7 +285,7 @@ export default function Categories() {
                   setPage(1);
                 }}
                 placeholder="Buscar"
-                className="w-[220px] rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-slate-300"
+                className="w-[220px] rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
               />
 
               <select
@@ -294,7 +294,7 @@ export default function Categories() {
                   setStatus(e.target.value);
                   setPage(1);
                 }}
-                className="w-[190px] rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-slate-300"
+                className="w-[190px] rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
               >
                 <option value="ALL">Estado: Todos</option>
                 <option value="ACTIVE">Activos</option>
@@ -308,14 +308,14 @@ export default function Categories() {
       {/* estados */}
       {qCats.isLoading ? (
         <Card>
-          <div className="text-sm text-slate-600">Cargando categorías...</div>
+          <div className="text-m text-mlate-600">Cargando categorías...</div>
           <SkeletonTable />
         </Card>
       ) : null}
 
       {qCats.isError ? (
         <Card>
-          <div className="text-sm font-semibold text-red-700">
+          <div className="text-m font-semibold text-red-700">
             Error: {String(qCats.error && qCats.error.message ? qCats.error.message : qCats.error)}
           </div>
         </Card>
@@ -323,7 +323,7 @@ export default function Categories() {
 
       {!qCats.isLoading && okCats === false ? (
         <Card>
-          <div className="text-sm font-semibold text-amber-800">
+          <div className="text-m font-semibold text-amber-800">
             {qCats.data && qCats.data.message ? qCats.data.message : "No se pudo obtener categorías"}
           </div>
         </Card>
@@ -333,7 +333,7 @@ export default function Categories() {
       {!qCats.isLoading && okCats ? (
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
-            <div className="text-sm font-semibold text-slate-900">Total: {total}</div>
+            <div className="text-m font-semibold text-mlate-900">Total: {total}</div>
             <div className="flex items-center gap-2">
               <button
                 onClick={function () {
@@ -341,7 +341,7 @@ export default function Categories() {
                   qProd.refetch();
                 }}
                 disabled={busy}
-                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 disabled:opacity-50"
+                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-semibold text-mlate-800 hover:bg-slate-50 disabled:opacity-50"
               >
                 Recargar
               </button>
@@ -349,8 +349,8 @@ export default function Categories() {
           </div>
 
           <div className="overflow-auto">
-            <table className="min-w-[900px] w-full text-left text-sm">
-              <thead className="bg-slate-50 text-xs font-bold text-slate-600">
+            <table className="min-w-[900px] w-full text-left text-m">
+              <thead className="bg-slate-50 text-m font-bold text-mlate-600">
                 <tr>
                   <th className="px-4 py-3">ID</th>
                   <th className="px-4 py-3">Imagen</th>
@@ -366,7 +366,7 @@ export default function Categories() {
                 {pageItems.map(function (c) {
                   return (
                     <tr key={c.id_category} className="hover:bg-slate-50">
-                      <td className="px-4 py-4 font-bold text-slate-900">{c.id_category}</td>
+                      <td className="px-4 py-4 font-bold text-mlate-900">{c.id_category}</td>
 
                       <td className="px-4 py-4">
                         {c.category_image_url ? (
@@ -376,40 +376,40 @@ export default function Categories() {
                             className="h-10 w-10 rounded-xl object-cover ring-1 ring-slate-200"
                           />
                         ) : (
-                          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-[10px] font-extrabold text-slate-500">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-[10px] font-extrabold text-mlate-500">
                             —
                           </div>
                         )}
                       </td>
 
                       <td className="px-4 py-4">
-                        <div className="font-extrabold text-slate-900">{c.category_name}</div>
+                        <div className="font-extrabold text-mlate-900">{c.category_name}</div>
                         {c.category_desc ? (
-                          <div className="mt-1 max-w-[420px] overflow-hidden text-ellipsis whitespace-nowrap text-xs text-slate-600">
+                          <div className="mt-1 max-w-[420px] overflow-hidden text-ellipsis whitespace-nowrap text-m text-mlate-600">
                             {c.category_desc}
                           </div>
                         ) : null}
                       </td>
 
                       <td className="px-4 py-4">
-                        <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-extrabold text-slate-700">
+                        <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-mlate-700">
                           {String(c.product_count || 0)}
                         </span>
                       </td>
 
                       <td className="px-4 py-4">
                         {c.category_status ? (
-                          <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-extrabold text-emerald-700">
+                          <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-m font-extrabold text-emerald-700">
                             Activo
                           </span>
                         ) : (
-                          <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-extrabold text-slate-600">
+                          <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-mlate-600">
                             Inactivo
                           </span>
                         )}
                       </td>
 
-                      <td className="px-4 py-4 text-xs text-slate-600">
+                      <td className="px-4 py-4 text-m text-mlate-600">
                         {c.category_created ? new Date(c.category_created).toLocaleString() : "—"}
                       </td>
 
@@ -559,7 +559,7 @@ function Card(props) {
 function IconBtn(props) {
   var base;
   base =
-    "inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-extrabold shadow-sm hover:bg-slate-50 disabled:opacity-50";
+    "inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-m font-extrabold shadow-sm hover:bg-slate-50 disabled:opacity-50";
 
   if (props.danger) {
     return (
@@ -579,7 +579,7 @@ function IconBtn(props) {
       title={props.title}
       onClick={props.onClick}
       disabled={props.disabled}
-      className={base + " border-slate-200 text-slate-800"}
+      className={base + " border-slate-200 text-mlate-800"}
     >
       {props.children}
     </button>
@@ -592,8 +592,8 @@ function PageBtn(props) {
       disabled={props.disabled}
       onClick={props.onClick}
       className={
-        "rounded-xl border px-3 py-2 text-sm font-bold " +
-        (props.disabled ? "border-slate-200 bg-white text-slate-300" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+        "rounded-xl border px-3 py-2 text-m font-bold " +
+        (props.disabled ? "border-slate-200 bg-white text-mlate-300" : "border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
       }
     >
       {props.children}
@@ -617,8 +617,8 @@ function renderPages(page, pages, setPage) {
           setPage(i);
         }}
         className={
-          "h-10 w-10 rounded-xl border text-sm font-extrabold " +
-          (i === page ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+          "h-10 w-10 rounded-xl border text-m font-extrabold " +
+          (i === page ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
         }
       >
         {i}
@@ -662,13 +662,13 @@ function ConfirmDialog(props) {
       <div className="absolute inset-0 flex items-center justify-center p-4">
         <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-xl">
           <div className="border-b border-slate-200 px-5 py-4">
-            <div className="text-lg font-extrabold text-slate-900">{props.title}</div>
-            <div className="mt-1 text-sm text-slate-600">{props.message}</div>
+            <div className="text-lg font-extrabold text-mlate-900">{props.title}</div>
+            <div className="mt-1 text-m text-mlate-600">{props.message}</div>
           </div>
 
           <div className="flex items-center justify-end gap-3 px-5 py-4">
             <button
-              className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-extrabold text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+              className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-mlate-700 hover:bg-slate-50 disabled:opacity-50"
               onClick={props.onCancel}
               type="button"
               disabled={props.busy}
@@ -676,7 +676,7 @@ function ConfirmDialog(props) {
               {props.cancelText || "Cancelar"}
             </button>
             <button
-              className="rounded-xl bg-red-600 px-4 py-2.5 text-sm font-extrabold text-white hover:bg-red-700 disabled:opacity-50"
+              className="rounded-xl bg-red-600 px-4 py-2.5 text-m font-extrabold text-white hover:bg-red-700 disabled:opacity-50"
               onClick={props.onConfirm}
               type="button"
               disabled={props.busy}

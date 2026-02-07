@@ -154,12 +154,12 @@ async function submit(values) {
           {/* header */}
           <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
             <div>
-              <div className="text-xs font-semibold text-slate-500">Administración • Categorías</div>
-              <div className="mt-1 text-lg font-extrabold text-slate-900">{title}</div>
+              <div className="text-m font-semibold text-mlate-500">Administración • Categorías</div>
+              <div className="mt-1 text-lg font-extrabold text-mlate-900">{title}</div>
             </div>
 
             <button
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-bold text-mlate-700 hover:bg-slate-50 disabled:opacity-50"
               onClick={function () {
                 if (uploading || f.formState.isSubmitting || props.busy) return;
                 if (props.onClose) props.onClose();
@@ -179,9 +179,9 @@ async function submit(values) {
                 <div className="grid gap-4">
                   {/* nombre */}
                   <div>
-                    <label className="text-xs font-extrabold text-slate-700">Nombre de la categoría</label>
+                    <label className="text-m font-extrabold text-mlate-700">Nombre de la categoría</label>
                     <input
-                      className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-slate-300"
+                      className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
                       placeholder="Ej: Cocoa"
                       disabled={uploading || props.busy}
                       {...f.register("categoryName")}
@@ -191,9 +191,9 @@ async function submit(values) {
 
                   {/* descripción */}
                   <div>
-                    <label className="text-xs font-extrabold text-slate-700">Descripción</label>
+                    <label className="text-m font-extrabold text-mlate-700">Descripción</label>
                     <textarea
-                      className="mt-2 min-h-[92px] w-full resize-none rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-slate-300"
+                      className="mt-2 min-h-[92px] w-full resize-none rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
                       placeholder="Describe la categoría..."
                       disabled={uploading || props.busy}
                       {...f.register("categoryDesc")}
@@ -203,9 +203,9 @@ async function submit(values) {
 
                   {/* imagen url */}
                   <div>
-                    <label className="text-xs font-extrabold text-slate-700">Imagen URL (opcional)</label>
+                    <label className="text-m font-extrabold text-mlate-700">Imagen URL (opcional)</label>
                     <input
-                      className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-slate-300"
+                      className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
                       placeholder="https://..."
                       disabled={uploading || props.busy}
                       {...f.register("categoryImageUrl")}
@@ -215,8 +215,8 @@ async function submit(values) {
 
                   {/* upload image */}
                   <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-                    <div className="text-xs font-extrabold text-slate-700">Subir imagen (opcional)</div>
-                    <div className="mt-1 text-xs text-slate-500">
+                    <div className="text-m font-extrabold text-mlate-700">Subir imagen (opcional)</div>
+                    <div className="mt-1 text-m text-mlate-500">
                       Si seleccionas un archivo, se subirá y reemplazará la URL al guardar.
                     </div>
 
@@ -224,7 +224,7 @@ async function submit(values) {
                       type="file"
                       accept="image/*"
                       disabled={uploading || props.busy}
-                      className="mt-3 block w-full text-sm"
+                      className="mt-3 block w-full text-m"
                       onChange={function (e) {
                         var f1;
 
@@ -238,12 +238,12 @@ async function submit(values) {
                     />
 
                     {uploadErr ? (
-                      <div className="mt-3 rounded-xl bg-red-50 p-3 text-xs font-semibold text-red-700">{uploadErr}</div>
+                      <div className="mt-3 rounded-xl bg-red-50 p-3 text-m font-semibold text-red-700">{uploadErr}</div>
                     ) : null}
 
                     {file ? (
-                      <div className="mt-3 text-xs font-semibold text-slate-700">
-                        Archivo: <span className="font-bold text-slate-900">{file.name}</span>
+                      <div className="mt-3 text-m font-semibold text-mlate-700">
+                        Archivo: <span className="font-bold text-mlate-900">{file.name}</span>
                       </div>
                     ) : null}
                   </div>
@@ -251,12 +251,12 @@ async function submit(values) {
                   {/* estado */}
                   <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-3">
                     <div>
-                      <div className="text-xs font-extrabold text-slate-700">Estado</div>
-                      <div className="text-xs text-slate-500">Activo / Inactivo</div>
+                      <div className="text-m font-extrabold text-mlate-700">Estado</div>
+                      <div className="text-m text-mlate-500">Activo / Inactivo</div>
                     </div>
 
                     <select
-                      className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-800"
+                      className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-bold text-mlate-800"
                       disabled={uploading || props.busy}
                       value={f.watch("categoryStatus") ? "1" : "0"}
                       onChange={function (e) {
@@ -273,9 +273,9 @@ async function submit(values) {
               {/* right: preview */}
               <div className="border-t border-slate-200 bg-slate-50 p-5 md:border-l md:border-t-0">
                 <div className="flex items-center justify-between">
-                  <div className="text-xs font-extrabold text-slate-700">Vista previa</div>
+                  <div className="text-m font-extrabold text-mlate-700">Vista previa</div>
                   {uploading ? (
-                    <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
+                    <span className="rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800">
                       Subiendo imagen...
                     </span>
                   ) : null}
@@ -288,22 +288,22 @@ async function submit(values) {
                     ) : f.watch("categoryImageUrl") ? (
                       <img alt="preview-url" src={f.watch("categoryImageUrl")} className="h-44 w-full object-cover" />
                     ) : (
-                      <div className="flex h-44 items-center justify-center text-xs font-bold text-slate-500">Sin imagen</div>
+                      <div className="flex h-44 items-center justify-center text-m font-bold text-mlate-500">Sin imagen</div>
                     )}
                   </div>
 
                   <div className="p-4">
-                    <div className="text-lg font-extrabold text-slate-900">{f.watch("categoryName") || "Nombre de la categoría"}</div>
+                    <div className="text-lg font-extrabold text-mlate-900">{f.watch("categoryName") || "Nombre de la categoría"}</div>
 
-                    <div className="mt-2 text-sm text-slate-600">{f.watch("categoryDesc") || "Descripción de la categoría..."}</div>
+                    <div className="mt-2 text-m text-mlate-600">{f.watch("categoryDesc") || "Descripción de la categoría..."}</div>
 
                     <div className="mt-3">
                       {f.watch("categoryStatus") ? (
-                        <span className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-extrabold text-emerald-700">
+                        <span className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-m font-extrabold text-emerald-700">
                           Activo
                         </span>
                       ) : (
-                        <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-extrabold text-slate-600">
+                        <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-mlate-600">
                           Inactivo
                         </span>
                       )}
@@ -311,7 +311,7 @@ async function submit(values) {
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-xl border border-slate-200 bg-white p-3 text-xs text-slate-600">
+                <div className="mt-4 rounded-xl border border-slate-200 bg-white p-3 text-m text-mlate-600">
                   <b>Tip:</b> Si subes imagen por archivo, no necesitas escribir la URL.
                 </div>
               </div>
@@ -323,10 +323,10 @@ async function submit(values) {
                 type="button"
                 disabled={uploading || f.formState.isSubmitting || props.busy}
                 className={
-                  "rounded-xl border px-4 py-2.5 text-sm font-extrabold " +
+                  "rounded-xl border px-4 py-2.5 text-m font-extrabold " +
                   (uploading || f.formState.isSubmitting || props.busy
-                    ? "border-slate-200 bg-white text-slate-300"
-                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50")
+                    ? "border-slate-200 bg-white text-mlate-300"
+                    : "border-slate-200 bg-white text-mlate-700 hover:bg-slate-50")
                 }
                 onClick={function () {
                   if (uploading || f.formState.isSubmitting || props.busy) return;
@@ -340,7 +340,7 @@ async function submit(values) {
                 type="submit"
                 disabled={uploading || f.formState.isSubmitting || props.busy}
                 className={
-                  "rounded-xl px-4 py-2.5 text-sm font-extrabold text-white " +
+                  "rounded-xl px-4 py-2.5 text-m font-extrabold text-white " +
                   (uploading || f.formState.isSubmitting || props.busy ? "bg-slate-400" : "bg-slate-900 hover:bg-slate-800")
                 }
               >
@@ -356,7 +356,7 @@ async function submit(values) {
 
 function FieldError(props) {
   if (!props.msg) return null;
-  return <div className="mt-2 text-xs font-bold text-red-700">{String(props.msg.message || props.msg)}</div>;
+  return <div className="mt-2 text-m font-bold text-red-700">{String(props.msg.message || props.msg)}</div>;
 }
 
 function buildDefaults(props) {

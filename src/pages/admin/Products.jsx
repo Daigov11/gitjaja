@@ -210,11 +210,11 @@ export default function Products() {
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="text-xs font-semibold text-slate-500">Administración</div>
-            <div className="mt-1 text-3xl font-extrabold tracking-tight text-slate-900">
+            <div className="text-m font-semibold text-mlate-500">Administración</div>
+            <div className="mt-1 text-3xl font-extrabold tracking-tight text-mlate-900">
               Productos
             </div>
-            <div className="mt-1 text-sm text-slate-600">
+            <div className="mt-1 text-m text-mlate-600">
               Listado de productos
             </div>
           </div>
@@ -222,7 +222,7 @@ export default function Products() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <button
               onClick={onNew}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-bold text-white shadow hover:bg-slate-800"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-m font-bold text-white shadow hover:bg-slate-800"
             >
               <span className="text-lg leading-none">＋</span>
               <span>Nuevo Producto</span>
@@ -237,7 +237,7 @@ export default function Products() {
                     setPage(1);
                   }}
                   placeholder="Buscar"
-                  className="w-[220px] rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-slate-300"
+                  className="w-[220px] rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
                 />
               </div>
 
@@ -248,7 +248,7 @@ export default function Products() {
                     setCat(e.target.value);
                     setPage(1);
                   }}
-                  className="w-[210px] rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-slate-300"
+                  className="w-[210px] rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
                 >
                   <option value="ALL">Filtrar por Categoría</option>
                   {cats.map(function (c) {
@@ -265,7 +265,7 @@ export default function Products() {
         </div>
 
         {savingErr ? (
-          <div className="mt-4 rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-700">
+          <div className="mt-4 rounded-xl bg-red-50 p-3 text-m font-semibold text-red-700">
             {savingErr}
           </div>
         ) : null}
@@ -274,14 +274,14 @@ export default function Products() {
       {/* States */}
       {q.isLoading ? (
         <Card>
-          <div className="text-sm text-slate-600">Cargando productos...</div>
+          <div className="text-m text-mlate-600">Cargando productos...</div>
           <SkeletonTable />
         </Card>
       ) : null}
 
       {q.isError ? (
         <Card>
-          <div className="text-sm font-semibold text-red-700">
+          <div className="text-m font-semibold text-red-700">
             Error: {String(q.error && q.error.message ? q.error.message : q.error)}
           </div>
         </Card>
@@ -289,7 +289,7 @@ export default function Products() {
 
       {!q.isLoading && ok === false ? (
         <Card>
-          <div className="text-sm font-semibold text-amber-800">
+          <div className="text-m font-semibold text-amber-800">
             {q.data && q.data.message ? q.data.message : "No se pudo obtener datos"}
           </div>
         </Card>
@@ -299,20 +299,20 @@ export default function Products() {
       {!q.isLoading && ok ? (
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
-            <div className="text-sm font-semibold text-slate-900">Total: {total}</div>
+            <div className="text-m font-semibold text-mlate-900">Total: {total}</div>
             <button
               onClick={function () {
                 q.refetch();
               }}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-semibold text-mlate-800 hover:bg-slate-50"
             >
               Recargar
             </button>
           </div>
 
           <div className="overflow-auto">
-            <table className="min-w-[980px] w-full text-left text-sm">
-              <thead className="bg-slate-50 text-xs font-bold text-slate-600">
+            <table className="min-w-[980px] w-full text-left text-m">
+              <thead className="bg-slate-50 text-m font-bold text-mlate-600">
                 <tr>
                   <th className="px-4 py-3">ID</th>
                   <th className="px-4 py-3">Categoría</th>
@@ -329,48 +329,48 @@ export default function Products() {
                 {pageItems.map(function (p) {
                   return (
                     <tr key={p.id_product} className="hover:bg-slate-50">
-                      <td className="px-4 py-4 font-bold text-slate-900">{p.id_product}</td>
+                      <td className="px-4 py-4 font-bold text-mlate-900">{p.id_product}</td>
 
-                      <td className="px-4 py-4 text-slate-700">{p.category_name || "—"}</td>
+                      <td className="px-4 py-4 text-mlate-700">{p.category_name || "—"}</td>
 
                       <td className="px-4 py-4">
-                        <div className="font-extrabold text-slate-900">{p.product_name}</div>
-                        <div className="mt-1 max-w-[260px] overflow-hidden text-ellipsis whitespace-nowrap text-xs text-slate-600">
+                        <div className="font-extrabold text-mlate-900">{p.product_name}</div>
+                        <div className="mt-1 max-w-[260px] overflow-hidden text-ellipsis whitespace-nowrap text-m text-mlate-600">
                           {p.product_desc || "—"}
                         </div>
                       </td>
 
                       <td className="px-4 py-4">
-                        <div className="max-w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-xs text-slate-700">
+                        <div className="max-w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-m text-mlate-700">
                           {p.product_desc || "—"}
                         </div>
                       </td>
 
                       <td className="px-4 py-4">
                         {p.has_price ? (
-                          <div className="font-extrabold text-slate-900">
+                          <div className="font-extrabold text-mlate-900">
                             S/ {Number(p.price || 0).toFixed(2)}
                           </div>
                         ) : (
-                          <span className="inline-flex rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
-                            ¡CONSÚLTALO!
+                          <span className="inline-flex rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800">
+                             
                           </span>
                         )}
                       </td>
 
                       <td className="px-4 py-4">
                         {p.product_status ? (
-                          <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-extrabold text-emerald-700">
+                          <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-m font-extrabold text-emerald-700">
                             Activo
                           </span>
                         ) : (
-                          <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-extrabold text-slate-600">
+                          <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-mlate-600">
                             Inactivo
                           </span>
                         )}
                       </td>
 
-                      <td className="px-4 py-4 text-xs text-slate-600">
+                      <td className="px-4 py-4 text-m text-mlate-600">
                         {p.product_created ? new Date(p.product_created).toLocaleString() : "—"}
                       </td>
 
@@ -450,7 +450,7 @@ function Card(props) {
 function IconBtn(props) {
   var base;
   base =
-    "inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-extrabold shadow-sm hover:bg-slate-50";
+    "inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-m font-extrabold shadow-sm hover:bg-slate-50";
 
   if (props.danger) {
     return (
@@ -461,7 +461,7 @@ function IconBtn(props) {
   }
 
   return (
-    <button title={props.title} onClick={props.onClick} className={base + " border-slate-200 text-slate-800"}>
+    <button title={props.title} onClick={props.onClick} className={base + " border-slate-200 text-mlate-800"}>
       {props.children}
     </button>
   );
@@ -473,8 +473,8 @@ function PageBtn(props) {
       disabled={props.disabled}
       onClick={props.onClick}
       className={
-        "rounded-xl border px-3 py-2 text-sm font-bold " +
-        (props.disabled ? "border-slate-200 bg-white text-slate-300" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+        "rounded-xl border px-3 py-2 text-m font-bold " +
+        (props.disabled ? "border-slate-200 bg-white text-mlate-300" : "border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
       }
     >
       {props.children}
@@ -500,8 +500,8 @@ function renderPages(page, pages, setPage) {
           setPage(i);
         }}
         className={
-          "h-10 w-10 rounded-xl border text-sm font-extrabold " +
-          (i === page ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
+          "h-10 w-10 rounded-xl border text-m font-extrabold " +
+          (i === page ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
         }
       >
         {i}
