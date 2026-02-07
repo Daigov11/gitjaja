@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation,NavLink } from "react-router-dom";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { listCategories } from "../services/categoriesService";
@@ -53,11 +53,11 @@ var HEADER_BG;
 /* ====== CONFIG ====== */
 BRAND = "Harinas Don Pepito";
 LOGO_URL =
-  "https://api-centralizador.apiworking.pe/images/125e6d5a-71f0-43f0-b2f0-44557592bec8.png";
+  "http://api-centralizador.apiworking.pe/images/34e75a99-76be-4c2f-aa6f-af05e71d93a7.png";
 
 PHONE = "946762926";
 HELP_FLOAT_IMG_URL =
-  "https://api-centralizador.apiworking.pe/images/74d3532e-bd3c-4f6c-a4c6-8a465495bec8.png";
+  "https://api-centralizador.apiworking.pe/images/79a77bab-87dc-459b-a284-5e00529cb955.png";
 
 HELP_FLOAT_TEXT = "Hola, necesito ayuda con mi pedido.";
 
@@ -72,7 +72,7 @@ var WA_ICON_IMG;
 WA_ICON_IMG =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/960px-WhatsApp.svg.png"
 /* ✅ Verde manzana */
-HEADER_BG = "#8BC34A";
+HEADER_BG = "#89E75A";
 
 /* ✅ IMPORTANTE: catálogo debe ser "/categoria" para funcionar desde /producto/:id */
 NAV_ITEMS = [
@@ -109,6 +109,12 @@ export default function PublicLayout() {
   var catsAll, catsShown;
   var catsMegaFiltered;
   var megaCols;
+  /* ✅ Mobile: Catálogo desplegable dentro del drawer */
+  var mobCatalogOpen, setMobCatalogOpen;
+
+  mobCatalogOpen = useState(true);
+  setMobCatalogOpen = mobCatalogOpen[1];
+  mobCatalogOpen = mobCatalogOpen[0];
 
   megaRef = useRef(null);
 
@@ -338,7 +344,8 @@ export default function PublicLayout() {
 
                     /* ✅ en pantallas medianas baja un poco padding/fuente para que no empuje */
                     cls =
-                      "rounded-md px-2 lg:px-3 py-2 text-[13px] lg:text-[15px] xl:text-[16px] font-extrabold text-white/95 hover:bg-white/10 hover:text-white";
+  "rounded-md px-2 lg:px-3 py-2 text-[23px] lg:text-[23px] xl:text-[23px] font-black tracking-tight text-black drop-shadow-[0_1px_0_rgba(255,255,255,0.75)] hover:bg-white/10 hover:text-white";
+
 
                     if (it.label === "Catálogo") {
                       return (
@@ -568,20 +575,29 @@ export default function PublicLayout() {
                 <img src={LOGO_URL} alt="Don Pepito" className="h-14 w-auto object-contain" />
               </Link>
 
-              <div className="ml-auto flex items-center gap-2">
-                <button
-                  onClick={function () {
-                    setCartOpen(true);
-                  }}
-                  className="relative inline-flex items-center gap-2 rounded-full bg-orange-500 px-3 py-2 text-m font-extrabold text-white shadow hover:bg-orange-400"
-                  aria-label="Abrir carrito"
-                >
-                  CA
-                  <span className="rounded-full bg-white/90 px-2 py-0.5 text-m text-mlate-900">
-                    {cart.length}
-                  </span>
-                </button>
-              </div>
+<div className="ml-auto flex items-center gap-2">
+  <button
+    onClick={function () {
+      setCartOpen(true);
+    }}
+    className="relative inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-500 shadow-md ring-1 ring-black/10 hover:bg-orange-400 active:scale-[0.98]"
+    aria-label="Abrir carrito"
+    title="Carrito"
+  >
+    <img
+      src={CART_ICON_IMG}
+      alt=""
+      className="h-6 w-6 object-contain"
+      loading="lazy"
+      draggable="false"
+    />
+
+    <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-white px-1 text-[12px] font-extrabold leading-none text-slate-900 ring-2 ring-orange-500">
+      {cart.length > 99 ? "99+" : cart.length}
+    </span>
+  </button>
+</div>
+
             </div>
 
             {/* Search mobile */}
@@ -607,6 +623,7 @@ export default function PublicLayout() {
       {/* ✅ Barra mini de marcas (debajo del header) */}
       <BrandMarquee />
       {/* ✅ Drawer lateral (mobile): SOLO categorías */}
+      {/* ✅ Drawer lateral (mobile): MENÚ + Catálogo(▾) + Redes */}
       {catOpen ? (
         <div className="fixed inset-0 z-50">
           <div
@@ -616,82 +633,270 @@ export default function PublicLayout() {
             }}
           />
 
-          <div className="absolute left-0 top-0 h-full w-[82%] max-w-sm bg-white shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
-              <div className="text-m font-extrabold text-mlate-900">CATEGORÍAS</div>
+          {/* ✅ Panel ahora en modo columna para poder scrollear cómodo */}
+          <div className="absolute left-0 top-0 h-full w-[82%] max-w-sm bg-white shadow-2xl flex flex-col">
+            {/* Header fijo */}
+            <div className="shrink-0 flex items-center justify-between border-b border-slate-200 px-4 py-3">
+              <div className="text-m font-extrabold text-mlate-900">MENÚ</div>
+
               <button
                 onClick={function () {
                   setCatOpen(false);
                 }}
                 className="rounded-xl border border-slate-200 p-2 text-mlate-700 hover:bg-slate-50"
-                aria-label="Cerrar categorías"
+                aria-label="Cerrar menú"
+                title="Cerrar"
               >
                 <XIcon />
               </button>
             </div>
 
-            <div className="p-4">
-              <div className="relative">
-                <input
-                  value={catQuery}
-                  onChange={function (e) {
-                    setCatQuery(e.target.value);
-                  }}
-                  placeholder="Buscar categoría..."
-                  className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-m font-semibold text-mlate-900 outline-none focus:border-emerald-400"
-                />
-                <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-mlate-400">
-                  <SearchIcon />
-                </div>
-              </div>
-
-              <div className="mt-3">
+            {/* Body scrolleable */}
+            <div className="flex-1 overflow-y-auto overscroll-contain p-4">
+              {/* ===== MENÚ PRINCIPAL ===== */}
+              <div className="rounded-2xl border border-slate-200 bg-white">
+                {/* Inicio */}
                 <Link
-                  to="/categoria"
+                  to="/"
                   onClick={function () {
                     setCatOpen(false);
                     window.scrollTo(0, 0);
                   }}
-                  className="flex items-center justify-between border-b border-slate-200 py-4 text-m font-extrabold text-mlate-900"
+                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-mlate-900"
                 >
-                  <span className="uppercase">Ver todas</span>
+                  <span>Inicio</span>
                   <ChevronIcon />
                 </Link>
 
-                {qCats.isLoading && catsAll.length === 0 ? (
-                  <div className="py-6 text-m font-semibold text-mlate-600">Cargando categorías…</div>
-                ) : null}
+                {/* Quienes somos */}
+                <Link
+                  to="/aboutus"
+                  onClick={function () {
+                    setCatOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
+                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-mlate-900"
+                >
+                  <span>Quienes somos</span>
+                  <ChevronIcon />
+                </Link>
 
-                {!qCats.isLoading && catsAll.length === 0 ? (
-                  <div className="py-6 text-m font-semibold text-mlate-600">No hay categorías.</div>
-                ) : null}
+                {/* Catálogo ▾ (desplegable) */}
+                <button
+                  type="button"
+                  onClick={function () {
+                    setMobCatalogOpen(!mobCatalogOpen);
+                  }}
+                  className="w-full flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-mlate-900"
+                  aria-expanded={mobCatalogOpen ? "true" : "false"}
+                  title="Ver categorías"
+                >
+                  <span>Catálogo</span>
+                  <span className={"transition-transform " + (mobCatalogOpen ? "rotate-90" : "")}>
+                    <ChevronIcon />
+                  </span>
+                </button>
 
-                <div className="max-h-[calc(100vh-210px)] overflow-y-auto pr-1">
-                  {catsShown.map(function (name, i) {
-                    var href;
-                    href = "/categoria/" + encodeURIComponent(String(name || ""));
+                {/* CONTENIDO del Catálogo (categorías) */}
+                {mobCatalogOpen ? (
+                  <div className="px-4 pb-4 pt-3">
+                    <div className="relative">
+                      <input
+                        value={catQuery}
+                        onChange={function (e) {
+                          setCatQuery(e.target.value);
+                        }}
+                        placeholder="Buscar categoría..."
+                        className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-m font-semibold text-mlate-900 outline-none focus:border-emerald-400"
+                      />
+                      <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-mlate-400">
+                        <SearchIcon />
+                      </div>
+                    </div>
 
-                    return (
+                    <div className="mt-3">
                       <Link
-                        key={"cat_" + i}
-                        to={href}
+                        to="/categoria"
                         onClick={function () {
                           setCatOpen(false);
                           window.scrollTo(0, 0);
                         }}
                         className="flex items-center justify-between border-b border-slate-200 py-4 text-m font-extrabold text-mlate-900"
                       >
-                        <span className="uppercase">{name}</span>
+                        <span className="uppercase">Ver todas</span>
                         <ChevronIcon />
                       </Link>
-                    );
-                  })}
-                </div>
+
+                      {qCats.isLoading && catsAll.length === 0 ? (
+                        <div className="py-6 text-m font-semibold text-mlate-600">Cargando categorías…</div>
+                      ) : null}
+
+                      {!qCats.isLoading && catsAll.length === 0 ? (
+                        <div className="py-6 text-m font-semibold text-mlate-600">No hay categorías.</div>
+                      ) : null}
+
+                      <div className="mt-1">
+                        {catsShown.map(function (name, i) {
+                          var href;
+                          href = "/categoria/" + encodeURIComponent(String(name || ""));
+
+                          return (
+                            <Link
+                              key={"cat_" + i}
+                              to={href}
+                              onClick={function () {
+                                setCatOpen(false);
+                                window.scrollTo(0, 0);
+                              }}
+                              className="flex items-center justify-between border-b border-slate-200 py-4 text-m font-extrabold text-mlate-900"
+                              title={name}
+                            >
+                              <span className="uppercase">{name}</span>
+                              <ChevronIcon />
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+
+                {/* Ubicación */}
+                <a
+                  href="https://maps.app.goo.gl/zD8DvAwfFnhtJKJd9"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={function () {
+                    setCatOpen(false);
+                  }}
+                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-mlate-900"
+                >
+                  <span>Ubicación</span>
+                  <ChevronIcon />
+                </a>
+
+                {/* Promociones */}
+                <Link
+                  to={"/categoria/" + encodeURIComponent("PROMOCIONES")}
+                  onClick={function () {
+                    setCatOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
+                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-mlate-900"
+                >
+                  <span>Promociones</span>
+                  <ChevronIcon />
+                </Link>
+
+                {/* Trabaja con nosotros */}
+                <Link
+                  to="/trabaja-con-nosotros"
+                  onClick={function () {
+                    setCatOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
+                  className="flex items-center justify-between px-4 py-4 text-m font-extrabold text-mlate-900"
+                >
+                  <span>Trabaja con nosotros</span>
+                  <ChevronIcon />
+                </Link>
               </div>
+
+              {/* ===== REDES SOCIALES ===== */}
+            {/* ✅ Drawer footer: Redes SIEMPRE visibles (más importante en mobile) */}
+            <div className="shrink-0 border-t border-slate-200 bg-white p-4">
+              <div className="flex items-center justify-between">
+                <div className="text-m font-extrabold text-mlate-900">Síguenos</div>
+                <div className="text-[12px] font-extrabold text-mlate-500">Promos • Recetas • Novedades</div>
+              </div>
+
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                <a
+                  href={IG_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={function () {
+                    setCatOpen(false);
+                  }}
+                  className="
+                    group flex flex-col items-center justify-center rounded-2xl
+                    bg-[#89E75A]/15 ring-1 ring-[#89E75A]/30 p-3
+                    hover:bg-[#89E75A]/25 active:scale-[0.98] transition
+                  "
+                  aria-label="Abrir Instagram"
+                  title="Instagram"
+                >
+                  <img
+                    src={IG_ICON_IMG}
+                    alt="Instagram"
+                    className="h-9 w-9 rounded-full object-cover"
+                    loading="lazy"
+                    draggable="false"
+                  />
+                  <div className="mt-2 text-[12px] font-extrabold text-mlate-900">Instagram</div>
+                </a>
+
+                <a
+                  href={FB_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={function () {
+                    setCatOpen(false);
+                  }}
+                  className="
+                    group flex flex-col items-center justify-center rounded-2xl
+                    bg-[#89E75A]/15 ring-1 ring-[#89E75A]/30 p-3
+                    hover:bg-[#89E75A]/25 active:scale-[0.98] transition
+                  "
+                  aria-label="Abrir Facebook"
+                  title="Facebook"
+                >
+                  <img
+                    src={FB_ICON_IMG}
+                    alt="Facebook"
+                    className="h-9 w-9 rounded-full object-cover"
+                    loading="lazy"
+                    draggable="false"
+                  />
+                  <div className="mt-2 text-[12px] font-extrabold text-mlate-900">Facebook</div>
+                </a>
+
+                <a
+                  href={TT_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={function () {
+                    setCatOpen(false);
+                  }}
+                  className="
+                    group flex flex-col items-center justify-center rounded-2xl
+                    bg-[#89E75A]/15 ring-1 ring-[#89E75A]/30 p-3
+                    hover:bg-[#89E75A]/25 active:scale-[0.98] transition
+                  "
+                  aria-label="Abrir TikTok"
+                  title="TikTok"
+                >
+                  <img
+                    src={TT_ICON_IMG}
+                    alt="TikTok"
+                    className="h-9 w-9 rounded-full object-cover"
+                    loading="lazy"
+                    draggable="false"
+                  />
+                  <div className="mt-2 text-[12px] font-extrabold text-mlate-900">TikTok</div>
+                </a>
+              </div>
+
+              <div className="mt-3 text-[12px] font-semibold text-mlate-600">
+                Tip: en redes subimos ofertas y productos nuevos.
+              </div>
+            </div>
+
             </div>
           </div>
         </div>
       ) : null}
+
 
       {/* CONTENIDO DE PÁGINAS */}
       <div className="flex-1">
@@ -709,10 +914,10 @@ export default function PublicLayout() {
       {/* ✅ BOTÓN FLOTANTE "¿NECESITAS AYUDA?" */}
       <HelpWhatsappFloat />
 
-      {/* ✅ FOOTER NUEVO (tipo retail) - ACCENT #8BC34A */}
-      <footer className="w-full bg-[#8BC34A] text-white">
+      {/* ✅ FOOTER NUEVO (tipo retail) - ACCENT #89E75A */}
+      <footer className="w-full bg-[#89E75A] text-white">
         {/* barra superior accent */}
-        <div className="h-1 w-full bg-[#8BC34A]" />
+        <div className="h-1 w-full bg-[#89E75A]" />
 
         <div className="mx-auto w-full max-w-7xl px-4">
           <div className="py-10">
@@ -725,41 +930,70 @@ export default function PublicLayout() {
 
                 <div className="mt-4 space-y-2 text-m font-semibold text-black">
                   <div className="flex items-start gap-2">
-                    <span className="mt-0.5 text-[#8BC34A]">
+                    <span className="mt-0.5 text-[#89E75A]">
                       <PinIcon />
                     </span>
                     <span>Lima, Perú (envíos a todo el país)</span>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[#8BC34A]">
+                    <span className="text-[#89E75A]">
                       <ClockIcon />
                     </span>
                     <span>Lun–Sáb • Atención rápida</span>
+                    
                   </div>
                 </div>
 
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <a
-                    href={"https://wa.me/51" + cleanPhone(PHONE)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl bg-[#8BC34A] px-4 py-2 text-m font-extrabold text-white hover:bg-[#7CB342]"
-                    title="Escríbenos por WhatsApp"
-                  >
-                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/95 shadow-sm ring-1 ring-white/40">
-                      <img
-                        src={WA_ICON_IMG}
-                        alt="WhatsApp"
-                        className="h-5 w-5 object-contain"
-                        loading="lazy"
-                        draggable="false"
-                      />
-                    </span>
-                    WhatsApp
-                  </a>
-                </div>
+{/* ✅ CONTACTOS (click-to-call) */}
+<div className="mt-3 flex flex-wrap gap-2">
+  <a
+    href={"tel:+51" + cleanPhone("946762926")}
+    className="inline-flex items-center gap-2 rounded-2xl border border-white/40 bg-white/95 px-4 py-2 text-m font-extrabold text-slate-900 hover:bg-white"
+    title="Llamar 946762926"
+  >
+    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#89E75A]/20">
+      ☎
+    </span>
+    919 688 631
+  </a>
 
+  <a
+    href={"tel:+51" + cleanPhone("932140855")}
+    className="inline-flex items-center gap-2 rounded-2xl border border-white/40 bg-white/95 px-4 py-2 text-m font-extrabold text-slate-900 hover:bg-white"
+    title="Llamar 932140855"
+  >
+    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#89E75A]/20">
+      ☎
+    </span>
+    919 674 12
+  </a>
+</div>
+
+                <div className="mt-4 space-y-2 text-m font-semibold text-black">
+                  <div className="flex items-start gap-2">
+                    <span className="mt-0.5 text-[#89E75A]">
+                      <PinIcon />
+                    </span>
+                    <span>TIENDA FISICA</span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-[#89E75A]">
+                      <ClockIcon />
+                    </span>
+<a
+  href="https://www.google.com/maps/place/Don+Pepito/@-12.0418426,-76.9491586,19.29z/data=!4m7!3m6!1s0x9105c78eaf0b2b4f:0x3e8ed60d3d283c2e!8m2!3d-12.041896!4d-76.9489964!15sChZkb24gcGVwaXRvIHByb2R1Y3RvcmVzkgEKd2hvbGVzYWxlcuABAA!16s%2Fg%2F11sts4_sgg?entry=tts&g_ep=EgoyMDI2MDExOS4wIPu8ASoASAFQAw%3D%3D&skid=de6c4340-406c-45b3-89c9-0da802cf57dc"
+  target="_blank"
+  rel="noreferrer"
+  className="hover:underline"
+  title="Abrir en Google Maps"
+>
+  Mercado de Productores de Santa Anita, Pj. Productores #54-56,  Distrito de Santa Anita 15011
+</a>
+                    
+                  </div>
+                </div>
               </div>
 
               <div>
@@ -791,12 +1025,12 @@ export default function PublicLayout() {
                     href={IG_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
                   >
                     <img
                       src={IG_ICON_IMG}
                       alt="Instagram"
-                      className="h-5 w-5 rounded object-contain"
+                      className="h-7 w-7 rounded object-contain"
                     />
                     Instagram
                   </a>
@@ -805,12 +1039,12 @@ export default function PublicLayout() {
                     href={FB_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
                   >
                     <img
                       src={FB_ICON_IMG}
                       alt="Facebook"
-                      className="h-5 w-5 rounded object-contain"
+                      className="h-7 w-7 rounded object-contain"
                     />
                     Facebook
                   </a>
@@ -819,12 +1053,12 @@ export default function PublicLayout() {
                     href={TT_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#8BC34A]/40 hover:bg-[#8BC34A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
                   >
                     <img
                       src={TT_ICON_IMG}
                       alt="TikTok"
-                      className="h-5 w-5 rounded object-contain"
+                      className="h-7 w-7 rounded object-contain"
                     />
                     TikTok
                   </a>
@@ -836,7 +1070,7 @@ export default function PublicLayout() {
                     <img
                       src={QR_IMG_URL}
                       alt={"QR " + BRAND}
-                      className="h-28 w-28 rounded-xl object-contain"
+                      className="h-40 w-40 rounded-xl object-contain"
                     />
                   </div>
                 </div>
@@ -1342,7 +1576,7 @@ function HelpWhatsappFloat() {
       <img
         src={HELP_FLOAT_IMG_URL}
         alt="¿Necesitas ayuda?"
-        className="h-40 w-40 select-none drop-shadow-lg hover:scale-[1.03] active:scale-[0.98] transition-transform"
+        className="h-60 w-60 select-none drop-shadow-lg hover:scale-[1.03] active:scale-[0.98] transition-transform"
         draggable="false"
       />
     </a>

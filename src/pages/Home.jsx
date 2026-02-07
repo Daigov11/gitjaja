@@ -13,23 +13,46 @@ var PROMO_BLOCKS;
 var HOME_AFTER_4CATS_IMG;
 
 HOME_AFTER_4CATS_IMG =
-  "https://api-centralizador.apiworking.pe/images/5767a14d-c59b-4360-84e4-d0cf879481b3.png";
+  "https://api-centralizador.apiworking.pe/images/f28b3dde-d053-44a5-b6c9-7cb90ccb17ca.png";
+var HOME_AFTER_4CATS_IMG_MOBILE;
+
+HOME_AFTER_4CATS_IMG_MOBILE =
+  "https://api-centralizador.apiworking.pe/images/761c0511-4760-4d2d-8015-7f49ec6bee23.png";
 
 SLIDES = [
   {
-    img: "https://api-centralizador.apiworking.pe/images/587c0aa0-38d2-4f18-8ddf-738795140e74.png",
+    img: "https://api-centralizador.apiworking.pe/images/bcf79159-5c66-416c-99a8-909c8cfc5502.png",
     title: "Insumos para tu negocio",
     subtitle: "Harinas, abarrotes y más",
   },
   {
-    img: "https://api-centralizador.apiworking.pe/images/6a54ef77-38a9-4a52-a86f-a78c9f210375.png",
+    img: "https://api-centralizador.apiworking.pe/images/db0bf253-e767-4eec-9c36-9510a41e1c5d.png",
     title: "Catálogo simple y rápido",
     subtitle: "Busca, filtra y consulta por WhatsApp",
   },
   {
-    img: "https://api-centralizador.apiworking.pe/images/5f878805-8a62-4d87-9d26-77f57f8b1f91.png",
+    img: "https://api-centralizador.apiworking.pe/images/95866e5e-1d2e-4a88-88da-68241741e473.png",
     title: "Todos los productos de Perú",
     subtitle: "Arma tu lista y pide precios consulta los precios",
+  },
+];
+var SLIDES_MOBILE;
+
+SLIDES_MOBILE = [
+  {
+    img: "https://api-centralizador.apiworking.pe/images/84b33ac8-ef82-4974-80fa-db663ee87288.png",
+    title: "Don Pepito",
+    subtitle: "",
+  },
+  {
+    img: "https://api-centralizador.apiworking.pe/images/cfc6619f-3c52-403f-8587-d76e7c0e7323.png",
+    title: "Don Pepito",
+    subtitle: "",
+  },
+  {
+    img: "https://api-centralizador.apiworking.pe/images/84b33ac8-ef82-4974-80fa-db663ee87288.png",
+    title: "Don Pepito",
+    subtitle: "",
   },
 ];
 
@@ -87,6 +110,78 @@ export default function Home() {
 
   var slide, setSlide;
   var cat, setCat;
+var isMobile, setIsMobile;
+var slidesUse, slidesLen;
+
+/* detect mobile ( < md ) */
+isMobile = useState(false);
+setIsMobile = isMobile[1];
+isMobile = isMobile[0];
+
+useEffect(function () {
+  var m, onCh;
+
+  if (typeof window === "undefined") return;
+  if (!window.matchMedia) return;
+
+  m = window.matchMedia("(max-width: 767px)");
+
+  onCh = function () {
+    setIsMobile(!!m.matches);
+  };
+
+  onCh();
+
+  if (m.addEventListener) m.addEventListener("change", onCh);
+  else m.addListener(onCh);
+
+  return function () {
+    if (m.removeEventListener) m.removeEventListener("change", onCh);
+    else m.removeListener(onCh);
+  };
+}, [setIsMobile]);
+
+/* slides to use */
+slidesUse = useMemo(
+  function () {
+    return isMobile ? SLIDES_MOBILE : SLIDES;
+  },
+  [isMobile]
+);
+
+slidesLen = slidesUse && slidesUse.length ? slidesUse.length : 0;
+
+/* clamp slide when switching desktop/mobile */
+useEffect(
+  function () {
+    if (!slidesLen) return;
+    if (slide >= slidesLen) setSlide(0);
+  },
+  [slide, slidesLen, setSlide]
+);
+
+/* autoplay based on slidesUse length */
+useEffect(
+  function () {
+    var t;
+
+    if (!slidesLen) return;
+
+    t = setInterval(function () {
+      setSlide(function (s) {
+        var next;
+        next = s + 1;
+        if (next >= slidesLen) next = 0;
+        return next;
+      });
+    }, 5000);
+
+    return function () {
+      clearInterval(t);
+    };
+  },
+  [setSlide, slidesLen]
+);
 
   var qSearch, cart, toggleInCart, setCartOpen;
 
@@ -170,20 +265,23 @@ export default function Home() {
     },
     [setSlide]
   );
+function onPrev() {
+  var next;
+  if (!slidesLen) return;
 
-  function onPrev() {
-    var next;
-    next = slide - 1;
-    if (next < 0) next = SLIDES.length - 1;
-    setSlide(next);
-  }
+  next = slide - 1;
+  if (next < 0) next = slidesLen - 1;
+  setSlide(next);
+}
 
-  function onNext() {
-    var next;
-    next = slide + 1;
-    if (next >= SLIDES.length) next = 0;
-    setSlide(next);
-  }
+function onNext() {
+  var next;
+  if (!slidesLen) return;
+
+  next = slide + 1;
+  if (next >= slidesLen) next = 0;
+  setSlide(next);
+}
 
   function openCartUi() {
     setCartOpen(true);
@@ -204,56 +302,78 @@ export default function Home() {
 
   return (
     <div className="w-full bg-slate-50 overflow-x-hidden">
-      {/* Hero carousel */}
-      <section className="w-full bg-slate-900">
-        <div className="relative w-full overflow-hidden">
-          <div className="relative w-full h-[55vh] min-h-[320px] max-h-[560px]">
-            <img
-              src={SLIDES[slide].img}
-              alt={SLIDES[slide].title}
-              className="absolute inset-0 h-full w-full object-cover"
-              draggable="false"
+{/* Hero carousel (desktop + mobile slides) */}
+<section className="w-full bg-slate-900">
+  <div className="relative w-full overflow-hidden">
+    <div
+      className="
+        relative w-full
+        h-[62vh] min-h-[340px] max-h-[720px]
+        md:h-[55vh] md:min-h-[320px] md:max-h-[560px]
+        bg-slate-100
+      "
+    >
+      <img
+        src={slidesUse[slide] ? slidesUse[slide].img : ""}
+        alt={slidesUse[slide] ? slidesUse[slide].title : "Slide"}
+        className="
+          absolute inset-0 h-full w-full
+          object-contain md:object-cover
+          object-center
+        "
+        draggable="false"
+      />
+
+      {/* overlays */}
+      <div className="absolute inset-0 bg-black/0 md:bg-black/10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-black/0 to-black/0 md:from-black/35 pointer-events-none" />
+
+      <button
+        onClick={onPrev}
+        className="
+          absolute left-2 md:left-3 top-1/2 -translate-y-1/2
+          rounded-full bg-white/95 p-2 md:p-3
+          text-slate-900 shadow hover:bg-white
+        "
+        aria-label="Anterior"
+      >
+        <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+      </button>
+
+      <button
+        onClick={onNext}
+        className="
+          absolute right-2 md:right-3 top-1/2 -translate-y-1/2
+          rounded-full bg-white/95 p-2 md:p-3
+          text-slate-900 shadow hover:bg-white
+        "
+        aria-label="Siguiente"
+      >
+        <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+      </button>
+
+      <div className="absolute bottom-3 md:bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+        {(slidesUse || []).map(function (_, i) {
+          return (
+            <button
+              key={"dot" + i}
+              onClick={function () {
+                setSlide(i);
+              }}
+              className={
+                "h-2.5 w-2.5 md:h-3 md:w-3 rounded-full ring-1 ring-white/30 " +
+                (i === slide ? "bg-white" : "bg-white/40 hover:bg-white/70")
+              }
+              aria-label={"Ir a slide " + (i + 1)}
             />
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div className="absolute inset-0 bg-gradient-to-r" />
-            <div className="absolute inset-0 bg-black/10" />
 
-            <button
-              onClick={onPrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-3 text-mlate-900 shadow hover:bg-white"
-              aria-label="Anterior"
-            >
-              <ChevronLeft />
-            </button>
-
-            <button
-              onClick={onNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-3 text-mlate-900 shadow hover:bg-white"
-              aria-label="Siguiente"
-            >
-              <ChevronRight />
-            </button>
-
-            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-              {SLIDES.map(function (_, i) {
-                return (
-                  <button
-                    key={"dot" + i}
-                    onClick={function () {
-                      setSlide(i);
-                    }}
-                    className={
-                      "h-2.5 w-2.5 rounded-full ring-1 ring-white/30 " +
-                      (i === slide ? "bg-white" : "bg-white/40 hover:bg-white/70")
-                    }
-                    aria-label={"Ir a slide " + (i + 1)}
-                  />
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Catalog */}
       <section id="catalogo" className="w-full">
@@ -324,6 +444,37 @@ export default function Home() {
               ) : (
                 /* Vista HOME ordenada (PROMO BLOCKS para 3,4,6,10) */
                 <div className="space-y-10">
+                                    {/* ✅ 2) Luego: ¿Qué es Don Pepito? */}
+                  <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
+                    <div className="text-center text-2xl font-extrabold tracking-tight text-mlate-900 md:text-3xl">
+                      ¿Quienes somos?
+                    </div>
+
+<div className="mt-6 grid items-center gap-6 md:grid-cols-12 md:gap-10">
+  {/* Texto */}
+  <div className="md:col-span-7">
+    <div className="space-y-4 text-lg font-semibold leading-relaxed text-slate-700 md:text-3xl">
+      <p>
+        Don Pepito es una empresa dedicada a la comercialización y distribución de insumos para la panadería, pastelería y abarrotes. Ofrecemos productos de calidad como harinas, mantecas, margarinas y una amplia variedad de artículos esenciales, atendiendo con compromiso, puntualidad y precios justos a panaderos, negocios y familias. Nuestro objetivo es ser un aliado confiable para el crecimiento de nuestros clientes.
+      </p>
+    </div>
+  </div>
+
+  {/* Imagen derecha */}
+  <div className="md:col-span-5">
+    <div className="overflow-hidden rounded-3xl ring-1 ring-slate-200">
+      <img
+        src={DON_PEPITO_STORY_IMG}
+        alt="Pan Don Pepito"
+        className="h-[240px] w-full object-cover md:h-[360px]"
+        loading="lazy"
+        draggable="false"
+      />
+    </div>
+  </div>
+</div>
+
+                  </div>
                   {/* ✅ 1) Primero: los 4 promo blocks */}
                   {(promoData || []).map(function (b, i) {
                     return (
@@ -338,58 +489,19 @@ export default function Home() {
                     );
                   })}
 
-                  {/* ✅ 2) Luego: ¿Qué es Don Pepito? */}
-                  <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
-                    <div className="text-center text-2xl font-extrabold tracking-tight text-mlate-900 md:text-3xl">
-                      ¿Qué es Don Pepito?
-                    </div>
 
-                    <div className="mt-6 grid items-center gap-6 md:grid-cols-12 md:gap-10">
-                      {/* Texto */}
-                      <div className="md:col-span-7">
-                        <div className="space-y-4 text-m font-semibold leading-relaxed text-mlate-700 md:text-base">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id feugiat
-                            turpis. Integer eget eros vel nibh tristique ullamcorper. Duis facilisis,
-                            sem sed tempus tincidunt, lacus neque posuere leo, et tristique sem orci sed mi.
-                          </p>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae purus at orci
-                            tristique sagittis. Aliquam erat volutpat. Donec eget mi quis nibh consequat posuere.
-                            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia.
-                          </p>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac arcu a nibh
-                            vehicula viverra. Curabitur non justo at mi vehicula varius.
-                          </p>
-                        </div>
-                      </div>
 
-                      {/* Imagen derecha */}
-                      <div className="md:col-span-5">
-                        <div className="overflow-hidden rounded-3xl ring-1 ring-slate-200">
-                          <img
-                            src={DON_PEPITO_STORY_IMG}
-                            alt="Pan Don Pepito"
-                            className="h-[240px] w-full object-cover md:h-[360px]"
-                            loading="lazy"
-                            draggable="false"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+{/* ✅ 3) Luego: banner full width (PC vs Mobile) */}
+<div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+  <img
+    src={isMobile ? HOME_AFTER_4CATS_IMG_MOBILE : HOME_AFTER_4CATS_IMG}
+    alt="Don Pepito"
+    className="block w-full h-auto"
+    loading="lazy"
+    draggable="false"
+  />
+</div>
 
-                  {/* ✅ 3) Luego: banner full width */}
-                  <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
-                    <img
-                      src={HOME_AFTER_4CATS_IMG}
-                      alt="Don Pepito"
-                      className="block w-full h-auto"
-                      loading="lazy"
-                      draggable="false"
-                    />
-                  </div>
 
                   {/* (opcional) si mañana agregas más categorías fuera de 3,4,6,10 */}
                   {(catsAfterPromos || []).map(function (c) {

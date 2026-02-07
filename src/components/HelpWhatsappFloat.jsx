@@ -1,7 +1,7 @@
 /* ===== TOP-LEVEL VARS (sin const/let) ===== */
 var HELP_IMG_URL, WHATSAPP_PHONE, WHATSAPP_TEXT;
 
-HELP_IMG_URL = "https://api-centralizador.apiworking.pe/images/74d3532e-bd3c-4f6c-a4c6-8a465495bec8.png";
+HELP_IMG_URL = "https://api-centralizador.apiworking.pe/images/79a77bab-87dc-459b-a284-5e00529cb955.png";
 WHATSAPP_PHONE = "51946762926"; // 51 + 946762926
 WHATSAPP_TEXT = "Hola, necesito ayuda con mi pedido.";
 

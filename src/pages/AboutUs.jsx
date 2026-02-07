@@ -1,5 +1,13 @@
 import { Link, useOutletContext } from "react-router-dom";
 
+/* ===== TOP-LEVEL DEFAULTS ===== */
+var DEFAULT_BRAND;
+var DEFAULT_LOGO_URL;
+
+DEFAULT_BRAND = "Harinas Don Pepito";
+DEFAULT_LOGO_URL =
+  "https://api-centralizador.apiworking.pe/images/34e75a99-76be-4c2f-aa6f-af05e71d93a7.png";
+
 export default function AboutUs() {
   var ctx;
 
@@ -10,8 +18,11 @@ export default function AboutUs() {
   ctx = useOutletContext();
   if (!ctx) ctx = {};
 
-  BRAND = ctx.BRAND || "Harinas Don Pepito";
-  LOGO_URL = ctx.LOGO_URL || "";
+  BRAND = ctx.BRAND || DEFAULT_BRAND;
+
+  /* ✅ if ctx.LOGO_URL is empty, fallback to DEFAULT_LOGO_URL */
+  LOGO_URL = ctx.LOGO_URL ? ctx.LOGO_URL : DEFAULT_LOGO_URL;
+
   PHONE = ctx.PHONE || "";
 
   return (
@@ -27,9 +38,10 @@ export default function AboutUs() {
               Conoce más sobre {BRAND}
             </h1>
             <p className="mt-4 text-base leading-relaxed text-mlate-600">
-              Somos una empresa enfocada en abastecer a panaderías, pastelerías y
-              negocios con productos de calidad (harinas, insumos y abarrotes),
-              cuidando el servicio, la rapidez y el acompañamiento en cada pedido.
+              Don Pepito es una empresa dedicada a la comercialización y distribución de insumos para la panadería,
+              pastelería y abarrotes. Ofrecemos productos de calidad como harinas, mantecas, margarinas y una amplia
+              variedad de artículos esenciales, atendiendo con compromiso, puntualidad y precios justos a panaderos,
+              negocios y familias. Nuestro objetivo es ser un aliado confiable para el crecimiento de nuestros clientes.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -57,6 +69,8 @@ export default function AboutUs() {
                 src={LOGO_URL}
                 alt={BRAND}
                 className="h-20 w-auto object-contain md:h-28"
+                loading="lazy"
+                draggable="false"
               />
             ) : (
               <div className="grid h-24 w-24 place-items-center rounded-2xl bg-slate-100 text-m font-extrabold text-mlate-500 md:h-32 md:w-32">
@@ -72,15 +86,13 @@ export default function AboutUs() {
         <div className="rounded-3xl border bg-white p-6">
           <div className="text-m font-black text-mlate-900">Misión</div>
           <p className="mt-2 text-m leading-relaxed text-mlate-600">
-            Brindar insumos confiables y un servicio ágil para que tu producción no se detenga.
-          </p>
+Satisfacer la demanda de los clientes, distribuyendo productos de alta calidad para la panificación, repostería y el consumo masivo.    </p>
         </div>
 
         <div className="rounded-3xl border bg-white p-6">
           <div className="text-m font-black text-mlate-900">Visión</div>
           <p className="mt-2 text-m leading-relaxed text-mlate-600">
-            Ser el proveedor preferido por panaderías y negocios, destacando por calidad y atención.
-          </p>
+Consolidarnos como un proveedor líder en insumos de panadería y abarrotes, ampliando nuestra red de distribución.      </p>
         </div>
 
         <div className="rounded-3xl border bg-white p-6">
@@ -99,9 +111,7 @@ export default function AboutUs() {
         <div className="flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between md:p-8">
           <div>
             <div className="text-xl font-black">¿Necesitas una cotización?</div>
-            <div className="mt-1 text-m text-white/80">
-              Escríbenos y te ayudamos con tu pedido.
-            </div>
+            <div className="mt-1 text-m text-white/80">Escríbenos y te ayudamos con tu pedido.</div>
           </div>
 
           <a
