@@ -53,7 +53,7 @@ var HEADER_BG;
 /* ====== CONFIG ====== */
 BRAND = "Harinas Don Pepito";
 LOGO_URL =
-  "https://api-centralizador.apiworking.pe/images/76975c79-6992-49f6-ae0e-e17694c5aaf8.png";
+  "https://api-centralizador.apiworking.pe/images/125e6d5a-71f0-43f0-b2f0-44557592bec8.png";
 
 PHONE = "946762926";
 HELP_FLOAT_IMG_URL =

@@ -215,7 +215,7 @@ export default function Home() {
               draggable="false"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-black/10" />
+            <div className="absolute inset-0 bg-gradient-to-r" />
             <div className="absolute inset-0 bg-black/10" />
 
             <button

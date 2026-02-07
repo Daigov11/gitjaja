@@ -8,6 +8,5 @@ body,
 
 body {
   margin: 0;
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  font-family: "Bahnschrift SemiLight SemiCondensed", Bahnschrift, "Segoe UI", Tahoma, Arial, sans-serif;
 }
