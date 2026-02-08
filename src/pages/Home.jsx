@@ -35,6 +35,27 @@ SLIDES = [
     title: "Todos los productos de Perú",
     subtitle: "Arma tu lista y pide precios consulta los precios",
   },
+  {
+    img: "https://api-centralizador.apiworking.pe/images/0811c81f-5122-4b5b-aa6f-a15f51eacfd0.png",
+    title: "Todos los productos de Perú",
+    subtitle: "Arma tu lista y pide precios consulta los precios",
+  },
+  {
+    img: "https://api-centralizador.apiworking.pe/images/9f93bffe-47ee-4fd9-b01c-061dda2c74b6.png",
+    title: "Todos los productos de Perú",
+    subtitle: "Arma tu lista y pide precios consulta los precios",
+  },
+  {
+    img: "https://api-centralizador.apiworking.pe/images/3d66b56b-4956-4a74-a0a0-1cbb9a38c848.png",
+    title: "Todos los productos de Perú",
+    subtitle: "Arma tu lista y pide precios consulta los precios",
+  },
+  {
+    img: "https://api-centralizador.apiworking.pe/images/f1c53e66-931c-4082-9825-0e211f40fa26.png",
+    title: "Todos los productos de Perú",
+    subtitle: "Arma tu lista y pide precios consulta los precios",
+  },
+
 ];
 var SLIDES_MOBILE;
 
@@ -50,13 +71,28 @@ SLIDES_MOBILE = [
     subtitle: "",
   },
   {
-    img: "https://api-centralizador.apiworking.pe/images/84b33ac8-ef82-4974-80fa-db663ee87288.png",
+    img: "https://api-centralizador.apiworking.pe/images/078f26d7-5c61-41a1-83de-994681c6cae0.png",
+    title: "Don Pepito",
+    subtitle: "",
+  },
+  {
+    img: "https://api-centralizador.apiworking.pe/images/23285842-79bb-4696-8195-284011452fe2.png",
+    title: "Don Pepito",
+    subtitle: "",
+  },
+  {
+    img: "https://api-centralizador.apiworking.pe/images/2776f29c-acb2-481f-aa8d-6474adb52660.png",
+    title: "Don Pepito",
+    subtitle: "",
+  },
+  {
+    img: "https://api-centralizador.apiworking.pe/images/07302452-fc01-4b07-958b-bdebb8c2ea6b.png",
     title: "Don Pepito",
     subtitle: "",
   },
 ];
 
-HOME_CAT_IDS = ["3", "4", "6", "10"];
+HOME_CAT_IDS = ["3", "4", "10"];
 var DON_PEPITO_STORY_IMG;
 
 DON_PEPITO_STORY_IMG = "https://img.sorianoticias.com/imagenes/2020-03/Pan_2.jpg";
@@ -82,9 +118,9 @@ PROMO_BLOCKS = [
 
   /* ✅ Reutilizamos imágenes que YA tienes */
   {
-    catId: "6",
+    catId: "5",
     title: "Ofertas y destacados",
-    img: "https://api-centralizador.apiworking.pe/images/c304fb50-9270-489c-91d0-50b0add2ce00.png",
+    img: "https://api-centralizador.apiworking.pe/images/5a745b89-ddee-464e-a5c4-43e21a7a5e58.png",
     cta: "Categoria",
     side: "left",
     max: 4,
@@ -92,7 +128,7 @@ PROMO_BLOCKS = [
   {
     catId: "10",
     title: "Recomendados para ti",
-    img: "https://api-centralizador.apiworking.pe/images/8e4a0c06-4350-4815-b8ff-361be5504837.png",
+    img: "https://api-centralizador.apiworking.pe/images/1f08a5d8-51c6-4089-8715-09bb395a3d5d.png",
     cta: "Categoria",
     side: "right",
     max: 4,
@@ -110,78 +146,78 @@ export default function Home() {
 
   var slide, setSlide;
   var cat, setCat;
-var isMobile, setIsMobile;
-var slidesUse, slidesLen;
+  var isMobile, setIsMobile;
+  var slidesUse, slidesLen;
 
-/* detect mobile ( < md ) */
-isMobile = useState(false);
-setIsMobile = isMobile[1];
-isMobile = isMobile[0];
+  /* detect mobile ( < md ) */
+  isMobile = useState(false);
+  setIsMobile = isMobile[1];
+  isMobile = isMobile[0];
 
-useEffect(function () {
-  var m, onCh;
+  useEffect(function () {
+    var m, onCh;
 
-  if (typeof window === "undefined") return;
-  if (!window.matchMedia) return;
+    if (typeof window === "undefined") return;
+    if (!window.matchMedia) return;
 
-  m = window.matchMedia("(max-width: 767px)");
+    m = window.matchMedia("(max-width: 767px)");
 
-  onCh = function () {
-    setIsMobile(!!m.matches);
-  };
+    onCh = function () {
+      setIsMobile(!!m.matches);
+    };
 
-  onCh();
+    onCh();
 
-  if (m.addEventListener) m.addEventListener("change", onCh);
-  else m.addListener(onCh);
-
-  return function () {
-    if (m.removeEventListener) m.removeEventListener("change", onCh);
-    else m.removeListener(onCh);
-  };
-}, [setIsMobile]);
-
-/* slides to use */
-slidesUse = useMemo(
-  function () {
-    return isMobile ? SLIDES_MOBILE : SLIDES;
-  },
-  [isMobile]
-);
-
-slidesLen = slidesUse && slidesUse.length ? slidesUse.length : 0;
-
-/* clamp slide when switching desktop/mobile */
-useEffect(
-  function () {
-    if (!slidesLen) return;
-    if (slide >= slidesLen) setSlide(0);
-  },
-  [slide, slidesLen, setSlide]
-);
-
-/* autoplay based on slidesUse length */
-useEffect(
-  function () {
-    var t;
-
-    if (!slidesLen) return;
-
-    t = setInterval(function () {
-      setSlide(function (s) {
-        var next;
-        next = s + 1;
-        if (next >= slidesLen) next = 0;
-        return next;
-      });
-    }, 5000);
+    if (m.addEventListener) m.addEventListener("change", onCh);
+    else m.addListener(onCh);
 
     return function () {
-      clearInterval(t);
+      if (m.removeEventListener) m.removeEventListener("change", onCh);
+      else m.removeListener(onCh);
     };
-  },
-  [setSlide, slidesLen]
-);
+  }, [setIsMobile]);
+
+  /* slides to use */
+  slidesUse = useMemo(
+    function () {
+      return isMobile ? SLIDES_MOBILE : SLIDES;
+    },
+    [isMobile]
+  );
+
+  slidesLen = slidesUse && slidesUse.length ? slidesUse.length : 0;
+
+  /* clamp slide when switching desktop/mobile */
+  useEffect(
+    function () {
+      if (!slidesLen) return;
+      if (slide >= slidesLen) setSlide(0);
+    },
+    [slide, slidesLen, setSlide]
+  );
+
+  /* autoplay based on slidesUse length */
+  useEffect(
+    function () {
+      var t;
+
+      if (!slidesLen) return;
+
+      t = setInterval(function () {
+        setSlide(function (s) {
+          var next;
+          next = s + 1;
+          if (next >= slidesLen) next = 0;
+          return next;
+        });
+      }, 5000);
+
+      return function () {
+        clearInterval(t);
+      };
+    },
+    [setSlide, slidesLen]
+  );
 
   var qSearch, cart, toggleInCart, setCartOpen;
 
@@ -194,9 +230,9 @@ useEffect(
   qSearch = typeof ctx.qSearch !== "undefined" ? ctx.qSearch : "";
   cart = Array.isArray(ctx.cart) ? ctx.cart : [];
   toggleInCart =
-    typeof ctx.toggleInCart === "function" ? ctx.toggleInCart : function () {};
+    typeof ctx.toggleInCart === "function" ? ctx.toggleInCart : function () { };
   setCartOpen =
-    typeof ctx.setCartOpen === "function" ? ctx.setCartOpen : function () {};
+    typeof ctx.setCartOpen === "function" ? ctx.setCartOpen : function () { };
 
   /* slide */
   slide = useState(0);
@@ -265,23 +301,23 @@ useEffect(
     },
     [setSlide]
   );
-function onPrev() {
-  var next;
-  if (!slidesLen) return;
+  function onPrev() {
+    var next;
+    if (!slidesLen) return;
 
-  next = slide - 1;
-  if (next < 0) next = slidesLen - 1;
-  setSlide(next);
-}
+    next = slide - 1;
+    if (next < 0) next = slidesLen - 1;
+    setSlide(next);
+  }
 
-function onNext() {
-  var next;
-  if (!slidesLen) return;
+  function onNext() {
+    var next;
+    if (!slidesLen) return;
 
-  next = slide + 1;
-  if (next >= slidesLen) next = 0;
-  setSlide(next);
-}
+    next = slide + 1;
+    if (next >= slidesLen) next = 0;
+    setSlide(next);
+  }
 
   function openCartUi() {
     setCartOpen(true);
@@ -302,76 +338,76 @@ function onNext() {
 
   return (
     <div className="w-full bg-slate-50 overflow-x-hidden">
-{/* Hero carousel (desktop + mobile slides) */}
-<section className="w-full bg-slate-900">
-  <div className="relative w-full overflow-hidden">
-    <div
-      className="
+      {/* Hero carousel (desktop + mobile slides) */}
+      <section className="w-full bg-slate-900">
+        <div className="relative w-full overflow-hidden">
+          <div
+            className="
         relative w-full
         h-[62vh] min-h-[340px] max-h-[720px]
         md:h-[55vh] md:min-h-[320px] md:max-h-[560px]
         bg-slate-100
       "
-    >
-      <img
-        src={slidesUse[slide] ? slidesUse[slide].img : ""}
-        alt={slidesUse[slide] ? slidesUse[slide].title : "Slide"}
-        className="
+          >
+            <img
+              src={slidesUse[slide] ? slidesUse[slide].img : ""}
+              alt={slidesUse[slide] ? slidesUse[slide].title : "Slide"}
+              className="
           absolute inset-0 h-full w-full
           object-contain md:object-cover
           object-center
         "
-        draggable="false"
-      />
+              draggable="false"
+            />
 
-      {/* overlays */}
-      <div className="absolute inset-0 bg-black/0 md:bg-black/10 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-black/0 to-black/0 md:from-black/35 pointer-events-none" />
+            {/* overlays */}
+            <div className="absolute inset-0 bg-black/0 md:bg-black/10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-black/0 to-black/0 md:from-black/35 pointer-events-none" />
 
-      <button
-        onClick={onPrev}
-        className="
+            <button
+              onClick={onPrev}
+              className="
           absolute left-2 md:left-3 top-1/2 -translate-y-1/2
           rounded-full bg-white/95 p-2 md:p-3
           text-slate-900 shadow hover:bg-white
         "
-        aria-label="Anterior"
-      >
-        <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
-      </button>
+              aria-label="Anterior"
+            >
+              <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+            </button>
 
-      <button
-        onClick={onNext}
-        className="
+            <button
+              onClick={onNext}
+              className="
           absolute right-2 md:right-3 top-1/2 -translate-y-1/2
           rounded-full bg-white/95 p-2 md:p-3
           text-slate-900 shadow hover:bg-white
         "
-        aria-label="Siguiente"
-      >
-        <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
-      </button>
+              aria-label="Siguiente"
+            >
+              <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+            </button>
 
-      <div className="absolute bottom-3 md:bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-        {(slidesUse || []).map(function (_, i) {
-          return (
-            <button
-              key={"dot" + i}
-              onClick={function () {
-                setSlide(i);
-              }}
-              className={
-                "h-2.5 w-2.5 md:h-3 md:w-3 rounded-full ring-1 ring-white/30 " +
-                (i === slide ? "bg-white" : "bg-white/40 hover:bg-white/70")
-              }
-              aria-label={"Ir a slide " + (i + 1)}
-            />
-          );
-        })}
-      </div>
-    </div>
-  </div>
-</section>
+            <div className="absolute bottom-3 md:bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+              {(slidesUse || []).map(function (_, i) {
+                return (
+                  <button
+                    key={"dot" + i}
+                    onClick={function () {
+                      setSlide(i);
+                    }}
+                    className={
+                      "h-2.5 w-2.5 md:h-3 md:w-3 rounded-full ring-1 ring-white/30 " +
+                      (i === slide ? "bg-white" : "bg-white/40 hover:bg-white/70")
+                    }
+                    aria-label={"Ir a slide " + (i + 1)}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
 
 
 
@@ -444,35 +480,35 @@ function onNext() {
               ) : (
                 /* Vista HOME ordenada (PROMO BLOCKS para 3,4,6,10) */
                 <div className="space-y-10">
-                                    {/* ✅ 2) Luego: ¿Qué es Don Pepito? */}
+                  {/* ✅ 2) Luego: ¿Qué es Don Pepito? */}
                   <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
                     <div className="text-center text-2xl font-extrabold tracking-tight text-mlate-900 md:text-3xl">
                       ¿Quienes somos?
                     </div>
 
-<div className="mt-6 grid items-center gap-6 md:grid-cols-12 md:gap-10">
-  {/* Texto */}
-  <div className="md:col-span-7">
-    <div className="space-y-4 text-lg font-semibold leading-relaxed text-slate-700 md:text-3xl">
-      <p>
-        Don Pepito es una empresa dedicada a la comercialización y distribución de insumos para la panadería, pastelería y abarrotes. Ofrecemos productos de calidad como harinas, mantecas, margarinas y una amplia variedad de artículos esenciales, atendiendo con compromiso, puntualidad y precios justos a panaderos, negocios y familias. Nuestro objetivo es ser un aliado confiable para el crecimiento de nuestros clientes.
-      </p>
-    </div>
-  </div>
+                    <div className="mt-6 grid items-center gap-6 md:grid-cols-12 md:gap-10">
+                      {/* Texto */}
+                      <div className="md:col-span-7">
+                        <div className="space-y-4 text-lg font-semibold leading-relaxed text-slate-700 md:text-3xl">
+                          <p>
+                            Don Pepito es una empresa dedicada a la comercialización y distribución de insumos para la panadería, pastelería y abarrotes. Ofrecemos productos de calidad como harinas, mantecas, margarinas y una amplia variedad de artículos esenciales, atendiendo con compromiso, puntualidad y precios justos a panaderos, negocios y familias. Nuestro objetivo es ser un aliado confiable para el crecimiento de nuestros clientes.
+                          </p>
+                        </div>
+                      </div>
 
-  {/* Imagen derecha */}
-  <div className="md:col-span-5">
-    <div className="overflow-hidden rounded-3xl ring-1 ring-slate-200">
-      <img
-        src={DON_PEPITO_STORY_IMG}
-        alt="Pan Don Pepito"
-        className="h-[240px] w-full object-cover md:h-[360px]"
-        loading="lazy"
-        draggable="false"
-      />
-    </div>
-  </div>
-</div>
+                      {/* Imagen derecha */}
+                      <div className="md:col-span-5">
+                        <div className="overflow-hidden rounded-3xl ring-1 ring-slate-200">
+                          <img
+                            src={DON_PEPITO_STORY_IMG}
+                            alt="Pan Don Pepito"
+                            className="h-[240px] w-full object-cover md:h-[360px]"
+                            loading="lazy"
+                            draggable="false"
+                          />
+                        </div>
+                      </div>
+                    </div>
 
                   </div>
                   {/* ✅ 1) Primero: los 4 promo blocks */}
@@ -491,16 +527,16 @@ function onNext() {
 
 
 
-{/* ✅ 3) Luego: banner full width (PC vs Mobile) */}
-<div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
-  <img
-    src={isMobile ? HOME_AFTER_4CATS_IMG_MOBILE : HOME_AFTER_4CATS_IMG}
-    alt="Don Pepito"
-    className="block w-full h-auto"
-    loading="lazy"
-    draggable="false"
-  />
-</div>
+                  {/* ✅ 3) Luego: banner full width (PC vs Mobile) */}
+                  <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+                    <img
+                      src={isMobile ? HOME_AFTER_4CATS_IMG_MOBILE : HOME_AFTER_4CATS_IMG}
+                      alt="Don Pepito"
+                      className="block w-full h-auto"
+                      loading="lazy"
+                      draggable="false"
+                    />
+                  </div>
 
 
                   {/* (opcional) si mañana agregas más categorías fuera de 3,4,6,10 */}
@@ -984,7 +1020,7 @@ function ProductCardMini(props) {
             <div className="text-lg font-extrabold text-mlate-900">{priceText}</div>
           ) : (
             <div className="rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800"> VER
-               
+
             </div>
           )}
 
@@ -1072,7 +1108,7 @@ function ProductCardV2(props) {
             <div className="text-lg font-extrabold text-red-600">{priceText}</div>
           ) : (
             <div className="rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800">
-               
+
             </div>
           )}
 

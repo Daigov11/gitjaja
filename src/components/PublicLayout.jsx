@@ -384,71 +384,82 @@ export default function PublicLayout() {
                   })}
                 </nav>
 
-                {/* ✅ MEGA MENÚ (igual que tenías) */}
-                {megaOpen ? (
-                  <div className="absolute left-0 top-full mt-3 w-[920px] max-w-[92vw] rounded-2xl bg-[#0B3D57] p-5 shadow-2xl ring-1 ring-black/10">
-                    <div className="flex items-center gap-3">
-                      <div className="text-m font-extrabold text-white">CATEGORÍAS</div>
+{/* ✅ MEGA MENÚ (responsive + scroll interno, sin perder “ver todo”) */}
+{megaOpen ? (
+  <div className="absolute left-0 top-full mt-3 w-[92vw] max-w-[980px] overflow-hidden rounded-2xl bg-[#0B3D57] shadow-2xl ring-1 ring-black/10">
+    {/* ✅ Alto máximo relativo al viewport (evita “tengo que alejar”) */}
+    <div className="flex max-h-[calc(100vh-160px)] flex-col p-4 md:p-5">
+      {/* Header (siempre visible) */}
+      <div className="shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="text-m font-extrabold text-white">CATEGORÍAS</div>
 
-                      <div className="ml-auto w-[280px] max-w-[48vw]">
-                        <input
-                          value={megaQuery}
-                          onChange={function (e) {
-                            setMegaQuery(e.target.value);
-                          }}
-                          placeholder="Filtrar..."
-                          className="w-full rounded-full border border-white/15 bg-white/10 px-4 py-2 text-m font-semibold text-white placeholder:text-white/60 outline-none focus:border-white/40"
-                        />
-                      </div>
-                    </div>
+          <div className="ml-auto w-[220px] max-w-[55vw] md:w-[280px]">
+            <input
+              value={megaQuery}
+              onChange={function (e) {
+                setMegaQuery(e.target.value);
+              }}
+              placeholder="Filtrar..."
+              className="w-full rounded-full border border-white/15 bg-white/10 px-4 py-2 text-m font-semibold text-white placeholder:text-white/60 outline-none focus:border-white/40"
+            />
+          </div>
+        </div>
 
-                    <div className="mt-4">
-                      <Link
-                        to="/categoria"
-                        onClick={function () {
-                          setMegaOpen(false);
-                          window.scrollTo(0, 0);
-                        }}
-                        className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-m font-extrabold text-white hover:bg-white/15"
-                        title="Ver todas las categorías"
-                      >
-                        Ver todas <span className="opacity-80">→</span>
-                      </Link>
-                    </div>
+        <div className="mt-3">
+          <Link
+            to="/categoria"
+            onClick={function () {
+              setMegaOpen(false);
+              window.scrollTo(0, 0);
+            }}
+            className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-m font-extrabold text-white hover:bg-white/15"
+            title="Ver todas las categorías"
+          >
+            Ver todas <span className="opacity-80">→</span>
+          </Link>
+        </div>
+      </div>
 
-                    <div className="mt-4 grid gap-6 md:grid-cols-3">
-                      {megaCols.map(function (col, ci) {
-                        return (
-                          <div key={"mcol" + ci} className="min-w-0">
-                            {col.map(function (name, k) {
-                              var href;
-                              href = "/categoria/" + encodeURIComponent(String(name || ""));
+      {/* ✅ Lista scrolleable (aquí va TODO) */}
+      <div className="mt-4 flex-1 overflow-auto pr-1">
+        <div className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {megaCols.map(function (col, ci) {
+            return (
+              <div key={"mcol" + ci} className="min-w-0">
+                {col.map(function (name, k) {
+                  var href;
+                  href = "/categoria/" + encodeURIComponent(String(name || ""));
 
-                              return (
-                                <Link
-                                  key={"mcat" + ci + "_" + k}
-                                  to={href}
-                                  onClick={function () {
-                                    setMegaOpen(false);
-                                    window.scrollTo(0, 0);
-                                  }}
-                                  className="block rounded-lg px-2 py-1.5 text-[13px] font-semibold text-white/90 hover:bg-white/10 hover:text-white"
-                                  title={name}
-                                >
-                                  {String(name || "")}
-                                </Link>
-                              );
-                            })}
-                          </div>
-                        );
-                      })}
-                    </div>
+                  return (
+                    <Link
+                      key={"mcat" + ci + "_" + k}
+                      to={href}
+                      onClick={function () {
+                        setMegaOpen(false);
+                        window.scrollTo(0, 0);
+                      }}
+                      className="block truncate rounded-lg px-2 py-1.5 text-[12px] font-semibold leading-tight text-white/90 hover:bg-white/10 hover:text-white md:text-[13px]"
+                      title={name}
+                    >
+                      {String(name || "")}
+                    </Link>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
-                    <div className="mt-4 text-m font-semibold text-white/70">
-                      Tip: escribe para filtrar rápido una categoría.
-                    </div>
-                  </div>
-                ) : null}
+      {/* Footer tip (visible) */}
+      <div className="mt-3 shrink-0 text-m font-semibold text-white/70">
+        Tip: escribe para filtrar rápido una categoría.
+      </div>
+    </div>
+  </div>
+) : null}
+
               </div>
 
               {/* CENTRO: Logo */}
@@ -1576,7 +1587,7 @@ function HelpWhatsappFloat() {
       <img
         src={HELP_FLOAT_IMG_URL}
         alt="¿Necesitas ayuda?"
-        className="h-60 w-60 select-none drop-shadow-lg hover:scale-[1.03] active:scale-[0.98] transition-transform"
+        className="h-50 w-50 select-none drop-shadow-lg hover:scale-[1.03] active:scale-[0.98] transition-transform"
         draggable="false"
       />
     </a>
