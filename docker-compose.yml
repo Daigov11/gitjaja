@@ -1,24 +1,9 @@
-services:
-  react-dev:
-    build:
-      context: .
-      target: dev
-    ports:
-      - "5173:5173"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    environment:
-      # si en Windows/WSL a veces no detecta cambios:
-      - CHOKIDAR_USEPOLLING=true
-      # si quieres inyectar tu api para Vite (si lo usas):
-      # - VITE_API_BASE_URL=https://api-centralizador.apiworking.pe/api
-    profiles: ["dev"]
+version: '3.8'
 
-  react-prod:
-    build:
-      context: .
-      target: prod
+services:
+  react-app:
+    build: .
+    container_name: react-donpepito
     ports:
-      - "8080:80"
-    profiles: ["prod"]
+      - "3000:80"
+    restart: always
