@@ -228,7 +228,7 @@ export default function ProductModal(props) {
                       placeholder="Ej: Pan de Molde"
                       {...f.register("product_name")}
                     />
-                    <FieldError msg={f.formState.errors.product_name} />
+                    <FieldError msg={f.formState.errors.product_name} />  
                   </div>
 
                   {/* descripción */}
