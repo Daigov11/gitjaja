@@ -102,7 +102,7 @@ PROMO_BLOCKS = [
   {
     catId: "3",
     title: "Productos más vendidos",
-    img: "https://api-centralizador.apiworking.pe/images/c304fb50-9270-489c-91d0-50b0add2ce00.png",
+    img: "http://api-centralizador.apiworking.pe/images/42655c75-161d-496e-96d3-8b1c351b28bf.png",
     cta: "Categoria",
     side: "left",
     max: 4,
@@ -816,7 +816,7 @@ function PromoBlock(props) {
           {/* ✅ Banner clickeable: /categoria/<catName> */}
           <button
             type="button"
-            onClick={props.onGoCat}
+            onClick={props.onGoCats}
             className="block w-full cursor-pointer"
             aria-label={"Ver categoría " + catName}
             title={"Ver " + catName}
