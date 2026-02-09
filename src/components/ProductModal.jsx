@@ -225,7 +225,7 @@ export default function ProductModal(props) {
                     </label>
                     <input
                       className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
-                      placeholder="Ej: Pan de James"
+                      placeholder="Ej: Pan de Molde"
                       {...f.register("product_name")}
                     />
                     <FieldError msg={f.formState.errors.product_name} />

@@ -126,7 +126,7 @@ PROMO_BLOCKS = [
     max: 4,
   },
   {
-    catId: "10",
+    catId: "6",
     title: "Recomendados para ti",
     img: "https://api-centralizador.apiworking.pe/images/1f08a5d8-51c6-4089-8715-09bb395a3d5d.png",
     cta: "Categoria",
@@ -480,6 +480,19 @@ export default function Home() {
               ) : (
                 /* Vista HOME ordenada (PROMO BLOCKS para 3,4,6,10) */
                 <div className="space-y-10">
+                  {/* ✅ 1) Primero: los 4 promo blocks */}
+                  {(promoData || []).map(function (b, i) {
+                    return (
+                      <PromoBlock
+                        key={"promo_" + i}
+                        b={b}
+                        onGoCats={goCategorias}
+                        onGoCat={function () {
+                          goCategoriaNombre(b.catName);
+                        }}
+                      />
+                    );
+                  })}
                   {/* ✅ 2) Luego: ¿Qué es Don Pepito? */}
                   <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
                     <div className="text-center text-2xl font-extrabold tracking-tight text-mlate-900 md:text-3xl">
@@ -511,20 +524,6 @@ export default function Home() {
                     </div>
 
                   </div>
-                  {/* ✅ 1) Primero: los 4 promo blocks */}
-                  {(promoData || []).map(function (b, i) {
-                    return (
-                      <PromoBlock
-                        key={"promo_" + i}
-                        b={b}
-                        onGoCats={goCategorias}
-                        onGoCat={function () {
-                          goCategoriaNombre(b.catName);
-                        }}
-                      />
-                    );
-                  })}
-
 
 
                   {/* ✅ 3) Luego: banner full width (PC vs Mobile) */}
