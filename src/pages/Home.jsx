@@ -61,7 +61,7 @@ var SLIDES_MOBILE;
 
 SLIDES_MOBILE = [
   {
-    img: "https://api-centralizador.apiworking.pe/images/84b33ac8-ef82-4974-80fa-db663ee87288.png",
+    img: "https://api-centralizador.apiworking.pe/images/b510442e-a0a4-4c42-8aec-85b8803546d7.png",
     title: "Don Pepito",
     subtitle: "",
   },
