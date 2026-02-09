@@ -53,7 +53,7 @@ var HEADER_BG;
 /* ====== CONFIG ====== */
 BRAND = "Harinas Don Pepito";
 LOGO_URL =
-  "http://api-centralizador.apiworking.pe/images/34e75a99-76be-4c2f-aa6f-af05e71d93a7.png";
+  "https://api-centralizador.apiworking.pe/images/41ff2207-47ba-476f-9f88-f983ef95d94d.png";
 
 PHONE = "946762926";
 HELP_FLOAT_IMG_URL =
@@ -966,7 +966,7 @@ export default function PublicLayout() {
     <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#89E75A]/20">
       ☎
     </span>
-    919 688 631
+   932 140 855
   </a>
 
   <a
@@ -977,7 +977,7 @@ export default function PublicLayout() {
     <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#89E75A]/20">
       ☎
     </span>
-    919 674 12
+    946 762 926
   </a>
 </div>
 
