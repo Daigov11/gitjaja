@@ -6,7 +6,7 @@ var DEFAULT_LOGO_URL;
 
 DEFAULT_BRAND = "Harinas Don Pepito";
 DEFAULT_LOGO_URL =
-  "https://api-centralizador.apiworking.pe/images/41ff2207-47ba-476f-9f88-f983ef95d94d.png";
+  "https://api-centralizador.apiworking.pe/images/862e40f2-e0c7-4970-86d2-855c1aba8773.png";
 
 export default function AboutUs() {
   var ctx;
