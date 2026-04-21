@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/apiClient";
-import { setToken, setUser } from "../state/auth";
+import { setUser } from "../state/auth";
 
 export default function Login() {
   var navigate;
@@ -32,7 +32,7 @@ export default function Login() {
   error = error[0];
 
   async function onSubmit(e) {
-    var res, data, payload, ok, userObj, fakeToken;
+    var res, data, payload, ok, userObj;
 
     e.preventDefault();
     setError("");
@@ -62,10 +62,7 @@ export default function Login() {
       userObj =
         (data && data.data && data.data[0]) || { usuario: user, bd: BD_FIXED };
 
-      // como no hay token real, generamos uno local para el guard
-      fakeToken = "erp-session-" + String(userObj.id_usuario || "0") + "-" + Date.now();
-
-      setToken(fakeToken);
+      // El API no devuelve token; solo persistimos el usuario para el guard
       setUser(userObj);
 
       navigate("/admin", { replace: true });

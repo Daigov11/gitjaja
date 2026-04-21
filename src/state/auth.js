@@ -31,5 +31,5 @@ export function setUser(user) {
 }
 
 export function isAuthed() {
-  return !!getToken();
+  return !!getUser();
 }
