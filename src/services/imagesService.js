@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "./apiClient";
 import { IMAGE_UPLOAD_URL } from "../config/env";
 
 var MAX_IMAGE_SIZE_BYTES = 2 * 1024 * 1024;
@@ -14,9 +14,12 @@ export async function uploadImage(file) {
   fd = new FormData();
   fd.append("image", file); // IMPORTANTE: el campo debe llamarse "image"
 
-  // No fijar Content-Type manualmente: Axios agrega el boundary multipart
-  // correcto. Este servicio puede ser externo a la API local del catálogo.
-  res = await axios.post(IMAGE_UPLOAD_URL, fd, {
+  // Se usa el cliente autenticado (no axios directo): nuestro backend exige
+  // JWT en /Data/images. IMAGE_UPLOAD_URL puede ser absoluta (otro host) o
+  // relativa (mismo backend); en ambos casos el interceptor de apiClient
+  // agrega el Authorization: Bearer <token>. No fijar Content-Type
+  // manualmente: Axios agrega el boundary multipart correcto.
+  res = await api.post(IMAGE_UPLOAD_URL, fd, {
     headers: { accept: "*/*" },
   });
 
