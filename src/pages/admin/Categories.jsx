@@ -2,7 +2,12 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { listProducts } from "../../services/productsService";
 import { listCategories, createCategory, updateCategory, deleteCategory } from "../../services/categoriesService";
+import { queryKeys, ENTITY_STALE_TIME } from "../../services/queryKeys";
+import { BD_NAME } from "../../services/appConfig";
 import CategoryModal from "../../components/CategoryModal";
+import ConfirmDialog from "../../components/ConfirmDialog";
+import AppImage from "../../components/AppImage";
+import { extractErrorMessage } from "../../utils/errors";
 
 export default function Categories() {
   var BD;
@@ -38,7 +43,7 @@ export default function Categories() {
   var mutCreate, mutUpdate, mutDelete;
   var busy;
 
-  BD = "don_pepito_web";
+  BD = BD_NAME;
   qc = useQueryClient();
 
   qSearch = useState("");
@@ -81,8 +86,9 @@ export default function Categories() {
 
   /* 1) Fuente principal: categorías */
   qCats = useQuery({
-    queryKey: ["categories", BD],
+    queryKey: queryKeys.categories(BD),
     queryFn: listCategories,
+    staleTime: ENTITY_STALE_TIME,
   });
 
   okCats = qCats.data && (qCats.data.codResponse === "1" || qCats.data.codResponse === 1);
@@ -90,8 +96,9 @@ export default function Categories() {
 
   /* 2) Conteo: productos */
   qProd = useQuery({
-    queryKey: ["products", BD],
+    queryKey: queryKeys.products(BD),
     queryFn: listProducts,
+    staleTime: ENTITY_STALE_TIME,
   });
 
   okProd = qProd.data && (qProd.data.codResponse === "1" || qProd.data.codResponse === 1);
@@ -103,7 +110,7 @@ export default function Categories() {
       return createCategory(payload);
     },
     onSuccess: function () {
-      qc.invalidateQueries({ queryKey: ["categories", BD] });
+      qc.invalidateQueries({ queryKey: queryKeys.categories(BD) });
     },
   });
 
@@ -112,7 +119,7 @@ export default function Categories() {
       return updateCategory(vars.id_category, vars.payload);
     },
     onSuccess: function () {
-      qc.invalidateQueries({ queryKey: ["categories", BD] });
+      qc.invalidateQueries({ queryKey: queryKeys.categories(BD) });
     },
   });
 
@@ -121,7 +128,7 @@ export default function Categories() {
       return deleteCategory(id_category);
     },
     onSuccess: function () {
-      qc.invalidateQueries({ queryKey: ["categories", BD] });
+      qc.invalidateQueries({ queryKey: queryKeys.categories(BD) });
     },
   });
 
@@ -186,12 +193,9 @@ export default function Categories() {
       setModalOpen(false);
       setEditItem(null);
 
-      qCats.refetch();
-      qProd.refetch();
-
       setOpMsg({ type: "ok", text: res && res.message ? res.message : "Operación OK" });
     } catch (e) {
-      setOpMsg({ type: "err", text: String(e && e.message ? e.message : e) });
+      setOpMsg({ type: "err", text: extractErrorMessage(e) });
     }
   }
 
@@ -225,12 +229,9 @@ export default function Categories() {
       setConfirmOpen(false);
       setConfirmItem(null);
 
-      qCats.refetch();
-      qProd.refetch();
-
       setOpMsg({ type: "ok", text: res && res.message ? res.message : "Eliminado" });
     } catch (e) {
-      setOpMsg({ type: "err", text: String(e && e.message ? e.message : e) });
+      setOpMsg({ type: "err", text: extractErrorMessage(e) });
     }
   }
 
@@ -240,9 +241,9 @@ export default function Categories() {
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="text-m font-semibold text-mlate-500">Administración</div>
-            <div className="mt-1 text-3xl font-extrabold tracking-tight text-mlate-900">Categorías</div>
-            <div className="mt-1 text-m text-mlate-600">Listado de categorias</div>
+            <div className="text-m font-semibold text-slate-500">Administración</div>
+            <div className="mt-1 text-3xl font-extrabold tracking-tight text-slate-900">Categorías</div>
+            <div className="mt-1 text-m text-slate-600">Listado de categorias</div>
 
             {opMsg ? (
               <div
@@ -308,7 +309,7 @@ export default function Categories() {
       {/* estados */}
       {qCats.isLoading ? (
         <Card>
-          <div className="text-m text-mlate-600">Cargando categorías...</div>
+          <div className="text-m text-slate-600">Cargando categorías...</div>
           <SkeletonTable />
         </Card>
       ) : null}
@@ -333,7 +334,7 @@ export default function Categories() {
       {!qCats.isLoading && okCats ? (
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
-            <div className="text-m font-semibold text-mlate-900">Total: {total}</div>
+            <div className="text-m font-semibold text-slate-900">Total: {total}</div>
             <div className="flex items-center gap-2">
               <button
                 onClick={function () {
@@ -341,7 +342,7 @@ export default function Categories() {
                   qProd.refetch();
                 }}
                 disabled={busy}
-                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-semibold text-mlate-800 hover:bg-slate-50 disabled:opacity-50"
+                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-semibold text-slate-800 hover:bg-slate-50 disabled:opacity-50"
               >
                 Recargar
               </button>
@@ -350,7 +351,7 @@ export default function Categories() {
 
           <div className="overflow-auto">
             <table className="min-w-[900px] w-full text-left text-m">
-              <thead className="bg-slate-50 text-m font-bold text-mlate-600">
+              <thead className="bg-slate-50 text-m font-bold text-slate-600">
                 <tr>
                   <th className="px-4 py-3">ID</th>
                   <th className="px-4 py-3">Imagen</th>
@@ -366,33 +367,28 @@ export default function Categories() {
                 {pageItems.map(function (c) {
                   return (
                     <tr key={c.id_category} className="hover:bg-slate-50">
-                      <td className="px-4 py-4 font-bold text-mlate-900">{c.id_category}</td>
+                      <td className="px-4 py-4 font-bold text-slate-900">{c.id_category}</td>
 
                       <td className="px-4 py-4">
-                        {c.category_image_url ? (
-                          <img
-                            src={c.category_image_url}
-                            alt={c.category_name}
-                            className="h-10 w-10 rounded-xl object-cover ring-1 ring-slate-200"
-                          />
-                        ) : (
-                          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-[10px] font-extrabold text-mlate-500">
-                            —
-                          </div>
-                        )}
+                        <AppImage
+                          src={c.category_image_url}
+                          alt={c.category_name}
+                          fallback="/placeholder-category.svg"
+                          className="h-10 w-10 rounded-xl object-cover ring-1 ring-slate-200"
+                        />
                       </td>
 
                       <td className="px-4 py-4">
-                        <div className="font-extrabold text-mlate-900">{c.category_name}</div>
+                        <div className="font-extrabold text-slate-900">{c.category_name}</div>
                         {c.category_desc ? (
-                          <div className="mt-1 max-w-[420px] overflow-hidden text-ellipsis whitespace-nowrap text-m text-mlate-600">
+                          <div className="mt-1 max-w-[420px] overflow-hidden text-ellipsis whitespace-nowrap text-m text-slate-600">
                             {c.category_desc}
                           </div>
                         ) : null}
                       </td>
 
                       <td className="px-4 py-4">
-                        <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-mlate-700">
+                        <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-slate-700">
                           {String(c.product_count || 0)}
                         </span>
                       </td>
@@ -403,13 +399,13 @@ export default function Categories() {
                             Activo
                           </span>
                         ) : (
-                          <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-mlate-600">
+                          <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-slate-600">
                             Inactivo
                           </span>
                         )}
                       </td>
 
-                      <td className="px-4 py-4 text-m text-mlate-600">
+                      <td className="px-4 py-4 text-m text-slate-600">
                         {c.category_created ? new Date(c.category_created).toLocaleString() : "—"}
                       </td>
 
@@ -579,7 +575,7 @@ function IconBtn(props) {
       title={props.title}
       onClick={props.onClick}
       disabled={props.disabled}
-      className={base + " border-slate-200 text-mlate-800"}
+      className={base + " border-slate-200 text-slate-800"}
     >
       {props.children}
     </button>
@@ -593,7 +589,7 @@ function PageBtn(props) {
       onClick={props.onClick}
       className={
         "rounded-xl border px-3 py-2 text-m font-bold " +
-        (props.disabled ? "border-slate-200 bg-white text-mlate-300" : "border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
+        (props.disabled ? "border-slate-200 bg-white text-slate-300" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
       }
     >
       {props.children}
@@ -618,7 +614,7 @@ function renderPages(page, pages, setPage) {
         }}
         className={
           "h-10 w-10 rounded-xl border text-m font-extrabold " +
-          (i === page ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
+          (i === page ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
         }
       >
         {i}
@@ -653,42 +649,6 @@ function SkeletonTable() {
   );
 }
 
-function ConfirmDialog(props) {
-  if (!props.open) return null;
-
-  return (
-    <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-black/50" onClick={props.onCancel} />
-      <div className="absolute inset-0 flex items-center justify-center p-4">
-        <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-xl">
-          <div className="border-b border-slate-200 px-5 py-4">
-            <div className="text-lg font-extrabold text-mlate-900">{props.title}</div>
-            <div className="mt-1 text-m text-mlate-600">{props.message}</div>
-          </div>
-
-          <div className="flex items-center justify-end gap-3 px-5 py-4">
-            <button
-              className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-mlate-700 hover:bg-slate-50 disabled:opacity-50"
-              onClick={props.onCancel}
-              type="button"
-              disabled={props.busy}
-            >
-              {props.cancelText || "Cancelar"}
-            </button>
-            <button
-              className="rounded-xl bg-red-600 px-4 py-2.5 text-m font-extrabold text-white hover:bg-red-700 disabled:opacity-50"
-              onClick={props.onConfirm}
-              type="button"
-              disabled={props.busy}
-            >
-              {props.confirmText || "Confirmar"}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function PencilIcon() {
   return (

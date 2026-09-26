@@ -1,15 +1,10 @@
 import axios from "axios";
 import { API_BASE_URL, BD_NAME } from "./appConfig";
-import { getToken } from "../state/auth";
+import { getToken, clearAuth } from "../state/auth";
 
-var api;
-
-api = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 20000,
-});
-
-api.interceptors.request.use(function (config) {
+// Exportadas por separado para poder probarlas sin depender de los
+// internals de axios (interceptors.request.handlers).
+export function addAuthAndBdParams(config) {
   var token, url;
 
   token = getToken();
@@ -31,20 +26,31 @@ api.interceptors.request.use(function (config) {
   }
 
   return config;
-});
+}
 
-api.interceptors.response.use(
-  function (res) {
-    return res;
-  },
-  function (err) {
-    if (err && err.response && err.response.status === 401) {
-      localStorage.removeItem("erp_token");
-      localStorage.removeItem("erp_user");
+export function handleResponseError(err) {
+  if (err && err.response && err.response.status === 401) {
+    clearAuth();
+    // Fuera de un componente React no hay acceso a useNavigate; se evita el
+    // loop de redirección comprobando que no estemos ya en /login.
+    if (window.location.pathname !== "/login") {
       window.location.href = "/login";
     }
-    return Promise.reject(err);
   }
-);
+  return Promise.reject(err);
+}
+
+var api;
+
+api = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 20000,
+});
+
+api.interceptors.request.use(addAuthAndBdParams);
+
+api.interceptors.response.use(function (res) {
+  return res;
+}, handleResponseError);
 
 export default api;

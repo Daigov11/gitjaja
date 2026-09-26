@@ -41,16 +41,16 @@ export default function PublicHeader(props) {
                   props.setQSearch(e.target.value);
                 }}
                 placeholder="Buscar productos..."
-                className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-mlate-900 outline-none focus:border-white"
+                className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-slate-900 outline-none focus:border-white"
               />
-              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-mlate-500">
+              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
                 <SearchIcon />
               </div>
             </div>
 
             <button
               onClick={props.onOpenCart}
-              className="relative inline-flex items-center gap-2 rounded-full bg-amber-300 px-4 py-2.5 text-m font-extrabold text-mlate-900 shadow hover:bg-amber-200"
+              className="relative inline-flex items-center gap-2 rounded-full bg-amber-300 px-4 py-2.5 text-m font-extrabold text-slate-900 shadow hover:bg-amber-200"
               title="Armar lista y consultar"
             >
               Carrito
@@ -64,7 +64,7 @@ export default function PublicHeader(props) {
           <div className="ml-auto flex items-center gap-2 md:hidden">
             <button
               onClick={props.onOpenCart}
-              className="relative inline-flex items-center gap-2 rounded-full bg-amber-300 px-3 py-2 text-m font-extrabold text-mlate-900 shadow hover:bg-amber-200"
+              className="relative inline-flex items-center gap-2 rounded-full bg-amber-300 px-3 py-2 text-m font-extrabold text-slate-900 shadow hover:bg-amber-200"
               aria-label="Abrir WhatsApp"
             >
               CA
@@ -82,9 +82,9 @@ export default function PublicHeader(props) {
                 props.setQSearch(e.target.value);
               }}
               placeholder="Buscar productos..."
-              className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-mlate-900 outline-none focus:border-white"
+              className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-slate-900 outline-none focus:border-white"
             />
-            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-mlate-500">
+            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
               <SearchIcon />
             </div>
           </div>
@@ -179,8 +179,8 @@ export default function PublicHeader(props) {
                   className="h-10 w-10 rounded-2xl object-cover ring-1 ring-slate-200"
                 />
                 <div className="leading-tight">
-                  <div className="text-m font-extrabold text-mlate-900">{props.brand}</div>
-                  <div className="text-[11px] font-semibold text-mlate-600">Menú</div>
+                  <div className="text-m font-extrabold text-slate-900">{props.brand}</div>
+                  <div className="text-[11px] font-semibold text-slate-600">Menú</div>
                 </div>
               </Link>
 
@@ -188,7 +188,7 @@ export default function PublicHeader(props) {
                 onClick={function () {
                   props.setNavOpen(false);
                 }}
-                className="rounded-xl border border-slate-200 p-2 text-mlate-700 hover:bg-slate-50"
+                className="rounded-xl border border-slate-200 p-2 text-slate-700 hover:bg-slate-50"
                 aria-label="Cerrar menú"
               >
                 <XIcon />
@@ -206,7 +206,7 @@ export default function PublicHeader(props) {
                         onClick={function () {
                           props.setNavOpen(false);
                         }}
-                        className="block rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+                        className="block rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-slate-800 hover:bg-slate-50"
                       >
                         {it.label}
                       </Link>
@@ -222,7 +222,7 @@ export default function PublicHeader(props) {
                       onClick={function () {
                         props.setNavOpen(false);
                       }}
-                      className="block rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+                      className="block rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-slate-800 hover:bg-slate-50"
                     >
                       {it.label}
                     </a>
@@ -241,7 +241,7 @@ export default function PublicHeader(props) {
 
                 <a
                   href={"tel:+51" + props.phone}
-                  className="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+                  className="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-slate-800 hover:bg-slate-50"
                 >
                   Llamar: +51 {props.phone}
                 </a>

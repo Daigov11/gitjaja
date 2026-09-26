@@ -4,20 +4,24 @@ import { useQuery } from "@tanstack/react-query";
 import { listCategories } from "../services/categoriesService";
 import { listProducts } from "../services/productsService";
 import { BD_NAME } from "../services/appConfig";
-var QR_IMG_URL;
-QR_IMG_URL = "https://api-centralizador.apiworking.pe/images/9bc41d4a-4088-49c3-826b-5d0d8d59efde.png";
-
-var BRAND;
-var LOGO_URL;
-var PHONE;
-var IG_URL;
-var FB_URL;
-var TT_URL;
-var HELP_FLOAT_IMG_URL;
-var HELP_FLOAT_TEXT;
-
-var CART_KEY;
-var NAV_ITEMS;
+import { queryKeys, ENTITY_STALE_TIME } from "../services/queryKeys";
+import AppImage from "./AppImage";
+import {
+  BRAND,
+  LOGO_URL,
+  LOGO_FALLBACK,
+  PHONE,
+  IG_URL,
+  FB_URL,
+  TT_URL,
+  CART_KEY,
+  HELP_FLOAT_IMG_URL,
+  HELP_FLOAT_FALLBACK,
+  HELP_FLOAT_TEXT,
+  QR_IMG_URL,
+  QR_FALLBACK,
+  NAV_ITEMS,
+} from "../config/publicSiteConfig";
 
 var MAX_CATS;
 var BRAND_LOGOS;
@@ -51,21 +55,6 @@ CART_ICON_IMG = "https://cdn-icons-png.flaticon.com/512/3144/3144456.png";
 var HEADER_BG;
 
 /* ====== CONFIG ====== */
-BRAND = "Harinas Don Pepito";
-LOGO_URL =
-  "https://api-centralizador.apiworking.pe/images/862e40f2-e0c7-4970-86d2-855c1aba8773.png";
-
-PHONE = "946762926";
-HELP_FLOAT_IMG_URL =
-  "https://api-centralizador.apiworking.pe/images/79a77bab-87dc-459b-a284-5e00529cb955.png";
-
-HELP_FLOAT_TEXT = "Hola, necesito ayuda con mi pedido.";
-
-IG_URL = "https://www.instagram.com/harinasdonpepito/";
-FB_URL = "https://www.facebook.com/harinasdonpepito";
-TT_URL = "https://www.tiktok.com/@harinasdonpepito";
-
-CART_KEY = "dp_cart_interest_v1";
 MAX_CATS = 300;
 var WA_ICON_IMG;
 
@@ -73,20 +62,6 @@ WA_ICON_IMG =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/960px-WhatsApp.svg.png"
 /* ✅ Verde manzana */
 HEADER_BG = "#89E75A";
-
-/* ✅ IMPORTANTE: catálogo debe ser "/categoria" para funcionar desde /producto/:id */
-NAV_ITEMS = [
-  { label: "Inicio", href: "/", type: "route" },
-  { label: "Quienes somos", href: "/aboutus", type: "route" },
-
-  /* 👇 este item se renderiza como botón con mega menú */
-  { label: "Catálogo", href: "/categoria", type: "route" },
-
-  { label: "Ubicación", href: "https://maps.app.goo.gl/zD8DvAwfFnhtJKJd9", type: "ext" },
-  { label: "Promociones", href: "/categoria/" + encodeURIComponent("PROMOCIONES"), type: "route" },
-  { label: "Trabaja con nosotros", href: "/trabaja-con-nosotros", type: "route" },
-];
-
 
 export default function PublicLayout() {
   var qSearch, setQSearch;
@@ -147,14 +122,16 @@ export default function PublicLayout() {
   megaQuery = megaQuery[0];
 
   qCats = useQuery({
-    queryKey: ["public_categories", BD_NAME],
+    queryKey: queryKeys.categories(BD_NAME),
     queryFn: listCategories,
+    staleTime: ENTITY_STALE_TIME,
   });
 
   /* fallback útil: si categorías falla, saco categorías desde productos */
   qProd = useQuery({
-    queryKey: ["public_products", BD_NAME],
+    queryKey: queryKeys.products(BD_NAME),
     queryFn: listProducts,
+    staleTime: ENTITY_STALE_TIME,
   });
 
   okCats = qCats.data && (qCats.data.codResponse === "1" || qCats.data.codResponse === 1);
@@ -236,7 +213,7 @@ export default function PublicLayout() {
         window.removeEventListener("keydown", onKey);
       };
     },
-    [catOpen]
+    [catOpen, setCatOpen]
   );
 
   /* ✅ Mega menú: cerrar con click afuera + ESC (solo desktop mega) */
@@ -262,7 +239,7 @@ export default function PublicLayout() {
         window.removeEventListener("keydown", onEsc);
       };
     },
-    [megaOpen]
+    [megaOpen, megaRef, setMegaOpen]
   );
 
   function toggleInCart(p) {
@@ -465,10 +442,12 @@ export default function PublicLayout() {
               {/* CENTRO: Logo */}
               <div className="shrink-0">
                 <Link to="/" className="flex items-center justify-center">
-                  <img
+                  <AppImage
                     src={LOGO_URL}
+                    fallback={LOGO_FALLBACK}
                     alt="Don Pepito"
                     className="h-16 sm:h-25 lg:h-35 2xl:h-40 w-auto object-contain"
+                    loading="eager"
                   />
                 </Link>
               </div>
@@ -483,11 +462,11 @@ export default function PublicLayout() {
                       setQSearch(e.target.value);
                     }}
                     placeholder="Buscar productos..."
-                    className="min-w-0 w-full px-4 py-2.5 text-m font-semibold text-mlate-900 outline-none"
+                    className="min-w-0 w-full px-4 py-2.5 text-m font-semibold text-slate-900 outline-none"
                   />
                   <button
                     type="button"
-                    className="inline-flex w-11 lg:w-12 items-center justify-center border-l border-slate-200 bg-slate-50 text-mlate-600 hover:bg-slate-100"
+                    className="inline-flex w-11 lg:w-12 items-center justify-center border-l border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100"
                     title="Buscar"
                     aria-label="Buscar"
                   >
@@ -503,13 +482,13 @@ export default function PublicLayout() {
                   className="rounded-full bg-black/15 p-1.5 lg:p-2 hover:bg-black/25"
                   title="Instagram"
                 >
-                  <img
+                  <AppImage
                     src={IG_ICON_IMG}
                     alt="Instagram"
                     className="h-5 w-5 lg:h-6 lg:w-6 rounded-full object-cover"
                     loading="lazy"
                     draggable="false"
-                  />
+                   fallback="/placeholder-product.svg" />
                 </a>
 
                 <a
@@ -519,13 +498,13 @@ export default function PublicLayout() {
                   className="rounded-full bg-black/15 p-1.5 lg:p-2 hover:bg-black/25"
                   title="Facebook"
                 >
-                  <img
+                  <AppImage
                     src={FB_ICON_IMG}
                     alt="Facebook"
                     className="h-5 w-5 lg:h-6 lg:w-6 rounded-full object-cover"
                     loading="lazy"
                     draggable="false"
-                  />
+                   fallback="/placeholder-product.svg" />
                 </a>
 
                 <a
@@ -535,13 +514,13 @@ export default function PublicLayout() {
                   className="rounded-full bg-black/15 p-1.5 lg:p-2 hover:bg-black/25"
                   title="TikTok"
                 >
-                  <img
+                  <AppImage
                     src={TT_ICON_IMG}
                     alt="TikTok"
                     className="h-5 w-5 lg:h-6 lg:w-6 rounded-full object-cover"
                     loading="lazy"
                     draggable="false"
-                  />
+                   fallback="/placeholder-product.svg" />
                 </a>
 
                 <button
@@ -552,14 +531,14 @@ export default function PublicLayout() {
                   title="Carrito"
                   aria-label="Abrir carrito"
                 >
-                  <img
+                  <AppImage
                     src={CART_ICON_IMG}
                     alt="Carrito"
                     className="h-6 w-6 lg:h-7 lg:w-7 object-contain"
                     loading="lazy"
                     draggable="false"
-                  />
-                  <span className="absolute -right-1 -top-1 inline-flex min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-m font-extrabold text-mlate-900 shadow">
+                   fallback="/placeholder-product.svg" />
+                  <span className="absolute -right-1 -top-1 inline-flex min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-m font-extrabold text-slate-900 shadow">
                     {cart.length}
                   </span>
                 </button>
@@ -583,7 +562,13 @@ export default function PublicLayout() {
 
               <Link to="/" className="flex items-center">
                 {/* ✅ logo mobile un poquito más grande */}
-                <img src={LOGO_URL} alt="Don Pepito" className="h-14 w-auto object-contain" />
+                <AppImage
+                  src={LOGO_URL}
+                  fallback={LOGO_FALLBACK}
+                  alt="Don Pepito"
+                  className="h-14 w-auto object-contain"
+                  loading="eager"
+                />
               </Link>
 
 <div className="ml-auto flex items-center gap-2">
@@ -595,13 +580,13 @@ export default function PublicLayout() {
     aria-label="Abrir carrito"
     title="Carrito"
   >
-    <img
+    <AppImage
       src={CART_ICON_IMG}
       alt=""
       className="h-6 w-6 object-contain"
       loading="lazy"
       draggable="false"
-    />
+     fallback="/placeholder-product.svg" />
 
     <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-white px-1 text-[12px] font-extrabold leading-none text-slate-900 ring-2 ring-orange-500">
       {cart.length > 99 ? "99+" : cart.length}
@@ -620,9 +605,9 @@ export default function PublicLayout() {
                     setQSearch(e.target.value);
                   }}
                   placeholder="Buscar productos..."
-                  className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-mlate-900 outline-none focus:border-white"
+                  className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-slate-900 outline-none focus:border-white"
                 />
-                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-mlate-500">
+                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
                   <SearchIcon />
                 </div>
               </div>
@@ -648,13 +633,13 @@ export default function PublicLayout() {
           <div className="absolute left-0 top-0 h-full w-[82%] max-w-sm bg-white shadow-2xl flex flex-col">
             {/* Header fijo */}
             <div className="shrink-0 flex items-center justify-between border-b border-slate-200 px-4 py-3">
-              <div className="text-m font-extrabold text-mlate-900">MENÚ</div>
+              <div className="text-m font-extrabold text-slate-900">MENÚ</div>
 
               <button
                 onClick={function () {
                   setCatOpen(false);
                 }}
-                className="rounded-xl border border-slate-200 p-2 text-mlate-700 hover:bg-slate-50"
+                className="rounded-xl border border-slate-200 p-2 text-slate-700 hover:bg-slate-50"
                 aria-label="Cerrar menú"
                 title="Cerrar"
               >
@@ -673,7 +658,7 @@ export default function PublicLayout() {
                     setCatOpen(false);
                     window.scrollTo(0, 0);
                   }}
-                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-mlate-900"
+                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-slate-900"
                 >
                   <span>Inicio</span>
                   <ChevronIcon />
@@ -686,7 +671,7 @@ export default function PublicLayout() {
                     setCatOpen(false);
                     window.scrollTo(0, 0);
                   }}
-                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-mlate-900"
+                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-slate-900"
                 >
                   <span>Quienes somos</span>
                   <ChevronIcon />
@@ -698,7 +683,7 @@ export default function PublicLayout() {
                   onClick={function () {
                     setMobCatalogOpen(!mobCatalogOpen);
                   }}
-                  className="w-full flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-mlate-900"
+                  className="w-full flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-slate-900"
                   aria-expanded={mobCatalogOpen ? "true" : "false"}
                   title="Ver categorías"
                 >
@@ -718,9 +703,9 @@ export default function PublicLayout() {
                           setCatQuery(e.target.value);
                         }}
                         placeholder="Buscar categoría..."
-                        className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-m font-semibold text-mlate-900 outline-none focus:border-emerald-400"
+                        className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-10 text-m font-semibold text-slate-900 outline-none focus:border-emerald-400"
                       />
-                      <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-mlate-400">
+                      <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
                         <SearchIcon />
                       </div>
                     </div>
@@ -732,18 +717,18 @@ export default function PublicLayout() {
                           setCatOpen(false);
                           window.scrollTo(0, 0);
                         }}
-                        className="flex items-center justify-between border-b border-slate-200 py-4 text-m font-extrabold text-mlate-900"
+                        className="flex items-center justify-between border-b border-slate-200 py-4 text-m font-extrabold text-slate-900"
                       >
                         <span className="uppercase">Ver todas</span>
                         <ChevronIcon />
                       </Link>
 
                       {qCats.isLoading && catsAll.length === 0 ? (
-                        <div className="py-6 text-m font-semibold text-mlate-600">Cargando categorías…</div>
+                        <div className="py-6 text-m font-semibold text-slate-600">Cargando categorías…</div>
                       ) : null}
 
                       {!qCats.isLoading && catsAll.length === 0 ? (
-                        <div className="py-6 text-m font-semibold text-mlate-600">No hay categorías.</div>
+                        <div className="py-6 text-m font-semibold text-slate-600">No hay categorías.</div>
                       ) : null}
 
                       <div className="mt-1">
@@ -759,7 +744,7 @@ export default function PublicLayout() {
                                 setCatOpen(false);
                                 window.scrollTo(0, 0);
                               }}
-                              className="flex items-center justify-between border-b border-slate-200 py-4 text-m font-extrabold text-mlate-900"
+                              className="flex items-center justify-between border-b border-slate-200 py-4 text-m font-extrabold text-slate-900"
                               title={name}
                             >
                               <span className="uppercase">{name}</span>
@@ -780,7 +765,7 @@ export default function PublicLayout() {
                   onClick={function () {
                     setCatOpen(false);
                   }}
-                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-mlate-900"
+                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-slate-900"
                 >
                   <span>Ubicación</span>
                   <ChevronIcon />
@@ -793,7 +778,7 @@ export default function PublicLayout() {
                     setCatOpen(false);
                     window.scrollTo(0, 0);
                   }}
-                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-mlate-900"
+                  className="flex items-center justify-between border-b border-slate-200 px-4 py-4 text-m font-extrabold text-slate-900"
                 >
                   <span>Promociones</span>
                   <ChevronIcon />
@@ -806,7 +791,7 @@ export default function PublicLayout() {
                     setCatOpen(false);
                     window.scrollTo(0, 0);
                   }}
-                  className="flex items-center justify-between px-4 py-4 text-m font-extrabold text-mlate-900"
+                  className="flex items-center justify-between px-4 py-4 text-m font-extrabold text-slate-900"
                 >
                   <span>Trabaja con nosotros</span>
                   <ChevronIcon />
@@ -817,8 +802,8 @@ export default function PublicLayout() {
             {/* ✅ Drawer footer: Redes SIEMPRE visibles (más importante en mobile) */}
             <div className="shrink-0 border-t border-slate-200 bg-white p-4">
               <div className="flex items-center justify-between">
-                <div className="text-m font-extrabold text-mlate-900">Síguenos</div>
-                <div className="text-[12px] font-extrabold text-mlate-500">Promos • Recetas • Novedades</div>
+                <div className="text-m font-extrabold text-slate-900">Síguenos</div>
+                <div className="text-[12px] font-extrabold text-slate-500">Promos • Recetas • Novedades</div>
               </div>
 
               <div className="mt-3 grid grid-cols-3 gap-2">
@@ -837,14 +822,14 @@ export default function PublicLayout() {
                   aria-label="Abrir Instagram"
                   title="Instagram"
                 >
-                  <img
+                  <AppImage
                     src={IG_ICON_IMG}
                     alt="Instagram"
                     className="h-9 w-9 rounded-full object-cover"
                     loading="lazy"
                     draggable="false"
-                  />
-                  <div className="mt-2 text-[12px] font-extrabold text-mlate-900">Instagram</div>
+                   fallback="/placeholder-product.svg" />
+                  <div className="mt-2 text-[12px] font-extrabold text-slate-900">Instagram</div>
                 </a>
 
                 <a
@@ -862,14 +847,14 @@ export default function PublicLayout() {
                   aria-label="Abrir Facebook"
                   title="Facebook"
                 >
-                  <img
+                  <AppImage
                     src={FB_ICON_IMG}
                     alt="Facebook"
                     className="h-9 w-9 rounded-full object-cover"
                     loading="lazy"
                     draggable="false"
-                  />
-                  <div className="mt-2 text-[12px] font-extrabold text-mlate-900">Facebook</div>
+                   fallback="/placeholder-product.svg" />
+                  <div className="mt-2 text-[12px] font-extrabold text-slate-900">Facebook</div>
                 </a>
 
                 <a
@@ -887,18 +872,18 @@ export default function PublicLayout() {
                   aria-label="Abrir TikTok"
                   title="TikTok"
                 >
-                  <img
+                  <AppImage
                     src={TT_ICON_IMG}
                     alt="TikTok"
                     className="h-9 w-9 rounded-full object-cover"
                     loading="lazy"
                     draggable="false"
-                  />
-                  <div className="mt-2 text-[12px] font-extrabold text-mlate-900">TikTok</div>
+                   fallback="/placeholder-product.svg" />
+                  <div className="mt-2 text-[12px] font-extrabold text-slate-900">TikTok</div>
                 </a>
               </div>
 
-              <div className="mt-3 text-[12px] font-semibold text-mlate-600">
+              <div className="mt-3 text-[12px] font-semibold text-slate-600">
                 Tip: en redes subimos ofertas y productos nuevos.
               </div>
             </div>
@@ -935,7 +920,12 @@ export default function PublicLayout() {
             <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
               <div>
                 <div className="flex items-center gap-3">
-                  <img src={LOGO_URL} alt={BRAND} className="h-30 w-auto object-contain" />
+                  <AppImage
+                    src={LOGO_URL}
+                    fallback={LOGO_FALLBACK}
+                    alt={BRAND}
+                    className="h-30 w-auto object-contain"
+                  />
                   <div className="leading-tight"></div>
                 </div>
 
@@ -959,9 +949,9 @@ export default function PublicLayout() {
 {/* ✅ CONTACTOS (click-to-call) */}
 <div className="mt-3 flex flex-wrap gap-2">
   <a
-    href={"tel:+51" + cleanPhone("946762926")}
+    href={"tel:+51" + cleanPhone("932140855")}
     className="inline-flex items-center gap-2 rounded-2xl border border-white/40 bg-white/95 px-4 py-2 text-m font-extrabold text-slate-900 hover:bg-white"
-    title="Llamar 946762926"
+    title="Llamar 932 140 855"
   >
     <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#89E75A]/20">
       ☎
@@ -970,9 +960,9 @@ export default function PublicLayout() {
   </a>
 
   <a
-    href={"tel:+51" + cleanPhone("932140855")}
+    href={"tel:+51" + cleanPhone(PHONE)}
     className="inline-flex items-center gap-2 rounded-2xl border border-white/40 bg-white/95 px-4 py-2 text-m font-extrabold text-slate-900 hover:bg-white"
-    title="Llamar 932140855"
+    title="Llamar 946 762 926"
   >
     <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#89E75A]/20">
       ☎
@@ -1036,13 +1026,13 @@ export default function PublicLayout() {
                     href={IG_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-slate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
                   >
-                    <img
+                    <AppImage
                       src={IG_ICON_IMG}
                       alt="Instagram"
                       className="h-7 w-7 rounded object-contain"
-                    />
+                     fallback="/placeholder-product.svg" />
                     Instagram
                   </a>
 
@@ -1050,13 +1040,13 @@ export default function PublicLayout() {
                     href={FB_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-slate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
                   >
-                    <img
+                    <AppImage
                       src={FB_ICON_IMG}
                       alt="Facebook"
                       className="h-7 w-7 rounded object-contain"
-                    />
+                     fallback="/placeholder-product.svg" />
                     Facebook
                   </a>
 
@@ -1064,13 +1054,13 @@ export default function PublicLayout() {
                     href={TT_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-mlate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-slate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
                   >
-                    <img
+                    <AppImage
                       src={TT_ICON_IMG}
                       alt="TikTok"
                       className="h-7 w-7 rounded object-contain"
-                    />
+                     fallback="/placeholder-product.svg" />
                     TikTok
                   </a>
                 </div>
@@ -1078,8 +1068,9 @@ export default function PublicLayout() {
                 {/* ✅ QR (solo imagen, el link ya está dentro del QR) */}
                 <div className="mt-6">
                   <div className="w-fit rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
-                    <img
+                    <AppImage
                       src={QR_IMG_URL}
+                      fallback={QR_FALLBACK}
                       alt={"QR " + BRAND}
                       className="h-40 w-40 rounded-xl object-contain"
                     />
@@ -1090,12 +1081,12 @@ export default function PublicLayout() {
             </div>
           </div>
 
-          <div className="border-t border-slate-200 py-6 text-xl font-semibold text-mlate-500">
+          <div className="border-t border-slate-200 py-6 text-xl font-semibold text-slate-500">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 © {new Date().getFullYear()} {BRAND} — Tienda Web
               </div>
-              <div className="text-mlate-400">
+              <div className="text-slate-400">
                 Mercado de Productores de Santa Anita, Pj 54, Santa Anita 15011
               </div>
             </div>
@@ -1118,12 +1109,12 @@ export default function PublicLayout() {
             {/* Header fijo */}
             <div className="shrink-0 flex items-center justify-between border-b border-slate-200 p-4">
               <div>
-                <div className="text-m font-extrabold text-mlate-900">Tu consulta</div>
-                <div className="text-m font-semibold text-mlate-600">Lista de productos de interés</div>
+                <div className="text-m font-extrabold text-slate-900">Tu consulta</div>
+                <div className="text-m font-semibold text-slate-600">Lista de productos de interés</div>
               </div>
 
               <button
-                className="rounded-xl border border-slate-200 px-3 py-2 text-m font-extrabold text-mlate-700 hover:bg-slate-50"
+                className="rounded-xl border border-slate-200 px-3 py-2 text-m font-extrabold text-slate-700 hover:bg-slate-50"
                 onClick={function () {
                   setCartOpen(false);
                 }}
@@ -1135,7 +1126,7 @@ export default function PublicLayout() {
             {/* Body con scroll */}
             <div className="flex-1 overflow-y-auto overscroll-contain p-4">
               {cart.length === 0 ? (
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-m font-semibold text-mlate-700">
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-m font-semibold text-slate-700">
                   Aún no agregaste productos. Usa el botón “Agregar / Quitar” en las tarjetas.
                 </div>
               ) : (
@@ -1143,11 +1134,11 @@ export default function PublicLayout() {
                   {cart.map(function (x) {
                     return (
                       <div key={"c" + x.id_product} className="rounded-2xl border border-slate-200 p-3">
-                        <div className="text-m font-extrabold text-mlate-900">{x.product_name}</div>
-                        <div className="mt-1 text-m font-semibold text-mlate-600">{x.category_name || "—"}</div>
+                        <div className="text-m font-extrabold text-slate-900">{x.product_name}</div>
+                        <div className="mt-1 text-m font-semibold text-slate-600">{x.category_name || "—"}</div>
 
                         <div className="mt-2 flex items-center justify-between gap-2">
-                          <div className="text-m font-extrabold text-mlate-700">
+                          <div className="text-m font-extrabold text-slate-700">
                             {x.has_price ? "S/ " + Number(x.price || 0).toFixed(2) : " "}
                           </div>
 
@@ -1155,7 +1146,7 @@ export default function PublicLayout() {
                             onClick={function () {
                               toggleInCart({ id_product: x.id_product });
                             }}
-                            className="shrink-0 rounded-xl border border-slate-200 px-3 py-2 text-m font-extrabold text-mlate-700 hover:bg-slate-50"
+                            className="shrink-0 rounded-xl border border-slate-200 px-3 py-2 text-m font-extrabold text-slate-700 hover:bg-slate-50"
                           >
                             Quitar
                           </button>
@@ -1187,15 +1178,15 @@ export default function PublicLayout() {
                   className={
                     "rounded-2xl border px-4 py-3 text-m font-extrabold " +
                     (cart.length === 0
-                      ? "border-slate-200 text-mlate-300"
-                      : "border-slate-200 text-mlate-700 hover:bg-slate-50")
+                      ? "border-slate-200 text-slate-300"
+                      : "border-slate-200 text-slate-700 hover:bg-slate-50")
                   }
                 >
                   Vaciar
                 </button>
               </div>
 
-              <div className="mt-3 text-m font-semibold text-mlate-500">
+              <div className="mt-3 text-m font-semibold text-slate-500">
                 Recuerda revisar tus productos antes de hacer un pedido.
               </div>
             </div>
@@ -1215,7 +1206,7 @@ function readCart() {
     data = raw ? JSON.parse(raw) : [];
     if (!Array.isArray(data)) return [];
     return data;
-  } catch (e) {
+  } catch {
     return [];
   }
 }
@@ -1390,18 +1381,18 @@ function FooterTitle(props) {
 
 function FooterLink(props) {
   return (
-    <a href={props.href} className="block text-m font-semibold text-mlate-600 hover:text-mlate-900">
+    <a href={props.href} className="block text-m font-semibold text-slate-600 hover:text-slate-900">
       {props.children}
     </a>
   );
 }
 
 function TagPill(props) {
-  return <div className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-extrabold text-mlate-700">{props.children}</div>;
+  return <div className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-extrabold text-slate-700">{props.children}</div>;
 }
 
 function PayBadge(props) {
-  return <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-extrabold text-mlate-700">{props.label}</div>;
+  return <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-extrabold text-slate-700">{props.label}</div>;
 }
 
 function TrustItem(props) {
@@ -1410,8 +1401,8 @@ function TrustItem(props) {
       <div className="flex items-start gap-3">
         <div className="rounded-2xl bg-emerald-50 p-2 text-emerald-800">{props.icon}</div>
         <div>
-          <div className="text-m font-extrabold text-mlate-900">{props.title}</div>
-          <div className="mt-1 text-m font-semibold text-mlate-600">{props.desc}</div>
+          <div className="text-m font-extrabold text-slate-900">{props.title}</div>
+          <div className="mt-1 text-m font-semibold text-slate-600">{props.desc}</div>
         </div>
       </div>
     </div>
@@ -1584,8 +1575,9 @@ function HelpWhatsappFloat() {
       aria-label="¿Necesitas ayuda?"
       title="¿Necesitas ayuda?"
     >
-      <img
+      <AppImage
         src={HELP_FLOAT_IMG_URL}
+        fallback={HELP_FLOAT_FALLBACK}
         alt="¿Necesitas ayuda?"
         className="h-50 w-50 select-none drop-shadow-lg hover:scale-[1.03] active:scale-[0.98] transition-transform"
         draggable="false"
@@ -1616,7 +1608,7 @@ function ScrollToTop() {
       // ✅ En navegación normal (ej /producto/:id): ir arriba
       window.scrollTo(0, 0);
     },
-    [loc.pathname, loc.hash]
+    [loc]
   );
 
   return null;

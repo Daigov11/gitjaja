@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
+import { BRAND as DEFAULT_BRAND, PHONE as DEFAULT_PHONE } from "../config/publicSiteConfig";
 
 function normalizePhone(raw) {
   var p;
@@ -22,8 +23,8 @@ export default function WorkWithUs() {
   ctx = useOutletContext();
   if (!ctx) ctx = {};
 
-  BRAND = ctx.BRAND || "Harinas Don Pepito";
-  PHONE = normalizePhone(ctx.PHONE || "946762926");
+  BRAND = ctx.BRAND || DEFAULT_BRAND;
+  PHONE = normalizePhone(ctx.PHONE || DEFAULT_PHONE);
 
   [form, setForm] = useState({
     nombre: "",
@@ -80,11 +81,11 @@ export default function WorkWithUs() {
             Trabaja con nosotros
           </div>
 
-          <h1 className="mt-2 text-3xl font-black tracking-tight text-mlate-900 md:text-4xl">
+          <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
             Únete a {BRAND}
           </h1>
 
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-mlate-600">
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-600">
             Estamos creciendo. Si te interesa formar parte del equipo, envíanos tus datos
             y te contactamos. También puedes escribirnos directo por WhatsApp.
           </p>
@@ -92,21 +93,21 @@ export default function WorkWithUs() {
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {/* Info */}
             <div className="rounded-3xl border bg-slate-50 p-6">
-              <div className="text-m font-black text-mlate-900">Puestos frecuentes</div>
-              <ul className="mt-3 list-disc space-y-1 pl-5 text-m text-mlate-700">
+              <div className="text-m font-black text-slate-900">Puestos frecuentes</div>
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-m text-slate-700">
                 <li>Ventas / Atención al cliente</li>
                 <li>Reparto / Conductor</li>
                 <li>Almacén</li>
                 <li>Administración</li>
               </ul>
 
-              <div className="mt-6 text-m font-black text-mlate-900">Recomendación</div>
-              <div className="mt-2 text-m text-mlate-700">
+              <div className="mt-6 text-m font-black text-slate-900">Recomendación</div>
+              <div className="mt-2 text-m text-slate-700">
                 Indica tu experiencia, disponibilidad y distrito / zona.
               </div>
 
-              <div className="mt-6 rounded-2xl bg-white p-4 text-m text-mlate-700">
-                <div className="font-extrabold text-mlate-900">Tip</div>
+              <div className="mt-6 rounded-2xl bg-white p-4 text-m text-slate-700">
+                <div className="font-extrabold text-slate-900">Tip</div>
                 <div className="mt-1">
                   Si tienes CV, puedes enviarlo por WhatsApp luego de abrir el chat.
                 </div>
@@ -115,7 +116,7 @@ export default function WorkWithUs() {
 
             {/* Form */}
             <form onSubmit={onSubmit} className="rounded-3xl border bg-white p-6">
-              <div className="text-m font-black text-mlate-900">Envíanos tus datos</div>
+              <div className="text-m font-black text-slate-900">Envíanos tus datos</div>
 
               <div className="mt-4 grid gap-3">
                 <input
@@ -159,7 +160,7 @@ export default function WorkWithUs() {
                 Enviar por WhatsApp
               </button>
 
-              <div className="mt-3 text-center text-m text-mlate-500">
+              <div className="mt-3 text-center text-m text-slate-500">
                 Se abrirá WhatsApp con el mensaje listo para enviar.
               </div>
             </form>

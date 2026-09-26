@@ -1,17 +1,25 @@
 import api from "./apiClient";
+import { normalizeProduct, toProductApiBody } from "../utils/apiNormalizers";
+
+function normalizeResponse(data) {
+  if (data && Array.isArray(data.data)) {
+    return { ...data, data: data.data.map(normalizeProduct) };
+  }
+  return data;
+}
 
 export async function listProducts() {
   var res;
   res = await api.get("/MicroSaas/products", {
     headers: { accept: "*/*" },
   });
-  return res.data;
+  return normalizeResponse(res.data);
 }
 
 export async function createProduct(payload) {
   var res, body;
 
-  body = toApiBody(payload);
+  body = toProductApiBody(payload);
 
   res = await api.post("/MicroSaas/products", body, {
     headers: { accept: "*/*", "Content-Type": "application/json" },
@@ -23,7 +31,7 @@ export async function createProduct(payload) {
 export async function updateProduct(id, payload) {
   var res, body;
 
-  body = toApiBody(payload);
+  body = toProductApiBody(payload);
 
   res = await api.put("/MicroSaas/products/" + id, body, {
     headers: { accept: "*/*", "Content-Type": "application/json" },
@@ -40,26 +48,4 @@ export async function deleteProduct(id) {
   });
 
   return res.data;
-}
-
-function toApiBody(p) {
-  var out;
-
-  out = {};
-  out.idCategory = Number(p.id_category || p.idCategory || 0);
-
-  out.productName = String(p.product_name || "");
-  out.productDesc = p.product_desc ? String(p.product_desc) : "";
-  out.productUrl = p.product_url ? String(p.product_url) : null;
-  out.productImageUrl = p.product_image_url ? String(p.product_image_url) : null;
-
-  // La API acepta 0/1 (según tus curls)
-  out.hasPrice = p.has_price ? 1 : 0;
-
-  // Si no hay precio, mandamos 0 (según curl)
-  out.price = p.has_price ? Number(p.price || 0) : 0;
-
-  out.productStatus = p.product_status ? 1 : 0;
-
-  return out;
 }

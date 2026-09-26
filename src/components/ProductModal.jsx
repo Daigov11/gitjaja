@@ -3,6 +3,8 @@ import { uploadImage } from "../services/imagesService";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toBoolean } from "../utils/apiNormalizers";
+import AppImage from "./AppImage";
 
 var ProductSchema;
 
@@ -38,6 +40,8 @@ export default function ProductModal(props) {
   var mode;
   var title;
 
+  var initialProduct, defaultCategoryName, onClose;
+
   var f;
   var hasPrice;
 
@@ -49,6 +53,9 @@ export default function ProductModal(props) {
   open = !!props.open;
   mode = props.mode || "create";
   title = mode === "edit" ? "Editar producto" : "Nuevo producto";
+  initialProduct = props.initialProduct;
+  defaultCategoryName = props.defaultCategoryName;
+  onClose = props.onClose;
 
   f = useForm({
     resolver: zodResolver(ProductSchema),
@@ -89,7 +96,9 @@ export default function ProductModal(props) {
       return function () {
         try {
           URL.revokeObjectURL(url);
-        } catch (e) {}
+        } catch {
+          // URL ya pudo haber sido revocada; no hay nada que hacer
+        }
       };
     },
     [file, setPreview]
@@ -99,13 +108,18 @@ export default function ProductModal(props) {
     function () {
       if (!open) return;
 
-      f.reset(buildDefaults(props));
+      f.reset(
+        buildDefaults({
+          initialProduct: initialProduct,
+          defaultCategoryName: defaultCategoryName,
+        })
+      );
       setFile(null);
       setUploadErr("");
 
       function onKey(e) {
         if (e.key === "Escape") {
-          if (props.onClose) props.onClose();
+          if (onClose) onClose();
         }
       }
 
@@ -114,7 +128,7 @@ export default function ProductModal(props) {
         window.removeEventListener("keydown", onKey);
       };
     },
-    [open, props.initialProduct, props.defaultCategoryName]
+    [open, initialProduct, defaultCategoryName, onClose, f, setFile, setUploadErr]
   );
 
   if (!open) return null;
@@ -162,16 +176,16 @@ export default function ProductModal(props) {
           {/* header */}
           <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
             <div>
-              <div className="text-m font-semibold text-mlate-500">
+              <div className="text-m font-semibold text-slate-500">
                 Administración • Productos
               </div>
-              <div className="mt-1 text-lg font-extrabold text-mlate-900">
+              <div className="mt-1 text-lg font-extrabold text-slate-900">
                 {title}
               </div>
             </div>
 
             <button
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-bold text-mlate-700 hover:bg-slate-50"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-bold text-slate-700 hover:bg-slate-50"
               onClick={function () {
                 if (props.onClose) props.onClose();
               }}
@@ -189,7 +203,7 @@ export default function ProductModal(props) {
                 <div className="grid gap-4">
                   {/* categoría */}
                   <div>
-                    <label className="text-m font-extrabold text-mlate-700">
+                    <label className="text-m font-extrabold text-slate-700">
                       Categoría
                     </label>
 
@@ -220,7 +234,7 @@ export default function ProductModal(props) {
 
                   {/* nombre */}
                   <div>
-                    <label className="text-m font-extrabold text-mlate-700">
+                    <label className="text-m font-extrabold text-slate-700">
                       Nombre del producto
                     </label>
                     <input
@@ -233,7 +247,7 @@ export default function ProductModal(props) {
 
                   {/* descripción */}
                   <div>
-                    <label className="text-m font-extrabold text-mlate-700">
+                    <label className="text-m font-extrabold text-slate-700">
                       Descripción
                     </label>
                     <textarea
@@ -247,7 +261,7 @@ export default function ProductModal(props) {
                   {/* url */}
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="text-m font-extrabold text-mlate-700">
+                      <label className="text-m font-extrabold text-slate-700">
                         URL (opcional)
                       </label>
                       <input
@@ -259,7 +273,7 @@ export default function ProductModal(props) {
                     </div>
 
                     <div>
-                      <label className="text-m font-extrabold text-mlate-700">
+                      <label className="text-m font-extrabold text-slate-700">
                         Imagen URL (opcional)
                       </label>
                       <input
@@ -273,10 +287,10 @@ export default function ProductModal(props) {
 
                   {/* upload image */}
                   <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-                    <div className="text-m font-extrabold text-mlate-700">
+                    <div className="text-m font-extrabold text-slate-700">
                       Subir imagen (opcional)
                     </div>
-                    <div className="mt-1 text-m text-mlate-500">
+                    <div className="mt-1 text-m text-slate-500">
                       Si seleccionas un archivo, se subirá y reemplazará la URL al
                       guardar.
                     </div>
@@ -304,9 +318,9 @@ export default function ProductModal(props) {
                     ) : null}
 
                     {file ? (
-                      <div className="mt-3 text-m font-semibold text-mlate-700">
+                      <div className="mt-3 text-m font-semibold text-slate-700">
                         Archivo:{" "}
-                        <span className="font-bold text-mlate-900">
+                        <span className="font-bold text-slate-900">
                           {file.name}
                         </span>
                       </div>
@@ -317,10 +331,10 @@ export default function ProductModal(props) {
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
                       <div>
-                        <div className="text-m font-extrabold text-mlate-700">
+                        <div className="text-m font-extrabold text-slate-700">
                           ¿Tiene precio?
                         </div>
-                        <div className="text-m text-mlate-500">
+                        <div className="text-m text-slate-500">
                           Si no, se mostrará “ ”
                         </div>
                       </div>
@@ -333,7 +347,7 @@ export default function ProductModal(props) {
                     </div>
 
                     <div>
-                      <label className="text-m font-extrabold text-mlate-700">
+                      <label className="text-m font-extrabold text-slate-700">
                         Precio
                       </label>
                       <input
@@ -344,7 +358,7 @@ export default function ProductModal(props) {
                           "mt-2 w-full rounded-xl border px-3 py-2.5 text-m outline-none focus:border-slate-300 " +
                           (hasPrice
                             ? "border-slate-200 bg-white"
-                            : "border-slate-200 bg-slate-100 text-mlate-400")
+                            : "border-slate-200 bg-slate-100 text-slate-400")
                         }
                         placeholder="0.00"
                         {...f.register("price")}
@@ -356,14 +370,14 @@ export default function ProductModal(props) {
                   {/* estado */}
                   <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-3">
                     <div>
-                      <div className="text-m font-extrabold text-mlate-700">
+                      <div className="text-m font-extrabold text-slate-700">
                         Estado
                       </div>
-                      <div className="text-m text-mlate-500">Activo / Inactivo</div>
+                      <div className="text-m text-slate-500">Activo / Inactivo</div>
                     </div>
 
                     <select
-                      className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-bold text-mlate-800"
+                      className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-bold text-slate-800"
                       value={f.watch("product_status") ? "1" : "0"}
                       onChange={function (e) {
                         f.setValue("product_status", e.target.value === "1");
@@ -379,7 +393,7 @@ export default function ProductModal(props) {
               {/* right: preview */}
               <div className="border-t border-slate-200 bg-slate-50 p-5 md:border-l md:border-t-0">
                 <div className="flex items-center justify-between">
-                  <div className="text-m font-extrabold text-mlate-700">
+                  <div className="text-m font-extrabold text-slate-700">
                     Vista previa
                   </div>
                   {uploading ? (
@@ -391,41 +405,29 @@ export default function ProductModal(props) {
 
                 <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                   <div className="h-44 bg-slate-100">
-                    {preview ? (
-                      <img
-                        alt="preview-file"
-                        src={preview}
-                        className="h-44 w-full object-cover"
-                      />
-                    ) : f.watch("product_image_url") ? (
-                      <img
-                        alt="preview-url"
-                        src={f.watch("product_image_url")}
-                        className="h-44 w-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-44 items-center justify-center text-m font-bold text-mlate-500">
-                        Sin imagen
-                      </div>
-                    )}
+                    <AppImage
+                      alt="Vista previa del producto"
+                      src={preview || f.watch("product_image_url")}
+                      className="h-44 w-full object-cover"
+                    />
                   </div>
 
                   <div className="p-4">
-                    <div className="text-m font-bold text-mlate-500">
+                    <div className="text-m font-bold text-slate-500">
                       {f.watch("category_name") || "Categoría"}
                     </div>
 
-                    <div className="mt-1 text-lg font-extrabold text-mlate-900">
+                    <div className="mt-1 text-lg font-extrabold text-slate-900">
                       {f.watch("product_name") || "Nombre del producto"}
                     </div>
 
-                    <div className="mt-2 text-m text-mlate-600">
+                    <div className="mt-2 text-m text-slate-600">
                       {f.watch("product_desc") || "Descripción del producto..."}
                     </div>
 
                     <div className="mt-3">
                       {f.watch("has_price") ? (
-                        <span className="text-base font-extrabold text-mlate-900">
+                        <span className="text-base font-extrabold text-slate-900">
                           S/{" "}
                           {f.watch("price") !== null && f.watch("price") !== ""
                             ? Number(f.watch("price") || 0).toFixed(2)
@@ -440,7 +442,7 @@ export default function ProductModal(props) {
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-xl border border-slate-200 bg-white p-3 text-m text-mlate-600">
+                <div className="mt-4 rounded-xl border border-slate-200 bg-white p-3 text-m text-slate-600">
                   <b>Tip:</b> Si subes imagen por archivo, no necesitas escribir la URL.
                 </div>
               </div>
@@ -454,8 +456,8 @@ export default function ProductModal(props) {
                 className={
                   "rounded-xl border px-4 py-2.5 text-m font-extrabold " +
                   (uploading
-                    ? "border-slate-200 bg-white text-mlate-300"
-                    : "border-slate-200 bg-white text-mlate-700 hover:bg-slate-50")
+                    ? "border-slate-200 bg-white text-slate-300"
+                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50")
                 }
                 onClick={function () {
                   if (props.onClose) props.onClose();
@@ -510,9 +512,9 @@ function buildDefaults(props) {
     product_desc: (p && p.product_desc) || "",
     product_url: (p && p.product_url) || "",
     product_image_url: (p && p.product_image_url) || "",
-    has_price: p ? !!p.has_price : true,
-    price: p && p.has_price ? p.price : null,
-    product_status: p ? !!p.product_status : true,
+    has_price: p ? toBoolean(p.has_price) : true,
+    price: p && toBoolean(p.has_price) ? p.price : null,
+    product_status: p ? toBoolean(p.product_status) : true,
   };
 }
 
@@ -529,12 +531,12 @@ function normalize(values) {
     ? String(values.product_image_url)
     : null;
 
-  out.has_price = !!values.has_price;
+  out.has_price = toBoolean(values.has_price);
 
   if (out.has_price) out.price = values.price;
   else out.price = null;
 
-  out.product_status = !!values.product_status;
+  out.product_status = toBoolean(values.product_status);
 
   return out;
 }

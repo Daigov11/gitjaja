@@ -5,9 +5,22 @@ build
 .gitignore
 Dockerfile
 docker-compose.yml
+docker-compose.local.yml
 npm-debug.log
 yarn-error.log
 .vscode
 .idea
+
+# Database dumps — never allowed into a Docker build context
+*.sql
+*.sql.gz
+*.dump
+
+# Environment files — never allowed into a Docker build context
 .env
-.env
+.env.*
+!.env.example
+!.env.compose.example
+
+# Backend has its own build context; not needed in the frontend image
+backend

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/apiClient";
-import { setUser } from "../state/auth";
+import { setUser, setToken } from "../state/auth";
+import { BD_NAME } from "../services/appConfig";
 
 export default function Login() {
   var navigate;
@@ -13,7 +14,7 @@ export default function Login() {
   var BD_FIXED;
 
   navigate = useNavigate();
-  BD_FIXED = "don_pepito_web";
+  BD_FIXED = BD_NAME;
 
   user = useState("");
   setUserInput = user[1];
@@ -41,11 +42,9 @@ export default function Login() {
     payload = { bd: BD_FIXED, user: user, password: password };
 
     try {
-      res = await api.post(
-        "https://api-centralizador.apiworking.pe/api/Card/login",
-        payload,
-        { headers: { accept: "*/*", "Content-Type": "application/json" } }
-      );
+      res = await api.post("/Card/login", payload, {
+        headers: { accept: "*/*", "Content-Type": "application/json" },
+      });
 
       data = res && res.data ? res.data : null;
 
@@ -62,8 +61,14 @@ export default function Login() {
       userObj =
         (data && data.data && data.data[0]) || { usuario: user, bd: BD_FIXED };
 
-      // El API no devuelve token; solo persistimos el usuario para el guard
       setUser(userObj);
+
+      // Si el backend ya devuelve un token real, lo persistimos para que
+      // apiClient mande Authorization: Bearer <token>. Si no lo devuelve
+      // (backend legado), seguimos funcionando solo con el guard de sesión.
+      if (data && data.token) {
+        setToken(data.token);
+      }
 
       navigate("/admin", { replace: true });
     } catch (err) {

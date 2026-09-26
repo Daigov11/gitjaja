@@ -2,10 +2,16 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { listProducts, createProduct, updateProduct, deleteProduct } from "../../services/productsService";
 import { listCategories } from "../../services/categoriesService";
+import { queryKeys, ENTITY_STALE_TIME } from "../../services/queryKeys";
+import { BD_NAME } from "../../services/appConfig";
 import ProductModal from "../../components/ProductModal";
+import ConfirmDialog from "../../components/ConfirmDialog";
+import { useNotify } from "../../components/notificationsContext";
+import { extractErrorMessage } from "../../utils/errors";
 
 export default function Products() {
-  var qc;
+  var qc, notify;
+  var confirmTarget, setConfirmTarget;
 
   var q, ok, items;
   var qCat, okCat, catItems;
@@ -26,6 +32,11 @@ export default function Products() {
   var mCreate, mUpdate, mDelete;
 
   qc = useQueryClient();
+  notify = useNotify();
+
+  confirmTarget = useState(null);
+  setConfirmTarget = confirmTarget[1];
+  confirmTarget = confirmTarget[0];
 
   qSearch = useState("");
   setQSearch = qSearch[1];
@@ -58,8 +69,9 @@ export default function Products() {
   pageSize = 6;
 
   q = useQuery({
-    queryKey: ["products"],
+    queryKey: queryKeys.products(BD_NAME),
     queryFn: listProducts,
+    staleTime: ENTITY_STALE_TIME,
   });
 
   ok = q.data && (q.data.codResponse === "1" || q.data.codResponse === 1);
@@ -67,8 +79,9 @@ export default function Products() {
 
   // Categorías (para mapear idCategory por nombre)
   qCat = useQuery({
-    queryKey: ["categories"],
+    queryKey: queryKeys.categories(BD_NAME),
     queryFn: listCategories,
+    staleTime: ENTITY_STALE_TIME,
   });
 
   okCat = qCat.data && (qCat.data.codResponse === "1" || qCat.data.codResponse === 1);
@@ -94,13 +107,15 @@ export default function Products() {
       if (res && (res.codResponse === "1" || res.codResponse === 1)) {
         setModalOpen(false);
         setInitialProduct(null);
-        qc.invalidateQueries({ queryKey: ["products"] });
+        qc.invalidateQueries({ queryKey: queryKeys.products(BD_NAME) });
+        qc.invalidateQueries({ queryKey: queryKeys.categories(BD_NAME) });
+        notify({ type: "ok", text: "Producto creado" });
       } else {
         setSavingErr((res && res.message) || "No se pudo crear el producto");
       }
     },
     onError: function (err) {
-      setSavingErr(String(err && err.message ? err.message : err));
+      setSavingErr(extractErrorMessage(err));
     },
   });
 
@@ -112,13 +127,15 @@ export default function Products() {
       if (res && (res.codResponse === "1" || res.codResponse === 1)) {
         setModalOpen(false);
         setInitialProduct(null);
-        qc.invalidateQueries({ queryKey: ["products"] });
+        qc.invalidateQueries({ queryKey: queryKeys.products(BD_NAME) });
+        qc.invalidateQueries({ queryKey: queryKeys.categories(BD_NAME) });
+        notify({ type: "ok", text: "Producto actualizado" });
       } else {
         setSavingErr((res && res.message) || "No se pudo actualizar el producto");
       }
     },
     onError: function (err) {
-      setSavingErr(String(err && err.message ? err.message : err));
+      setSavingErr(extractErrorMessage(err));
     },
   });
 
@@ -128,13 +145,15 @@ export default function Products() {
     },
     onSuccess: function (res) {
       if (res && (res.codResponse === "1" || res.codResponse === 1)) {
-        qc.invalidateQueries({ queryKey: ["products"] });
+        qc.invalidateQueries({ queryKey: queryKeys.products(BD_NAME) });
+        qc.invalidateQueries({ queryKey: queryKeys.categories(BD_NAME) });
+        notify({ type: "ok", text: "Producto eliminado" });
       } else {
-        alert((res && res.message) || "No se pudo eliminar");
+        notify({ type: "err", text: (res && res.message) || "No se pudo eliminar" });
       }
     },
     onError: function (err) {
-      alert(String(err && err.message ? err.message : err));
+      notify({ type: "err", text: extractErrorMessage(err) });
     },
   });
 
@@ -153,10 +172,21 @@ export default function Products() {
   }
 
   function onDelete(p) {
-    var okDel;
-    okDel = window.confirm("¿Eliminar producto ID " + p.id_product + "?");
-    if (!okDel) return;
-    mDelete.mutate(p.id_product);
+    setConfirmTarget(p);
+  }
+
+  function closeConfirm() {
+    if (mDelete.isPending) return;
+    setConfirmTarget(null);
+  }
+
+  function confirmDeleteProduct() {
+    if (!confirmTarget) return;
+    mDelete.mutate(confirmTarget.id_product, {
+      onSettled: function () {
+        setConfirmTarget(null);
+      },
+    });
   }
 
   function onCloseModal() {
@@ -206,15 +236,31 @@ export default function Products() {
         onSubmit={onSubmitModal}
       />
 
+      {/* Confirm delete */}
+      <ConfirmDialog
+        open={!!confirmTarget}
+        title="Eliminar producto"
+        message={
+          confirmTarget
+            ? '¿Seguro que deseas eliminar "' + confirmTarget.product_name + '"?'
+            : ""
+        }
+        confirmText={mDelete.isPending ? "Eliminando..." : "Sí, eliminar"}
+        cancelText="Cancelar"
+        onCancel={closeConfirm}
+        onConfirm={confirmDeleteProduct}
+        busy={mDelete.isPending}
+      />
+
       {/* Header */}
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="text-m font-semibold text-mlate-500">Administración</div>
-            <div className="mt-1 text-3xl font-extrabold tracking-tight text-mlate-900">
+            <div className="text-m font-semibold text-slate-500">Administración</div>
+            <div className="mt-1 text-3xl font-extrabold tracking-tight text-slate-900">
               Productos
             </div>
-            <div className="mt-1 text-m text-mlate-600">
+            <div className="mt-1 text-m text-slate-600">
               Listado de productos
             </div>
           </div>
@@ -274,7 +320,7 @@ export default function Products() {
       {/* States */}
       {q.isLoading ? (
         <Card>
-          <div className="text-m text-mlate-600">Cargando productos...</div>
+          <div className="text-m text-slate-600">Cargando productos...</div>
           <SkeletonTable />
         </Card>
       ) : null}
@@ -299,12 +345,12 @@ export default function Products() {
       {!q.isLoading && ok ? (
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
-            <div className="text-m font-semibold text-mlate-900">Total: {total}</div>
+            <div className="text-m font-semibold text-slate-900">Total: {total}</div>
             <button
               onClick={function () {
                 q.refetch();
               }}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-semibold text-mlate-800 hover:bg-slate-50"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-semibold text-slate-800 hover:bg-slate-50"
             >
               Recargar
             </button>
@@ -312,7 +358,7 @@ export default function Products() {
 
           <div className="overflow-auto">
             <table className="min-w-[980px] w-full text-left text-m">
-              <thead className="bg-slate-50 text-m font-bold text-mlate-600">
+              <thead className="bg-slate-50 text-m font-bold text-slate-600">
                 <tr>
                   <th className="px-4 py-3">ID</th>
                   <th className="px-4 py-3">Categoría</th>
@@ -329,26 +375,23 @@ export default function Products() {
                 {pageItems.map(function (p) {
                   return (
                     <tr key={p.id_product} className="hover:bg-slate-50">
-                      <td className="px-4 py-4 font-bold text-mlate-900">{p.id_product}</td>
+                      <td className="px-4 py-4 font-bold text-slate-900">{p.id_product}</td>
 
-                      <td className="px-4 py-4 text-mlate-700">{p.category_name || "—"}</td>
+                      <td className="px-4 py-4 text-slate-700">{p.category_name || "—"}</td>
 
                       <td className="px-4 py-4">
-                        <div className="font-extrabold text-mlate-900">{p.product_name}</div>
-                        <div className="mt-1 max-w-[260px] overflow-hidden text-ellipsis whitespace-nowrap text-m text-mlate-600">
-                          {p.product_desc || "—"}
-                        </div>
+                        <div className="font-extrabold text-slate-900">{p.product_name}</div>
                       </td>
 
                       <td className="px-4 py-4">
-                        <div className="max-w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-m text-mlate-700">
+                        <div className="max-w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-m text-slate-700">
                           {p.product_desc || "—"}
                         </div>
                       </td>
 
                       <td className="px-4 py-4">
                         {p.has_price ? (
-                          <div className="font-extrabold text-mlate-900">
+                          <div className="font-extrabold text-slate-900">
                             S/ {Number(p.price || 0).toFixed(2)}
                           </div>
                         ) : (
@@ -364,13 +407,13 @@ export default function Products() {
                             Activo
                           </span>
                         ) : (
-                          <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-mlate-600">
+                          <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-slate-600">
                             Inactivo
                           </span>
                         )}
                       </td>
 
-                      <td className="px-4 py-4 text-m text-mlate-600">
+                      <td className="px-4 py-4 text-m text-slate-600">
                         {p.product_created ? new Date(p.product_created).toLocaleString() : "—"}
                       </td>
 
@@ -461,7 +504,7 @@ function IconBtn(props) {
   }
 
   return (
-    <button title={props.title} onClick={props.onClick} className={base + " border-slate-200 text-mlate-800"}>
+    <button title={props.title} onClick={props.onClick} className={base + " border-slate-200 text-slate-800"}>
       {props.children}
     </button>
   );
@@ -474,7 +517,7 @@ function PageBtn(props) {
       onClick={props.onClick}
       className={
         "rounded-xl border px-3 py-2 text-m font-bold " +
-        (props.disabled ? "border-slate-200 bg-white text-mlate-300" : "border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
+        (props.disabled ? "border-slate-200 bg-white text-slate-300" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
       }
     >
       {props.children}
@@ -501,7 +544,7 @@ function renderPages(page, pages, setPage) {
         }}
         className={
           "h-10 w-10 rounded-xl border text-m font-extrabold " +
-          (i === page ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
+          (i === page ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
         }
       >
         {i}

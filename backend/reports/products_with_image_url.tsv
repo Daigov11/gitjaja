@@ -1,0 +1,676 @@
+id_product	id_category	product_name	product_image_url
+6	4	MARGARINA PRIMAVERA HOJALDRE BARRA 2KG	http://api-centralizador.apiworking.pe/images/7b91890e-797a-415c-afa5-217bd1ad1bb4.png
+7	5	MANTECA BAKERDREAM 10KG	http://api-centralizador.apiworking.pe/images/09bb096a-7e02-4c5b-a441-74467ed15808.jpg
+8	5	MANTECA DON MANOLO VERDE 10KG	http://api-centralizador.apiworking.pe/images/7b1fcb89-2b3c-47c4-b95d-b8f151edd90d.png
+9	6	PREMEZCLA DOBLE VAINILLA PREMIUM BAKELS 10KG	http://api-centralizador.apiworking.pe/images/2faa82f3-623b-4ae0-b6fe-dbe5649fc11d.png
+10	6	PREMEZCLA PANETON PREMIUM BAKELS 25KG	http://api-centralizador.apiworking.pe/images/2b152b29-728d-4bec-8c0d-94ac596f4a1e.png
+11	7	MEJORADOR MAESTRO FLEISCHMANN SACO 5KG X 5UNID	http://api-centralizador.apiworking.pe/images/1cdc0513-cf83-4704-bc9d-23b0fe422a6e.png
+12	7	MEJORADOR MAESTRO FLEISCHMANN 5KG	http://api-centralizador.apiworking.pe/images/d2b6f5ff-bf99-462c-8798-0dce65ee002e.png
+13	8	ESENCIA DE VAINILLA DULCINITA GALÓN X 6UNID	http://api-centralizador.apiworking.pe/images/afde6d40-7390-4619-849d-53ba758139c2.png
+14	9	LEVADURA SECA FABAO CAJA 500GR X 20UNID	http://api-centralizador.apiworking.pe/images/e770e926-8bd1-481d-ba93-1311dd59f125.jpg
+15	9	LEVADURA SECA FABAO 500GR	http://api-centralizador.apiworking.pe/images/e4a2f119-66e7-4c09-a0c8-e1ad415b710f.jpg
+16	10	POLVO DE HORNEAR FLEISCHMANN SACO 5KG X 5UNID	http://api-centralizador.apiworking.pe/images/15aa48e4-66fb-4543-b941-05ff51467242.png
+17	10	POLVO DE HORNEAR FLEISCHMANN 5KG	http://api-centralizador.apiworking.pe/images/2cbc486d-66e7-4582-ab81-3199c3e7da3c.jpg
+18	11	COLAPIZ KATITA PACK 20GR X 20SOBRES	http://api-centralizador.apiworking.pe/images/c1bcca3e-7b8d-4c04-a781-50d8f2de6417.png
+19	11	COLAPIZ KATITA 20GR X 20SOBRES X DISPL	http://api-centralizador.apiworking.pe/images/cc129aa2-12ef-41a0-b5f3-e9ba40ae18d4.png
+25	4	MARGARINA SELLO DE ORO SIN SAL BARRA 2KG	https://api-centralizador.apiworking.pe/images/d8c89866-4cb0-4cc5-8141-12dc95e559d6.png
+26	4	MARGARINA BAKERDREAM 10KG	https://api-centralizador.apiworking.pe/images/c015fbd4-0ed0-4502-8f5b-6b32ed354cbc.jpg
+27	4	MARGARINA HOJALDRE PASTELLA APOLO CAJA 2KG X 5UNID	https://api-centralizador.apiworking.pe/images/4febcf19-0f14-4a05-a57b-d880739f6f1f.png
+28	4	MARGARINA HOJALDRE PASTELLA APOLO BARRA 2KG	https://api-centralizador.apiworking.pe/images/2ad183b2-85fb-444d-ab36-dbcb4b697c66.png
+29	4	MARGARINA LA EXCELENCIA 10KG	https://api-centralizador.apiworking.pe/images/80bcf29a-0fb9-45bb-b778-9d5b829f5330.png
+30	4	MARGARINA LA EXCELENCIA BARRA 2KG	https://proingra.com/wp-content/uploads/2024/06/09-MULTIPROPOSITO.png
+31	4	MARGARINA OPAN CAJA 2KG X 5UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/07/CAJA-OPAN-10KG.jpg
+32	4	MARGARINA OPAN BARRA 2KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/Margarina-Opan-2kg.jpg
+33	4	MARGARINA PASTELLA MULTIUSO CAJA 2KG X 4UNID	https://dulceruth.pe/wp-content/uploads/Diseno-sin-titulo-1-1.png
+34	4	MARGARINA PASTELLA MULTIUSO BARRA 2KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/Margarina-Multiusos-Primavera.jpg
+35	4	MARGARINA PRIMAVERA HOJALDRE CAJA 2KG X 5UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_d9fe82f56eb2f9a930479924e0bfe6573c23ee12_producto_large_90.png
+36	4	MARGARINA PRIMAVERA HOJALDRE PLANCHA 2KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_ca2b2919a2d64e2265b37566eb8287130a4168a5_producto_large_90.png
+37	4	MARGARINA PRIMAVERA KEKERA CAJA 2KG X 4UNID	https://plazavea.vteximg.com.br/arquivos/ids/561296-450-450/20146421.jpg?v=637427426634030000
+38	4	MARGARINA PRIMAVERA KEKERA BARRA 2KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/MARGARINA-2KG-KEKERA-PRIMAVERA.jpg
+39	4	MARGARINA PRIMAVERA MULTIUSO CAJA 2KG X 4UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_693cd86a52fa3451792ed29bc95561b149d4d7ff_producto_large_90.jpg
+40	4	MARGARINA SELLO DE ORO CAJA 2KG X 5UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_d99a7b99d1f3bcd17b0bc3c2f24a655b0565280e_producto_large_90.jpg
+41	4	MARGARINA SELLO DE ORO BARRA 2KG	https://plazavea.vteximg.com.br/arquivos/ids/31763542-512-512/20220594.jpg
+42	4	MARGARINA SELLO DE ORO SIN SAL CAJA 2KG X 5UNID	https://plazavea.vteximg.com.br/arquivos/ids/32887758-512-512/20566936_2000x2000.jpg
+44	5	MANTECA DEL CAMPO 10KG	https://scontent-lim1-1.xx.fbcdn.net/v/t39.30808-6/487500488_1468392507744727_3107450659561954923_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeH63xw-HNv81msa-LeskPuH4ZQuwi6hbrHhlC7CLqFusSlRpKysrZ1PKf1WvZG6tZurW_TnE59vwcFP-S4GWIoP&_nc_ohc=1EQAbQgfYvsQ7kNvwE5yP4J&_nc_oc=Adn_CkaaKLVOa7YxLBvoNEfiERzh7p8zx1nnjtJ7hth_ufscbH_GPSoY6pvg5a7YLPw&_nc_zt=23&_nc_ht=scontent-lim1-1.xx&_nc_gid=w-usaoSQAg_MPnG04BaoLA&oh=00_Afp218fsgX1Ep-C2z1yXO0GsJcL5Lw1RQvPlV3d8NVDZpA&oe=69818589
+45	5	MANTECA DELI PANADERA ROJA 10KG	https://scontent-lim1-1.xx.fbcdn.net/v/t39.30808-6/487500488_1468392507744727_3107450659561954923_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeH63xw-HNv81msa-LeskPuH4ZQuwi6hbrHhlC7CLqFusSlRpKysrZ1PKf1WvZG6tZurW_TnE59vwcFP-S4GWIoP&_nc_ohc=1EQAbQgfYvsQ7kNvwE5yP4J&_nc_oc=Adn_CkaaKLVOa7YxLBvoNEfiERzh7p8zx1nnjtJ7hth_ufscbH_GPSoY6pvg5a7YLPw&_nc_zt=23&_nc_ht=scontent-lim1-1.xx&_nc_gid=w-usaoSQAg_MPnG04BaoLA&oh=00_Afp218fsgX1Ep-C2z1yXO0GsJcL5Lw1RQvPlV3d8NVDZpA&oe=69818589
+47	5	MANTECA FAMOSA COSTA 10KG	https://plazavea.vteximg.com.br/arquivos/ids/561446-450-450/20169560.jpg?v=637427431882300000
+48	5	MANTECA FAMOSA SIERRA 10KG	https://plazavea.vteximg.com.br/arquivos/ids/761137-512-512/20169586.jpg
+49	5	MANTECA GORDITO 14KG	https://mundoabarrotes.com/wp-content/uploads/2021/01/Manteca-Gordito-14-kg.webp
+50	5	MANTECA GRANERO 10KG	https://scontent-lim1-1.xx.fbcdn.net/v/t39.30808-6/492081980_122198569772145496_9213925781345197197_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeF2Z1eX3iAbqH-PJSMrSbjAePuCL1AQNrN4-4IvUBA2s50rOT0_pvhs2HvRM2YZVyqK6E-jQOlLycvDoKMwna1s&_nc_ohc=I5Cv11ULBU8Q7kNvwFdWPBy&_nc_oc=AdkSPfmQHw_ygVWyCo4-iV9WNJMqlUWo5-GiwXTH_u9CVJ-QxvIA5jEJe-NnkNE44s8&_nc_zt=23&_nc_ht=scontent-lim1-1.xx&_nc_gid=P8CPw2iS5StUbrjv8ga4eA&oh=00_AfpfLqCs8cMczzJLeSZmAbSv4Q464p59HZYo6rfD-Axx_Q&oe=698165
+51	5	MANTECA HIDROGENADA FRATELLO CAJA 250GR X 12UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/MANTECA-HIDROGENADA-250GR.jpg
+52	5	MANTECA HIDROGENADA FRATELLO 250GR	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/MANTECA-HIDROGENADA-250GR.jpg
+53	5	MANTECA MAN PAN SIERRA 10KG	https://mundoabarrotes.com/wp-content/uploads/2023/10/Manteca-ManPan-Sierra-10kg.webp
+54	5	MANTECA MAN PAN TRADICIONAL COSTA 10KG	https://plazavea.vteximg.com.br/arquivos/ids/30212681-512-512/20176190.jpg
+56	5	MANTECA TROPICAL DOCENA 200GR X 12UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/Manteca-Vegetal-200gr-Palma-Tropical.jpg
+57	5	MANTECA TROPICAL  200GR X 12UNID X 4CJ	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_bf12cbe0302c98fca4c97c748c6bf6c485b96e3d_producto_large_90.png
+58	6	PREMEZCLA BASE DE TORTA CHOCOLATE LEITE SACO 5KG X 5UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/PREMEZCLA-BASE-TORTA-CHOCOLATE-5KG-LEITE.jpg
+59	6	PREMEZCLA BASE DE TORTA CHOCOLATE LEITE 5KG	https://plazavea.vteximg.com.br/arquivos/ids/31462870-512-512/20289630.jpg
+60	6	PREMEZCLA BASE DE TORTA VAINILLA LEITE SACO 5KG X 5UNID	https://plazavea.vteximg.com.br/arquivos/ids/31462871-512-512/20289631.jpg
+61	6	PREMEZCLA BASE DE TORTA VAINILLA LEITE 5KG	https://plazavea.vteximg.com.br/arquivos/ids/31462871-512-512/20289631.jpg
+62	6	PREMEZCLA BASE TORTA HUMEDA DOBLE CHOCOLATE BAKELS 10KG	https://www.bakels.pe/wp-content/uploads/sites/31/2019/02/doble-chocolate.png
+63	6	PREMEZCLA BASE TORTA HUMEDA SABOR VAINILLA BAKELS 10KG	https://www.bakels.pe/wp-content/uploads/sites/31/2022/10/base-de-torta-humeda-vainilla.png
+64	6	PREMEZCLA BISCOCHUELO SABOR VAINILLA FLEISCHMANN 5KG	https://fleischmannperu.pe/wp-content/uploads/2024/02/90143182-Premezcla-bizcochuelo-vainilla-x-5-kg.png
+66	6	PREMEZCLA BIZCOCHUELO BAKELS 10KG	https://www.bakels.pe/wp-content/uploads/sites/31/2022/10/PremiumBizcochuelo-web_1.png
+67	6	PREMEZCLA BIZCOCHUELO PREMIUM NICOLINI ALICORP 10KG	https://plazavea.vteximg.com.br/arquivos/ids/33046020-450-450/20567323.jpg?v=638993346014100000
+68	6	PREMEZCLA BIZCOCHUELO TRES LECHES FLESCHMANN SACO 5KG X 5UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSctH9r27-UEj7jVkB4GZhpd--gocd_21YAZA&s
+69	6	PREMEZCLA PANETON PREMIUM BAKELS SACO 25KG	https://www.bakels.pe/wp-content/uploads/sites/31/2019/01/PANETON-PREMIUM-WEB_.png
+70	6	PREMEZCLA DE CHIFON BAKELS 10KG	https://www.bakels.pe/wp-content/uploads/sites/31/2019/01/chifon.png
+71	6	PREMEZCLA DE PANETON CON YEMA LESAFRE SACO 25KG	https://lesaffre.com.pe/wp-content/uploads/2020/07/Panet%C3%B3n-TOP-Y.jpg
+72	6	PREMEZCLA DE PANETON CON YEMA LESAFRE SACO 25KG	https://lesaffre.com.pe/wp-content/uploads/2020/07/Panet%C3%B3n-TOP-Y.jpg
+73	6	PREMEZCLA DE PANETON CON YEMA MOLDANT SACO 25KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwCsAdV8vaneQql74HaqYaPzFPpanVeuNqJw&s
+75	6	PREMEZCLA DE PANETON FLEISCHMANN SACO 12.5KG	https://fleischmannperu.pe/wp-content/uploads/2024/02/90143461-Premezcla-paneton-x-125-kg.jpg
+77	6	PREMEZCLA DE PANETÓN PURASLIM PURATOS SACO 25KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_e1a0ce8aa944882571374ad78b5f383304f30602_producto_large_90.jpg?not-from-cache-please
+78	6	PREMEZCLA TORTA DE TRES LECHE BAKELS SACO 10KG	https://www.bakels.pe/wp-content/uploads/sites/31/2019/01/base-torta-tres-leches-web_1.png
+79	6	PREMEZCLA DE TURRON BAKELS SACO 10KG	https://www.bakels.pe/wp-content/uploads/sites/31/2019/01/turron.png
+82	6	PREMEZCLA DOBLE VAINILLA PREMIUM BAKELS SACO 10KG	https://www.bakels.pe/wp-content/uploads/sites/31/2022/10/LineaPremiumDobleVainilla10k-web-01.png
+84	6	PREMEZCLA EXPERTA KEKE ALICORP SACO 10KG	https://corporacionmarles.com/wp-content/uploads/2022/07/premezcla-experta-keke-10kg-min.png
+85	6	PREMEZCLA EXPERTA KEKE ALICORP SACO 10KG	https://corporacionmarles.com/wp-content/uploads/2022/07/premezcla-experta-keke-10kg-min.png
+86	6	PREMEZCLA BIZCOCHUELO HENSIL SACO 10KG	https://hensilperu.com/wp-content/uploads/2023/01/producto-14-hensil-pasteleria.jpg
+88	6	PREMEZCLA DE CHOCOLATE HENSIL SACO 10KG	https://hensilperu.com/wp-content/uploads/2023/01/producto-10-hensil-pasteleria.jpg
+90	6	PREMEZCLA  KEKE PREMIUM HENSIL SACO 10KG	https://hensilperu.com/wp-content/uploads/2023/01/producto-6-hensil-pasteleria.jpg
+91	6	PREMEZCLA KEKERA HENSIL SACO 10KG	https://hensilperu.com/wp-content/uploads/2023/01/producto-6-hensil-pasteleria.jpg
+92	6	PREMEZCLA DE PANETON HENSIL SACO 25KG	https://hensilperu.com/wp-content/uploads/2023/01/producto-1-hensil-panaderia.jpg
+93	6	PREMEZCLA TRES LECHES HENSIL SACO 10KG	https://hensilperu.com/wp-content/uploads/2023/01/producto-15-hensil-pasteleria.jpg
+94	6	PREMEZCLA KEKE CLASICO BAKELS SACO 10KG	https://www.bakels.pe/wp-content/uploads/sites/31/2022/10/keke-clasico-concentrado.png
+95	6	PREMEZCLA KEKE HUMEDO FLEISCHMANN 5KG	https://plazavea.vteximg.com.br/arquivos/ids/30212787-512-512/20211378.jpg
+96	6	PREMEZCLA KEKE HUMEDO FLEISCHMANN SACO 5KG X 5UNID	https://plazavea.vteximg.com.br/arquivos/ids/30212787-450-450/20211378.jpg?v=638678720735530000
+99	6	PREMEZCLA KEKE SABOR VAINILLA FLEISCHMANN 5KG	https://fleischmannperu.pe/wp-content/uploads/2024/02/90143181-Premezcla-Keke-Fleischmann-x-5-kg.jpg
+100	6	PREMEZCLA KEKERA NICOLINI ALICORP SACO 10KG	https://plazavea.vteximg.com.br/arquivos/ids/33046020-450-450/20567323.jpg?v=638993346014100000
+101	6	PREMEZCLA MUFFIN CHOCOLATE FLEISCHMANN 5KG	https://fleischmannperu.pe/wp-content/uploads/2024/02/90143155-Premezcla-muffin-chocolate-x-5-kg.png
+102	6	PREMEZCLA MUFFIN NICOLINI ALICORP 10KG	https://crecemosjuntos.com.pe/wp-content/uploads/2024/02/Dummies_PMZ-Nicolini_Mesa-de-trabajo-1-copia-2.jpg
+103	6	PREMEZCLA MUFFIN VAINILLA FLEISCHMANN 5KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/1e3041bc-ddc8-4273-8026-5119b91c0977.t4l6dz-1708480254889
+104	6	PREMEZCLA PANETON PREMIUM NICOLINI SACO 25KG	https://crecemosjuntos.com.pe/wp-content/uploads/2024/10/DUMMIE-Paneton-1.png
+105	6	PREMEZCLA RED VELVET BAKELS SACO 10KG	https://www.bakels.pe/wp-content/uploads/sites/31/2019/01/red-velvet-web_karamanduka-.png
+106	6	PREMEZCLA TORTA CHOCOLATE NICOLINI ALICORP SACO 10KG	https://plazavea.vteximg.com.br/arquivos/ids/33046021-450-450/20567324.jpg?v=638993346485170000
+108	6	PREMEZCLA TORTA DE CHOCOLATE FLEISCHMANN 5KG	https://plazavea.vteximg.com.br/arquivos/ids/30215449-512-512/20211375.jpg
+109	6	PREMEZCLA TURRON PURATOS SACO 10KG	https://api-centralizador.apiworking.pe/images/a3cd7be6-eafc-49aa-a34c-432b16f74772.jpg
+110	7	MEJORADOR TOUPAN SENSE PLUS PURATOS SACO 1KG X 8UNID	https://api-centralizador.apiworking.pe/images/6db8ea62-63cb-4ff0-a7b4-5e6966ed82de.png
+111	7	MEJORADOR TOUPAN SENSE PLUS PURATOS 1KG	https://api-centralizador.apiworking.pe/images/6db8ea62-63cb-4ff0-a7b4-5e6966ed82de.png
+112	7	MEJORADOR ALLIMIX SACO 5KG X 6UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7KBoVmJ_ZPc3OGO31xHh6AOvBV5nsx83vTA&s
+113	7	MEJORADOR ALLIMIX SACO 5KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7KBoVmJ_ZPc3OGO31xHh6AOvBV5nsx83vTA&s
+114	7	MEJORADOR ENZIFORT BAKELS SACO 5KG X 5UNID	https://www.bakels.pe/wp-content/uploads/sites/31/2019/02/Enzifort-1-612x445.png
+115	7	MEJORADOR ENZIFORT BAKELS SACO 5KG	https://www.bakels.pe/wp-content/uploads/sites/31/2019/02/Enzifort-1-612x445.png
+119	7	MEJORADOR NICOLINI 5KG	https://corporacionmarles.com/wp-content/uploads/2022/07/mejorador-nicolini-5kg-min.png
+120	7	MEJORADOR UNIPAN PREMIUM 1KG	https://www.bakels.pe/wp-content/uploads/sites/31/2019/01/EMPAQUE-UNIPAN-1KG-e1709681171821.png
+121	7	MEJORADOR UNIPAN PREMIUM SACO 1KG X 25UNID	https://www.bakels.pe/wp-content/uploads/sites/31/2019/01/EMPAQUE-UNIPAN-1KG-e1709681171821.png
+123	7	MEJORADOR BLANQUITO SACO 5KG X 10UNID	https://plazavea.vteximg.com.br/arquivos/ids/419706-512-512/20146462.jpg
+124	7	MEJORADOR MAESTRO FLEISCHMANN 5KG	https://plazavea.vteximg.com.br/arquivos/ids/419706-512-512/20146462.jpg
+125	7	MEJORADOR MAESTRO FLEISCHMANN SACO 5KG X 5UNID	https://plazavea.vteximg.com.br/arquivos/ids/419706-512-512/20146462.jpg
+126	7	MEJORADOR MAESTRO FLEISCHMANN 1KG	https://plazavea.vteximg.com.br/arquivos/ids/419706-512-512/20146462.jpg
+127	7	MEJORADOR MAESTRO FLEISCHMANN SACO 1KG X 18UNID	https://api-centralizador.apiworking.pe/images/164a43af-e8f2-4cce-b5e5-8e9b186f46fa.png
+129	7	MEJORADOR MAGIMIX AMARILLO SACO 5KG X 6UNID	https://lesaffre.com.pe/wp-content/uploads/2020/07/Magimix-Amarillo-5KG-1.jpg
+130	7	MEJORADOR MAGIMIX AMARILLO 5KG	https://lesaffre.com.pe/wp-content/uploads/2020/07/Magimix-Amarillo-5KG-1.jpg
+132	9	LEVADURA FRESCA FLEISCHMANN CAJA 500GR X 50UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/c96d19f47550d25ae1d2590f4d60440c8aca16ad.png
+133	9	LEVADURA FRESCA FLEISCHMANN 500GR	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/c96d19f47550d25ae1d2590f4d60440c8aca16ad.png
+134	9	LEVADURA MAURIPAN CAJA 500GR X 20UNID	https://mundoabarrotes.com/wp-content/uploads/2021/07/Levadura-Mauripan-caja-20-unidades-500-gramos.png
+135	9	LEVADURA SECA MAURIPAN 500GR	https://mundoabarrotes.com/wp-content/uploads/2021/07/Levadura-Mauripan-caja-20-unidades-500-gramos.png
+136	9	LEVADURA SECA ANGEL CAJA 500GR X 20UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_f2bdb086e32859ad60ac876a70c2b820ce0ddb90_producto_large_90.jpg?not-from-cache-please
+137	9	LEVADURA SECA ANGEL 500GR	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_f2bdb086e32859ad60ac876a70c2b820ce0ddb90_producto_large_90.jpg?not-from-cache-please
+138	9	LEVADURA SECA BAKELS PLATINUM CAJA 500GR X 20UNID	https://adex-b2peru.s3.amazonaws.com/userfiles/product/photos/8529_5f73b50426ac4.png
+139	9	LEVADURA SECA BAKELS PLATINUM 500GR	https://adex-b2peru.s3.amazonaws.com/userfiles/product/photos/8529_5f73b50426ac4.png
+140	9	LEVADURA SECA BAKERDREAM BLANCO CAJA 500GR X 20UNID	https://importacionesmakin.com/wp-content/uploads/2023/07/Mesa-de-trabajo-2-copia-41-100.jpg
+141	9	LEVADURA SECA BAKERDREAM BLANCO 500GR	https://importacionesmakin.com/wp-content/uploads/2023/07/Mesa-de-trabajo-2-copia-17-100.jpg
+142	9	LEVADURA SECA BAKERDREAM BLANCO CAJA 125GR X 12UNID	https://importacionesmakin.com/wp-content/uploads/2023/07/Mesa-de-trabajo-2-copia-41-100.jpg
+143	9	LEVADURA SECA BAKERDREAM BLANCO 125GR	https://importacionesmakin.com/wp-content/uploads/2023/07/Mesa-de-trabajo-2-copia-17-100.jpg
+144	9	LEVADURA SECA BAKERDREAM DORADA CAJA 500GR X 20UNID	https://importacionesmakin.com/wp-content/uploads/2023/07/Mesa-de-trabajo-2-copia-42-100-1.jpg
+145	9	LEVADURA SECA BAKERDREAM DORADA 500GR	https://importacionesmakin.com/wp-content/uploads/2023/07/Mesa-de-trabajo-2-copia-15-100.jpg
+146	9	LEVADURA SECA DELIPAN CAJA 500GR X 20UNID	https://http2.mlstatic.com/D_NQ_NP_714159-MLC80024188374_102024-O.webp
+147	9	LEVADURA SECA DELIPAN 500GR	https://http2.mlstatic.com/D_NQ_NP_714159-MLC80024188374_102024-O.webp
+148	9	LEVADURA SECA FABAO CAJA 20UNID X 500GR	https://importacionesmakin.com/wp-content/uploads/2023/07/Mesa-de-trabajo-2-copia-22-100.jpg
+149	9	LEVADURA SECA FABAO 500GR	https://importacionesmakin.com/wp-content/uploads/2023/07/FABAO.jpg
+150	9	LEVADURA SECA GLORIPAN CAJA 500GR X 20UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHJnun7s1qQ0Fw9Uv7S5wU2B3x6XiZH1PU8A&s
+151	9	LEVADURA SECA GLORIPAN 500GR	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHJnun7s1qQ0Fw9Uv7S5wU2B3x6XiZH1PU8A&s
+152	9	LEVADURA SECA INSTANT SUCCESS CAJA 500GR X 20UNID	https://lesaffre.com.pe/wp-content/uploads/2020/06/Instant-Success.jpg
+153	9	LEVADURA SECA INSTANT SUCCESS 500GR	https://lesaffre.com.pe/wp-content/uploads/2020/06/Instant-Success.jpg
+154	9	LEVADURA SECA MAURIPAN CAJA 125GR X 6DISP	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/LEVADURA-SECA-INSTANTANEA-125GR-FLEISH-MAURIPAN.jpg
+155	9	LEVADURA SECA MAURIPAN DOCENA 125GR	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/LEVADURA-SECA-INSTANTANEA-125GR-FLEISH-MAURIPAN.jpg
+157	9	LEVADURA SECA NICOLINI CAJA 500GR X 20UNID	https://mundoabarrotes.com/wp-content/uploads/2021/05/Levadura-Nicolini-instantanea-20-unidades-500-gramos.webp
+158	9	LEVADURA SECA NICOLINI 500GR	https://dulceruth.pe/wp-content/uploads/tienda_010816_b06b27bed01f89ded53f0b08b755f20ddc979616_producto_large_90.png
+159	9	LEVADURA SECA OKEDO CAJA 500GR X 20UNID	https://corporacionliderperu.com/52126-large_default/okedo-levadura-seca-instantanea-x-500-gr.jpg
+160	9	LEVADURA SECA OKEDO 500GR	https://corporacionliderperu.com/52126-large_default/okedo-levadura-seca-instantanea-x-500-gr.jpg
+161	10	POLVO DE HORNEAR DE BAKELS SACO 4KG X 5UNID	https://bombis.com.pe/files/productos/pd/202303141203073377.jpg
+162	10	POLVO DE HORNEAR DE BAKELS 4KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUg-Mmo8n1Zh3kFYkp2lMhW5gyikcwi6Ckng&s
+163	10	POLVO DE HORNEAR EXCELLENT CAJA 1KG X 24UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/POLVO-DE-HORNEAR-1KG-EXCELLENT.jpg
+164	10	POLVO DE HORNEAR EXCELLENT DOCENA 1KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/POLVO-DE-HORNEAR-1KG-EXCELLENT.jpg
+165	10	POLVO DE HORNEAR EXCELLENT CAJON 4KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/POLVO-DE-HORNEAR-1KG-EXCELLENT.jpg
+166	10	PACK POLVO DE HORNEAR EXCELLENT	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/POLVO-DE-HORNEAR-1KG-EXCELLENT.jpg
+167	10	POLVO DE HORNEAR FLEISCHMANN PAQUETE 1KG X 18UNID	https://plazavea.vteximg.com.br/arquivos/ids/419695-450-450/20146461.jpg?v=637375885875870000
+168	10	POLVO DE HORNEAR FLEISCHMANN 1KG	https://plazavea.vteximg.com.br/arquivos/ids/419695-450-450/20146461.jpg?v=637375885875870000
+169	10	POLVO DE HORNEAR FLEISCHMANN CAJA 20GR X 12UNID X 8DISP	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_d41c7a63543280e83e949646485b7d603f5544e6_producto_large_90.png
+170	10	POLVO DE HORNEAR FLEISCHMANN PAQUETE 20GR X 12UNID X 8DISP	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_d41c7a63543280e83e949646485b7d603f5544e6_producto_large_90.png
+171	10	POLVO DE HORNEAR FLEISCHMANN 20GR	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/POLVO-DE-HORNEAR-20GR-FLEISH.jpg
+172	10	POLVO DE HORNEAR FLEISCHMANN SACO 5KG X 5UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_4119a07221b4dc230e15c1d7819dccaab0268320_producto_large_90.png?not-from-cache-please
+173	10	POLVO DE HORNEAR FLEISCHMANN 5KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_4119a07221b4dc230e15c1d7819dccaab0268320_producto_large_90.png?not-from-cache-please
+174	10	POLVO DE HORNEAR KATITA CAJA 25GR X 20DISP	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/Polvo-de-hornear-25gr-Katita.jpg
+175	10	POLVO DE HORNEAR KATITA 25GR	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/Polvo-de-hornear-25gr-Katita.jpg
+176	10	POLVO DE HORNEAR LESAFREE LEGY SACO 5KG X 5UNID	https://lesaffre.com.pe/wp-content/uploads/2022/01/Polvo-de-Hornear-LEGY.png
+178	10	POLVO DE HORNEAR LEVAPAN CAJA 4KG X 6UNID	https://www.levapan.com.pe/wp-content/uploads/2018/01/polvo-para-hornear-20kg.jpg
+179	10	POLVO DE HORNEAR LEVAPAN DOCENA 4KG	https://www.levapan.com.pe/wp-content/uploads/2018/01/polvo-para-hornear-20kg.jpg
+180	10	POLVO DE HORNEAR UNIVERSAL CAJA 25GR X 36 SOBRES	https://corporacionliderperu.com/48824-large_default/universal-polvo-de-hornear-x-25-gr-x-36-un.jpg
+181	10	POLVO DE HORNEAR UNIVERSAL DOCENA 25GR	https://corporacionliderperu.com/48824-large_default/universal-polvo-de-hornear-x-25-gr-x-36-un.jpg
+182	10	POLVO DE HORNEAR UNIVERSAL 25GR	https://corporacionliderperu.com/49672-large_default/universal-polvo-de-hornear-x-25-gr.jpg
+183	11	COLAPIZ FLEISCHMANN CAJA 20GR X 12UNID X 8DISP	https://corporacionliderperu.com/48844-large_default/fleischmann-colapis-sobre-x-20-gr.jpg
+184	11	COLAPIZ FLEISCHMANN DOCENA 20GR X 12UNID	https://corporacionliderperu.com/48844-large_default/fleischmann-colapis-sobre-x-20-gr.jpg
+185	11	COLAPIZ FLEISCHMANN 20GR	https://corporacionliderperu.com/48844-large_default/fleischmann-colapis-sobre-x-20-gr.jpg
+186	11	COLAPIZ GELATINA SACO 25KG	https://d344g4zxafvvnb.cloudfront.net/assets/cb/c4/e7/4a/colapiz-x-1kg.png
+187	11	COLAPIZ GELATINA 1KG	https://d344g4zxafvvnb.cloudfront.net/assets/cb/c4/e7/4a/colapiz-x-1kg.png
+188	11	COLAPIZ KATITA CAJA 20GR X 20DISP	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSek8WOFQARWduh2NxSizaFzF2qMWnWxf0iRg&s
+189	11	COLAPIZ KATITA PACK 20GR X 20SOBRES	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSek8WOFQARWduh2NxSizaFzF2qMWnWxf0iRg&s
+190	11	COLAPIZ UNIVERSAL DOCENA 20GR X 36SOBRES	https://plazavea.vteximg.com.br/arquivos/ids/33351097-450-450/20201615.jpg?v=639028086295970000
+191	11	COLAPIZ UNIVERSAL 20GR	https://plazavea.vteximg.com.br/arquivos/ids/33351097-450-450/20201615.jpg?v=639028086295970000
+192	11	COLAPIZ UNIVERSAL CAJA 20GR X 4DISP	https://plazavea.vteximg.com.br/arquivos/ids/33351097-450-450/20201615.jpg?v=639028086295970000
+197	12	FLAN FRUTEXA (KIBA) 5KG	https://mundoabarrotes.com/wp-content/uploads/2021/02/Flan-Frutexa-Kiba-5-kg.webp
+198	12	FLAN FRUTEXA (KIBA) VAINILLA SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2021/02/Flan-Frutexa-Kiba-5-kg.webp
+203	13	AZÚCAR INVERTIDA JM LUDAFA CAJA 1KG X 16UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_52ece39837ab7418f1ca1d072c2babd5e3a64b91_producto_large_90.png?not-from-cache-please
+204	13	AZÚCAR INVERTIDA JM LUDAFA 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_52ece39837ab7418f1ca1d072c2babd5e3a64b91_producto_large_90.png?not-from-cache-please
+205	13	AZUCAR IMPALPABLE DULCINITA CAJA 1KG X 5UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_aa3b86f24bc8d92a409fcdf15c144cce1f19e18f_producto_large_90.png?not-from-cache-please
+206	13	AZUCAR IMPALPABLE DULCINITA 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_aa3b86f24bc8d92a409fcdf15c144cce1f19e18f_producto_large_90.png?not-from-cache-please
+207	13	AZUCAR RUBIA DULFINA CAJA 1KG X 10UNID	https://corporacionliderperu.com/52460-large_default/dulfina-azucar-rubia-x-1-kg-x-10-un.jpg
+208	13	AZUCAR RUBIA DULFINA 1KG	https://plazavea.vteximg.com.br/arquivos/ids/26947514-512-512/20085254.jpg
+209	13	AZUCAR PARAMONGA SACO 50KG	https://plazavea.vteximg.com.br/arquivos/ids/30213145-512-512/20146328.jpg
+210	13	AZUCAR RUBIA POMALCA SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2020/11/Azucar-Rubia-Pomalca-50-kilos.webp
+211	13	AZUCAR RUBIA NACIONAL DULCE NORTE SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2020/08/Azucar-rubia-Dulce-Norte-50-kg.webp
+213	13	AZUCAR RUBIA IMPORTADA PICHICHI SACO 50KG	https://corporacionmarles.com/wp-content/uploads/2022/07/azucar-rubia-ingenio-50kg-min.png
+215	13	AZUCAR RUBIA IMPORTADA INFIVOA SACO 25KG	https://dojiw2m9tvv09.cloudfront.net/53648/product/M_sintitulo7634.png?76&t=1772007556
+216	13	AZUCAR BLANCA IMPORTADA CASA SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2019/05/Azucar-blanca-Casa-Grande-50-kilos.webp
+217	13	AZUCAR IMPALPABLE DULCINITA 5KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_b5dbf46407ef013f438d4d4ff00245e702718705_producto_large_90.png?not-from-cache-please
+218	13	AZUCAR IMPALPABLE DULCINITA SACO 5KG X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_b5dbf46407ef013f438d4d4ff00245e702718705_producto_large_90.png?not-from-cache-please
+221	13	AZUCAR IMPALPABLE FLEISCHMANN 4KG	https://plazavea.vteximg.com.br/arquivos/ids/30215660-450-450/20146463.jpg?v=638679072834300000
+222	13	AZUCAR IMPALPABLE FLEISCHMANN SACO 4KG X 4UNID	https://plazavea.vteximg.com.br/arquivos/ids/30215660-450-450/20146463.jpg?v=638679072834300000
+223	13	AZUCAR IMPALPABLE MELOSITA 5KG	https://corporacionmarles.com/wp-content/uploads/2022/07/azucar-impalpable-melosita-5kg-min.png
+224	13	AZUCAR IMPALPABLE MELOSITA SACO 5KG X 10UNID	https://corporacionmarles.com/wp-content/uploads/2022/07/azucar-impalpable-melosita-5kg-min.png
+225	13	AZUCAR IMPALPABLE DULCINITA 5KG	https://mundoabarrotes.com/wp-content/uploads/2021/03/Azucar-Finita-Dulcinita-5-kg.webp
+226	13	AZUCAR IMPALPABLE DULCINITA SACO 5KG X 10UNID	https://mundoabarrotes.com/wp-content/uploads/2021/03/Azucar-Finita-Dulcinita-5-kg.webp
+229	13	AZUCAR IMPALPABLE FLEISCHMANN 4KG	https://plazavea.vteximg.com.br/arquivos/ids/30215660-450-450/20146463.jpg?v=638679072834300000
+230	13	AZUCAR IMPALPABLE FLEISCHMANN SACO 4KG X 4UNID	https://plazavea.vteximg.com.br/arquivos/ids/30215660-450-450/20146463.jpg?v=638679072834300000
+231	13	AZUCAR IMPALPABLE MELOSITA 5KG	https://corporacionmarles.com/wp-content/uploads/2022/07/azucar-impalpable-melosita-5kg-min.png
+232	13	AZUCAR IMPALPABLE MELOSITA SACO 5KG X 10UNID	https://corporacionmarles.com/wp-content/uploads/2022/07/azucar-impalpable-melosita-5kg-min.png
+233	14	MANJAR BAZO VELARDE 5KG	https://api-centralizador.apiworking.pe/images/1d29edbb-c7f8-46aa-9950-8d1876a48b3e.png
+234	14	MANJAR LEITITO 19KG	https://mundoabarrotes.com/wp-content/uploads/2020/12/Manjar-Leite-Leitito-balde-19-kg.webp
+235	14	MANJAR DON ROLO 19KG	https://corporacionmarles.com/wp-content/uploads/2022/07/manjar-donrolo-19kg-min.png
+236	14	MANJAR DON ROLO 5KG	https://corporacionmarles.com/wp-content/uploads/2022/07/manjar-donrolo-19kg-min.png
+237	14	MANJAR BAZO VELARDE 19KG	https://api-centralizador.apiworking.pe/images/1d29edbb-c7f8-46aa-9950-8d1876a48b3e.png
+238	14	MANJAR REPOSTERO MUSA 20KG	https://musa.com.pe/wp-content/uploads/2022/06/Manjar-Pastelero-Especial.webp
+239	14	MANJAR ESPECIAL MUSA 20KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNTN6yltVSi0bGrtmri33ekvFCci42SwhTZQ&s
+240	14	MANJAR PASTELERO ESPECIAL MUSA 19KG	https://musa.com.pe/wp-content/uploads/2022/06/Manjar-Pastelero-Especial.webp
+241	14	MANJAR LEITE ESPECIAL 20KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_d6595d257123c5a06e21ff149219b81511f05288_producto_large_90.png?not-from-cache-please
+242	14	MANJAR LEITE ESPECIAL 5KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_d6595d257123c5a06e21ff149219b81511f05288_producto_large_90.png?not-from-cache-please
+243	14	MANJAR LEITITO 5KG	https://mundoabarrotes.com/wp-content/uploads/2020/12/Manjar-Leite-Leitito-balde-19-kg.webp
+244	14	MANJAR DULSUMI VERDE 19KG	https://mundoabarrotes.com/wp-content/uploads/2020/12/Manjar-Dulsumi-19-kg.webp
+245	14	MANJAR DULSUMI VERDE 5KG	https://mundoabarrotes.com/wp-content/uploads/2020/12/Manjar-Dulsumi-19-kg.webp
+246	14	MANJAR ECONOMICO MUSA 1KG X 10UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNTN6yltVSi0bGrtmri33ekvFCci42SwhTZQ&s
+247	14	MANJAR MUSA ESPECIAL 5KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThmBnvJJEWy_L_kDNGWklvJAW7vpoLlyLtxA&s
+248	14	MANJAR MUSA ECONOMICO 19KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThmBnvJJEWy_L_kDNGWklvJAW7vpoLlyLtxA&s
+249	14	MANJAR BAZO VELARDE BLANQUITO 900GR	https://api-centralizador.apiworking.pe/images/1bde9940-b644-4b41-99a0-34faf66408d0.png
+250	14	MANJAR BAZO VELARDE BLANQUITO CAJA 900GR X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_8ea0e70c14efaf55ae86ed99bcedd8292f9f8efa_producto_large_90.png
+251	14	MANJAR CLASICO LEITE 900GR	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_d9f8adff5d520b67adc905b3aa5bb16432d6e087_producto_large_90.png?not-from-cache-please
+252	14	MANJAR CLASICO LEITE CAJA 900GR X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_cc68ffc80810b4fee9418002371b9441e604deef_producto_large_90.png
+253	14	MANJAR ECONOMICO MUSA 1KG	https://api-centralizador.apiworking.pe/images/ee54a1ef-1af7-4064-a8b3-d845e42c2c81.jpg
+254	14	MANJAR ECONOMICO MUSA CAJA 1KG X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_4ba6e9cc4dda9a17a8a21067ab3a55c91beefa8b_producto_large_90.png
+255	14	MANJAR ESPECIAL LEITE 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_e46f4332a287ef34f9e80df0770a319350ac18d0_producto_large_90.png?not-from-cache-please
+256	14	MANJAR ESPECIAL LEITE CAJA 1KG X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_c9a222a5669b3f3ad00f7deb6bf27a7f96fedbbd_producto_large_90.png
+257	14	MANJAR ESPECIAL MUSA 200GR	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/MANJAR-ESPECIAL-200GR-MUSA.jpg
+258	14	MANJAR ESPECIAL MUSA CAJA 200GR X 45UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/MANJAR-ESPECIAL-200GR-MUSA.jpg
+259	14	MANJAR LEITITO 900GR	https://plazavea.vteximg.com.br/arquivos/ids/30215822-512-512/20212355.jpg
+260	14	MANJAR LEITITO CAJA 900GR X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_82fd2fe323908960a813cdc6bdf9b8dd822c20fc_producto_large_90.png
+261	14	MANJAR MUSA 200GR	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/MANJAR-ESPECIAL-200GR-MUSA.jpg
+262	14	MANJAR MUSA CAJA 200GR X 45UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/MANJAR-ESPECIAL-200GR-MUSA.jpg
+263	14	MANJAR NESTLE REPOSTERO 1KG	https://tiendanestle.pe/cdn/shop/files/7802950004892_1.jpg?v=1691529255
+264	14	MANJAR NESTLE REPOSTERO CAJA 1KG X 12UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_cf2c890dbd77ac5016046501866ce27e9792f9b4_producto_large_90.jpg
+265	16	FUDGE AREQUIPEÑO BAZO VELARDE BALDE 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/FUDGE-AREQUIPENO-5KG.jpg
+266	16	FUDGE LEITE ESPECIAL BALDE 20KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSm3h_msyTsuR-lWxGKESE7UwdoMMk8vXFzQ&s
+267	16	FUDGE ESPECIAL LEITE BALDE 5KG	https://plazavea.vteximg.com.br/arquivos/ids/30215829-450-450/20212352.jpg?v=638679075902570000
+268	16	FUDGE CHOCOLEITE LEITE BALDE 19KG	https://plazavea.vteximg.com.br/arquivos/ids/30215829-450-450/20212352.jpg?v=638679075902570000
+269	16	FUDGE DEL ESTABLO BALDE 19KG	https://ico.pe/wp-content/uploads/2023/11/Fudge-Arequipeno-Bazo-Velarde-Balde-19kg-scaled.jpg
+270	16	FUDGE MUSA ESPECIAL BALDE 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/Fudge-Especial-5kg-Musa.jpg
+271	16	FUDGE BAZO VELARDE BALDE 19KG	https://ico.pe/wp-content/uploads/2023/11/Fudge-Arequipeno-Bazo-Velarde-Balde-19kg-scaled.jpg
+272	16	FUDGE BAZO VELARDE HELADERO 550GR	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_30d27ed9dc81cf993bb94fd1b3e9f9ea01e9233a_producto_large_90.png?not-from-cache-please
+273	16	FUDGE ESPECIAL 1KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/Fudge-Especial-Leite-Bolsa-1-kg.jpg
+274	16	FUDGE LEITE ESPECIAL 20KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-m6RJ-xyb0KdJAH4SIRjbWwHQvUm4Loqfxw&s
+275	16	FUDGE ESPECIAL LEITE 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/Fudge-Especial-Leite-Bolsa-1-kg.jpg
+276	16	FUDGE CHOCOLEITE LEITE 19KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/Fudge-Especial-Leite-Bolsa-1-kg.jpg
+277	16	FUDGE DEL ESTABLO 19KG	https://mundoabarrotes.com/wp-content/uploads/2020/11/Manjar-Blanco-Artesanal-19-kg.webp
+278	16	FUDGE HELADERO BAZO VELARDE 5KG	https://ico.pe/wp-content/uploads/2023/11/Fudge-Heladero-Bolsa-5kg-scaled.jpg
+279	16	FUDGE ESPECIAL 500GR	https://api-centralizador.apiworking.pe/images/9a0d0bc3-f216-49c0-9db9-34d4dc22f3e5.png
+280	16	FUDGE ESPECIAL 500GR	https://api-centralizador.apiworking.pe/images/9a0d0bc3-f216-49c0-9db9-34d4dc22f3e5.png
+281	16	FUDGE HELADERO BAZO VELARDE 200GR	https://storage.googleapis.com/web-laive-storage/Media/pages/2.%20Bazo%20Velarde%20Fudge%20Heladero%20200%20g.jpg
+282	16	FUDGE AREQUIPEÑO BAZO VELARDE 900GR	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/FUDGE-AREQUIPENO-900GR-BAZO-VELAR.jpg
+283	16	FUDGE ESPECIAL LEITITO 1KG	https://api-centralizador.apiworking.pe/images/3c07df5d-e5f2-4802-94b9-0217bc3d9252.png
+284	16	FUDGE HELADERO LEITE CON TAPA 400GR	https://wongfood.vtexassets.com/arquivos/ids/674392/Fudge-Heladero-Leite-Frasco-400-g-1-145873755.jpg?v=638352453657270000
+295	16	FUDGE MUSA DON ROLO 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/MANJAR-DON-ROLO-BALDE-5KG-MUSA.jpg
+296	16	FUDGE HELADERO MUSA 550GR	https://corporacionliderperu.com/47426-large_default/musa-fudge-heladero-fco-x-550-gr.jpg
+297	16	FUDGE HELADERO MUSA 500GR	https://corporacionliderperu.com/47426-large_default/musa-fudge-heladero-fco-x-550-gr.jpg
+298	16	FUDGE MUSA ESPECIAL 1KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/FUDGE-ESPECIAL-MUSA-1KG.jpg
+302	16	FUDGE ESPECIAL MUSA 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/Fudge-Especial-5kg-Musa.jpg
+304	16	FUDGE HELADERO BAZO VELARDE 5KG	https://ico.pe/wp-content/uploads/2023/11/Fudge-Heladero-Bolsa-5kg-scaled.jpg
+306	16	FUDGE CASERO BAZO VELARDE 5KG	https://ico.pe/wp-content/uploads/2023/11/Fudge-Sabor-Casero-Bolsa-5kg-scaled.jpg
+307	16	FUDGE BAZO VELARDE HELADERO FRASCO SURTIDOR 550GR	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_30d27ed9dc81cf993bb94fd1b3e9f9ea01e9233a_producto_large_90.png?not-from-cache-please
+310	16	FUDGE HELADERO MUSA 550GR	https://plazavea.vteximg.com.br/arquivos/ids/30215818-512-512/20212356.jpg
+312	16	FUDGE ESPECIAL LEITE 1KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/Fudge-Especial-Leite-Bolsa-1-kg.jpg
+313	16	FUDGE AREQUIPEÑO BAZO VELARDE 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/FUDGE-AREQUIPENO-5KG.jpg
+316	16	FUDGE AREQUIPEÑO BAZO VELARDE 900GR	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/FUDGE-AREQUIPENO-900GR-BAZO-VELAR.jpg
+317	16	FUDGE BAZO VELARDE 500GR	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/FUDGE-HELADERO-500GR-BAZO-VELARDE.jpg
+318	17	JALEA DE MANZANA 3B 5KG	https://api-centralizador.apiworking.pe/images/ab28cb73-94b6-4e9c-9054-f07c8c2f5ad4.png
+319	17	JALEA DE FRESA 3B 5KG	https://api-centralizador.apiworking.pe/images/9cc3abad-40bf-4a56-b611-4519ae719e97.png
+320	17	JALEA DE DURAZNO 3B BALDE 5KG	https://api-centralizador.apiworking.pe/images/95706a89-3a28-4406-a671-2c11142b83a6.png
+321	17	JALEA DE PIÑA 3B BALDE 5KG	https://api-centralizador.apiworking.pe/images/95706a89-3a28-4406-a671-2c11142b83a6.png
+322	17	JALEA DE FRESA 3B BALDE 20KG	https://api-centralizador.apiworking.pe/images/9cc3abad-40bf-4a56-b611-4519ae719e97.png
+323	17	JALEA DE DURAZNO 3B BALDE 20KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfWfT--dalj8QkBgDI8HA30V_msUS6xcpT1w&s
+324	17	JALEA DE GUANABANA 3B BALDE 5KG	https://api-centralizador.apiworking.pe/images/77ab51a0-b465-41d6-9ad2-e0a5291edc79.png
+325	17	JALEA DE LUCUMA 3B BALDE 5KG	https://api-centralizador.apiworking.pe/images/549013ac-ccd2-464e-b227-79330381d286.png
+326	17	JALEA NEUTRO 3B BALDE 5KG	https://api-centralizador.apiworking.pe/images/c2213c3f-60eb-4392-81e2-baf590c66f5d.png
+327	17	JALEA DE DURAZNO 3B 1KG	https://api-centralizador.apiworking.pe/images/95706a89-3a28-4406-a671-2c11142b83a6.png
+328	17	JALEA DE FRESA EXCELLENT BALDE 5KG	https://api-centralizador.apiworking.pe/images/60ef86f4-a2b9-46e9-86fe-8b3a90974a6d.png
+329	17	JALEA DE MANZANA 3B 1KG	https://api-centralizador.apiworking.pe/images/ab28cb73-94b6-4e9c-9054-f07c8c2f5ad4.png
+330	17	JALEA DE FRESA 3B 1KG	https://api-centralizador.apiworking.pe/images/9cc3abad-40bf-4a56-b611-4519ae719e97.png
+331	17	JALEA DE GUANABANA 3B 1KG	https://api-centralizador.apiworking.pe/images/77ab51a0-b465-41d6-9ad2-e0a5291edc79.png
+332	17	JALEA DE PIÑA 3B 1KG	https://api-centralizador.apiworking.pe/images/95706a89-3a28-4406-a671-2c11142b83a6.png
+333	17	JALEA DE CHOCOLATE EXCELLENT 1KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/TORTA-DE-CHOCOLATE-1KG-EXCELLENT.jpg
+334	17	JALEA NEUTRO 3B 1KG	https://api-centralizador.apiworking.pe/images/c2213c3f-60eb-4392-81e2-baf590c66f5d.png
+335	17	JALEA DE FRESA EXCELLENT 1KG	https://api-centralizador.apiworking.pe/images/77ab51a0-b465-41d6-9ad2-e0a5291edc79.png
+336	17	JALEA DE DURAZNO EXCELLENT 1KG	https://api-centralizador.apiworking.pe/images/2d611725-17b2-48c6-98bf-c920064990e2.png
+337	17	JALEA DE GUANABANA EXCELLENT 1KG	https://inalta.com.pe/wp-content/uploads/imag_025.jpg
+338	17	JALEA DE FRESA QUEEN BALDE 20KG	https://api-centralizador.apiworking.pe/images/f111b062-5b3e-435d-a273-01c921dd0fef.png
+339	17	JALEA (GLASE) TRANSPARENTE QUEEN BALDE 20KG	https://api-centralizador.apiworking.pe/images/7ba8c95a-bab9-48ec-b49f-42e7e60aed98.png
+340	17	JALEA DE FRESA QUEEN BALDE 5KG	https://api-centralizador.apiworking.pe/images/f111b062-5b3e-435d-a273-01c921dd0fef.png
+341	17	JALEA DE DURAZNO QUEEN BALDE 5KG	https://api-centralizador.apiworking.pe/images/1850e44d-7840-4d23-9264-e68eb857828b.png
+342	17	JALEA DE PIÑA QUEEN BALDE 5KG	https://corporacionliderperu.com/47126-large_default/mermelada-queen-balde-x-5-kg-pina.jpg
+343	17	JALEA DE GUANABANA EXCELLENT BALDE 5KG	https://inalta.com.pe/wp-content/uploads/imag_025.jpg
+344	17	JALEA NEUTRO EXCELLENT BALDE 5KG	https://api-centralizador.apiworking.pe/images/1c390c2d-69fc-4e9d-aa76-5cc9493813e1.png
+345	17	JALEA DE DURAZNO QUEEN BALDE 20KG	https://api-centralizador.apiworking.pe/images/1850e44d-7840-4d23-9264-e68eb857828b.png
+346	17	JALEA DE LUCUMA QUEEN BALDE 5KG	https://api-centralizador.apiworking.pe/images/e32eb49c-e52d-42d0-9f6d-ecde64c933db.png
+347	17	JALEA DE DURAZNO EXCELLENT BALDE 5KG	https://api-centralizador.apiworking.pe/images/2d611725-17b2-48c6-98bf-c920064990e2.png
+348	17	JALEA DE MANZANA EXCELLENT BALDE 5KG	https://api-centralizador.apiworking.pe/images/6ca11660-c61c-4460-b444-d74d737068ec.png
+349	17	JALEA DE MARACUYA QUEEN BALDE 20KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/MERMELADA-MARACUYA-QUEEN-X-5KG-300x300.jpg
+351	17	JALEA DE MANGO QUEEN BALDE 20KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJXdX0okKayJQ8NcKQ6EB7FgMBVfdyEgC4hw&s
+353	17	JALEA DE MANZANA EXCELLENT 1KG	https://api-centralizador.apiworking.pe/images/6ca11660-c61c-4460-b444-d74d737068ec.png
+354	17	JALEA DE DURAZNO 3B 1KG	https://api-centralizador.apiworking.pe/images/46b2dc9b-ced5-490d-9901-661bf3f26d9c.jpg
+355	17	JALEA DE GUANABANA QUEEN BALDE 20KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Mermelada-Queen-balde-20-kilos.webp
+356	17	JALEA DE MANZANA JM 1KG	https://inalta.com.pe/wp-content/uploads/imag_020.jpg
+357	17	JALEA NEUTRA JM 1KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/GEL-ABRILLANTADOR-NEUTRO-EXCELLENT.jpg
+361	17	JALEA DE GUANABANA MOLDANT 1KG	https://inalta.com.pe/wp-content/uploads/imag_025.jpg
+362	17	JALEA (GLASE)TRANSPARENTE QUEEN BALDE 5KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Mermelada-Queen-balde-20-kilos.webp
+363	17	JALEA DE PIÑA QUEEN 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/a5972ad46c80b5e288f37c2af230e5ce54578b4c.png
+364	17	JALEA DE PIÑA LUDAFA 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_83dd8858429d031e0ab12946fcb7bbb6fa2a6639_producto_large_90.png
+365	17	JALEA NEUTRO EXCELLENT 1KG	https://api-centralizador.apiworking.pe/images/1c390c2d-69fc-4e9d-aa76-5cc9493813e1.png
+366	18	BALDE MERMELADA DE SAUCO 3B 5KG	https://salima.pe/admin/aplication/archivos/521.webp
+367	18	BALDE MERMELADA DE FRESA 3B 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/07/MERMELADA-3B-K.jpg
+368	18	BALDE MERMELADA DE FRESA 3B 19KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/07/MERMELADA-3B-K.jpg
+369	18	BALDE MERMELADA DE DURAZNO 3B 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/07/MERMELADA-3B-K.jpg
+370	18	BALDE MERMELADA DE PIÑA 3B 5KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV_awf2wS722KxSTbDg-xZABiabR1mQCke5g&s
+371	18	BALDE MERMELADA DE NARANJA 3B X 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/07/MERMELADA-3B-K.jpg
+372	18	BALDE MERMELADA DE MARACUYA 3B X 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/07/MERMELADA-3B-K.jpg
+373	18	BALDE MERMELADA DE GUANABANA 3B X 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/07/MERMELADA-3B-K.jpg
+374	18	BALDE MERMELADA DE AGUAYMANTO 3B X 5KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/07/MERMELADA-3B-K.jpg
+375	18	BALDE MERMELADA DE FRESA QUEEN 20KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Mermelada-Queen-balde-20-kilos.webp
+376	18	BALDE MERMELADA DE SAUCO QUEEN 5KG	https://salima.pe/admin/aplication/archivos/521.webp
+377	18	BALDE MERMELADA DE PIÑA 3B 20KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/07/MERMELADA-3B-K.jpg
+378	18	BALDE MERMELADA DE FRESA QUEEN 5KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Mermelada-Queen-balde-20-kilos.webp
+380	18	BALDE MERMELADA DE DURAZNO 3B 20KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/07/MERMELADA-3B-K.jpg
+381	18	BALDE MERMELADA DE SAUCO QUEEN 20KG	https://salima.pe/admin/aplication/archivos/521.webp
+382	18	BALDE MERMELADA DE GUANABANA QUEEN 5KG	https://corporacionliderperu.com/47126-large_default/mermelada-queen-balde-x-5-kg-pina.jpg
+385	18	MERMELADA QUEEN DE FRESA BARRIL 1KG	https://corporacionliderperu.com/52445-large_default/mermelada-queen-barril-x-1-kg-fresa.jpg
+386	18	MERMELADA QUEEN DE FRESA CAJA 1KG X 6UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/MERMELADA-KG-FRESA-QUEEN-K.jpg
+387	18	MERMELADA QUEEN DE TUTTI FRUTTI BARRIL 1KG	https://corporacionliderperu.com/52446-large_default/mermelada-queen-barril-x-1-kg-fresa-x-6-un.jpg
+388	18	MERMELADA QUEEN DE TUTTI FRUTTI CAJA 1KG X 6UNID	https://corporacionliderperu.com/52446-large_default/mermelada-queen-barril-x-1-kg-fresa-x-6-un.jpg
+389	18	MERMELADA DE FRESA QUEEN VASO 320GR	https://dojiw2m9tvv09.cloudfront.net/75518/product/13170477345.jpg
+390	18	MERMELADA DE FRESA QUEEN CAJA 320GR X 12UNID	https://dojiw2m9tvv09.cloudfront.net/75518/product/13170477345.jpg
+393	18	MERMELADA DE PIÑA QUEEN BARRIL BARRIL 1KG	https://corporacionliderperu.com/48762-large_default/mermelada-queen-barril-x-1-kg-pina.jpg
+394	18	MERMELADA DE PIÑA QUEEN BARRIL CAJA 1KG X 6UNID	https://corporacionliderperu.com/48762-large_default/mermelada-queen-barril-x-1-kg-pina.jpg
+395	18	MERMELADA DE NARANJA QUEEN BARRIL 1KG	https://corporacionliderperu.com/52491-large_default/mermelada-queen-barril-x-1-kg-naranja-x-6-un.jpg
+396	18	MERMELADA DE NARANJA QUEEN CAJA 1KG X 6UNID	https://corporacionliderperu.com/52491-large_default/mermelada-queen-barril-x-1-kg-naranja-x-6-un.jpg
+397	18	MERMELADA DE NARANJA QUEEN BARRIL 1KG	https://corporacionliderperu.com/52491-large_default/mermelada-queen-barril-x-1-kg-naranja-x-6-un.jpg
+398	18	MERMELADA DE NARANJA QUEEN CAJA 1KG X 6UNID	https://corporacionliderperu.com/52491-large_default/mermelada-queen-barril-x-1-kg-naranja-x-6-un.jpg
+399	18	MERMELADA DE PIÑA QUEEN BARRIL 1KG	https://corporacionliderperu.com/48762-large_default/mermelada-queen-barril-x-1-kg-pina.jpg
+400	18	MERMELADA DE PIÑA QUEEN BARRIL CAJA 1KG X 6UNID	https://corporacionliderperu.com/48762-large_default/mermelada-queen-barril-x-1-kg-pina.jpg
+401	18	MERMELADA DE FRESA TUNQUIMIEL BARRIL 1KG	https://gruporequenaperu.com.pe/wp-content/uploads/2024/02/barril-1000x1000-1.png
+402	18	MERMELADA DE FRESA TUNQUIMIEL CAJA BARRIL 1KG X 6UNID	https://gruporequenaperu.com.pe/wp-content/uploads/2024/02/barril-1000x1000-1.png
+403	18	MERMELADA DE FRESA TUNQUIMIEL BARRIL 1KG	https://gruporequenaperu.com.pe/wp-content/uploads/2024/02/barril-1000x1000-1.png
+405	18	MERMELADA DE FRESA QUEEN POTE 350GR	https://corporacionliderperu.com/48760-large_default/mermelada-queen-vaso-x-320-gr-fresa.jpg
+406	18	MERMELADA DE FRESA QUEEN CAJA POTE 350GR X 12UNID	https://corporacionliderperu.com/48758-large_default/mermelada-queen-pote-x-320-gr-fresa.jpg
+409	19	FRUTTIFILL (GLASÉ) DE MARACUYA QUEEN BALDE 18KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Mermelada-Queen-balde-20-kilos.webp
+410	19	FRUTTIFILL(RELLENO)DE GUANABANA QUEEN BALDE 18KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Mermelada-Queen-balde-20-kilos.webp
+411	19	FRUTTIFILL DE FRESA QUEEN RELLENO BALDE 18KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Mermelada-Queen-balde-20-kilos.webp
+412	19	FRUTTIFILL DE MARACUYA QUEEN RELLENO BALDE 4.5KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Mermelada-Queen-balde-20-kilos.webp
+413	19	FRUTTIFILL DE FRESA QUEEN RELLENO BALDE 4.5KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Mermelada-Queen-balde-20-kilos.webp
+414	19	FRUTTIFILL DE MANGO QUEEN RELLENO BALDE 18KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Mermelada-Queen-balde-20-kilos.webp
+415	22	COBERTURA DE LECHE NEGUSA 600GR	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_6d60868709926a5f4a9ed91382226fc19429eaac_producto_large_100.webp?not-from-cache-please
+416	22	COBERTURA DE LECHE NEGUSA CAJA 600GR X 32DISP	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_6d60868709926a5f4a9ed91382226fc19429eaac_producto_large_100.webp?not-from-cache-please
+417	22	COBERTURA BLANCA NEGUSA 600GR	https://puntonieve.com/cdn/shop/files/COBERTURANEGUSABLANCA600GR.jpg?v=1687798450
+418	22	COBERTURA BLANCA NEGUSA CAJA 600GR X 32DISP	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_5440feb0f6f8e919caea6526324a49bdb7ca3f7c_producto_large_90.jpg?not-from-cache-please
+419	22	COBERTURA BITTER CHOCOLATE ICH 1KG	https://corporacionmarles.com/wp-content/uploads/2022/07/cobertura-bittercaja-ich-1kg-min.png
+420	22	COBERTURA BITTER CHOCOLATE ICH CAJA 1KG X 10UNID	https://corporacionmarles.com/wp-content/uploads/2022/07/cobertura-bittercaja-ich-1kg-min.png
+421	22	COBERTURA BITTER ICH 600 GR	https://delymarket.tiendada.com/api/scrooge/file/FL-42E9286A?v=-1
+422	22	COBERTURA BITTER ICH CAJA 600GR X 32 UNID	https://delymarket.tiendada.com/api/scrooge/file/FL-42E9286A?v=-1
+423	22	COBERTURA BITTER NEGUSA 600GR	https://plazavea.vteximg.com.br/arquivos/ids/28892563-450-450/20199915.jpg?v=638482056820430000
+424	22	COBERTURA BITTER NEGUSA CAJA 600GR X 32DSP	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_fd71477b0dc4508b6e8ef87202ea60f48b1ab2bd_producto_large_90.jpg?not-from-cache-please
+425	22	COBERTURA BLANCA FLEISCHMANN 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_4b0f3848615503ef7ab20a2329457025e919109b_producto_large_90.png?not-from-cache-please
+426	22	COBERTURA BLANCA FLEISCHMANN CAJA 1KG X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_4b0f3848615503ef7ab20a2329457025e919109b_producto_large_90.png?not-from-cache-please
+427	22	COBERTURA BLANCA GOOL BITT 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_fe6065be1abbab3eb19d1eefb2a53a5eeab7049e_producto_large_90.png?not-from-cache-please
+428	22	COBERTURA BLANCA GOOL BITT CAJA 1KG X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_e2d4b7b7bafc733800042b48510a44b138dfd17f_producto_large_90.png
+429	22	COBERTURA BLANCA NEGUSA 1KG	https://plazavea.vteximg.com.br/arquivos/ids/30215753-512-512/20213779.jpg
+430	22	COBERTURA BLANCA NEGUSA 1KG X 20UNID	https://plazavea.vteximg.com.br/arquivos/ids/30215753-512-512/20213779.jpg
+431	22	COBERTURA BLANCA TABLON ROMEX 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_cdc708c350cdbca8e33896ef06fba79e9ebae372_producto_large_90.png?not-from-cache-please
+432	22	COBERTURA BLANCA TABLON ROMEX CAJA 1KG X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_e2d4b7b7bafc733800042b48510a44b138dfd17f_producto_medium_80.png
+433	22	COBERTURA BITTER CHOCOLATE FLEISCHMANN 1KG	https://corporacionliderperu.com/48858-large_default/fleischmann-cobertura-chocolate-semi-amargo-x-1-kg.jpg
+434	22	COBERTURA BITTER CHOCOLATE FLEISCHMANN CAJA 1KG X 10UNID	https://corporacionliderperu.com/48858-large_default/fleischmann-cobertura-chocolate-semi-amargo-x-1-kg.jpg
+435	22	COBERTURA BITTER CHOCOLATE GOOL BITT 1KG	https://api-centralizador.apiworking.pe/images/05bd0689-9f44-4c7b-b836-2cf8852012aa.png
+436	22	COBERTURA BITTER CHOCOLATE GOOL BITT CAJA 1KG X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_a05e3b216f24f4e2d10ebab3bbb15f6dcfd0d0d1_producto_large_90.png
+437	22	COBERTURA BITTER CHOCOLATE NEGUSA 1KG	https://plazavea.vteximg.com.br/arquivos/ids/30215757-512-512/20213778.jpg
+438	22	COBERTURA BITTER CHOCOLATE NEGUSA CAJA 1KG X 20UNID	https://plazavea.vteximg.com.br/arquivos/ids/30215753-512-512/20213779.jpg
+439	22	COBERTURA BITTER CHOCOLATE TABLON ROMEX 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_1c2de84c756fdc403148d994f500347185c137bb_producto_large_90.png?not-from-cache-please
+440	22	COBERTURA CHOCOLATE TABLON ROMEX 1KG X 10UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_1c2de84c756fdc403148d994f500347185c137bb_producto_large_90.png?not-from-cache-please
+441	22	COBERTURA BITTER CHOCOLATE ROMEX 600GR	https://innovaingredientes.com/wp-content/uploads/2024/06/COBERTURA-SABOR-CHOCOLATE-ROMEX-600GR.png
+442	22	COBERTURA BITTER CHOCOLATE ROMEX 600 GR X 32UNID	https://innovaingredientes.com/wp-content/uploads/2024/06/COBERTURA-SABOR-CHOCOLATE-ROMEX-600GR.png
+443	23	CHISPAS DE CHOCOLATE ROMEX 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_68e4fd808af5623fb0316643087d5221f3499585_producto_medium_100.png
+444	23	CHISPAS DE CHOCOLATE ROMEX CAJA 1KG X 15UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_68e4fd808af5623fb0316643087d5221f3499585_producto_medium_100.png
+447	23	CHISPAS DE CHOCOLATE GOOL BITT 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_561ec6f486403ff22031090b16ea206432ccf226_producto_large_90.jpg?not-from-cache-please
+448	23	CHISPAS DE CHOCOLATE GOOL BITT CAJA 1KG X 15UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_561ec6f486403ff22031090b16ea206432ccf226_producto_large_90.jpg?not-from-cache-please
+451	23	CHISPAS BLANCAS ROMEX 1KG	https://api-centralizador.apiworking.pe/images/4eec9a86-4abb-4729-a439-b4af3276f487.png
+452	23	CHISPAS BLANCAS ROMEX CAJA 1KG X 15UNID	https://api-centralizador.apiworking.pe/images/4eec9a86-4abb-4729-a439-b4af3276f487.png
+455	24	MASA FONDANT FRATELLO BLANCO 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_473559b7c58c4980b6e8ab40a702ba24484633ef_producto_large_90.png?not-from-cache-please
+456	24	MASA FONDANT FRATELLO BLANCO CAJA 1KG X 12UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_473559b7c58c4980b6e8ab40a702ba24484633ef_producto_large_90.png?not-from-cache-please
+457	24	MASA FONDANT FRATELLO CELESTE 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-celeste-1kg.jpg
+458	24	MASA FONDANT FRATELLO CELESTE CAJA 1KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-celeste-1kg.jpg
+459	24	MASA FONDANT FRATELLO ROJO 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-rojo-1kg-625x625.jpg
+460	24	MASA FONDANT FRATELLO ROJO CAJA 1KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-rojo-1kg-625x625.jpg
+461	24	MASA FONDANT FRATELLO NEGRO 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-negro-1kg.jpg
+462	24	MASA FONDANT FRATELLO NEGRO CAJA 1 KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-negro-1kg.jpg
+463	24	MASA FONDANT FRATELLO AZUL 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-azul-1kg.jpg
+464	24	MASA FONDANT FRATELLO AZUL CAJA 1KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-azul-1kg.jpg
+465	24	MASA FONDANT FRATELLO ROSADO 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-rosado-1kg.jpg
+466	24	MASA FONDANT FRATELLO ROSADO CAJA 1KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-rosado-1kg.jpg
+467	24	MASA FONDANT FRATELLO AMARILLO 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-amarillo-1kg.jpg
+468	24	MASA FONDANT FRATELLO AMARILLO CAJA 1KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-amarillo-1kg.jpg
+469	24	MASA FONDANT FRATELLO FUCSIA 1KG	https://api-centralizador.apiworking.pe/images/7c1cb043-a906-417e-a38c-313142a36abc.png
+470	24	MASA FONDANT FRATELLO FUCSIA CAJA 1KG X 12UNID	https://api-centralizador.apiworking.pe/images/7c1cb043-a906-417e-a38c-313142a36abc.png
+471	24	MASA FONDANT FRATELLO LILA 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-lila-1kg.jpg
+472	24	MASA FONDANT FRATELLO LILA CAJA 1KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-lila-1kg.jpg
+473	24	MASA FONDANT FRATELLO VERDE LIMÓN 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-anaranjado-verde-limon-1kg.jpg
+474	24	MASA FONDANT FRATELLO VERDE LIMÓN CAJA 1KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-anaranjado-verde-limon-1kg.jpg
+475	24	MASA FONDANT FRATELLO NARANJA 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-anaranjado-naranja-1kg.jpg
+476	24	MASA FONDANT FRATELLO NARANJA CAJA 1KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-anaranjado-naranja-1kg.jpg
+477	24	MASA FONDANT FRATELLO MARRON 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-marron-1kg.jpg
+478	24	MASA FONDANT FRATELLO MARRON CAJA 1KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-marron-1kg.jpg
+479	24	MASA FONDANT FRATELLO MORADO 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-lila-1kg.jpg
+480	24	MASA FONDANT FRATELLO MORADO CAJA 1KG X 12UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-lila-1kg.jpg
+489	24	MASA FONDANT FRATELLO VERDE 1KG	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-anaranjado-verde-1kg.jpg
+492	24	MASA FONDANT FRATELLO VERDE CAJA 1KG X 1 UNID	https://valecy.pe/wp-content/uploads/2024/01/Masa-fondant-Fratello-anaranjado-verde-1kg.jpg
+493	24	MASA FONDANT ELYMAR ROSADO BEBE 1KG	https://puntonieve.com/cdn/shop/files/FONDANTROSADOBEBE1KG.jpg?v=1687820576
+494	24	MASA FONDANT ELYMAR ROSADO BEBE 1KG X 12UNID	https://puntonieve.com/cdn/shop/files/FONDANTROSADOBEBE1KG.jpg?v=1687820576
+495	24	MASA FONDANT ELYMAR PLATEADO 1KG	https://puntonieve.com/cdn/shop/files/FONDANTPLATEADO1KG.jpg?v=1687820478
+496	24	MASA FONDANT ELYMAR PLATEADO CAJA 1KG X 12UNID	https://puntonieve.com/cdn/shop/files/FONDANTPLATEADO1KG.jpg?v=1687820478
+508	24	MASA FONDANT DPACHECO BLANCO CAJA 1KG X 12UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZHL8dD7l8wRwwOc3E9ucIGXAN0tOck_gxUQ&s
+511	25	COLORANTE LIQUIDO ROSADO FRATELLO 30ML	https://corporacionliderperu.com/44260-large_default/colorante-fratello-liquido-de30-ml-rosado.jpg
+512	25	COLORANTE LIQUIDO ROSADO FRATELLO DOCENA 30ML	https://corporacionliderperu.com/44260-large_default/colorante-fratello-liquido-de30-ml-rosado.jpg
+513	25	COLORANTE LIQUIDO AZUL ELÉCTRICO FRATELLO 30ML	https://corporacionliderperu.com/44258-large_default/colorante-fratello-liquido-de-30-ml-azul.jpg
+514	25	COLORANTE LIQUIDO AZUL ELÉCTRICO FRATELLO DOCENA 30ML X 12UNID	https://corporacionliderperu.com/44258-large_default/colorante-fratello-liquido-de-30-ml-azul.jpg
+519	25	COLORANTE LIQUIDO TURQUEZA FRATELLO 30ML	https://fratello.com.pe/wp-content/uploads/2020/09/Colorant-liquido-g-600x600.png
+520	25	COLORANTE LIQUIDO TURQUEZA FRATELLO DOCENA 30ML X 12UNID	https://fratello.com.pe/wp-content/uploads/2020/09/Colorant-liquido-g-600x600.png
+521	25	COLORANTE LIQUIDO AZUL FRATELLO 30ML	https://corporacionliderperu.com/44258-large_default/colorante-fratello-liquido-de-30-ml-azul.jpg
+522	25	COLORANTE LIQUIDO AZUL FRATELLO DOCENA 30ML X 12UNID	https://corporacionliderperu.com/44258-large_default/colorante-fratello-liquido-de-30-ml-azul.jpg
+523	25	COLORANTE LIQUIDO CELESTE FRATELLO 30ML	https://corporacionliderperu.com/38696-large_default/colorante-fratello-liquido-de30-ml-celeste.jpg
+524	25	COLORANTE LIQUIDO CELESTE FRATELLO DOCENA 30ML	https://corporacionliderperu.com/38696-large_default/colorante-fratello-liquido-de30-ml-celeste.jpg
+525	25	COLORANTE LIQUIDO ROJO INTENSO FRATELLO 30ML	https://corporacionliderperu.com/44626-large_default/colorante-fratello-liquido-de30-ml-rojo-intenso.jpg
+526	25	COLORANTE LIQUIDO ROJO INTENSO FRATELLO DOCENA 30ML	https://corporacionliderperu.com/44626-large_default/colorante-fratello-liquido-de30-ml-rojo-intenso.jpg
+527	25	COLORANTE LIQUIDO LILA FRATELLO 30ML	https://fratello.com.pe/wp-content/uploads/2020/09/Colorant-liquido-g-600x600.png
+528	25	COLORANTE LIQUIDO LILA FRATELLO DOCENA 30ML X 12UNID	https://fratello.com.pe/wp-content/uploads/2020/09/Colorant-liquido-g-600x600.png
+530	25	COLORANTE LIQUIDO MORADO FRATELLO DOCENA 30ML X 12UNID	https://corporacionliderperu.com/46448-large_default/colorante-fratello-liquido-de30-ml-morado.jpg
+531	25	COLORANTE LIQUIDO AMARILLO HUEVO FRATELLO 30ML	https://corporacionliderperu.com/44614-large_default/colorante-fratello-liquido-de30-ml-amarillo-huevo.jpg
+532	25	COLORANTE LIQUIDO AMARILLO HUEVO FRATELLO DOCENA 30ML	https://corporacionliderperu.com/44614-large_default/colorante-fratello-liquido-de30-ml-amarillo-huevo.jpg
+533	25	COLORANTE LIQUIDO NARANJA FRATELLO 30ML	https://corporacionliderperu.com/44459-large_default/colorante-fratello-liquido-de30-ml-naranja.jpg
+534	25	COLORANTE LIQUIDO NARANJA FRATELLO DOCENA 30ML	https://corporacionliderperu.com/44459-large_default/colorante-fratello-liquido-de30-ml-naranja.jpg
+535	25	COLORANTE LIQUIDO NEGRO FRATELLO 30ML	https://corporacionliderperu.com/44261-large_default/colorante-fratello-liquido-de30-ml-negro.jpg
+536	25	COLORANTE LIQUIDO NEGRO FRATELLO DOCENA 30ML	https://corporacionliderperu.com/44261-large_default/colorante-fratello-liquido-de30-ml-negro.jpg
+537	25	COLORANTE LIQUIDO AMARILLO LIMON FRATELLO 30ML	https://corporacionliderperu.com/39184-large_default/colorante-fratello-liquido-de-30-ml-amarillo-limon.jpg
+538	25	COLORANTE LIQUIDO AMARILLO LIMON FRATELLO DOCENA 30ML	https://corporacionliderperu.com/39184-large_default/colorante-fratello-liquido-de-30-ml-amarillo-limon.jpg
+539	25	COLORANTE LIQUIDO VERDE LIMON FRATELLO 30ML	https://corporacionliderperu.com/44696-large_default/colorante-fratello-liquido-de30-ml-verde-limon.jpg
+540	25	COLORANTE LIQUIDO VERDE LIMON FRATELLO DOCENA 30ML	https://corporacionliderperu.com/44696-large_default/colorante-fratello-liquido-de30-ml-verde-limon.jpg
+543	25	COLORANTE LIQUIDO DORADO FRATELLO 30ML	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/COLORANTE-EN-GEL-FRATELLO-30GR.jpg
+544	25	COLORANTE LIQUIDO DORADO FRATELLO DOCENA 30ML X 12UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/COLORANTE-EN-GEL-FRATELLO-30GR.jpg
+547	25	COLORANTE LIQUIDO VERDE HOJA FRATELLO 30ML	https://corporacionliderperu.com/40865-large_default/colorante-fratello-liquido-de30-ml-verde-hoja.jpg
+548	25	COLORANTE LIQUIDO VERDE HOJA FRATELLO DOCENA 30ML	https://corporacionliderperu.com/40865-large_default/colorante-fratello-liquido-de30-ml-verde-hoja.jpg
+550	25	COLORANTE LIQUIDO ROJO PASION FRATELLO DOCENA 30ML	https://corporacionliderperu.com/44259-large_default/colorante-fratello-liquido-de30-ml-rojo-pasion.jpg
+552	25	COLORANTE LIQUIDO PIEL FRATELLO DOCENA 30ML X 12UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/Polvo-de-hornear-25gr-Katita.jpg
+555	25	COLORANTE LIQUIDO ROJO PASION FRATELLO 30ML	https://corporacionliderperu.com/44259-large_default/colorante-fratello-liquido-de30-ml-rojo-pasion.jpg
+564	25	COLORANTE LIQUIDO MARRÓN FRATELLO DOCENA 30ML	https://api-centralizador.apiworking.pe/images/6cc1e725-3943-4272-aadf-b21e34585f44.jpg
+575	25	COLORANTE LIQUIDO MORADO FRATELLO 30ML	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/COLORANTE-LIQUIDO-FRATELLO.jpg
+587	25	COLORANTE LIQUIDO ROSADO PRINCESA FRATELLO 30ML	https://corporacionliderperu.com/44260-large_default/colorante-fratello-liquido-de30-ml-rosado.jpg
+588	25	COLORANTE LIQUIDO ROSADO PRINCESA FRATELLO DOCENA 30ML	https://corporacionliderperu.com/44260-large_default/colorante-fratello-liquido-de30-ml-rosado.jpg
+589	25	COLORANTE LIQUIDO FUCSIA PRINCESA FRATELLO 30ML	https://corporacionliderperu.com/44260-large_default/colorante-fratello-liquido-de30-ml-rosado.jpg
+590	25	DOCENA COLORANTE LIQUIDO FUCSIA PRINCESA FRATELLO X 30ML	https://mundoabarrotes.com/wp-content/uploads/2023/08/Fratello-Colorante-fucsia-princesa-30-ml.webp
+595	25	U. COLORANTE LIQUIDO AMARILLO HUEVO JOFSAC X 30 ML	https://corporacionliderperu.com/44614-large_default/colorante-fratello-liquido-de30-ml-amarillo-huevo.jpg
+596	25	DOCENA COLORANTE LIQUIDO AMARILLO HUEVO JOFSAC X 30 ML	https://corporacionliderperu.com/44614-large_default/colorante-fratello-liquido-de30-ml-amarillo-huevo.jpg
+597	25	U. COLORANTE LIQUIDO AMARILLO PATITO JOFSAC X 30 ML	https://corporacionliderperu.com/44262-large_default/colorante-fratello-liquido-de-30-ml-amarillo-patito.jpg
+600	25	DOCENA COLORANTE LIQUIDO AMARILLO PATITO JOFSAC X 30 ML	https://corporacionliderperu.com/44262-large_default/colorante-fratello-liquido-de-30-ml-amarillo-patito.jpg
+601	25	U. COLORANTE LIQUIDO AMARILLO LIMON JOFSAC X 30 ML	https://corporacionliderperu.com/39184-large_default/colorante-fratello-liquido-de-30-ml-amarillo-limon.jpg
+602	25	COLORANTE LIQUIDO AMARILLO LIMON JOFSAC DOCENA 30ML	https://corporacionliderperu.com/39184-large_default/colorante-fratello-liquido-de-30-ml-amarillo-limon.jpg
+607	25	COLORANTE LIQUIDO AMARILLO PIÑA JOFSAC 30ML	https://miau5.odoo.com/web/image/product.template/894/image_1024?unique=1e1e7b5
+608	25	COLORANTE LIQUIDO AMARILLO PIÑA JOFSAC DOCENA 30ML	https://miau5.odoo.com/web/image/product.template/894/image_1024?unique=1e1e7b5
+610	25	COLORANTE LIQUIDO ROJO PASION JOFSAC DOCENA 30ML	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+611	25	COLORANTE LIQUIDO ROJO PASION JOFSAC 30 ML	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+615	25	COLORANTE LIQUIDO ROJO INTENSO JOFSAC 30ML	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+616	25	COLORANTE LIQUIDO ROJO INTENSO JOFSAC DOCENA 30ML	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+618	25	COLORANTE LIQUIDO ROJO INTENSO JOFSAC DOCENA 1LT	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+619	25	COLORANTE LIQUIDO VERDE HOJA JOFSAC 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+620	25	COLORANTE LIQUIDO VERDE HOJA JOFSAC DOCENA 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+621	25	COLORANTE LIQUIDO AMARILLO PATITO JOFSAC 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+622	25	COLORANTE LIQUIDO AMARILLO PATITO JOFSAC DOCENA 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+623	25	COLORANTE LIQUIDO ROJO INTENSO JOFSAC 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+625	25	COLORANTE LIQUIDO 500ML	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+626	25	COLORANTE LIQUIDO DOCENA 500ML	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/c96d19f47550d25ae1d2590f4d60440c8aca16ad.png
+627	25	COLORANTE LIQUIDO ROJO NAVIDAD JOFSAC 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+628	25	COLORANTE LIQUIDO ROJO NAVIDAD JOFSAC DOCENA 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+629	25	COLORANTE LIQUIDO AZUL JOFSAC 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+630	25	COLORANTE LIQUIDO AZUL JOFSAC DOCENA 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+631	25	COLORANTE LIQUIDO PALO ROSA FRATELLO 30ML	https://corporacionliderperu.com/44260-large_default/colorante-fratello-liquido-de30-ml-rosado.jpg
+632	25	COLORANTE LIQUIDO PALO ROSA FRATELLO DOCENA 30ML X 12UNID	https://corporacionliderperu.com/44260-large_default/colorante-fratello-liquido-de30-ml-rosado.jpg
+639	25	COLORANTE LIQUIDO AMARILLO PATITO FRATELLO 30ML	https://corporacionliderperu.com/44262-large_default/colorante-fratello-liquido-de-30-ml-amarillo-patito.jpg
+640	25	COLORANTE LIQUIDO AMARILLO PATITO FRATELLO DOCENA 30ML	https://mundoabarrotes.com/wp-content/uploads/2023/08/Fratello-Colorante-Amarillo-Patito-30-ml.webp
+643	25	COLORANTE LIQUIDO FUCSIA JOFSAC 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+644	25	COLORANTE LIQUIDO FUCSIA JOFSAC DOCENA 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+645	25	U. COLORANTE LIQUIDO ROSADO NATURAL JOFSAC X 1 LT	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+646	25	DOCENA COLORANTE LIQUIDO ROSADO NATURAL JOFSAC X 1 LT	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+647	25	U. COLORANTE LIQUIDO VERDE LIMON JOFSAC X 1 LT	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+648	25	DOCENA COLORANTE LIQUIDO VERDE LIMON JOFSAC X 1 LT	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+649	25	U. COLORANTE LIQUIDO NARANJA JOFSAC X 1 LT	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+650	25	DOCENA COLORANTE LIQUIDO NARANJA JOFSAC X 1 LT	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+651	25	U. COLORANTE LIQUIDO AMARILLO LIMON JOFSAC X 1 LT	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+652	25	DOCENA COLORANTE LIQUIDO AMARILLO LIMON JOFSAC X 1 LT	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+653	25	U. COLORANTE LIQUIDO JOFSAC ROSADO NATURAL X 30 GR	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+654	25	DOCENA COLORANTE LIQUIDO JOFSAC ROSADO NATURAL X 30 GR	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+655	25	U. COLORANTE LIQUIDO NELMAC X 500ML	https://api-centralizador.apiworking.pe/images/541d9185-630d-461a-a64b-2cb739ee9fc6.png
+656	25	DOCENA COLORANTE LIQUIDO NELMAC X 500ML	https://api-centralizador.apiworking.pe/images/541d9185-630d-461a-a64b-2cb739ee9fc6.png
+657	25	U. COLORANTE LIQUIDO AMARILLO LIMON NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/9ce445c3-7a83-466c-a816-5f68383a2397.png
+658	25	DOCENA COLORANTE LIQUIDO AMARILLO LIMON NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/9ce445c3-7a83-466c-a816-5f68383a2397.png
+659	25	U. COLORANTE LIQUIDO NEGRO NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/cc24d6b7-be97-4c73-aff3-087329ed6884.jpg
+660	25	DOCENA COLORANTE LIQUIDO NEGRO NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/cc24d6b7-be97-4c73-aff3-087329ed6884.jpg
+661	25	U. COLORANTE LIQUIDO CELESTE NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/294a8b70-ceec-494f-8398-8742ee19637c.jpg
+662	25	DOCENA COLORANTE LIQUIDO CELESTE NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/294a8b70-ceec-494f-8398-8742ee19637c.jpg
+663	25	U. COLORANTE LIQUIDO ROJO PASION NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/056ade1e-fb53-4e2a-b520-6809852c03e6.png
+664	25	DOCENA COLORANTE LIQUIDO ROJO PASION NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/056ade1e-fb53-4e2a-b520-6809852c03e6.png
+665	25	U. COLORANTE LIQUIDO AZUL ELECTRICO NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/541d9185-630d-461a-a64b-2cb739ee9fc6.png
+666	25	DOCENA COLORANTE LIQUIDO AZUL ELECTRICO NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/50d9c24a-0b0f-4e15-9a07-7f9f61b174e4.jpg
+667	25	U. COLORANTE LIQUIDO MARRON NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/6cc1e725-3943-4272-aadf-b21e34585f44.jpg
+668	25	DOCENA COLORANTE LIQUIDO MARRON NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/6cc1e725-3943-4272-aadf-b21e34585f44.jpg
+670	25	DOCENA COLORANTE LIQUIDO VERDE HOJA NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/dc72ef4e-8449-4e1b-a30b-de97b14b5273.jpg
+671	25	U. COLORANTE LIQUIDO AMARILLO PATITO NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/2ac3508c-4dc7-4ed4-b56f-f908ef45b127.png
+672	25	DOCENA COLORANTE LIQUIDO AMARILLO PATITO NELMAC X 30ML	https://api-centralizador.apiworking.pe/images/2ac3508c-4dc7-4ed4-b56f-f908ef45b127.png
+673	25	U. COLORANTE LIQUIDO FUCSIA JOFSAC X 30 ML	https://api-centralizador.apiworking.pe/images/ac1beb49-868b-4e7d-b55a-2c13eb8b6a8a.jpg
+674	25	DOCENA COLORANTE LIQUIDO FUCSIA JOFSAC X 30 ML	https://valecy.pe/wp-content/uploads/2024/07/colorante-liquido-colores-comestibles-torta-suave-JOFSAC-1.jpg
+675	25	U. COLORANTE LIQUIDO VERDE NAVIDAD JOFSAC X 1 LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+676	25	DOCENA COLORANTE LIQUIDO VERDE NAVIDAD JOFSAC X 1 LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+677	25	U. COLORANTE LIQUIDO ROJO PASION JOFSAC X 1L	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+678	25	DOCENA COLORANTE LIQUIDO ROJO PASION JOFSAC X 1L	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+679	25	U. COLORANTE LIQUIDO AMARILLO HUEVO JOFSAC X 1L	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+680	25	DOCENA COLORANTE LIQUIDO AMARILLO HUEVO JOFSAC X 1L	https://www.jofsac.com.pe/wp-content/uploads/2021/06/COL-LIQUIDO.jpg
+681	26	CARAMELINA AROMATIC GALON 4L	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/Caramelina-5kg-Quality.jpg
+682	26	CARAMELINA AROMATIC CAJA 4L X 6UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/06/Caramelina-5kg-Quality.jpg
+683	26	CARAMELINA DULCINITA 1LT	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6jV6mrF5CsQUTZNG0IQ-6PZ5s8nLnLe7quA&s
+684	26	CARAMELINA DULCINITA CAJA 1LT X 15UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6jV6mrF5CsQUTZNG0IQ-6PZ5s8nLnLe7quA&s
+687	26	CARAMELINA JOFSAC 1LT	https://www.jofsac.com.pe/wp-content/uploads/2021/06/CARAMELINA.jpg
+688	26	CARAMELINA JOFSAC CAJA 1LT X 12UNID	https://www.jofsac.com.pe/wp-content/uploads/2021/06/CARAMELINA.jpg
+689	26	CARAMELINA JOFSAC GALON 4L	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOXCgLXiZsOr_l9w5qHK6LR87EEt1A2258NQ&s
+690	26	CARAMELINA JOFSAC CAJA 4L X 6UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOXCgLXiZsOr_l9w5qHK6LR87EEt1A2258NQ&s
+691	27	CONSERVA DE DURAZNO ARICA CAJA 820GR X 12UNID	https://tiendas-en-linea.com/wp-content/uploads/2025/11/e52bf8ac-457e-4721-8aa3-5f15afad17c9.jpg
+693	27	CONSERVA DE DURAZNO DEL CAMPO CAJA 820GR X 12UNID	https://images.rappi.pe/products/1731429679074_1731429676278_1731429675048.png
+694	27	CONSERVA DE DURAZNO DEL CAMPO 820GR	https://images.rappi.pe/products/1731429679074_1731429676278_1731429675048.png
+695	27	CONSERVA DE PIÑA ARICA CAJA 565GR X 12UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_fe1598ca9f7034dde5819e367fe0d561144dc9d6_producto_large_90.png?not-from-cache-please
+696	27	CONSERVA DE PIÑA ARICA 565GR	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_fe1598ca9f7034dde5819e367fe0d561144dc9d6_producto_large_90.png?not-from-cache-please
+700	27	CONSERVA DE DURAZNO ARICA 820GR	https://plazavea.vteximg.com.br/arquivos/ids/29362482-450-450/965773.jpg?v=638600338853900000
+706	27	CONSERVA DE DURAZNO DEL RIO 820GR	https://metroio.vtexassets.com/arquivos/ids/488898/Duraznos-en-Mitades-en-Conserva-Del-Rio-820g-1-243935.jpg?v=638325566666370000
+707	27	CONSERVA DE DURAZNO DEL RIO CAJA 820GR X 12UNID 	https://metroio.vtexassets.com/arquivos/ids/488898/Duraznos-en-Mitades-en-Conserva-Del-Rio-820g-1-243935.jpg?v=638325566666370000
+709	27	CONSERVA DE DURAZNO DOS CABALLOS 1GAL X 6UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8UbLabJw7RqLxek6zcXPClEb-b6HmQ44MXA&s
+712	27	CONSERVA DE DURAZNO DOS CABALLOS 1 GALON	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8UbLabJw7RqLxek6zcXPClEb-b6HmQ44MXA&s
+715	27	CONSERVA DE DURAZNO DOS CABALLOS CAJA 820GR X 12UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8UbLabJw7RqLxek6zcXPClEb-b6HmQ44MXA&s
+716	27	CONSERVA DE DURAZNO DOS CABALLOS 820GR	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8UbLabJw7RqLxek6zcXPClEb-b6HmQ44MXA&s
+717	27	COCKTAIL DE FRUTAS EN CONSERVA SASA 4250GR	https://image.made-in-china.com/202f0j00wbCguULYarol/Canned-Fruit-Cocktail-4250g-Tinned-Fruit.webp
+720	27	COCKTAIL DE FRUTAS EN CONSERVA SASA CAJA 4250GR X 6UNID	https://image.made-in-china.com/202f0j00wbCguULYarol/Canned-Fruit-Cocktail-4250g-Tinned-Fruit.webp
+721	27	COCKTAIL DE FRUTAS EN CONSERVA ARICA CAJA 820GR X 12UNID	https://campograndeperu.com/wp-content/uploads/2023/10/venta-por-mayor-y-menor-de-Cocktail-Frutas.jpg
+724	27	COCKTAIL DE FRUTAS EN CONSERVA ARICA 820GR	https://campograndeperu.com/wp-content/uploads/2023/10/venta-por-mayor-y-menor-de-Cocktail-Frutas.jpg
+725	27	CONSERVA DE DURAZNO KANKAY CAJA 820GR X 12UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwD1J_okcjyJBXjZcgZUCWa4vL6MU_YLLmRw&s
+728	27	CONSERVA DE DURAZNO KANKAY 820GR	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwD1J_okcjyJBXjZcgZUCWa4vL6MU_YLLmRw&s
+729	29	CREMA DE LECHE MONNA LISA BRICKS 1L	https://mastermartini.com.pe/wp-content/uploads/2023/09/Imagen-de-WhatsApp-2023-10-20-a-las-08.30.43_631ef2c9.jpg
+730	29	CREMA DE LECHE MONNA LISA BRICKS CAJA 1L X 12UNID	https://mastermartini.com.pe/wp-content/uploads/2023/09/Imagen-de-WhatsApp-2023-10-20-a-las-08.30.43_631ef2c9.jpg
+731	29	LECHE GLORIA LECHE ENTERA UHT CAJA 800ML X 12UNID	https://vegaperu.vtexassets.com/arquivos/ids/169891-300-300?v=638918626044530000&width=300&height=300&aspect=true
+732	29	LECHE GLORIA LECHE ENTERA UHT 800ML	https://vegaperu.vtexassets.com/arquivos/ids/169891-300-300?v=638918626044530000&width=300&height=300&aspect=true
+733	29	LECHE CONDENSADA GOLD 1KG X 15UNID	https://goolbitt.com/wp-content/uploads/2024/12/LECHE-CONDENSADA-500G-web-600x6001-1.jpg
+734	29	LECHE CONDENSADA GOLD 1KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/04/LECHE-CONDENSADA-GOLD-1KG-LUDAFA-EXCELLENT.jpg
+735	29	LECHE GLORIA LECHE ENTERA UHT 800ML	https://vegaperu.vtexassets.com/arquivos/ids/169891-300-300?v=638918626044530000&width=300&height=300&aspect=true
+736	29	LECHE GLORIA LECHE ENTERA UHT CAJA 800ML X 12UNID	https://vegaperu.vtexassets.com/arquivos/ids/169891-300-300?v=638918626044530000&width=300&height=300&aspect=true
+737	29	LECHE CONDENSADA BONLE 1.2KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR27eQ_HBUbShgKO27dI9Iw01sd9vT-1RVfyg&s
+738	29	LECHE CONDENSADA BONLE CAJA 1.2KG X 8UNID	https://plazavea.vteximg.com.br/arquivos/ids/761159-184-184/20208784.jpg?v=637484313164430000
+739	30	ACEITE TONDERO BALDE 20LT	https://mundoabarrotes.com/wp-content/uploads/2019/09/Aceite-vegetal-Tondero-premium-20-litros.jpg
+740	30	ACEITE TONDERO BIDON 18LT	https://inalta.com.pe/wp-content/uploads/imag_006.jpg
+741	30	ACEITE TONDERO 900ML	https://plazavea.vteximg.com.br/arquivos/ids/18082688-450-450/20283882.jpg?v=637992351668370000
+742	30	ACEITE TONDERO CAJA 900ML X 12UND	https://plazavea.vteximg.com.br/arquivos/ids/18082688-450-450/20283882.jpg?v=637992351668370000
+744	30	ACEITE FRIOL ULTRA FRITURA ROJO BIDON 18LT	https://dojiw2m9tvv09.cloudfront.net/53648/product/copia-de-dise-o-sin-t-tulo8804.png
+745	30	ACEITE MIRASOL BIDON 18LT	https://imac.pe/wp-content/uploads/2023/11/MIRASOL-BALDE-X-18-LITROS-1.png
+746	30	ACEITE CIELO BALDE 5LT	https://alimentoscielo.com/wp-content/uploads/2025/05/020014-3.jpg
+747	30	ACEITE CIELO CAJA 5LT X 4UNID	https://alimentoscielo.com/wp-content/uploads/2025/05/020014-3.jpg
+748	30	ACEITE CIL BALDE 5LT	https://plazavea.vteximg.com.br/arquivos/ids/30215467-450-450/20210415.jpg?v=638679061686230000
+749	30	ACEITE CIL CAJA 5LT X 4UNID	https://plazavea.vteximg.com.br/arquivos/ids/30215467-450-450/20210415.jpg?v=638679061686230000
+750	30	ACEITE VOILA CAJA 5LT X 4UNID	https://locotemarket.com/cdn/shop/files/IMG-5937.heic?v=1720543847
+751	30	ACEITE VOILA BALDE 5LT	https://locotemarket.com/cdn/shop/files/IMG-5937.heic?v=1720543847
+752	30	ACEITE VOILA BIDON 18LT	https://locotemarket.com/cdn/shop/files/IMG-5936.heic?v=1720543936
+753	30	ACEITE CIELO BIDON 18LT	https://alimentoscielo.com/wp-content/uploads/2025/05/020008-2.jpg
+754	30	ACEITE VEGETAL DE SOJA DEL CAMPO 900ML	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/Aceite-1lt-Del-Campo.jpg
+755	30	ACEITE VEGETAL DE SOJA DEL CAMPO CAJA 900ML X 12UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/Aceite-1lt-Del-Campo.jpg
+758	30	ACEITE DELICIA 1L	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB1JqZ4ab2FpoS946EbiSGwwQeDmeTBEswGg&s
+759	30	ACEITE DELICIA CAJA 1L X 12UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB1JqZ4ab2FpoS946EbiSGwwQeDmeTBEswGg&s
+760	31	SAL YODADA LA NORTEÑITA SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2021/02/Sal-Yodada-Rica-Nortenita-50-kg.webp
+766	33	PALITOS DE COLOR SURTIDO 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_0ff765ce90f7ddd7ff24930b0b887ff6839bb2eb_producto_large_90.png
+768	33	CEREAL BURBUJITAS DE COLORES CAJA 1KG X 14UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/Burbujitas-multicolor-chocolate-990gr7.jpg
+769	33	CEREAL BURBUJITAS DE COLORES 1KG	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/Burbujitas-multicolor-chocolate-990gr7.jpg
+770	33	FRUTA CONFITADA LA SIMONA CAJA 5KG X 2PAQ	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBuGbpvxP7gMTLUUwLaL1X1FjX8kZN5MHnrQ&s
+771	33	FRUTA CONFITADA LA SIMONA 1KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR81toppip2KGVtw6cg9L_Lph3Wp1Ipie3TTg&s
+772	33	CHOCOYOGURT DOS CERRITOS CAJA 990GR X 15UNID	https://www.puntodeventa.2cerritos.com.pe/cdn/shop/files/CHOCOYOGURT990G_1000x.png?v=1687990214
+773	33	CHOCOYOGURT DOS CERRITOS 990GR	https://www.puntodeventa.2cerritos.com.pe/cdn/shop/files/CHOCOYOGURTX350GRSP_1000x.png?v=1690900588
+776	33	PALITOS DE COLOR ROSADO 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/q0bfxrj7lahxvd2xey5o.jpg
+778	33	PALITOS DE COLOR MORADO 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/awwerymwdxrbs0fair6d.jpg
+780	33	PALITOS DE COLOR AMARILLO 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/xc7cxi3zvwkot3raatyx.jpg
+782	33	PALITOS DE COLOR AZUL 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/zdtsu28euqatswdsuboe.jpg
+784	33	PALITOS DE COLOR VERDE LIMÓN 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/vlwxrlwjjzpz07ohwmne.jpg
+786	33	PALITOS DE COLOR VERDE HOJA 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/vlwxrlwjjzpz07ohwmne.jpg
+788	33	PALITOS DE COLOR MARRÓN 1KG	https://amparoreposteria.com/cdn/shop/files/Granillo_cafe_1600x.png?v=1762453300
+790	33	PALITOS DE COLOR FUCSIA 1KG	https://http2.mlstatic.com/D_NQ_NP_811277-MLM81941030189_012025-O.webp
+792	33	PALITOS DE COLOR CELESTE 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/fi49aefh8bg2dhazgrcm.jpg
+794	33	PALITOS DE COLOR BLANCO 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/zlhikjllmwc1a31q1rl7.jpg
+796	33	PALITOS DE COLOR PLATEADO 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/akvt8owfpfsd90vxqwxh.jpg
+798	33	PALITOS DE COLOR DORADO 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/qsjdlvlkcubfx3hisx4s.jpg
+800	33	PALITOS DE COLOR ROJO 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/ldfuuldaatsuzx7trnbe.jpg
+802	33	PALITOS DE COLOR ROSADO BEBÉ 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/q0bfxrj7lahxvd2xey5o.jpg
+804	33	PALITOS DE COLOR VERDE AGUA 1KG	https://image.made-in-china.com/202f0j00eJtkBbScLgqL/Colorful-and-Decorative-Sprinkles-used-for-cake-and-dessert-decoration-Sugar-Jimmies-Green.webp
+806	33	PALITOS DE COLOR CELESTE BEBÉ 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/ymi7wfmmdmv4rrjnza8y.jpg
+808	33	PALITOS DE COLOR ROSE GOLD 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/qp6cwffnvfrhzbyqxvui.jpg
+810	33	PALITOS DE COLOR PALO ROSA 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/qp6cwffnvfrhzbyqxvui.jpg
+812	33	PALITOS DE COLOR NARANJA 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/p4dpj0ebypxlumwjkzsu.jpg
+815	33	CAJA PALITOS DE COLOR NARANJA	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/p4dpj0ebypxlumwjkzsu.jpg
+816	33	PALITOS DE COLOR NEGRO 1KG	https://storage.googleapis.com/upload-tiendada-prod/public/file-storage/im/product/cluev3n6frija7hekxmd.jpg
+818	33	PALITOS DE COLOR JADE 1KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMJBLj88yBka7Ox6-dKX0HfHw3Hr7lZWkEHA&s
+820	35	COCOA A GRANEL POWER BROMW 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_9b58dcf8d4c5561e18cdedf0740ea581dfcd7332_producto_large_90.png?not-from-cache-please
+821	35	COCOA A GRANEL POWER BROMW SACO 25KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_9b58dcf8d4c5561e18cdedf0740ea581dfcd7332_producto_large_90.png?not-from-cache-please
+822	35	COCOA ALCALINA NEGRA 1KG	https://http2.mlstatic.com/D_NQ_NP_992790-MLM51852434336_102022-O.webp
+823	35	COCOA ALCALINA NEGRA SACO 25KG	https://http2.mlstatic.com/D_NQ_NP_992790-MLM51852434336_102022-O.webp
+830	35	COCOA REPOSTERA NEGUSA 1.1KG	https://plazavea.vteximg.com.br/arquivos/ids/31072380-450-450/20199683.jpg?v=638786593059530000
+831	35	COCOA REPOSTERA NEGUSA CAJA 1.1KG X 20UNID	https://plazavea.vteximg.com.br/arquivos/ids/31072380-450-450/20199683.jpg?v=638786593059530000
+832	35	COCOA WINTER 900GR	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_008371/tienda_008371_1cb3153097189868d9c03e016f6f432104558500_producto_large_90.jpg?not-from-cache-please
+833	35	COCOA WINTER CAJA 900GR X 6UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_008371/tienda_008371_1cb3153097189868d9c03e016f6f432104558500_producto_large_90.jpg?not-from-cache-please
+836	3	HARINA ANITA INTEGRAL SACO 25KG	https://mundoabarrotes.com/wp-content/uploads/2021/07/Harina-Trigo-Integral-Anita-25-kg.webp
+837	3	HARINA ANITA ESPECIAL AZUL SACO 50KG	https://lh6.googleusercontent.com/proxy/mkTbTz_BX7iAOGrO5b_Yud545vTLiGnAIMqsMma3TbO5UxFcFf1YqQEKJCjb_C25hLV_8nW7OWYQgz40V4-fQIf4wc0edzw
+838	3	HARINA ANITA EXTRA SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2020/08/Harina-Trigo-Anita-Extra-50-kg.webp
+839	3	HARINA ANITA PASTELERA SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2020/09/Harina-Trigo-Anita-Pastelera-50-kilos.webp
+840	3	HARINA ANITA TODO USO SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2019/04/Harina-Trigo-Anita-Especial-Todo-Uso-50-kg.webp
+841	3	HARINA BENOTI PASTELERA SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2022/02/Harina-Trigo-Benoti-Pastelera-50-kilos.webp
+842	3	HARINA BLANCA NIEVE EXTRA SACO 50KG	https://images.rappi.pe/products/1752529533726_1752529526553_1752529526535.jpg
+843	3	HARINA BLANCA NIEVE FUERZA SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2021/02/Harina-Trigo-Blanca-Nieve-50-kg.webp
+845	3	HARINA DE MAIZ CORINA SACO 25KG	https://gruporequenaperu.com.pe/wp-content/uploads/2022/06/CORINA.png
+846	3	HARINA DE MAIZ DENSA SACO 25KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Harina-Maiz-Demsa-25-kg.webp
+848	3	HARINA DE TRIGO BENOTI ESPECIAL PANADERA AZUL SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2022/02/Harina-Trigo-Benoti-Especial-Panadera-50-kilos.webp
+849	3	HARINA DE TRIGO DON BITUTE SACO 50KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_20fe85088122eaed10ffaeb9d1efe41e930ec5cd_producto_large_90.png
+850	3	HARINA DE TRIGO DOÑA ANGELICA SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2021/10/Harina-Trigo-Dona-Angelica-50-kilos.webp
+851	3	HARINA DE TRIGO GRAN PANADERO SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2020/09/Harina-Trigo-Especial-Gran-Panadero-50-kg.webp
+852	3	HARINA DE TRIGO GRANO DE ORO ESPECIAL SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2021/02/Harina-Trigo-Especial-Grano-Oro-50-kg.webp
+853	3	HARINA DE TRIGO LA PANERA ESPECIAL SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2019/04/Harina-Trigo-La-Panera-50-kg.webp
+854	3	HARINA DE TRIGO MOLINO ESPECIAL SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2021/10/Harina-Trigo-El-Molino-50-kilos.webp
+855	3	HARINA DE TRIGO NICOLINI PREMIUM SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2019/04/Harina-Trigo-Nicolini-Premium-50-kg-de-frente.webp
+856	3	HARINA DON LUCHO SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2021/09/Harina-Trigo-Don-Lucho-50-kilos.webp
+857	3	HARINA DON LUCIANO SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2021/02/Harina-Trigo-Don-Lucciano-50-kilos.webp
+858	3	HARINA ESPECIAL PANETONERA BENOTI SACO 50KG	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF1jChgblnXQLWsfM5GLCXDyu0Na4FMxuW-w&s
+859	3	HARINA EXTRA BENOTI SACO 50KG	https://benoti.pe/wp-content/uploads/2021/02/harinaextra-1.png
+860	3	HARINA PAN VENEZOLANA 1KG	https://mundoabarrotes.com/wp-content/uploads/2019/09/PAN-Maiz-Blanco-paquete-20-unidades-1-kg.webp
+861	3	HARINA PAN PAQUETE 1KG X 20UNID	https://mundoabarrotes.com/wp-content/uploads/2019/09/PAN-Maiz-Blanco-paquete-20-unidades-1-kg.webp
+862	3	HARINA NICOLINI PASTELERA(COMERCIAL) SACO 50KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_cd6fa4741047b6aeb019867225fd8986d4758700_producto_large_90.png
+863	3	HARINA DE TRIGO EN BOLSA DOÑA ANGELICA 10KG	https://molicentro.com.pe/wp-content/uploads/2023/11/HARINA-PANADERA-ESPECIAL-DONA-ANGELICA-10-KG.webp
+865	3	HARINA DE TRIGO ESPECIAL CIELO SACO 50KG	https://mundoabarrotes.com/wp-content/uploads/2020/11/Harina-Trigo-Del-Cielo-50-kg.webp
+866	3	HARINA DE MAIZ CORINA SACO 25KG	https://corina.com.pe/wp-content/uploads/2021/02/HARINA-SUPER-PREMIUM.png
+867	28	CREMA CHANTILLY AMBIENTE CAJA 1LT X 12UNID	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2nUOhhBhweDh7yAsgvBymecgz5dQQkfFPzg&s
+868	28	CREMA CHANTILLY BRAVO CREAM COOKING CAJA 200ML X 24UNID	https://mastermartini.com.pe/wp-content/uploads/2021/01/BRAVO-CREM-200Ml.jpg
+869	28	CREMA CHANTILLY BATIDA ON TOP RICHS CAJA 500GR X 12UNID	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/On-Top-Batida-Chantilly-500gr.jpg
+870	28	CREMA CHANTILLY EN POLVO FLEISCHMANN 60GR	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_118c6ea490e79e7bd0ab5fcef99dcc86d91d5ec5_producto_large_90.png
+871	28	CREMA CHANTILLY EN POLVO FLEISCHMANN CAJA 380GR X 36UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_413ee3055482ed8db4a058bb6876bcedb2e0ffc0_producto_large_90.png?not-from-cache-please
+872	28	CREMA CHANTILLY GOOL CREAM CAJA 1LT X 15UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_9fa3b8293bdb9862706c0671bf06b59ca091b1de_producto_large_90.jpg?not-from-cache-please
+873	28	CREMA CHANTILLY LEGY CAJA 1LT X 15UNID	https://catalogo.vdn.cl/wp-content/uploads/2024/07/ENVASE-LEGY.jpg
+874	28	CREMA CHANTILLY MASS CREAM AZUL CAJA 1LT X 15UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_31bc202c29800781602b8a7ddddfa38bac7f2024_producto_large_90.png
+875	28	CREMA CHANTILLY MOLDANT CAJA 1LT X 15UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_921ef062daf9102e5e8f64c2e5f7fe859f9006fb_producto_large_90.png
+876	28	CREMA CHANTILLY ULTRA RICH CAJA 1LT X 12UNID	https://http2.mlstatic.com/D_NQ_NP_668346-MLA99841581721_112025-O.webp
+877	28	CREMA DE CHANTILLY FLEISCREAM CAJA 1LT X 12UNID	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_e8a6e8ef3708e90c227dfd854944f4227f9080bb_producto_large_90.png
+878	28	CREMA CHANTILLY AMBIENTE CHANTILLY 1LT	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2nUOhhBhweDh7yAsgvBymecgz5dQQkfFPzg&s
+879	28	CREMA CHANTILLY BRAVO CREAM COOKING 200ML	https://mastermartini.com.pe/wp-content/uploads/2021/01/BRAVO-CREM-200Ml.jpg
+880	28	CREMA CHANTILLY CREMA BATIDA ON TOP RICHS 500GR	https://www.jldecostore.com.pe/wp-content/uploads/2024/05/On-Top-Batida-Chantilly-500gr.jpg
+881	28	CREMA CHANTILLY EN POLVO FLEISCHMANN 60GR	https://api-centralizador.apiworking.pe/images/e70feca6-03e6-4c4d-9cc9-d5b437848ab9.png
+882	28	CREMA CHANTILLY EN POLVO FLEISCHMANN 380GR	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_413ee3055482ed8db4a058bb6876bcedb2e0ffc0_producto_large_90.png?not-from-cache-please
+883	28	CREMA CREMA CHANTILLY GOOL CREAM 1LT	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_9fa3b8293bdb9862706c0671bf06b59ca091b1de_producto_large_90.jpg?not-from-cache-please
+884	28	CREMA CHANTILLY LEGY 1LT	https://catalogo.vdn.cl/wp-content/uploads/2024/07/ENVASE-LEGY.jpg
+885	28	CREMA CHANTILLY MASS CREAM AZUL 1LT	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_8f00227485efab29515276b891e0951404fabcfc_producto_large_90.png?not-from-cache-please
+886	28	CREMA CHANTILLY MOLDANT 1LT	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_844e8615b509e51076c0411e3a8918d1576b8a72_producto_large_90.png?not-from-cache-please
+887	28	CREMA CHANTILLY ULTRA RICH 1LT	https://http2.mlstatic.com/D_NQ_NP_668346-MLA99841581721_112025-O.webp
+888	28	CREMA CHANTILLY FLEISCREAM 1LT	https://wongfood.vtexassets.com/arquivos/ids/473002-800-auto?v=637677677277800000&width=800&height=auto&aspect=true
+889	36	GALLETA DE VAINILLA	https://oechsle.vteximg.com.br/arquivos/ids/1890456-1000-1000/image-7db686787e2c426897ab06f991e87b77.jpg?v=637495395967800000
+891	36	GALLETA SODA GOURMET CAJA 6PAQ X 12UNID	https://mundoabarrotes.com/wp-content/uploads/2021/08/Galleta-Soda-Gourmet-San-Jorge-12-paquetes-6-unidades.webp
+894	45	MAICENA DENSA 25KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_6f53738a26e385cf1b28bd16085a582d3e15e7d3_producto_large_90.png
+895	45	MAICENA DENSA 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_6f53738a26e385cf1b28bd16085a582d3e15e7d3_producto_large_90.png
+896	45	MAICENA DEL RIO 25KG	https://mundoabarrotes.com/wp-content/uploads/2023/10/Maicena-Del-Rio-25-kg.webp
+897	45	MAICENA DEL RIO 1KG	https://mundoabarrotes.com/wp-content/uploads/2023/10/Maicena-Del-Rio-25-kg.webp
+898	46	CHUÑO DEL RIO SACO 25KG	https://mundoabarrotes.com/wp-content/uploads/2022/08/Potato_Starch_Del_Rio_Chuno_25_kg.webp
+899	46	CHUÑO DEL RIO 1KG	https://mundoabarrotes.com/wp-content/uploads/2021/08/Avebe-Potato-Starch-Chuno-25-kilos.webp
+900	46	CHUÑO SANTIS SACO 25KG	https://mundoabarrotes.com/wp-content/uploads/2023/08/Potato_Starch_Santis_Chuno_25_kg.webp
+903	47	SEMOLA LA PANERA SACO 25KG	https://mundoabarrotes.com/wp-content/uploads/2022/01/Semola-Trigo-La-Panera-25-kilos.webp
+905	47	SEMOLA CORINA SACO 25KG	https://mundoabarrotes.com/wp-content/uploads/2023/10/Semola-Trigo-Corina-25-kg.webp
+906	48	CANELA MOLIDA 1/2 KG	https://campograndeperu.com/wp-content/uploads/2023/10/venta-por-mayor-y-menor-de-canela-en-polvo.jpg
+907	48	CANELA ENTERA 1/4 KG	https://comfruttiperu.com/wp-content/uploads//2018/11/Canela-Entera.jpg
+908	48	CANELA MOLIDA SACO 25KG	https://corporacionliderperu.com/46035-large_default/canela-molida-a-granel-x-kg.jpg
+910	48	CANELA ENTERA 1KG	https://comfruttiperu.com/wp-content/uploads//2018/11/Canela-Entera.jpg
+911	48	CANELA ENTERA 10KG	https://comfruttiperu.com/wp-content/uploads//2018/11/Canela-Entera.jpg
+912	49	ANIS A GRANEL SACO 50KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_87347ed59c965c56c349f639230fdaec89bd36dc_producto_large_90.png?not-from-cache-please
+913	49	ANIS A GRANEL SACO 25KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_87347ed59c965c56c349f639230fdaec89bd36dc_producto_large_90.png?not-from-cache-please
+914	49	ANIS A GRANEL 1KG	https://d20f60vzbd93dl.cloudfront.net/uploads/tienda_010816/tienda_010816_87347ed59c965c56c349f639230fdaec89bd36dc_producto_large_90.png?not-from-cache-please
+915	50	AJONJOLI BLANCO 1KG	https://comfruttiperu.com/wp-content/uploads//2018/11/Ajonjol%C3%AD-Crudo-Importado.jpg
+916	50	AJONJOLI BLANCO SACO 25KG	https://comfruttiperu.com/wp-content/uploads//2018/11/Ajonjol%C3%AD-Crudo-Importado.jpg
+917	50	AJONJOLI NEGRO 1KG	https://corporacionliderperu.com/50167-large_default/ajonjoli-negro-a-granel-x-kg-exo-igv.jpg
+918	50	AJONJOLI NEGRO SACO 25KG	https://corporacionliderperu.com/50167-large_default/ajonjoli-negro-a-granel-x-kg-exo-igv.jpg
+921	36	ESPAGUETTI DELGADO DON MAXIMO 500GR X 20PQT	https://comercialp.facel.pe/assets/uploads/7ef4ae6b978add6340f0442a40434ed4.jpg
+922	48	CANELA MOLIDA 1KG	https://campograndeperu.com/wp-content/uploads/2023/10/venta-por-mayor-y-menor-de-canela-en-polvo.jpg
+927	56	GELATINA DE PIÑA UNIVERSAL PAQUETE 130GR X 24UNID	https://media.falabella.com/tottusPE/43085644_1/w=1200,h=1200,fit=pad
+928	56	GELATINA DE DURAZNO FRUTEXA 5KG	https://tanasfrutperu.com/wp-content/uploads/2024/03/PRODUCTOS-TANAS-1080-x-1080-px-9-1.png
+929	56	GELATINA DE MENTA FRUTEXA 5KG	https://tanasfrutperu.com/wp-content/uploads/2024/03/PRODUCTOS-TANAS-1080-x-1080-px-9-1.png

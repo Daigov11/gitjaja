@@ -3,7 +3,10 @@ import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { listProducts } from "../services/productsService";
 import { listCategories } from "../services/categoriesService";
+import { listCarousel } from "../services/carouselService";
 import { BD_NAME } from "../services/appConfig";
+import { queryKeys, ENTITY_STALE_TIME } from "../services/queryKeys";
+import AppImage from "../components/AppImage";
 
 /* ====== TOP-LEVEL VARS ====== */
 
@@ -102,7 +105,7 @@ PROMO_BLOCKS = [
   {
     catId: "3",
     title: "Productos más vendidos",
-    img: "http://api-centralizador.apiworking.pe/images/42655c75-161d-496e-96d3-8b1c351b28bf.png",
+    img: "https://api-centralizador.apiworking.pe/images/42655c75-161d-496e-96d3-8b1c351b28bf.png",
     cta: "Categoria",
     side: "left",
     max: 4,
@@ -135,14 +138,24 @@ PROMO_BLOCKS = [
   },
 ];
 
+function toSlide(item) {
+  return {
+    id: item.id_slide,
+    img: item.slide_image_url,
+    title: item.slide_title || "Don Pepito",
+    subtitle: item.slide_subtitle || "",
+    link: item.slide_link_url || "",
+  };
+}
+
 export default function Home() {
   var ctx;
   var nav;
   nav = useNavigate();
 
-  var q, qCats;
+  var q, qCats, qSlides;
   var ok, items, activeItems;
-  var okCats, catItemsApi;
+  var okCats, catItemsApi, okSlides, slidesApi;
 
   var slide, setSlide;
   var cat, setCat;
@@ -177,48 +190,6 @@ export default function Home() {
     };
   }, [setIsMobile]);
 
-  /* slides to use */
-  slidesUse = useMemo(
-    function () {
-      return isMobile ? SLIDES_MOBILE : SLIDES;
-    },
-    [isMobile]
-  );
-
-  slidesLen = slidesUse && slidesUse.length ? slidesUse.length : 0;
-
-  /* clamp slide when switching desktop/mobile */
-  useEffect(
-    function () {
-      if (!slidesLen) return;
-      if (slide >= slidesLen) setSlide(0);
-    },
-    [slide, slidesLen, setSlide]
-  );
-
-  /* autoplay based on slidesUse length */
-  useEffect(
-    function () {
-      var t;
-
-      if (!slidesLen) return;
-
-      t = setInterval(function () {
-        setSlide(function (s) {
-          var next;
-          next = s + 1;
-          if (next >= slidesLen) next = 0;
-          return next;
-        });
-      }, 5000);
-
-      return function () {
-        clearInterval(t);
-      };
-    },
-    [setSlide, slidesLen]
-  );
-
   var qSearch, cart, toggleInCart, setCartOpen;
 
   var catsHome, filtered, showGrid;
@@ -245,13 +216,21 @@ export default function Home() {
   cat = cat[0];
 
   q = useQuery({
-    queryKey: ["public_products", BD_NAME],
+    queryKey: queryKeys.products(BD_NAME),
     queryFn: listProducts,
+    staleTime: ENTITY_STALE_TIME,
   });
 
   qCats = useQuery({
-    queryKey: ["public_categories", BD_NAME],
+    queryKey: queryKeys.categories(BD_NAME),
     queryFn: listCategories,
+    staleTime: ENTITY_STALE_TIME,
+  });
+
+  qSlides = useQuery({
+    queryKey: queryKeys.carousel(BD_NAME),
+    queryFn: listCarousel,
+    staleTime: ENTITY_STALE_TIME,
   });
 
   ok = q.data && (q.data.codResponse === "1" || q.data.codResponse === 1);
@@ -260,6 +239,27 @@ export default function Home() {
   okCats =
     qCats.data && (qCats.data.codResponse === "1" || qCats.data.codResponse === 1);
   catItemsApi = okCats && qCats.data.data ? qCats.data.data : [];
+  okSlides = qSlides.data && (qSlides.data.codResponse === "1" || qSlides.data.codResponse === 1);
+  slidesApi = okSlides && Array.isArray(qSlides.data.data) ? qSlides.data.data : [];
+
+  slidesUse = useMemo(function () {
+    if (slidesApi.length) return slidesApi.map(toSlide);
+    return isMobile ? SLIDES_MOBILE : SLIDES;
+  }, [isMobile, slidesApi]);
+  slidesLen = slidesUse.length;
+
+  useEffect(function () {
+    if (slide >= slidesLen) setSlide(0);
+  }, [slide, slidesLen, setSlide]);
+
+  useEffect(function () {
+    var timer;
+    if (slidesLen < 2) return undefined;
+    timer = setInterval(function () {
+      setSlide(function (current) { return current + 1 >= slidesLen ? 0 : current + 1; });
+    }, 5000);
+    return function () { clearInterval(timer); };
+  }, [setSlide, slidesLen]);
 
   activeItems = useMemo(
     function () {
@@ -283,24 +283,6 @@ export default function Home() {
   filtered = applyFilters(activeItems, qSearch, cat).slice(0, 60);
   showGrid = !!(String(qSearch || "").trim() || cat !== "ALL");
 
-  useEffect(
-    function () {
-      var t;
-      t = setInterval(function () {
-        setSlide(function (s) {
-          var next;
-          next = s + 1;
-          if (next >= SLIDES.length) next = 0;
-          return next;
-        });
-      }, 5000);
-
-      return function () {
-        clearInterval(t);
-      };
-    },
-    [setSlide]
-  );
   function onPrev() {
     var next;
     if (!slidesLen) return;
@@ -321,6 +303,13 @@ export default function Home() {
 
   function openCartUi() {
     setCartOpen(true);
+  }
+
+  function handleToggleInCart(p) {
+    var wasInCart;
+    wasInCart = isInCart(cart, p.id_product);
+    toggleInCart(p);
+    if (!wasInCart) openCartUi();
   }
 
   /* ✅ NUEVO: navegación real */
@@ -349,16 +338,25 @@ export default function Home() {
         bg-slate-100
       "
           >
-            <img
-              src={slidesUse[slide] ? slidesUse[slide].img : ""}
-              alt={slidesUse[slide] ? slidesUse[slide].title : "Slide"}
-              className="
-          absolute inset-0 h-full w-full
-          object-contain md:object-cover
-          object-center
-        "
-              draggable="false"
-            />
+            {slidesUse[slide] && slidesUse[slide].link ? (
+              <a href={slidesUse[slide].link} className="absolute inset-0" aria-label={"Abrir: " + slidesUse[slide].title}>
+                <AppImage
+                  src={slidesUse[slide].img}
+                  alt={slidesUse[slide].title}
+                  fallback="/placeholder-banner.svg"
+                  className="h-full w-full object-contain object-center md:object-cover"
+                  draggable="false"
+                />
+              </a>
+            ) : (
+              <AppImage
+                src={slidesUse[slide] ? slidesUse[slide].img : ""}
+                alt={slidesUse[slide] ? slidesUse[slide].title : "Slide"}
+                fallback="/placeholder-banner.svg"
+                className="absolute inset-0 h-full w-full object-contain object-center md:object-cover"
+                draggable="false"
+              />
+            )}
 
             {/* overlays */}
             <div className="absolute inset-0 bg-black/0 md:bg-black/10 pointer-events-none" />
@@ -422,7 +420,7 @@ export default function Home() {
           {/* States */}
           {q.isLoading || qCats.isLoading ? (
             <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-6">
-              <div className="text-m font-semibold text-mlate-600">Cargando catálogo…</div>
+              <div className="text-m font-semibold text-slate-600">Cargando catálogo…</div>
               <div className="mt-4 grid gap-4 md:grid-cols-3">
                 <Skel />
                 <Skel />
@@ -457,7 +455,7 @@ export default function Home() {
                       }}
                     />
 
-                    <div className="text-m font-bold text-mlate-600">
+                    <div className="text-m font-bold text-slate-600">
                       {(filtered || []).length} productos
                     </div>
                   </div>
@@ -470,7 +468,7 @@ export default function Home() {
                           p={p}
                           inCart={isInCart(cart, p.id_product)}
                           onToggle={function () {
-                            toggleInCart(p);
+                            handleToggleInCart(p);
                           }}
                         />
                       );
@@ -495,7 +493,7 @@ export default function Home() {
                   })}
                   {/* ✅ 2) Luego: ¿Qué es Don Pepito? */}
                   <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
-                    <div className="text-center text-2xl font-extrabold tracking-tight text-mlate-900 md:text-3xl">
+                    <div className="text-center text-2xl font-extrabold tracking-tight text-slate-900 md:text-3xl">
                       ¿Quienes somos?
                     </div>
 
@@ -512,11 +510,11 @@ export default function Home() {
                       {/* Imagen derecha */}
                       <div className="md:col-span-5">
                         <div className="overflow-hidden rounded-3xl ring-1 ring-slate-200">
-                          <img
+                          <AppImage
                             src={DON_PEPITO_STORY_IMG}
                             alt="Pan Don Pepito"
+                            fallback="/placeholder-banner.svg"
                             className="h-[240px] w-full object-cover md:h-[360px]"
-                            loading="lazy"
                             draggable="false"
                           />
                         </div>
@@ -528,11 +526,11 @@ export default function Home() {
 
                   {/* ✅ 3) Luego: banner full width (PC vs Mobile) */}
                   <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
-                    <img
+                    <AppImage
                       src={isMobile ? HOME_AFTER_4CATS_IMG_MOBILE : HOME_AFTER_4CATS_IMG}
                       alt="Don Pepito"
+                      fallback="/placeholder-banner.svg"
                       className="block w-full h-auto"
-                      loading="lazy"
                       draggable="false"
                     />
                   </div>
@@ -553,7 +551,7 @@ export default function Home() {
                           goCategoriaNombre(c);
                         }}
                         cart={cart}
-                        onToggle={toggleInCart}
+                        onToggle={handleToggleInCart}
                       />
                     );
                   })}
@@ -750,12 +748,12 @@ function Breadcrumb(props) {
   c = String(props.cat || "").trim();
 
   return (
-    <div className="flex flex-wrap items-center gap-2 text-m font-extrabold text-mlate-600">
+    <div className="flex flex-wrap items-center gap-2 text-m font-extrabold text-slate-600">
       <button type="button" onClick={props.onGoHome} className="hover:underline" title="Ir a inicio">
         Inicio
       </button>
 
-      <span className="text-mlate-400">›</span>
+      <span className="text-slate-400">›</span>
 
       <button type="button" onClick={props.onGoCatalog} className="hover:underline" title="Ir a catálogo">
         Catálogo
@@ -763,8 +761,8 @@ function Breadcrumb(props) {
 
       {c && c !== "ALL" ? (
         <>
-          <span className="text-mlate-400">›</span>
-          <span className="text-mlate-900">{c}</span>
+          <span className="text-slate-400">›</span>
+          <span className="text-slate-900">{c}</span>
         </>
       ) : null}
     </div>
@@ -781,7 +779,7 @@ function Tab(props) {
         "rounded-2xl px-4 py-2 text-m font-extrabold transition " +
         (props.active
           ? "bg-emerald-600 text-white shadow"
-          : "border border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
+          : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
       }
     >
       {props.label}
@@ -820,14 +818,14 @@ function PromoBlock(props) {
             aria-label={"Ver categoría " + catName}
             title={"Ver " + catName}
           >
-            <img src={b.img} alt={b.title} className="h-full w-full object-cover" />
+            <AppImage src={b.img} alt={b.title} fallback="/placeholder-banner.svg" className="h-full w-full object-cover" />
           </button>
 
           <div className="p-4">
             {/* ✅ Amarillo: /categoria */}
             <button
               onClick={props.onGoCats}
-              className="w-full rounded-2xl bg-amber-400 px-4 py-3 text-m font-extrabold text-mlate-900 hover:bg-amber-300"
+              className="w-full rounded-2xl bg-amber-400 px-4 py-3 text-m font-extrabold text-slate-900 hover:bg-amber-300"
               type="button"
             >
               {bannerBtnLabel}
@@ -839,12 +837,12 @@ function PromoBlock(props) {
       {/* Productos */}
       <div className={productsCls}>
         <div className="flex items-end justify-between gap-3">
-          <div className="text-2xl font-extrabold text-mlate-900">{b.title}</div>
+          <div className="text-2xl font-extrabold text-slate-900">{b.title}</div>
 
           {/* ✅ /categoria/<catName> */}
           <button
             onClick={props.onGoCat}
-            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-slate-800 hover:bg-slate-50"
             type="button"
           >
             Ver todo →
@@ -888,13 +886,13 @@ function CategoryRow(props) {
     <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
-          <div className="text-m font-extrabold text-mlate-900">{props.title}</div>
-          <div className="text-m font-semibold text-mlate-500">Destacados de la categoría</div>
+          <div className="text-m font-extrabold text-slate-900">{props.title}</div>
+          <div className="text-m font-semibold text-slate-500">Destacados de la categoría</div>
         </div>
 
         <button
           onClick={props.onSeeAll}
-          className="rounded-full border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+          className="rounded-full border border-slate-200 bg-white px-4 py-2 text-m font-extrabold text-slate-800 hover:bg-slate-50"
         >
           Ver todo →
         </button>
@@ -957,7 +955,7 @@ function ProductCardMini(props) {
   return (
     <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
       <button
-        className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-mlate-700 hover:bg-white"
+        className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-slate-700 hover:bg-white"
         aria-label="Favorito"
         type="button"
       >
@@ -973,30 +971,22 @@ function ProductCardMini(props) {
             title="Ver detalle"
             aria-label={"Ver detalle de " + (p && p.product_name ? p.product_name : "producto")}
           >
-            {hasImg ? (
-              <img
-                src={p.product_image_url}
-                alt={p.product_name}
-                className="h-full w-full object-contain transition-transform duration-200 group-hover:scale-[1.03]"
-                loading="lazy"
-                draggable="false"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
-                Sin imagen
-              </div>
-            )}
+            <AppImage
+              src={p.product_image_url}
+              alt={p.product_name}
+              className="h-full w-full object-contain transition-transform duration-200 group-hover:scale-[1.03]"
+              draggable="false"
+            />
           </Link>
         ) : hasImg ? (
-          <img
+          <AppImage
             src={p.product_image_url}
             alt={p.product_name}
             className="h-full w-full object-contain"
-            loading="lazy"
             draggable="false"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
+          <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-slate-300">
             Sin imagen
           </div>
         )}
@@ -1004,7 +994,7 @@ function ProductCardMini(props) {
 
       <div className="mt-3">
         {/* ✅ Título clickeable */}
-        <div className="min-h-[40px] text-m font-extrabold text-mlate-900">
+        <div className="min-h-[40px] text-m font-extrabold text-slate-900">
           {href ? (
             <Link to={href} className="hover:underline" title="Ver detalle">
               {p.product_name}
@@ -1016,14 +1006,14 @@ function ProductCardMini(props) {
 
         <div className="mt-2 flex items-center justify-between">
           {p.has_price ? (
-            <div className="text-lg font-extrabold text-mlate-900">{priceText}</div>
+            <div className="text-lg font-extrabold text-slate-900">{priceText}</div>
           ) : (
             <div className="rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800"> VER
 
             </div>
           )}
 
-          <div className="text-m font-extrabold text-mlate-900">
+          <div className="text-m font-extrabold text-slate-900">
             5 <span className="text-amber-500">★</span>
           </div>
         </div>
@@ -1034,10 +1024,9 @@ function ProductCardMini(props) {
 
 /* Card normal */
 function ProductCardV2(props) {
-  var p, hasImg, priceText, href;
+  var p, priceText, href;
 
   p = props.p;
-  hasImg = !!(p && p.product_image_url);
   priceText = p && p.has_price ? "S/ " + Number(p.price || 0).toFixed(2) : "";
   href = productHref(p);
 
@@ -1051,19 +1040,12 @@ function ProductCardV2(props) {
           title="Ver detalle"
           aria-label={"Ver detalle de " + (p && p.product_name ? p.product_name : "producto")}
         >
-          {hasImg ? (
-            <img
-              src={p.product_image_url}
-              alt={p.product_name}
-              className="h-full w-full object-contain p-3 transition-transform duration-200 group-hover:scale-[1.03]"
-              loading="lazy"
-              draggable="false"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
-              Sin imagen
-            </div>
-          )}
+          <AppImage
+            src={p.product_image_url}
+            alt={p.product_name}
+            className="h-full w-full object-contain p-3 transition-transform duration-200 group-hover:scale-[1.03]"
+            draggable="false"
+          />
 
           {/* mini hint en hover */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/35 to-transparent px-3 py-2 opacity-0 transition-opacity group-hover:opacity-100">
@@ -1072,27 +1054,20 @@ function ProductCardV2(props) {
         </Link>
       ) : (
         <div className="h-44 w-full bg-white">
-          {hasImg ? (
-            <img
-              src={p.product_image_url}
-              alt={p.product_name}
-              className="h-full w-full object-contain p-3"
-              loading="lazy"
-              draggable="false"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
-              Sin imagen
-            </div>
-          )}
+          <AppImage
+            src={p.product_image_url}
+            alt={p.product_name}
+            className="h-full w-full object-contain p-3"
+            draggable="false"
+          />
         </div>
       )}
 
       <div className="px-4 pb-4">
-        <div className="text-[20px] font-bold text-mlate-500">{p.category_name || "—"}</div>
+        <div className="text-[20px] font-bold text-slate-500">{p.category_name || "—"}</div>
 
         {/* ✅ Título también clickeable */}
-        <div className="mt-1 min-h-[44px] text-m font-extrabold text-mlate-900">
+        <div className="mt-1 min-h-[44px] text-m font-extrabold text-slate-900">
           {href ? (
             <Link to={href} className="hover:underline" title="Ver detalle">
               {p.product_name}
@@ -1118,7 +1093,7 @@ function ProductCardV2(props) {
               "rounded-full px-4 py-2 text-m font-extrabold " +
               (props.inCart
                 ? "bg-slate-900 text-white hover:bg-slate-800"
-                : "border border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
+                : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
             }
             type="button"
           >

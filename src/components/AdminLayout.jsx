@@ -1,13 +1,16 @@
-import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { clearAuth } from "../state/auth";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { clearAuth, getUser } from "../state/auth";
 import { Link } from "react-router-dom";
 export default function AdminLayout() {
-  var loc;
+  var loc, navigate, user, userName;
   loc = useLocation();
+  navigate = useNavigate();
+  user = getUser();
+  userName = (user && (user.usuario || user.user || user.email)) || "Administrador";
 
   function logout() {
     clearAuth();
-    window.location.href = "/login";
+    navigate("/login", { replace: true });
   }
 
   return (
@@ -24,6 +27,7 @@ export default function AdminLayout() {
             <SideItem to="/admin" label="Dashboard" />
             <SideItem to="/admin/categorias" label="Categorías" />
             <SideItem to="/admin/productos" label="Productos" />
+            <SideItem to="/admin/carrusel" label="Carrusel" />
           </nav>
 
           <div className="px-3 pb-6">
@@ -44,25 +48,33 @@ export default function AdminLayout() {
             <div className="flex items-center justify-between px-4 py-3 md:px-6">
               <div className="flex items-center gap-3">
                 <div className="md:hidden">
-                  <span className="text-m font-bold text-mlate-900">ERP Admin</span>
+                  <span className="text-sm font-bold text-slate-900">ERP Admin</span>
                 </div>
-                <div className="hidden text-m font-semibold text-mlate-700 md:block">
+                <div className="hidden text-sm font-semibold text-slate-700 md:block">
                   {titleFromPath(loc.pathname)}
                 </div>
               </div>
 
 <div className="flex items-center gap-3">
+  <span className="hidden text-sm font-semibold text-slate-600 sm:block">{userName}</span>
   <Link
     to="/"
     title="Ver página pública"
-    className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m hover:bg-slate-50"
+    className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50"
   >
-    👤
+    Ver sitio
   </Link>
 
 </div>
             </div>
           </header>
+
+          <nav className="flex gap-2 overflow-x-auto border-b border-slate-200 bg-white px-4 py-2 md:hidden">
+            <MobileItem to="/admin" label="Resumen" />
+            <MobileItem to="/admin/categorias" label="Categorías" />
+            <MobileItem to="/admin/productos" label="Productos" />
+            <MobileItem to="/admin/carrusel" label="Carrusel" />
+          </nav>
 
           <main className="flex-1 p-4 md:p-6">
             <Outlet />
@@ -70,6 +82,21 @@ export default function AdminLayout() {
         </div>
       </div>
     </div>
+  );
+}
+
+function MobileItem(props) {
+  return (
+    <NavLink
+      to={props.to}
+      end={props.to === "/admin"}
+      className={function (obj) {
+        return "shrink-0 rounded-lg px-3 py-2 text-sm font-bold " +
+          (obj.isActive ? "bg-slate-900 text-white" : "text-slate-600");
+      }}
+    >
+      {props.label}
+    </NavLink>
   );
 }
 
@@ -96,5 +123,6 @@ function titleFromPath(path) {
   if (path === "/admin") return "Dashboard";
   if (path.indexOf("/admin/categorias") === 0) return "Categorías";
   if (path.indexOf("/admin/productos") === 0) return "Productos";
+  if (path.indexOf("/admin/carrusel") === 0) return "Carrusel";
   return "Administración";
 }

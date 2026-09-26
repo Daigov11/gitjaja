@@ -3,6 +3,8 @@ import { Link, useOutletContext, useParams, useNavigate } from "react-router-dom
 import { useQuery } from "@tanstack/react-query";
 import { listProducts } from "../../services/productsService";
 import { BD_NAME } from "../../services/appConfig";
+import { queryKeys, ENTITY_STALE_TIME } from "../../services/queryKeys";
+import AppImage from "../../components/AppImage";
 
 
 /* ====== TOP-LEVEL VARS ====== */
@@ -22,7 +24,7 @@ export default function CategoryProducts() {
 
   var filtered, shown;
 
-  ctx = useOutletContext ? useOutletContext() : null;
+  ctx = useOutletContext();
   if (!ctx) ctx = {};
 
   params = useParams();
@@ -38,8 +40,9 @@ export default function CategoryProducts() {
   limit = limit[0];
 
   q = useQuery({
-    queryKey: ["public_products", BD_NAME],
+    queryKey: queryKeys.products(BD_NAME),
     queryFn: listProducts,
+    staleTime: ENTITY_STALE_TIME,
   });
 
   ok = q.data && (q.data.codResponse === "1" || q.data.codResponse === 1);
@@ -83,7 +86,7 @@ export default function CategoryProducts() {
       <div className="w-full bg-slate-50">
         <div className="mx-auto w-full max-w-7xl px-4 py-10">
           <div className="rounded-3xl border border-slate-200 bg-white p-6">
-            <div className="text-m font-semibold text-mlate-600">Cargando productos…</div>
+            <div className="text-m font-semibold text-slate-600">Cargando productos…</div>
           </div>
         </div>
       </div>
@@ -102,7 +105,7 @@ export default function CategoryProducts() {
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
                 to="/categoria"
-                className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-slate-800 hover:bg-slate-50"
               >
                 ← Volver a categorías
               </Link>
@@ -126,7 +129,7 @@ export default function CategoryProducts() {
         {/* Breadcrumb + header */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <div className="text-m font-extrabold text-mlate-500">
+            <div className="text-m font-extrabold text-slate-500">
               <Link to="/" className="hover:underline">
                 Inicio
               </Link>{" "}
@@ -135,14 +138,14 @@ export default function CategoryProducts() {
                 Categorías
               </Link>{" "}
               <span className="mx-1">/</span>{" "}
-              <span className="text-mlate-900">{catName || "—"}</span>
+              <span className="text-slate-900">{catName || "—"}</span>
             </div>
 
-            <div className="mt-2 text-2xl font-extrabold text-mlate-900">
+            <div className="mt-2 text-2xl font-extrabold text-slate-900">
               {catName || "Categoría"}
             </div>
 
-            <div className="mt-1 text-m font-semibold text-mlate-600">
+            <div className="mt-1 text-m font-semibold text-slate-600">
               {filtered.length} producto(s) en esta categoría
             </div>
           </div>
@@ -150,7 +153,7 @@ export default function CategoryProducts() {
           <div className="flex flex-wrap items-center gap-2">
             <Link
               to="/categoria"
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+              className="rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-slate-800 hover:bg-slate-50"
             >
               ← Ver categorías
             </Link>
@@ -171,8 +174,8 @@ export default function CategoryProducts() {
         <div className="mt-5 grid gap-3 md:grid-cols-12">
           <div className="md:col-span-8">
             <div className="rounded-3xl border border-slate-200 bg-white p-4">
-              <div className="text-m font-extrabold text-mlate-500">Tip</div>
-              <div className="mt-1 text-m font-semibold text-mlate-700">
+              <div className="text-m font-extrabold text-slate-500">Tip</div>
+              <div className="mt-1 text-m font-semibold text-slate-700">
                 Agrega varios productos a tu lista y luego abre WhatsApp para pedir precios.
               </div>
             </div>
@@ -180,14 +183,14 @@ export default function CategoryProducts() {
 
           <div className="md:col-span-4">
             <div className="rounded-3xl border border-slate-200 bg-white p-4">
-              <div className="text-m font-extrabold text-mlate-500">Ordenar</div>
+              <div className="text-m font-extrabold text-slate-500">Ordenar</div>
               <select
                 value={sort}
                 onChange={function (e) {
                   setSort(e.target.value);
                   setLimit(PAGE_STEP);
                 }}
-                className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-900 outline-none focus:border-emerald-400"
+                className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-slate-900 outline-none focus:border-emerald-400"
               >
                 <option value="featured">Destacados</option>
                 <option value="az">A → Z</option>
@@ -202,10 +205,10 @@ export default function CategoryProducts() {
         {/* Empty */}
         {filtered.length === 0 ? (
           <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-6">
-            <div className="text-m font-extrabold text-mlate-900">
+            <div className="text-m font-extrabold text-slate-900">
               No hay productos en esta categoría
             </div>
-            <div className="mt-2 text-m font-semibold text-mlate-600">
+            <div className="mt-2 text-m font-semibold text-slate-600">
               Prueba con otra categoría.
             </div>
             <div className="mt-4">
@@ -247,7 +250,7 @@ export default function CategoryProducts() {
                       return Number(n || 0) + PAGE_STEP;
                     });
                   }}
-                  className="rounded-2xl border border-slate-200 bg-white px-6 py-3 text-m font-extrabold text-mlate-900 hover:bg-slate-50"
+                  className="rounded-2xl border border-slate-200 bg-white px-6 py-3 text-m font-extrabold text-slate-900 hover:bg-slate-50"
                 >
                   Mostrar más
                 </button>
@@ -263,13 +266,12 @@ export default function CategoryProducts() {
 /* ---------- UI ---------- */
 
 function ProductCard(props) {
-  var p, hasImg, priceText, inCart;
+  var p, priceText, inCart;
   var nav;
 
   p = props.p;
   nav = useNavigate();
 
-  hasImg = !!(p && p.product_image_url);
   inCart = isInCart(props.cart, p.id_product);
   priceText = p && p.has_price ? "S/ " + Number(p.price || 0).toFixed(2) : "";
 
@@ -297,24 +299,13 @@ function ProductCard(props) {
         tabIndex={0}
         title="Ver detalle"
       >
-        {hasImg ? (
-          <img
-            src={p.product_image_url}
-            alt={p.product_name}
-            className="h-full w-full object-contain p-3"
-            loading="lazy"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
-            Sin imagen
-          </div>
-        )}
+        <AppImage src={p.product_image_url} alt={p.product_name} className="h-full w-full object-contain p-3" />
       </div>
 
       <div className="px-4 pb-4">
-        <div className="text-[11px] font-bold text-mlate-500">{p.category_name || "—"}</div>
+        <div className="text-[11px] font-bold text-slate-500">{p.category_name || "—"}</div>
 
-        <div className="mt-1 min-h-[44px] text-m font-extrabold text-mlate-900">
+        <div className="mt-1 min-h-[44px] text-m font-extrabold text-slate-900">
           {p.product_name}
         </div>
 
@@ -333,7 +324,7 @@ function ProductCard(props) {
               "rounded-full px-4 py-2 text-m font-extrabold " +
               (inCart
                 ? "bg-slate-900 text-white hover:bg-slate-800"
-                : "border border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
+                : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
             }
           >
             {inCart ? "Quitar" : "Agregar"}
@@ -359,7 +350,7 @@ function ProductCard(props) {
 function safeDecode(x) {
   try {
     return decodeURIComponent(String(x || "")).trim();
-  } catch (e) {
+  } catch {
     return String(x || "").trim();
   }
 }

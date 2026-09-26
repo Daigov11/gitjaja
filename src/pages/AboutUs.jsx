@@ -1,12 +1,6 @@
 import { Link, useOutletContext } from "react-router-dom";
-
-/* ===== TOP-LEVEL DEFAULTS ===== */
-var DEFAULT_BRAND;
-var DEFAULT_LOGO_URL;
-
-DEFAULT_BRAND = "Harinas Don Pepito";
-DEFAULT_LOGO_URL =
-  "https://api-centralizador.apiworking.pe/images/862e40f2-e0c7-4970-86d2-855c1aba8773.png";
+import AppImage from "../components/AppImage";
+import { BRAND as DEFAULT_BRAND, LOGO_URL as DEFAULT_LOGO_URL, LOGO_FALLBACK } from "../config/publicSiteConfig";
 
 export default function AboutUs() {
   var ctx;
@@ -34,10 +28,10 @@ export default function AboutUs() {
             <div className="text-m font-extrabold uppercase tracking-widest text-emerald-700">
               Nosotros
             </div>
-            <h1 className="mt-2 text-3xl font-black tracking-tight text-mlate-900 md:text-4xl">
+            <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
               Conoce más sobre {BRAND}
             </h1>
-            <p className="mt-4 text-base leading-relaxed text-mlate-600">
+            <p className="mt-4 text-base leading-relaxed text-slate-600">
               Don Pepito es una empresa dedicada a la comercialización y distribución de insumos para la panadería,
               pastelería y abarrotes. Ofrecemos productos de calidad como harinas, mantecas, margarinas y una amplia
               variedad de artículos esenciales, atendiendo con compromiso, puntualidad y precios justos a panaderos,
@@ -64,19 +58,13 @@ export default function AboutUs() {
           </div>
 
           <div className="flex items-center justify-center">
-            {LOGO_URL ? (
-              <img
-                src={LOGO_URL}
-                alt={BRAND}
-                className="h-20 w-auto object-contain md:h-28"
-                loading="lazy"
-                draggable="false"
-              />
-            ) : (
-              <div className="grid h-24 w-24 place-items-center rounded-2xl bg-slate-100 text-m font-extrabold text-mlate-500 md:h-32 md:w-32">
-                LOGO
-              </div>
-            )}
+            <AppImage
+              src={LOGO_URL}
+              fallback={LOGO_FALLBACK}
+              alt={BRAND}
+              className="h-20 w-auto object-contain md:h-28"
+              draggable="false"
+            />
           </div>
         </div>
       </div>
@@ -84,20 +72,20 @@ export default function AboutUs() {
       {/* Bloques */}
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         <div className="rounded-3xl border bg-white p-6">
-          <div className="text-m font-black text-mlate-900">Misión</div>
-          <p className="mt-2 text-m leading-relaxed text-mlate-600">
+          <div className="text-m font-black text-slate-900">Misión</div>
+          <p className="mt-2 text-m leading-relaxed text-slate-600">
 Satisfacer la demanda de los clientes, distribuyendo productos de alta calidad para la panificación, repostería y el consumo masivo.    </p>
         </div>
 
         <div className="rounded-3xl border bg-white p-6">
-          <div className="text-m font-black text-mlate-900">Visión</div>
-          <p className="mt-2 text-m leading-relaxed text-mlate-600">
+          <div className="text-m font-black text-slate-900">Visión</div>
+          <p className="mt-2 text-m leading-relaxed text-slate-600">
 Consolidarnos como un proveedor líder en insumos de panadería y abarrotes, ampliando nuestra red de distribución.      </p>
         </div>
 
         <div className="rounded-3xl border bg-white p-6">
-          <div className="text-m font-black text-mlate-900">Valores</div>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-m text-mlate-600">
+          <div className="text-m font-black text-slate-900">Valores</div>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-m text-slate-600">
             <li>Calidad</li>
             <li>Responsabilidad</li>
             <li>Rapidez</li>

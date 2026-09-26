@@ -3,16 +3,13 @@ import { Link, useParams, useOutletContext, useNavigate } from "react-router-dom
 import { useQuery } from "@tanstack/react-query";
 import { listProducts } from "../services/productsService";
 import { BD_NAME } from "../services/appConfig";
+import { queryKeys, ENTITY_STALE_TIME } from "../services/queryKeys";
+import AppImage from "../components/AppImage";
+import { CART_KEY, PHONE } from "../config/publicSiteConfig";
 
 /* ===== TOP-LEVEL VARS ===== */
-var CART_KEY;
-var PHONE;
-
 var VARIANT_PREFIXES;
 var VARIANT_TYPES_ORDER;
-
-CART_KEY = "dp_cart_interest_v1";
-PHONE = "946762926";
 
 /* palabras típicas para detectar “presentación” */
 VARIANT_PREFIXES = [
@@ -63,7 +60,7 @@ export default function ProductDetail() {
 
   navigate = useNavigate();
 
-  ctx = useOutletContext ? useOutletContext() : null;
+  ctx = useOutletContext();
   if (!ctx) ctx = {};
 
   tab = useState("desc");
@@ -121,8 +118,9 @@ export default function ProductDetail() {
   };
 
   q = useQuery({
-    queryKey: ["public_products", BD_NAME],
+    queryKey: queryKeys.products(BD_NAME),
     queryFn: listProducts,
+    staleTime: ENTITY_STALE_TIME,
   });
 
   ok = q.data && (q.data.codResponse === "1" || q.data.codResponse === 1);
@@ -145,7 +143,9 @@ export default function ProductDetail() {
     function () {
       try {
         window.scrollTo(0, 0);
-      } catch (e) {}
+      } catch {
+        // scroll no soportado; no es crítico
+      }
     },
     [id]
   );
@@ -279,7 +279,7 @@ export default function ProductDetail() {
       <div className="w-full bg-slate-50">
         <div className="mx-auto w-full max-w-7xl px-4 py-10">
           <div className="rounded-3xl border border-slate-200 bg-white p-6">
-            <div className="text-m font-extrabold text-mlate-900">Producto no encontrado</div>
+            <div className="text-m font-extrabold text-slate-900">Producto no encontrado</div>
             <Link
               className="mt-3 inline-block text-m font-extrabold text-emerald-700 hover:underline"
               to="/"
@@ -303,7 +303,7 @@ export default function ProductDetail() {
 
       <div className="mx-auto w-full max-w-7xl px-4 py-6 md:py-8">
         {/* Breadcrumb */}
-        <div className="flex flex-wrap items-center gap-2 text-m font-semibold text-mlate-500">
+        <div className="flex flex-wrap items-center gap-2 text-m font-semibold text-slate-500">
           <Link to="/" className="hover:underline">
             Inicio
           </Link>
@@ -312,7 +312,7 @@ export default function ProductDetail() {
             Catálogo
           </Link>
           <span>›</span>
-          <span className="text-mlate-700">{product.category_name || "Categoría"}</span>
+          <span className="text-slate-700">{product.category_name || "Categoría"}</span>
         </div>
 
         {/* MAIN */}
@@ -321,19 +321,12 @@ export default function ProductDetail() {
           <div className="lg:col-span-7">
             <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
               <div className="relative bg-slate-50">
-                {product.product_image_url ? (
-                  <img
-                    src={product.product_image_url}
-                    alt={product.product_name}
-                    className="h-[340px] w-full object-contain p-6 transition-transform duration-300 hover:scale-[1.03] md:h-[540px]"
-                    loading="lazy"
-                    draggable="false"
-                  />
-                ) : (
-                  <div className="flex h-[340px] items-center justify-center text-m font-extrabold text-mlate-400 md:h-[540px]">
-                    Sin imagen
-                  </div>
-                )}
+                <AppImage
+                  src={product.product_image_url}
+                  alt={product.product_name}
+                  className="h-[340px] w-full object-contain p-6 transition-transform duration-300 hover:scale-[1.03] md:h-[540px]"
+                  draggable="false"
+                />
 
                 {/* chips top-left */}
                 <div className="absolute left-4 top-4 flex flex-wrap gap-2">
@@ -366,14 +359,14 @@ export default function ProductDetail() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={onShare}
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-slate-800 hover:bg-slate-50"
                   >
                     <ShareIcon /> Compartir
                   </button>
 
                   <Link
                     to="/categoria"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-m font-extrabold text-slate-800 hover:bg-slate-50"
                   >
                     ← Volver
                   </Link>
@@ -390,27 +383,27 @@ export default function ProductDetail() {
                   {product.category_name || "—"}
                 </div>
 
-                <div className="text-[11px] font-extrabold text-mlate-500">
+                <div className="text-[11px] font-extrabold text-slate-500">
                   ID: {String(product.id_product || "-")}
                 </div>
               </div>
 
-              <div className="mt-3 text-2xl font-extrabold leading-tight text-mlate-900 md:text-3xl">
+              <div className="mt-3 text-2xl font-extrabold leading-tight text-slate-900 md:text-3xl">
                 {product.product_name}
               </div>
 
-              <div className="mt-2 inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-extrabold text-mlate-700">
+              <div className="mt-2 inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-extrabold text-slate-700">
                 Presentación: {variantLabelFromName(product.product_name)}
               </div>
 
-              <div className="mt-3 text-m font-semibold text-mlate-700">
+              <div className="mt-3 text-m font-semibold text-slate-700">
                 {product.product_desc || "—"}
               </div>
 
               {/* ✅ PRESENTACIONES / VARIANTES */}
               {variants && variants.length ? (
                 <div className="mt-5 rounded-3xl border border-slate-200 bg-white p-4">
-                  <div className="text-m font-extrabold text-mlate-600">Presentaciones</div>
+                  <div className="text-m font-extrabold text-slate-600">Presentaciones</div>
 
                   <div
                     className="mt-3 flex gap-3 overflow-x-auto pb-2"
@@ -436,7 +429,7 @@ export default function ProductDetail() {
                     })}
                   </div>
 
-                  <div className="mt-2 text-[11px] font-semibold text-mlate-500">
+                  <div className="mt-2 text-[11px] font-semibold text-slate-500">
                     Tip: toca una presentación para ver su imagen/precio (unidad, caja, etc.).
                   </div>
                 </div>
@@ -446,7 +439,7 @@ export default function ProductDetail() {
               <div className="mt-5 rounded-3xl border border-slate-200 bg-slate-50 p-4">
                 <div className="flex items-end justify-between gap-3">
                   <div>
-                    <div className="text-m font-extrabold text-mlate-600">Precio</div>
+                    <div className="text-m font-extrabold text-slate-600">Precio</div>
                     {product.has_price ? (
                       <div className="mt-1 text-2xl font-extrabold text-red-600">
                         S/ {Number(product.price || 0).toFixed(2)}
@@ -458,8 +451,8 @@ export default function ProductDetail() {
                     )}
                   </div>
 
-                  <div className="text-right text-m font-semibold text-mlate-600">
-                    <div className="font-extrabold text-mlate-700">WhatsApp</div>
+                  <div className="text-right text-m font-semibold text-slate-600">
+                    <div className="font-extrabold text-slate-700">WhatsApp</div>
                     <div>+51 {PHONE}</div>
                   </div>
                 </div>
@@ -491,7 +484,7 @@ export default function ProductDetail() {
   onClick={function () {
     openWalinkForProduct(product);
   }}
-  className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-m font-extrabold text-mlate-800 hover:bg-slate-50"
+  className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-m font-extrabold text-slate-800 hover:bg-slate-50"
 >
   ¡PEDIR!
 </button>
@@ -508,13 +501,13 @@ export default function ProductDetail() {
 
                 <div className="mt-3 rounded-3xl border border-slate-200 bg-white p-4">
                   {tab === "desc" ? (
-                    <div className="text-m font-semibold leading-relaxed text-mlate-700">
+                    <div className="text-m font-semibold leading-relaxed text-slate-700">
                       {product.product_desc ? product.product_desc : "Este producto no tiene descripción aún."}
                     </div>
                   ) : null}
 
                   {tab === "info" ? (
-                    <div className="grid gap-3 text-m font-semibold text-mlate-700">
+                    <div className="grid gap-3 text-m font-semibold text-slate-700">
                       <RowInfo k="Categoría" v={product.category_name || "—"} />
                       <RowInfo k="ID producto" v={String(product.id_product || "—")} />
                       <RowInfo k="Precio" v={product.has_price ? "Visible" : "Consultar"} />
@@ -524,7 +517,7 @@ export default function ProductDetail() {
                   ) : null}
 
                   {tab === "help" ? (
-                    <div className="space-y-2 text-m font-semibold text-mlate-700">
+                    <div className="space-y-2 text-m font-semibold text-slate-700">
                       <div className="flex gap-2">
                         <span className="mt-[2px] inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-600 text-[11px] font-extrabold text-white">
                           1
@@ -543,7 +536,7 @@ export default function ProductDetail() {
                         </span>
                         <div>Te respondemos con precios y disponibilidad.</div>
                       </div>
-                      <div className="mt-3 text-m font-semibold text-mlate-500">
+                      <div className="mt-3 text-m font-semibold text-slate-500">
                         Nota: esto no es checkout; es catálogo informativo + consulta.
                       </div>
                     </div>
@@ -573,10 +566,10 @@ export default function ProductDetail() {
           <div className="flex items-end justify-between gap-3">
             <div>
               <div className="text-m font-extrabold text-emerald-700">Sugerencias</div>
-              <div className="mt-1 text-2xl font-extrabold text-mlate-900">
+              <div className="mt-1 text-2xl font-extrabold text-slate-900">
                 Productos relacionados
               </div>
-              <div className="mt-1 text-m font-semibold text-mlate-600">
+              <div className="mt-1 text-m font-semibold text-slate-600">
                 Más de la categoría:{" "}
                 <span className="font-extrabold">{product.category_name || "—"}</span>
               </div>
@@ -590,7 +583,7 @@ export default function ProductDetail() {
           {related && related.length ? (
             <RelatedRow items={related} cart={cart} onToggle={toggleInCart} />
           ) : (
-            <div className="mt-4 rounded-3xl border border-slate-200 bg-white p-6 text-m font-semibold text-mlate-600">
+            <div className="mt-4 rounded-3xl border border-slate-200 bg-white p-6 text-m font-semibold text-slate-600">
               Aún no hay productos relacionados para esta categoría.
             </div>
           )}
@@ -601,7 +594,7 @@ export default function ProductDetail() {
       <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
           <div className="min-w-0 flex-1">
-            <div className="truncate text-m font-extrabold text-mlate-900">{product.product_name}</div>
+            <div className="truncate text-m font-extrabold text-slate-900">{product.product_name}</div>
             {product.has_price ? (
               <div className="text-m font-extrabold text-red-600">
                 S/ {Number(product.price || 0).toFixed(2)}
@@ -628,7 +621,7 @@ export default function ProductDetail() {
 
           <button
             onClick={openCartUi}
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-mlate-800"
+            className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-m font-extrabold text-slate-800"
           >
             WA ({cart.length})
           </button>
@@ -649,7 +642,7 @@ function readCart() {
     data = raw ? JSON.parse(raw) : [];
     if (!Array.isArray(data)) return [];
     return data;
-  } catch (e) {
+  } catch {
     return [];
   }
 }
@@ -771,7 +764,7 @@ function normalizeText(s) {
   x = x.replace(/Ñ/g, "N");
 
   /* limpiar símbolos raros */
-  x = x.replace(/[_\-.,;:(){}\[\]]/g, " ");
+  x = x.replace(/[_\-.,;:(){}[\]]/g, " ");
   x = x.replace(/\s+/g, " ").trim();
 
   return x;
@@ -786,7 +779,7 @@ function TabBtn(props) {
         "rounded-2xl px-4 py-2 text-m font-extrabold transition " +
         (props.active
           ? "bg-emerald-600 text-white"
-          : "border border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
+          : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
       }
     >
       {props.label}
@@ -797,16 +790,16 @@ function TabBtn(props) {
 function RowInfo(props) {
   return (
     <div className="flex items-start justify-between gap-3">
-      <div className="text-m font-extrabold text-mlate-500">{props.k}</div>
-      <div className="text-right text-m font-extrabold text-mlate-800">{props.v}</div>
+      <div className="text-m font-extrabold text-slate-500">{props.k}</div>
+      <div className="text-right text-m font-extrabold text-slate-800">{props.v}</div>
     </div>
   );
 }
 
 function Chip(props) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] font-extrabold text-mlate-700 ring-1 ring-slate-200">
-      <span className="text-mlate-500">{props.icon}</span>
+    <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] font-extrabold text-slate-700 ring-1 ring-slate-200">
+      <span className="text-slate-500">{props.icon}</span>
       {props.label}
     </span>
   );
@@ -814,10 +807,9 @@ function Chip(props) {
 
 /* mini card de presentación */
 function VariantMini(props) {
-  var p, hasImg, label;
+  var p, label;
 
   p = props.p;
-  hasImg = !!(p && p.product_image_url);
   label = variantLabelFromName(p && p.product_name ? p.product_name : "");
 
   return (
@@ -832,24 +824,17 @@ function VariantMini(props) {
       type="button"
     >
       <div className="h-12 w-12 overflow-hidden rounded-2xl bg-white ring-1 ring-slate-200">
-        {hasImg ? (
-          <img
-            src={p.product_image_url}
-            alt={p.product_name}
-            className="h-full w-full object-contain p-1"
-            loading="lazy"
-            draggable="false"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center text-[10px] font-extrabold text-mlate-300">
-            —
-          </div>
-        )}
+        <AppImage
+          src={p.product_image_url}
+          alt={p.product_name}
+          className="h-full w-full object-contain p-1"
+          draggable="false"
+        />
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="text-[11px] font-extrabold text-mlate-700">{label}</div>
-        <div className="mt-0.5 truncate text-m font-semibold text-mlate-600">
+        <div className="text-[11px] font-extrabold text-slate-700">{label}</div>
+        <div className="mt-0.5 truncate text-m font-semibold text-slate-600">
           {p && p.product_name ? p.product_name : "—"}
         </div>
 
@@ -871,7 +856,7 @@ function VariantMini(props) {
           ACTUAL
         </span>
       ) : (
-        <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-[10px] font-extrabold text-mlate-700">
+        <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-[10px] font-extrabold text-slate-700">
           VER
         </span>
       )}
@@ -934,33 +919,21 @@ function RelatedRow(props) {
 }
 
 function MiniCard(props) {
-  var p, hasImg, inCart;
+  var p, inCart;
 
   p = props.p;
-  hasImg = !!(p && p.product_image_url);
   inCart = isInCart(props.cart || [], p.id_product);
 
   return (
     <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white">
       <div className="h-40 w-full bg-white">
-        {hasImg ? (
-          <img
-            src={p.product_image_url}
-            alt={p.product_name}
-            className="h-full w-full object-contain p-3"
-            loading="lazy"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center text-m font-extrabold text-mlate-300">
-            Sin imagen
-          </div>
-        )}
+        <AppImage src={p.product_image_url} alt={p.product_name} className="h-full w-full object-contain p-3" />
       </div>
 
       <div className="px-4 pb-4">
-        <div className="text-[11px] font-bold text-mlate-500">{p.category_name || "—"}</div>
+        <div className="text-[11px] font-bold text-slate-500">{p.category_name || "—"}</div>
 
-        <div className="mt-1 min-h-[44px] text-m font-extrabold text-mlate-900">
+        <div className="mt-1 min-h-[44px] text-m font-extrabold text-slate-900">
           {p.product_name}
         </div>
 
@@ -983,7 +956,7 @@ function MiniCard(props) {
               "rounded-full px-4 py-2 text-m font-extrabold " +
               (inCart
                 ? "bg-slate-900 text-white hover:bg-slate-800"
-                : "border border-slate-200 bg-white text-mlate-800 hover:bg-slate-50")
+                : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50")
             }
           >
             {inCart ? "Quitar" : "Agregar"}
@@ -1143,7 +1116,7 @@ function openWalinkForProduct(p) {
   w = null;
   try {
     w = window.open(url, "_blank", "noopener,noreferrer");
-  } catch (e) {
+  } catch {
     w = null;
   }
 
@@ -1151,7 +1124,9 @@ function openWalinkForProduct(p) {
   if (!w) {
     try {
       window.location.href = url;
-    } catch (e2) {}
+    } catch {
+      // no se pudo navegar; el usuario puede intentar manualmente
+    }
   }
 }
 
@@ -1163,7 +1138,7 @@ function buildWalinkProduct(p) {
   url = "";
   try {
     url = window.location && window.location.href ? String(window.location.href) : "";
-  } catch (e) {
+  } catch {
     url = "";
   }
 

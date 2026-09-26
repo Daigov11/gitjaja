@@ -12,6 +12,19 @@ dist
 dist-ssr
 *.local
 
+# Environment
+.env
+.env.*
+!.env.example
+!.env.compose.example
+
+# Database dumps — never commit production data or backups
+*.sql
+*.sql.gz
+*.dump
+# ...except real schema migrations checked into the backend source
+!backend/migrations/*.sql
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

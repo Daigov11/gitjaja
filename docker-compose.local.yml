@@ -1,0 +1,86 @@
+# Stack completo para desarrollo local: mysql + backend + frontend.
+# El dump NUNCA se importa automáticamente aquí (ver backend/README.md para
+# el paso manual y explícito de restauración), para no arriesgar sobrescribir
+# datos en un volumen que ya tenga algo.
+#
+# Uso:
+#   cp .env.compose.example .env
+#   docker compose -f docker-compose.local.yml up -d --build
+#   # primera vez / o para reinicializar datos:
+#   docker compose -f docker-compose.local.yml exec -T mysql \
+#     mysql -uroot -p"$MYSQL_ROOT_PASSWORD" don_pepito_web_local < dump-don_pepito_web-*.sql
+#   docker compose -f docker-compose.local.yml exec backend npm run seed:user
+#
+# Parar:      docker compose -f docker-compose.local.yml down
+# Reinicializar datos desde cero (borra el volumen):
+#             docker compose -f docker-compose.local.yml down -v
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: don-pepito-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-don_pepito_web_local}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - don_pepito_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  backend:
+    build: ./backend
+    container_name: don-pepito-backend
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      PORT: 4000
+      NODE_ENV: development
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-don_pepito_web_local}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      ALLOWED_BD_NAME: ${ALLOWED_BD_NAME:-don_pepito_web}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-12h}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173}
+      UPLOAD_DIR: uploads
+      PUBLIC_UPLOAD_BASE_URL: ${PUBLIC_UPLOAD_BASE_URL:-http://localhost:4000/images}
+      # Requerido por `npm run seed:user` (no hay default hardcodeado).
+      LOCAL_DEV_USER: ${LOCAL_DEV_USER:-dev.local@donpepito.test}
+      LOCAL_DEV_PASSWORD: ${LOCAL_DEV_PASSWORD}
+    ports:
+      - "4000:4000"
+    volumes:
+      - don_pepito_uploads:/app/uploads
+
+  frontend:
+    build:
+      context: .
+      args:
+        VITE_API_BASE_URL: http://localhost:4000/api
+        VITE_IMAGES_BASE_URL: http://localhost:4000/images
+        VITE_IMAGE_UPLOAD_URL: ${VITE_IMAGE_UPLOAD_URL:-https://api-centralizador.apiworking.pe/api/Data/images}
+        VITE_BD_NAME: ${ALLOWED_BD_NAME:-don_pepito_web}
+        VITE_WHATSAPP_PHONE: ${VITE_WHATSAPP_PHONE:-946762926}
+    container_name: don-pepito-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  don_pepito_mysql_data:
+  don_pepito_uploads:

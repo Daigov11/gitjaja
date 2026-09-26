@@ -1,21 +1,57 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import AdminLayout from "../components/AdminLayout";
 import PublicLayout from "../components/PublicLayout";
-
 import Home from "../pages/Home";
-import ProductDetail from "../pages/ProductDetail";
-import Login from "../pages/Login";
 
-import CategoryIndex from "../pages/catalog/CategoryIndex";
-import CategoryProducts from "../pages/catalog/CategoryProducts";
+var AdminLayout = lazy(function () {
+  return import("../components/AdminLayout");
+});
 
-import Dashboard from "../pages/admin/Dashboard";
-import Categories from "../pages/admin/Categories";
-import Products from "../pages/admin/Products";
-import AboutUs from "../pages/AboutUs";
-import WorkWithUs from "../pages/WorkWithUs";
+var ProductDetail = lazy(function () {
+  return import("../pages/ProductDetail");
+});
+var Login = lazy(function () {
+  return import("../pages/Login");
+});
 
+var CategoryIndex = lazy(function () {
+  return import("../pages/catalog/CategoryIndex");
+});
+var CategoryProducts = lazy(function () {
+  return import("../pages/catalog/CategoryProducts");
+});
+
+var Dashboard = lazy(function () {
+  return import("../pages/admin/Dashboard");
+});
+var Categories = lazy(function () {
+  return import("../pages/admin/Categories");
+});
+var Products = lazy(function () {
+  return import("../pages/admin/Products");
+});
+var Carousel = lazy(function () {
+  return import("../pages/admin/Carousel");
+});
+var AboutUs = lazy(function () {
+  return import("../pages/AboutUs");
+});
+var WorkWithUs = lazy(function () {
+  return import("../pages/WorkWithUs");
+});
+
+function RouteFallback() {
+  return (
+    <div className="flex min-h-[40vh] items-center justify-center text-m font-semibold text-slate-500">
+      Cargando…
+    </div>
+  );
+}
+
+function withSuspense(element) {
+  return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
+}
 
 export default function AppRouter() {
   return (
@@ -24,26 +60,27 @@ export default function AppRouter() {
         {/* Público con Layout */}
 <Route element={<PublicLayout />}>
   <Route path="/" element={<Home />} />
-  <Route path="/producto/:id" element={<ProductDetail />} />
+  <Route path="/producto/:id" element={withSuspense(<ProductDetail />)} />
 
   {/* ✅ categorías */}
-  <Route path="/categoria" element={<CategoryIndex />} />
-  <Route path="/categoria/:cat" element={<CategoryProducts />} />
+  <Route path="/categoria" element={withSuspense(<CategoryIndex />)} />
+  <Route path="/categoria/:cat" element={withSuspense(<CategoryProducts />)} />
 
   {/* ✅ nuevas vistas públicas */}
-  <Route path="/aboutus" element={<AboutUs />} />
-  <Route path="/trabaja-con-nosotros" element={<WorkWithUs />} />
+  <Route path="/aboutus" element={withSuspense(<AboutUs />)} />
+  <Route path="/trabaja-con-nosotros" element={withSuspense(<WorkWithUs />)} />
 
-  <Route path="/login" element={<Login />} />
+  <Route path="/login" element={withSuspense(<Login />)} />
 </Route>
 
 
         {/* Admin protegido */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="categorias" element={<Categories />} />
-            <Route path="productos" element={<Products />} />
+          <Route path="/admin" element={withSuspense(<AdminLayout />)}>
+            <Route index element={withSuspense(<Dashboard />)} />
+            <Route path="categorias" element={withSuspense(<Categories />)} />
+            <Route path="productos" element={withSuspense(<Products />)} />
+            <Route path="carrusel" element={withSuspense(<Carousel />)} />
           </Route>
         </Route>
 

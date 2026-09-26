@@ -1,189 +1,63 @@
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { listCategories } from "../../services/categoriesService";
+import { listProducts } from "../../services/productsService";
 import { getUser } from "../../state/auth";
+import { BD_NAME } from "../../services/appConfig";
+import { queryKeys, ENTITY_STALE_TIME } from "../../services/queryKeys";
+import { countActive, countWithoutPrice } from "./dashboardMetrics";
 
 export default function Dashboard() {
-  var user;
-  var name;
+  var categoriesQuery, productsQuery, categories, products, user, name, loading, error;
 
+  categoriesQuery = useQuery({
+    queryKey: queryKeys.categories(BD_NAME),
+    queryFn: listCategories,
+    staleTime: ENTITY_STALE_TIME,
+  });
+  productsQuery = useQuery({
+    queryKey: queryKeys.products(BD_NAME),
+    queryFn: listProducts,
+    staleTime: ENTITY_STALE_TIME,
+  });
+  categories = responseItems(categoriesQuery.data);
+  products = responseItems(productsQuery.data);
   user = getUser();
   name = (user && (user.usuario || user.user || user.email)) || "Usuario";
+  loading = categoriesQuery.isLoading || productsQuery.isLoading;
+  error = categoriesQuery.isError || productsQuery.isError;
 
   return (
-    <div className="min-h-[calc(100vh-32px)] bg-slate-50 p-6">
-      <div className="mx-auto max-w-6xl space-y-6">
-        {/* Header */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-m font-medium text-mlate-500" hrfe>Panel de administración</p>
-            <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-mlate-900">
-              Dashboard
-            </h1>
-            <p className="mt-2 text-m text-mlate-600">
-              Bienvenido: <span className="font-semibold text-mlate-900">{name}</span>
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <Link
-              to="/admin/categorias"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-m font-semibold text-mlate-900 shadow-sm hover:bg-slate-50"
-            >
-              + Nueva categoría
-            </Link>
-            <Link
-              to="/admin/productos"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-m font-semibold text-white shadow-sm hover:bg-slate-800"
-            >
-              + Nuevo producto
-            </Link>
-          </div>
+    <div className="mx-auto max-w-6xl space-y-6">
+      <section className="rounded-2xl bg-slate-950 px-5 py-6 text-white shadow-sm md:px-7">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <div><p className="text-sm font-medium text-white/60">Panel de administración</p><h1 className="mt-1 text-3xl font-extrabold tracking-tight">Hola, {name}</h1><p className="mt-2 text-sm text-white/70">Consulta el estado del catálogo y gestiona su contenido.</p></div>
+          <div className="flex gap-3"><Link to="/admin/categorias" className="rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-slate-900 hover:bg-slate-100">Gestionar categorías</Link><Link to="/admin/productos" className="rounded-xl border border-white/25 px-4 py-2.5 text-sm font-bold hover:bg-white/10">Gestionar productos</Link></div>
         </div>
+      </section>
 
-        {/* KPI cards (mock por ahora) */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <KpiCard title="Categorías" value="—" hint="Pendiente endpoint" />
-          <KpiCard title="Productos" value="—" hint="Pendiente endpoint" />
-          <KpiCard title="Activos" value="—" hint="Pendiente endpoint" />
-          <KpiCard title="Sin precio" value="—" hint="Mostrar:  " />
+      {error ? <Notice text="No se pudieron cargar todas las métricas. Puedes reintentar desde las secciones correspondientes." /> : null}
+
+      <section className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <Metric label="Categorías" value={loading ? "…" : categories.length} hint="registradas" />
+        <Metric label="Productos" value={loading ? "…" : products.length} hint="en catálogo" />
+        <Metric label="Activos" value={loading ? "…" : countActive(products)} hint="productos visibles" tone="success" />
+        <Metric label="Sin precio" value={loading ? "…" : countWithoutPrice(products)} hint="requieren consulta" tone="warning" />
+      </section>
+
+      <section className="grid gap-6 lg:grid-cols-5">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:col-span-3">
+          <div className="flex items-center justify-between"><div><h2 className="font-extrabold text-slate-900">Estado del catálogo</h2><p className="mt-1 text-sm text-slate-600">Distribución actual de productos.</p></div><button type="button" onClick={function () { categoriesQuery.refetch(); productsQuery.refetch(); }} className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">Actualizar</button></div>
+          <div className="mt-6 space-y-5"><Progress label="Productos activos" value={countActive(products)} total={products.length} color="bg-emerald-500" /><Progress label="Productos inactivos" value={products.length - countActive(products)} total={products.length} color="bg-slate-400" /><Progress label="Con precio publicado" value={products.length - countWithoutPrice(products)} total={products.length} color="bg-indigo-500" /></div>
         </div>
-
-        {/* Main grid */}
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          {/* Left: quick actions + placeholder chart */}
-          <div className="space-y-4 lg:col-span-2">
-            {/* Placeholder chart card */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-base font-bold text-mlate-900">Resumen</h2>
-                  <p className="mt-1 text-m text-mlate-600">
-                    Gráficos desactivados por ahora, pero la sección ya está lista.
-                  </p>
-                </div>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-m font-semibold text-mlate-700">
-                  Próximamente
-                </span>
-              </div>
-
-              {/* Fake chart skeleton */}
-              <div className="mt-5">
-                <div className="h-44 w-full rounded-xl bg-slate-50 p-4">
-                  <div className="h-full w-full rounded-lg border border-dashed border-slate-200" />
-                </div>
-                <div className="mt-3 flex gap-2">
-                  <span className="h-2 w-16 rounded-full bg-slate-200" />
-                  <span className="h-2 w-10 rounded-full bg-slate-200" />
-                  <span className="h-2 w-24 rounded-full bg-slate-200" />
-                </div>
-              </div>
-            </div>
-
-            {/* Quick actions */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <div className="flex items-center justify-between">
-                <h2 className="text-base font-bold text-mlate-900">Accesos rápidos</h2>
-                <span className="text-m font-medium text-mlate-500">Admin</span>
-              </div>
-
-              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <QuickAction
-                  to="/admin/categorias"
-                  title="Gestionar categorías"
-                  desc="Crea, edita y elimina categorías."
-                />
-                <QuickAction
-                  to="/admin/productos"
-                  title="Gestionar productos"
-                  desc="Crea productos, sube imagen y asigna categoría."
-                  primary={true}
-                />
-                <QuickAction
-                  to="/admin"
-                  title="Gráficos"
-                  desc="Desactivado por el momento."
-                  disabled={true}
-                />
-                <QuickAction
-                  to="/"
-                  title="Ver Home público"
-                  desc="Revisar cómo se ve el catálogo."
-                />
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-
-
-      </div>
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:col-span-2"><h2 className="font-extrabold text-slate-900">Acciones rápidas</h2><p className="mt-1 text-sm text-slate-600">Accede a las tareas más frecuentes.</p><div className="mt-5 grid gap-3"><QuickLink to="/admin/productos" title="Administrar productos" text="Crear, editar o retirar productos." /><QuickLink to="/admin/categorias" title="Administrar categorías" text="Organizar y actualizar el catálogo." /><Link to="/" className="rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50">Ver sitio público →</Link></div></div>
+      </section>
     </div>
   );
 }
 
-function KpiCard(props) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <p className="text-m font-semibold text-mlate-500">{props.title}</p>
-      <div className="mt-2 flex items-end justify-between">
-        <p className="text-3xl font-extrabold tracking-tight text-mlate-900">
-          {props.value}
-        </p>
-        <span className="text-m font-medium text-mlate-500">{props.hint}</span>
-      </div>
-    </div>
-  );
-}
-
-function QuickAction(props) {
-  var base;
-  base =
-    "rounded-2xl border p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow";
-
-  if (props.disabled) {
-    return (
-      <div className={base + " border-slate-200 bg-slate-50 opacity-60"}>
-        <p className="text-m font-bold text-mlate-900">{props.title}</p>
-        <p className="mt-1 text-m text-mlate-600">{props.desc}</p>
-        <p className="mt-3 text-m font-semibold text-mlate-500">Próximamente</p>
-      </div>
-    );
-  }
-
-  if (props.primary) {
-    return (
-      <Link
-        to={props.to}
-        className={base + " border-slate-900 bg-slate-900 text-white"}
-      >
-        <p className="text-m font-extrabold">{props.title}</p>
-        <p className="mt-1 text-m text-white/80">{props.desc}</p>
-        <p className="mt-3 text-m font-semibold text-white/80">Abrir →</p>
-      </Link>
-    );
-  }
-
-  return (
-    <Link to={props.to} className={base + " border-slate-200 bg-white"}>
-      <p className="text-m font-bold text-mlate-900">{props.title}</p>
-      <p className="mt-1 text-m text-mlate-600">{props.desc}</p>
-      <p className="mt-3 text-m font-semibold text-mlate-700">Abrir →</p>
-    </Link>
-  );
-}
-
-function StatusRow(props) {
-  return (
-    <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-3">
-      <div>
-        <p className="text-m font-semibold text-mlate-900">{props.label}</p>
-        <p className="text-m text-mlate-600">{props.note}</p>
-      </div>
-      <span
-        className={
-          "h-2.5 w-2.5 rounded-full " + (props.ok ? "bg-emerald-500" : "bg-amber-500")
-        }
-      />
-    </div>
-  );
-}
+function responseItems(response) { if (!response || !(response.codResponse === "1" || response.codResponse === 1) || !Array.isArray(response.data)) return []; return response.data; }
+function Metric(props) { var color; color = props.tone === "success" ? "text-emerald-700" : props.tone === "warning" ? "text-amber-700" : "text-slate-900"; return <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"><p className="text-sm font-semibold text-slate-500">{props.label}</p><p className={"mt-2 text-3xl font-extrabold " + color}>{props.value}</p><p className="mt-1 text-xs font-medium text-slate-500">{props.hint}</p></div>; }
+function Progress(props) { var percent; percent = props.total ? Math.round((props.value / props.total) * 100) : 0; return <div><div className="mb-2 flex justify-between text-sm font-semibold text-slate-700"><span>{props.label}</span><span>{props.value} ({percent}%)</span></div><div className="h-2.5 overflow-hidden rounded-full bg-slate-100"><div className={"h-full rounded-full " + props.color} style={{ width: percent + "%" }} /></div></div>; }
+function QuickLink(props) { return <Link to={props.to} className="rounded-xl border border-slate-200 p-4 transition hover:border-slate-300 hover:bg-slate-50"><p className="font-bold text-slate-900">{props.title} →</p><p className="mt-1 text-sm text-slate-600">{props.text}</p></Link>; }
+function Notice(props) { return <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{props.text}</div>; }

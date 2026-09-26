@@ -3,6 +3,8 @@ import { uploadImage } from "../services/imagesService";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toBoolean } from "../utils/apiNormalizers";
+import AppImage from "./AppImage";
 
 var CategorySchema;
 
@@ -17,6 +19,7 @@ export default function CategoryModal(props) {
   var open;
   var mode;
   var title;
+  var initialCategory, onClose;
 
   var f;
 
@@ -28,6 +31,8 @@ export default function CategoryModal(props) {
   open = !!props.open;
   mode = props.mode || "create";
   title = mode === "edit" ? "Editar categoría" : "Nueva categoría";
+  initialCategory = props.initialCategory;
+  onClose = props.onClose;
 
   f = useForm({
     resolver: zodResolver(CategorySchema),
@@ -66,7 +71,9 @@ export default function CategoryModal(props) {
       return function () {
         try {
           URL.revokeObjectURL(url);
-        } catch (e) {}
+        } catch {
+          // URL ya pudo haber sido revocada; no hay nada que hacer
+        }
       };
     },
     [file, setPreview]
@@ -76,13 +83,13 @@ export default function CategoryModal(props) {
     function () {
       if (!open) return;
 
-      f.reset(buildDefaults(props));
+      f.reset(buildDefaults({ initialCategory: initialCategory }));
       setFile(null);
       setUploadErr("");
 
       function onKey(e) {
         if (e.key === "Escape") {
-          if (props.onClose) props.onClose();
+          if (onClose) onClose();
         }
       }
 
@@ -91,7 +98,7 @@ export default function CategoryModal(props) {
         window.removeEventListener("keydown", onKey);
       };
     },
-    [open, props.initialCategory]
+    [open, initialCategory, onClose, f, setFile, setUploadErr]
   );
 
   if (!open) return null;
@@ -128,7 +135,7 @@ async function submit(values) {
   payload = {};
   payload.category_name = values.categoryName || "";
   payload.category_desc = values.categoryDesc ? String(values.categoryDesc) : "";
-  payload.category_status = values.categoryStatus ? 1 : 0;
+  payload.category_status = toBoolean(values.categoryStatus) ? 1 : 0;
   payload.category_image_url = imgUrl ? imgUrl : null;
 
   // console.log("PAYLOAD FINAL", payload);
@@ -154,12 +161,12 @@ async function submit(values) {
           {/* header */}
           <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
             <div>
-              <div className="text-m font-semibold text-mlate-500">Administración • Categorías</div>
-              <div className="mt-1 text-lg font-extrabold text-mlate-900">{title}</div>
+              <div className="text-m font-semibold text-slate-500">Administración • Categorías</div>
+              <div className="mt-1 text-lg font-extrabold text-slate-900">{title}</div>
             </div>
 
             <button
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-bold text-mlate-700 hover:bg-slate-50 disabled:opacity-50"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-bold text-slate-700 hover:bg-slate-50 disabled:opacity-50"
               onClick={function () {
                 if (uploading || f.formState.isSubmitting || props.busy) return;
                 if (props.onClose) props.onClose();
@@ -179,7 +186,7 @@ async function submit(values) {
                 <div className="grid gap-4">
                   {/* nombre */}
                   <div>
-                    <label className="text-m font-extrabold text-mlate-700">Nombre de la categoría</label>
+                    <label className="text-m font-extrabold text-slate-700">Nombre de la categoría</label>
                     <input
                       className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
                       placeholder="Ej: Cocoa"
@@ -191,7 +198,7 @@ async function submit(values) {
 
                   {/* descripción */}
                   <div>
-                    <label className="text-m font-extrabold text-mlate-700">Descripción</label>
+                    <label className="text-m font-extrabold text-slate-700">Descripción</label>
                     <textarea
                       className="mt-2 min-h-[92px] w-full resize-none rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
                       placeholder="Describe la categoría..."
@@ -203,7 +210,7 @@ async function submit(values) {
 
                   {/* imagen url */}
                   <div>
-                    <label className="text-m font-extrabold text-mlate-700">Imagen URL (opcional)</label>
+                    <label className="text-m font-extrabold text-slate-700">Imagen URL (opcional)</label>
                     <input
                       className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-m outline-none focus:border-slate-300"
                       placeholder="https://..."
@@ -215,8 +222,8 @@ async function submit(values) {
 
                   {/* upload image */}
                   <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-                    <div className="text-m font-extrabold text-mlate-700">Subir imagen (opcional)</div>
-                    <div className="mt-1 text-m text-mlate-500">
+                    <div className="text-m font-extrabold text-slate-700">Subir imagen (opcional)</div>
+                    <div className="mt-1 text-m text-slate-500">
                       Si seleccionas un archivo, se subirá y reemplazará la URL al guardar.
                     </div>
 
@@ -242,8 +249,8 @@ async function submit(values) {
                     ) : null}
 
                     {file ? (
-                      <div className="mt-3 text-m font-semibold text-mlate-700">
-                        Archivo: <span className="font-bold text-mlate-900">{file.name}</span>
+                      <div className="mt-3 text-m font-semibold text-slate-700">
+                        Archivo: <span className="font-bold text-slate-900">{file.name}</span>
                       </div>
                     ) : null}
                   </div>
@@ -251,12 +258,12 @@ async function submit(values) {
                   {/* estado */}
                   <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-3">
                     <div>
-                      <div className="text-m font-extrabold text-mlate-700">Estado</div>
-                      <div className="text-m text-mlate-500">Activo / Inactivo</div>
+                      <div className="text-m font-extrabold text-slate-700">Estado</div>
+                      <div className="text-m text-slate-500">Activo / Inactivo</div>
                     </div>
 
                     <select
-                      className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-bold text-mlate-800"
+                      className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-m font-bold text-slate-800"
                       disabled={uploading || props.busy}
                       value={f.watch("categoryStatus") ? "1" : "0"}
                       onChange={function (e) {
@@ -273,7 +280,7 @@ async function submit(values) {
               {/* right: preview */}
               <div className="border-t border-slate-200 bg-slate-50 p-5 md:border-l md:border-t-0">
                 <div className="flex items-center justify-between">
-                  <div className="text-m font-extrabold text-mlate-700">Vista previa</div>
+                  <div className="text-m font-extrabold text-slate-700">Vista previa</div>
                   {uploading ? (
                     <span className="rounded-full bg-amber-50 px-3 py-1 text-m font-extrabold text-amber-800">
                       Subiendo imagen...
@@ -283,19 +290,18 @@ async function submit(values) {
 
                 <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                   <div className="h-44 bg-slate-100">
-                    {preview ? (
-                      <img alt="preview-file" src={preview} className="h-44 w-full object-cover" />
-                    ) : f.watch("categoryImageUrl") ? (
-                      <img alt="preview-url" src={f.watch("categoryImageUrl")} className="h-44 w-full object-cover" />
-                    ) : (
-                      <div className="flex h-44 items-center justify-center text-m font-bold text-mlate-500">Sin imagen</div>
-                    )}
+                    <AppImage
+                      alt="Vista previa de la categoría"
+                      src={preview || f.watch("categoryImageUrl")}
+                      fallback="/placeholder-category.svg"
+                      className="h-44 w-full object-cover"
+                    />
                   </div>
 
                   <div className="p-4">
-                    <div className="text-lg font-extrabold text-mlate-900">{f.watch("categoryName") || "Nombre de la categoría"}</div>
+                    <div className="text-lg font-extrabold text-slate-900">{f.watch("categoryName") || "Nombre de la categoría"}</div>
 
-                    <div className="mt-2 text-m text-mlate-600">{f.watch("categoryDesc") || "Descripción de la categoría..."}</div>
+                    <div className="mt-2 text-m text-slate-600">{f.watch("categoryDesc") || "Descripción de la categoría..."}</div>
 
                     <div className="mt-3">
                       {f.watch("categoryStatus") ? (
@@ -303,7 +309,7 @@ async function submit(values) {
                           Activo
                         </span>
                       ) : (
-                        <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-mlate-600">
+                        <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-m font-extrabold text-slate-600">
                           Inactivo
                         </span>
                       )}
@@ -311,7 +317,7 @@ async function submit(values) {
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-xl border border-slate-200 bg-white p-3 text-m text-mlate-600">
+                <div className="mt-4 rounded-xl border border-slate-200 bg-white p-3 text-m text-slate-600">
                   <b>Tip:</b> Si subes imagen por archivo, no necesitas escribir la URL.
                 </div>
               </div>
@@ -325,8 +331,8 @@ async function submit(values) {
                 className={
                   "rounded-xl border px-4 py-2.5 text-m font-extrabold " +
                   (uploading || f.formState.isSubmitting || props.busy
-                    ? "border-slate-200 bg-white text-mlate-300"
-                    : "border-slate-200 bg-white text-mlate-700 hover:bg-slate-50")
+                    ? "border-slate-200 bg-white text-slate-300"
+                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50")
                 }
                 onClick={function () {
                   if (uploading || f.formState.isSubmitting || props.busy) return;
@@ -373,19 +379,6 @@ function buildDefaults(props) {
     categoryName: (c && c.category_name) || "",
     categoryDesc: (c && c.category_desc) || "",
     categoryImageUrl: img || "",
-    categoryStatus: c ? !!c.category_status : true,
+    categoryStatus: c ? toBoolean(c.category_status) : true,
   };
-}
-
-function normalize(values) {
-  var out;
-
-out = {};
-out.category_name = values.categoryName || "";
-out.category_desc = values.categoryDesc ? String(values.categoryDesc) : "";
-out.category_status = values.categoryStatus ? 1 : 0;
-out.category_image_url = values.categoryImageUrl ? String(values.categoryImageUrl) : null;
-
-
-  return out;
 }
