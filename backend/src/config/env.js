@@ -10,6 +10,9 @@ function required(name) {
 
 export var env = {
   port: Number(process.env.PORT || 4000),
+  // Por defecto solo localhost: nginx hace de proxy público, el backend
+  // nunca debe quedar expuesto directamente a internet.
+  host: process.env.HOST || "127.0.0.1",
   nodeEnv: process.env.NODE_ENV || "development",
 
   mysqlHost: process.env.MYSQL_HOST || "127.0.0.1",
