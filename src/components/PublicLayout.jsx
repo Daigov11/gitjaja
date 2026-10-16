@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation,NavLink } from "react-router-dom";
-import { useMemo, useState, useEffect, useRef } from "react";
+import { useMemo, useState, useEffect, useRef, Fragment } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { listCategories } from "../services/categoriesService";
 import { listProducts } from "../services/productsService";
@@ -22,6 +22,34 @@ import {
   QR_FALLBACK,
   NAV_ITEMS,
 } from "../config/publicSiteConfig";
+
+/* las imágenes del menú traen el texto a distinto tamaño; se compensa para igualarlo */
+var NAV_IMG_SIZE = {
+  "/brand/nav/quienesomos.png": "h-10 lg:h-[3.05rem]",
+  "/brand/nav/trabajaconnosotroso.png": "h-10 lg:h-[3.1rem]",
+};
+
+var NAV_IMAGES = {
+  "/": "/brand/nav/inic.png",
+  "/categoria": "/brand/nav/catalogo.png",
+  "/aboutus": "/brand/nav/quienesomos.png",
+  "/trabaja-con-nosotros": "/brand/nav/trabajaconnosotroso.png",
+};
+
+function navImageFor(it) {
+  if (it.label === "Ubicación") return "/brand/nav/ubicacion.png";
+  if (it.label === "Promociones") return "/brand/nav/promociones.png";
+  return NAV_IMAGES[it.href] || null;
+}
+
+function isNavActive(it, pathname) {
+  var promo = pathname.toUpperCase().indexOf("PROMOCIONES") !== -1;
+  if (it.type !== "route") return false;
+  if (it.href === "/") return pathname === "/";
+  if (it.label === "Promociones") return pathname.indexOf("/categoria/") === 0 && promo;
+  if (it.href === "/categoria") return pathname === "/categoria" || (pathname.indexOf("/categoria/") === 0 && !promo);
+  return pathname === it.href;
+}
 
 var MAX_CATS;
 var BRAND_LOGOS;
@@ -61,9 +89,10 @@ var WA_ICON_IMG;
 WA_ICON_IMG =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/960px-WhatsApp.svg.png"
 /* ✅ Verde manzana */
-HEADER_BG = "#89E75A";
+HEADER_BG = "#fad02c";
 
 export default function PublicLayout() {
+  var location = useLocation();
   var qSearch, setQSearch;
   var cart, setCart;
   var cartOpen, setCartOpen;
@@ -304,66 +333,225 @@ export default function PublicLayout() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-slate-50 flex flex-col">
+    <div className="public-site min-h-screen w-full bg-brand-cream flex flex-col">
       <ScrollToTop />
       {/*  HEADER   */}
       <header className="sticky top-0 z-40 w-full">
-        <div className="w-full" style={{ backgroundColor: HEADER_BG }}>
+        <div className="relative w-full overflow-hidden bg-brand-yellow">
+          <img src="/brand/espiga-izq.png" alt="" aria-hidden="true" className="pointer-events-none absolute -left-6 top-0 hidden h-full w-auto opacity-40 md:block" />
+          <img src="/brand/espiga-izq.png" alt="" aria-hidden="true" className="pointer-events-none absolute -right-6 top-0 hidden h-full w-auto -scale-x-100 opacity-40 md:block" />
           {/* ✅ ANTES: max-w-7xl -> ahora FULL WIDTH */}
-          <div className="mx-auto w-full max-w-none px-3 sm:px-5 lg:px-10 2xl:px-14">
+          <div className="relative mx-auto w-full max-w-none px-3 sm:px-5 lg:px-10 2xl:px-14">
             {/* ===== Desktop (arreglado: no se sale en <1920) ===== */}
-            <div className="hidden md:grid min-w-0 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 lg:gap-6 py-3 lg:py-4">
-              {/* IZQ: NAV */}
+            <div className="hidden md:grid min-w-0 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 lg:gap-6 py-2">
+              {/* IZQ: Logo */}
+              <div className="shrink-0">
+                <Link to="/" className="flex items-center">
+                  <img
+                    src="/brand/logo-header.png"
+                    alt="Don Pepito - Tu aliado en cada receta"
+                    className="h-32 w-auto object-contain lg:h-44 2xl:h-52"
+                  />
+                </Link>
+              </div>
+
+              {/* DER: Search + redes + carrito */}
+              <div className="flex min-w-0 items-center justify-end gap-1.5 lg:gap-3">
+                {/* ✅ Search: ahora SE ENCOGE, ya no empuja el header */}
+                <div className="flex min-w-0 flex-1 max-w-[320px] lg:max-w-[420px] xl:max-w-[520px] 2xl:max-w-[560px] items-stretch overflow-hidden rounded-full border border-brand-brown/20 bg-brand-cream shadow-sm">
+                  <input
+                    value={qSearch}
+                    onChange={function (e) {
+                      setQSearch(e.target.value);
+                    }}
+                    placeholder="Buscar productos..."
+                    className="min-w-0 w-full px-4 py-2.5 text-m font-semibold text-brand-brown outline-none placeholder:text-brand-brown/50 bg-transparent"
+                  />
+                  <button
+                    type="button"
+                    className="inline-flex w-11 lg:w-12 items-center justify-center bg-brand-brown text-brand-yellow hover:bg-brand-brown-dark"
+                    title="Buscar"
+                    aria-label="Buscar"
+                  >
+                    <SearchIcon />
+                  </button>
+                </div>
+
+                <button
+                  onClick={function () {
+                    setCartOpen(true);
+                  }}
+                  className="relative inline-flex h-11 w-11 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-brand-brown shadow hover:bg-brand-brown-dark"
+                  title="Carrito"
+                  aria-label="Abrir carrito"
+                >
+                  <AppImage
+                    src={CART_ICON_IMG}
+                    alt="Carrito"
+                    className="h-6 w-6 lg:h-7 lg:w-7 object-contain"
+                    loading="lazy"
+                    draggable="false"
+                   fallback="/placeholder-product.svg" />
+                  <span className="absolute -right-1 -top-1 inline-flex min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-m font-extrabold text-slate-900 shadow">
+                    {cart.length}
+                  </span>
+                </button>
+              </div>
+
+              {/* REDES: 4 en columna, con separador */}
+              <div className="flex flex-col items-center gap-1 border-l-2 border-brand-brown/40 py-1 pl-4 lg:pl-6">
+                {[
+                  { href: IG_URL, title: "Instagram", icon: <InstagramIcon /> },
+                  { href: FB_URL, title: "Facebook", icon: <FacebookIcon /> },
+                  { href: TT_URL, title: "TikTok", icon: <TikTokIcon /> },
+                  { href: "https://wa.me/51" + cleanPhone(PHONE), title: "WhatsApp", icon: <WhatsAppIcon /> },
+                ].map(function (r) {
+                  return (
+                    <a
+                      key={r.title}
+                      href={r.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-brown text-brand-yellow hover:bg-brand-brown-dark lg:h-9 lg:w-9 [&>svg]:h-5 [&>svg]:w-5"
+                      title={r.title}
+                      aria-label={r.title}
+                    >
+                      {r.icon}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+
+
+            {/* ===== Mobile ===== */}
+            <div className="flex items-center gap-3 py-3 md:hidden">
+              <button
+                onClick={function () {
+                  setCatOpen(true);
+                  setCatQuery("");
+                }}
+                className="inline-flex items-center justify-center rounded-xl bg-brand-brown p-2 text-brand-yellow hover:bg-brand-brown-dark"
+                aria-label="Abrir categorías"
+                title="Categorías"
+              >
+                <MenuIcon />
+              </button>
+
+              <Link to="/" className="flex items-center">
+                {/* ✅ logo mobile un poquito más grande */}
+                <AppImage
+                  src={LOGO_URL}
+                  fallback={LOGO_FALLBACK}
+                  alt="Don Pepito"
+                  className="h-14 w-auto object-contain"
+                  loading="eager"
+                />
+              </Link>
+
+<div className="ml-auto flex items-center gap-2">
+  <button
+    onClick={function () {
+      setCartOpen(true);
+    }}
+    className="relative inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-brown shadow-md hover:bg-brand-brown-dark active:scale-[0.98]"
+    aria-label="Abrir carrito"
+    title="Carrito"
+  >
+    <AppImage
+      src={CART_ICON_IMG}
+      alt=""
+      className="h-6 w-6 object-contain"
+      loading="lazy"
+      draggable="false"
+     fallback="/placeholder-product.svg" />
+
+    <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-white px-1 text-[12px] font-extrabold leading-none text-slate-900 ring-2 ring-brand-brown">
+      {cart.length > 99 ? "99+" : cart.length}
+    </span>
+  </button>
+</div>
+
+            </div>
+
+            {/* Search mobile */}
+            <div className="pb-3 md:hidden">
+              <div className="relative w-full">
+                <input
+                  value={qSearch}
+                  onChange={function (e) {
+                    setQSearch(e.target.value);
+                  }}
+                  placeholder="Buscar productos..."
+                  className="w-full rounded-full border border-brand-brown/20 bg-brand-cream px-5 py-2.5 text-m font-semibold text-brand-brown outline-none placeholder:text-brand-brown/50 focus:border-brand-brown"
+                />
+                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-brand-brown">
+                  <SearchIcon />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Barra de menú (desktop) */}
+        <div className="hidden w-full bg-brand-brown md:block">
+          <div className="mx-auto w-full max-w-none px-3 sm:px-5 lg:px-10 2xl:px-14 py-1.5">
               <div className="relative min-w-0" ref={megaRef}>
-                <nav className="flex flex-wrap items-center gap-1 lg:gap-2">
+                <nav className="flex w-full flex-nowrap items-center justify-between">
+                  <Link to="/" aria-label="Inicio" className="shrink-0 pr-2" onClick={function () { setMegaOpen(false); }}>
+                    <img src="/brand/nav/home.png" alt="" className="h-10 w-10 lg:h-11 lg:w-11" />
+                  </Link>
                   {NAV_ITEMS.map(function (it, i) {
-                    var cls;
+                    var img = navImageFor(it);
+                    var active = isNavActive(it, location.pathname);
+                    var cls =
+                      "relative inline-flex items-center rounded-lg px-2 py-1.5 lg:px-3 hover:bg-white/10" +
+                      (active && it.href !== "/" ? " after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:bg-brand-yellow" : "");
+                    var content = img ? (
+                      <img src={img} alt={it.label} className={(NAV_IMG_SIZE[img] || "h-7 lg:h-9") + " w-auto -my-1"} draggable="false" />
+                    ) : (
+                      <span className="text-lg font-bold text-brand-cream">{it.label}</span>
+                    );
 
-                    /* ✅ en pantallas medianas baja un poco padding/fuente para que no empuje */
-                    cls =
-  "rounded-md px-2 lg:px-3 py-2 text-[23px] lg:text-[23px] xl:text-[23px] font-black tracking-tight text-black drop-shadow-[0_1px_0_rgba(255,255,255,0.75)] hover:bg-white/10 hover:text-white";
-
+                    var el;
 
                     if (it.label === "Catálogo") {
-                      return (
+                      el = (
                         <button
-                          key={"nav" + i}
                           type="button"
                           onClick={toggleMegaCats}
-                          className={cls + " inline-flex items-center gap-2"}
+                          className={cls}
                           aria-expanded={megaOpen ? "true" : "false"}
                           title="Ver categorías"
                         >
-                          Catálogo <span className="text-white/80">▾</span>
+                          {content}
                         </button>
                       );
-                    }
-
-                    if (it.type === "route") {
-                      return (
-                        <Link key={"nav" + i} to={it.href} className={cls}>
-                          {it.label}
+                    } else if (it.type === "route") {
+                      el = (
+                        <Link to={it.href} className={cls} aria-current={active ? "page" : undefined}>
+                          {content}
                         </Link>
+                      );
+                    } else {
+                      el = (
+                        <a href={it.href} target="_blank" rel="noreferrer" className={cls}>
+                          {content}
+                        </a>
                       );
                     }
 
                     return (
-                      <a
-                        key={"nav" + i}
-                        href={it.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={cls}
-                      >
-                        {it.label}
-                      </a>
+                      <Fragment key={"nav" + i}>
+                        {i > 0 ? <span aria-hidden="true" className="h-7 w-px shrink-0 bg-brand-yellow/60" /> : null}
+                        {el}
+                      </Fragment>
                     );
                   })}
                 </nav>
 
 {/* ✅ MEGA MENÚ (responsive + scroll interno, sin perder “ver todo”) */}
 {megaOpen ? (
-  <div className="absolute left-0 top-full mt-3 w-[92vw] max-w-[980px] overflow-hidden rounded-2xl bg-[#0B3D57] shadow-2xl ring-1 ring-black/10">
+  <div className="absolute left-0 top-full mt-3 w-[92vw] max-w-[980px] overflow-hidden rounded-2xl bg-brand-brown shadow-2xl ring-1 ring-black/10">
     {/* ✅ Alto máximo relativo al viewport (evita “tengo que alejar”) */}
     <div className="flex max-h-[calc(100vh-160px)] flex-col p-4 md:p-5">
       {/* Header (siempre visible) */}
@@ -438,180 +626,6 @@ export default function PublicLayout() {
 ) : null}
 
               </div>
-
-              {/* CENTRO: Logo */}
-              <div className="shrink-0">
-                <Link to="/" className="flex items-center justify-center">
-                  <AppImage
-                    src={LOGO_URL}
-                    fallback={LOGO_FALLBACK}
-                    alt="Don Pepito"
-                    className="h-16 sm:h-25 lg:h-35 2xl:h-40 w-auto object-contain"
-                    loading="eager"
-                  />
-                </Link>
-              </div>
-
-              {/* DER: Search + redes + carrito */}
-              <div className="flex min-w-0 items-center justify-end gap-1.5 lg:gap-3">
-                {/* ✅ Search: ahora SE ENCOGE, ya no empuja el header */}
-                <div className="flex min-w-0 flex-1 max-w-[320px] lg:max-w-[420px] xl:max-w-[520px] 2xl:max-w-[560px] items-stretch overflow-hidden rounded-xl border border-white/25 bg-white shadow-sm">
-                  <input
-                    value={qSearch}
-                    onChange={function (e) {
-                      setQSearch(e.target.value);
-                    }}
-                    placeholder="Buscar productos..."
-                    className="min-w-0 w-full px-4 py-2.5 text-m font-semibold text-slate-900 outline-none"
-                  />
-                  <button
-                    type="button"
-                    className="inline-flex w-11 lg:w-12 items-center justify-center border-l border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100"
-                    title="Buscar"
-                    aria-label="Buscar"
-                  >
-                    <SearchIcon />
-                  </button>
-                </div>
-
-                {/* ✅ Redes: un pelín más compactas en tamaños medianos */}
-                <a
-                  href={IG_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full bg-black/15 p-1.5 lg:p-2 hover:bg-black/25"
-                  title="Instagram"
-                >
-                  <AppImage
-                    src={IG_ICON_IMG}
-                    alt="Instagram"
-                    className="h-5 w-5 lg:h-6 lg:w-6 rounded-full object-cover"
-                    loading="lazy"
-                    draggable="false"
-                   fallback="/placeholder-product.svg" />
-                </a>
-
-                <a
-                  href={FB_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full bg-black/15 p-1.5 lg:p-2 hover:bg-black/25"
-                  title="Facebook"
-                >
-                  <AppImage
-                    src={FB_ICON_IMG}
-                    alt="Facebook"
-                    className="h-5 w-5 lg:h-6 lg:w-6 rounded-full object-cover"
-                    loading="lazy"
-                    draggable="false"
-                   fallback="/placeholder-product.svg" />
-                </a>
-
-                <a
-                  href={TT_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full bg-black/15 p-1.5 lg:p-2 hover:bg-black/25"
-                  title="TikTok"
-                >
-                  <AppImage
-                    src={TT_ICON_IMG}
-                    alt="TikTok"
-                    className="h-5 w-5 lg:h-6 lg:w-6 rounded-full object-cover"
-                    loading="lazy"
-                    draggable="false"
-                   fallback="/placeholder-product.svg" />
-                </a>
-
-                <button
-                  onClick={function () {
-                    setCartOpen(true);
-                  }}
-                  className="relative inline-flex h-11 w-11 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-orange-500 shadow hover:bg-orange-400"
-                  title="Carrito"
-                  aria-label="Abrir carrito"
-                >
-                  <AppImage
-                    src={CART_ICON_IMG}
-                    alt="Carrito"
-                    className="h-6 w-6 lg:h-7 lg:w-7 object-contain"
-                    loading="lazy"
-                    draggable="false"
-                   fallback="/placeholder-product.svg" />
-                  <span className="absolute -right-1 -top-1 inline-flex min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 py-0.5 text-m font-extrabold text-slate-900 shadow">
-                    {cart.length}
-                  </span>
-                </button>
-              </div>
-            </div>
-
-
-            {/* ===== Mobile ===== */}
-            <div className="flex items-center gap-3 py-3 md:hidden">
-              <button
-                onClick={function () {
-                  setCatOpen(true);
-                  setCatQuery("");
-                }}
-                className="inline-flex items-center justify-center rounded-xl bg-black/15 p-2 text-white hover:bg-black/25"
-                aria-label="Abrir categorías"
-                title="Categorías"
-              >
-                <MenuIcon />
-              </button>
-
-              <Link to="/" className="flex items-center">
-                {/* ✅ logo mobile un poquito más grande */}
-                <AppImage
-                  src={LOGO_URL}
-                  fallback={LOGO_FALLBACK}
-                  alt="Don Pepito"
-                  className="h-14 w-auto object-contain"
-                  loading="eager"
-                />
-              </Link>
-
-<div className="ml-auto flex items-center gap-2">
-  <button
-    onClick={function () {
-      setCartOpen(true);
-    }}
-    className="relative inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-500 shadow-md ring-1 ring-black/10 hover:bg-orange-400 active:scale-[0.98]"
-    aria-label="Abrir carrito"
-    title="Carrito"
-  >
-    <AppImage
-      src={CART_ICON_IMG}
-      alt=""
-      className="h-6 w-6 object-contain"
-      loading="lazy"
-      draggable="false"
-     fallback="/placeholder-product.svg" />
-
-    <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-white px-1 text-[12px] font-extrabold leading-none text-slate-900 ring-2 ring-orange-500">
-      {cart.length > 99 ? "99+" : cart.length}
-    </span>
-  </button>
-</div>
-
-            </div>
-
-            {/* Search mobile */}
-            <div className="pb-3 md:hidden">
-              <div className="relative w-full">
-                <input
-                  value={qSearch}
-                  onChange={function (e) {
-                    setQSearch(e.target.value);
-                  }}
-                  placeholder="Buscar productos..."
-                  className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-slate-900 outline-none focus:border-white"
-                />
-                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
-                  <SearchIcon />
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </header>
@@ -816,8 +830,8 @@ export default function PublicLayout() {
                   }}
                   className="
                     group flex flex-col items-center justify-center rounded-2xl
-                    bg-[#89E75A]/15 ring-1 ring-[#89E75A]/30 p-3
-                    hover:bg-[#89E75A]/25 active:scale-[0.98] transition
+                    bg-[#fad02c]/15 ring-1 ring-[#fad02c]/30 p-3
+                    hover:bg-[#fad02c]/25 active:scale-[0.98] transition
                   "
                   aria-label="Abrir Instagram"
                   title="Instagram"
@@ -841,8 +855,8 @@ export default function PublicLayout() {
                   }}
                   className="
                     group flex flex-col items-center justify-center rounded-2xl
-                    bg-[#89E75A]/15 ring-1 ring-[#89E75A]/30 p-3
-                    hover:bg-[#89E75A]/25 active:scale-[0.98] transition
+                    bg-[#fad02c]/15 ring-1 ring-[#fad02c]/30 p-3
+                    hover:bg-[#fad02c]/25 active:scale-[0.98] transition
                   "
                   aria-label="Abrir Facebook"
                   title="Facebook"
@@ -866,8 +880,8 @@ export default function PublicLayout() {
                   }}
                   className="
                     group flex flex-col items-center justify-center rounded-2xl
-                    bg-[#89E75A]/15 ring-1 ring-[#89E75A]/30 p-3
-                    hover:bg-[#89E75A]/25 active:scale-[0.98] transition
+                    bg-[#fad02c]/15 ring-1 ring-[#fad02c]/30 p-3
+                    hover:bg-[#fad02c]/25 active:scale-[0.98] transition
                   "
                   aria-label="Abrir TikTok"
                   title="TikTok"
@@ -910,10 +924,10 @@ export default function PublicLayout() {
       {/* ✅ BOTÓN FLOTANTE "¿NECESITAS AYUDA?" */}
       <HelpWhatsappFloat />
 
-      {/* ✅ FOOTER NUEVO (tipo retail) - ACCENT #89E75A */}
-      <footer className="w-full bg-[#89E75A] text-white">
+      {/* ✅ FOOTER NUEVO (tipo retail) - ACCENT #fad02c */}
+      <footer className="w-full bg-[#fad02c] text-white">
         {/* barra superior accent */}
-        <div className="h-1 w-full bg-[#89E75A]" />
+        <div className="h-1 w-full bg-[#fad02c]" />
 
         <div className="mx-auto w-full max-w-7xl px-4">
           <div className="py-10">
@@ -931,14 +945,14 @@ export default function PublicLayout() {
 
                 <div className="mt-4 space-y-2 text-m font-semibold text-black">
                   <div className="flex items-start gap-2">
-                    <span className="mt-0.5 text-[#89E75A]">
+                    <span className="mt-0.5 text-[#fad02c]">
                       <PinIcon />
                     </span>
                     <span>Lima, Perú (envíos a todo el país)</span>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[#89E75A]">
+                    <span className="text-[#fad02c]">
                       <ClockIcon />
                     </span>
                     <span>Lun–Sáb • Atención rápida</span>
@@ -953,7 +967,7 @@ export default function PublicLayout() {
     className="inline-flex items-center gap-2 rounded-2xl border border-white/40 bg-white/95 px-4 py-2 text-m font-extrabold text-slate-900 hover:bg-white"
     title="Llamar 932 140 855"
   >
-    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#89E75A]/20">
+    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#fad02c]/20">
       ☎
     </span>
    932 140 855
@@ -964,7 +978,7 @@ export default function PublicLayout() {
     className="inline-flex items-center gap-2 rounded-2xl border border-white/40 bg-white/95 px-4 py-2 text-m font-extrabold text-slate-900 hover:bg-white"
     title="Llamar 946 762 926"
   >
-    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#89E75A]/20">
+    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#fad02c]/20">
       ☎
     </span>
     946 762 926
@@ -973,14 +987,14 @@ export default function PublicLayout() {
 
                 <div className="mt-4 space-y-2 text-m font-semibold text-black">
                   <div className="flex items-start gap-2">
-                    <span className="mt-0.5 text-[#89E75A]">
+                    <span className="mt-0.5 text-[#fad02c]">
                       <PinIcon />
                     </span>
                     <span>TIENDA FISICA</span>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[#89E75A]">
+                    <span className="text-[#fad02c]">
                       <ClockIcon />
                     </span>
 <a
@@ -1026,7 +1040,7 @@ export default function PublicLayout() {
                     href={IG_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-slate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-slate-800 hover:border-[#fad02c]/40 hover:bg-[#fad02c]/5"
                   >
                     <AppImage
                       src={IG_ICON_IMG}
@@ -1040,7 +1054,7 @@ export default function PublicLayout() {
                     href={FB_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-slate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-slate-800 hover:border-[#fad02c]/40 hover:bg-[#fad02c]/5"
                   >
                     <AppImage
                       src={FB_ICON_IMG}
@@ -1054,7 +1068,7 @@ export default function PublicLayout() {
                     href={TT_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-slate-800 hover:border-[#89E75A]/40 hover:bg-[#89E75A]/5"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200  px-4 py-2 text-m font-extrabold text-slate-800 hover:border-[#fad02c]/40 hover:bg-[#fad02c]/5"
                   >
                     <AppImage
                       src={TT_ICON_IMG}

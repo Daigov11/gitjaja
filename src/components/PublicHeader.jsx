@@ -1,35 +1,60 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
+var NAV_IMAGES = {
+  "/": "/brand/nav/inic.png",
+  "/categoria": "/brand/nav/catalogo.png",
+  "/aboutus": "/brand/nav/quienesomos.png",
+  "/trabaja-con-nosotros": "/brand/nav/trabajaconnosotroso.png",
+};
+
+function navImageFor(it) {
+  if (it.label === "Ubicación") return "/brand/nav/ubicacion.png";
+  if (it.label === "Promociones") return "/brand/nav/promociones.png";
+  return NAV_IMAGES[it.href] || null;
+}
+
+function isActive(it, pathname) {
+  if (it.type !== "route") return false;
+  if (it.href === "/") return pathname === "/";
+  if (it.label === "Promociones") return pathname.indexOf("/categoria/") === 0 && pathname.toUpperCase().indexOf("PROMOCIONES") !== -1;
+  if (it.href === "/categoria") return pathname === "/categoria" || (pathname.indexOf("/categoria/") === 0 && pathname.toUpperCase().indexOf("PROMOCIONES") === -1);
+  return pathname === it.href;
+}
 
 export default function PublicHeader(props) {
+  var pathname = useLocation().pathname;
+
   return (
     <header className="sticky top-0 z-40 w-full">
       {/* Top bar */}
-      <div className="w-full bg-emerald-700">
+      <div className="relative w-full overflow-hidden bg-brand-yellow">
+        <img src="/brand/espiga-izq.png" alt="" aria-hidden="true" className="pointer-events-none absolute -left-6 top-0 hidden h-full w-auto opacity-40 md:block" />
+        <img src="/brand/espiga-izq.png" alt="" aria-hidden="true" className="pointer-events-none absolute -right-6 top-0 hidden h-full w-auto -scale-x-100 opacity-40 md:block" />
         <div className="mx-auto flex w-full max-w-7xl items-center gap-3 px-4 py-3">
           {/* Hamburguesa (mobile) */}
           <button
             onClick={function () {
               props.setNavOpen(true);
             }}
-            className="inline-flex items-center justify-center rounded-xl bg-white/10 p-2 text-white hover:bg-white/15 md:hidden"
+            className="inline-flex items-center justify-center rounded-xl bg-brand-brown p-2 text-brand-yellow hover:bg-brand-brown-dark md:hidden"
             aria-label="Abrir menú"
           >
             <MenuIcon />
           </button>
 
           {/* Logo + marca */}
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3" aria-label={props.brand}>
             <img
-              src={props.logoUrl}
+              src="/brand/logo-circular.png"
               alt={props.brand}
-              className="h-11 w-11 rounded-2xl bg-white object-cover ring-2 ring-white/30 md:h-12 md:w-12"
+              className="h-11 w-11 object-contain md:hidden"
             />
-            <div className="leading-tight">
-              <div className="text-m font-extrabold text-white md:text-base">{props.brand}</div>
-              <div className="text-[11px] font-semibold text-white/85 md:text-m">
-                v1.3
-              </div>
-            </div>
+            <div className="font-brand text-xl leading-tight text-brand-brown md:hidden">{props.brand}</div>
+            <img
+              src="/brand/logo-header.png"
+              alt={props.brand + " - Tu aliado en cada receta"}
+              className="hidden h-20 w-auto object-contain md:block"
+            />
           </Link>
 
           {/* Search (desktop) */}
@@ -41,20 +66,20 @@ export default function PublicHeader(props) {
                   props.setQSearch(e.target.value);
                 }}
                 placeholder="Buscar productos..."
-                className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-slate-900 outline-none focus:border-white"
+                className="w-full rounded-full border border-brand-brown/20 bg-brand-cream px-5 py-2.5 text-m font-semibold text-brand-brown outline-none placeholder:text-brand-brown/50 focus:border-brand-brown"
               />
-              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
+              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-brand-brown">
                 <SearchIcon />
               </div>
             </div>
 
             <button
               onClick={props.onOpenCart}
-              className="relative inline-flex items-center gap-2 rounded-full bg-amber-300 px-4 py-2.5 text-m font-extrabold text-slate-900 shadow hover:bg-amber-200"
+              className="relative inline-flex items-center gap-2 rounded-full bg-brand-brown px-4 py-2.5 text-m font-extrabold text-brand-yellow shadow hover:bg-brand-brown-dark"
               title="Armar lista y consultar"
             >
               Carrito
-              <span className="rounded-full bg-slate-900/10 px-2 py-0.5 text-m">
+              <span className="rounded-full bg-brand-yellow/20 px-2 py-0.5 text-m">
                 {props.cartCount}
               </span>
             </button>
@@ -64,11 +89,11 @@ export default function PublicHeader(props) {
           <div className="ml-auto flex items-center gap-2 md:hidden">
             <button
               onClick={props.onOpenCart}
-              className="relative inline-flex items-center gap-2 rounded-full bg-amber-300 px-3 py-2 text-m font-extrabold text-slate-900 shadow hover:bg-amber-200"
+              className="relative inline-flex items-center gap-2 rounded-full bg-brand-brown px-3 py-2 text-m font-extrabold text-brand-yellow shadow hover:bg-brand-brown-dark"
               aria-label="Abrir WhatsApp"
             >
               CA
-              <span className="rounded-full bg-slate-900/10 px-2 py-0.5 text-m">{props.cartCount}</span>
+              <span className="rounded-full bg-brand-yellow/20 px-2 py-0.5 text-m">{props.cartCount}</span>
             </button>
           </div>
         </div>
@@ -82,9 +107,9 @@ export default function PublicHeader(props) {
                 props.setQSearch(e.target.value);
               }}
               placeholder="Buscar productos..."
-              className="w-full rounded-full border border-white/25 bg-white px-5 py-2.5 text-m font-semibold text-slate-900 outline-none focus:border-white"
+              className="w-full rounded-full border border-brand-brown/20 bg-brand-cream px-5 py-2.5 text-m font-semibold text-brand-brown outline-none placeholder:text-brand-brown/50 focus:border-brand-brown"
             />
-            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
+            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-brand-brown">
               <SearchIcon />
             </div>
           </div>
@@ -92,18 +117,29 @@ export default function PublicHeader(props) {
       </div>
 
       {/* Menu bar (desktop) */}
-      <div className="hidden w-full bg-emerald-800 md:block">
+      <div className="hidden w-full bg-brand-brown md:block">
         <div className="mx-auto flex w-full max-w-7xl items-center gap-2 px-4 py-2">
-          <nav className="flex flex-wrap items-center gap-2 text-m font-extrabold text-white/90">
+          <Link to="/" aria-label="Inicio" className="shrink-0">
+            <img src="/brand/nav/home.png" alt="" className="h-10 w-10" />
+          </Link>
+
+          <nav className="flex flex-wrap items-center gap-1">
             {props.navItems.map(function (it, i) {
+              var img = navImageFor(it);
+              var active = isActive(it, pathname);
+              var content = img ? (
+                <img src={img} alt={it.label} className="h-8 w-auto" />
+              ) : (
+                <span className="text-m font-bold text-brand-cream">{it.label}</span>
+              );
+              var cls =
+                "relative rounded-xl px-3 py-1.5 hover:bg-white/10" +
+                (active && it.href !== "/" ? " after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:bg-brand-yellow" : "");
+
               if (it.type === "route") {
                 return (
-                  <Link
-                    key={"nav" + i}
-                    to={it.href}
-                    className="rounded-full px-4 py-2 hover:bg-white/10 hover:text-white"
-                  >
-                    {it.label}
+                  <Link key={"nav" + i} to={it.href} className={cls} aria-current={active ? "page" : undefined}>
+                    {content}
                   </Link>
                 );
               }
@@ -114,9 +150,9 @@ export default function PublicHeader(props) {
                   href={it.href}
                   target={it.type === "ext" ? "_blank" : undefined}
                   rel={it.type === "ext" ? "noreferrer" : undefined}
-                  className="rounded-full px-4 py-2 hover:bg-white/10 hover:text-white"
+                  className={cls}
                 >
-                  {it.label}
+                  {content}
                 </a>
               );
             })}
@@ -127,7 +163,7 @@ export default function PublicHeader(props) {
               href={props.igUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full bg-white/10 p-2 text-white hover:bg-white/15"
+              className="rounded-full bg-brand-brown p-2 text-brand-yellow hover:bg-brand-brown-dark"
               title="Instagram"
             >
               <InstagramIcon />
@@ -136,7 +172,7 @@ export default function PublicHeader(props) {
               href={props.fbUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full bg-white/10 p-2 text-white hover:bg-white/15"
+              className="rounded-full bg-brand-brown p-2 text-brand-yellow hover:bg-brand-brown-dark"
               title="Facebook"
             >
               <FacebookIcon />
@@ -145,7 +181,7 @@ export default function PublicHeader(props) {
               href={props.ttUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full bg-white/10 p-2 text-white hover:bg-white/15"
+              className="rounded-full bg-brand-brown p-2 text-brand-yellow hover:bg-brand-brown-dark"
               title="TikTok"
             >
               <TikTokIcon />
@@ -234,7 +270,7 @@ export default function PublicHeader(props) {
                     props.setNavOpen(false);
                     props.onOpenCart();
                   }}
-                  className="mt-2 w-full rounded-2xl bg-emerald-700 px-4 py-3 text-m font-extrabold text-white hover:bg-emerald-800"
+                  className="mt-2 w-full rounded-2xl bg-brand-brown px-4 py-3 text-m font-extrabold text-brand-yellow hover:bg-brand-brown-dark"
                 >
                   Consultar por WhatsApp
                 </button>

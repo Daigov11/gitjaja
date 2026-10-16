@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Paleta de marca Don Pepito (documets/2026.pdf) */
+@theme {
+  --color-brand-brown: #5c2e14;
+  --color-brand-brown-dark: #4a2410;
+  --color-brand-cream: #fdf9f0;
+  --color-brand-yellow: #fad02c;
+  --font-brand: "Lobster", cursive;
+  --font-spartan: "League Spartan", sans-serif;
+}
+
 html,
 body,
 #root {
@@ -8,7 +18,8 @@ body,
 
 body {
   margin: 0;
-  font-family: "Bahnschrift SemiLight SemiCondensed", Bahnschrift, "Segoe UI", Tahoma, Arial, sans-serif;
+  font-family: "League Spartan", "Segoe UI", Tahoma, Arial, sans-serif;
+  background-color: var(--color-brand-cream);
 }
 
 .Input {
@@ -22,4 +33,13 @@ body {
 
 .Input:focus {
   border-color: rgb(100 116 139);
+}
+
+/* Sitio público: títulos en Lobster, texto en League Spartan (documets/2026.pdf) */
+.public-site h1,
+.public-site h2,
+.public-site h3 {
+  font-family: var(--font-brand);
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }

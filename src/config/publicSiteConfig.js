@@ -11,12 +11,12 @@ BRAND = "Harinas Don Pepito";
 
 // URL externa actual del logo (mantenida mientras exista); si cae, AppImage
 // cambia automáticamente al archivo local en /public.
-LOGO_URL = "https://api-centralizador.apiworking.pe/images/862e40f2-e0c7-4970-86d2-855c1aba8773.png";
+LOGO_URL = "/brand/logo-circular.png";
 LOGO_FALLBACK = "/logo_don_pepito.png";
 
 PHONE = WHATSAPP_PHONE;
 
-HELP_FLOAT_IMG_URL = "https://api-centralizador.apiworking.pe/images/79a77bab-87dc-459b-a284-5e00529cb955.png";
+HELP_FLOAT_IMG_URL = "/brand/chef-ayuda.png";
 HELP_FLOAT_FALLBACK = "/do_u_need_help.png";
 HELP_FLOAT_TEXT = "Hola, necesito ayuda con mi pedido.";
 
@@ -32,10 +32,9 @@ CART_KEY = "dp_cart_interest_v1";
 /* IMPORTANTE: catálogo debe ser "/categoria" para funcionar desde /producto/:id */
 NAV_ITEMS = [
   { label: "Inicio", href: "/", type: "route" },
-  { label: "Quienes somos", href: "/aboutus", type: "route" },
   { label: "Catálogo", href: "/categoria", type: "route" },
-  { label: "Ubicación", href: "https://maps.app.goo.gl/zD8DvAwfFnhtJKJd9", type: "ext" },
   { label: "Promociones", href: "/categoria/" + encodeURIComponent("PROMOCIONES"), type: "route" },
+  { label: "Ubicación", href: "https://maps.app.goo.gl/zD8DvAwfFnhtJKJd9", type: "ext" },
   { label: "Trabaja con nosotros", href: "/trabaja-con-nosotros", type: "route" },
 ];
 
